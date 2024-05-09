@@ -1,3 +1,5 @@
+import grails.compiler.GrailsCompileStatic
+
 @GrailsCompileStatic
 class Payment {
     Payer payer
