@@ -1,4 +1,5 @@
 import grails.compiler.GrailsCompileStatic
+import icaruswings.Payer
 
 @GrailsCompileStatic
 class Payment {

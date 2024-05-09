@@ -1,7 +1,5 @@
 package icaruswings
 
-import Payer
-import Customer
 
 class PayerController {
 

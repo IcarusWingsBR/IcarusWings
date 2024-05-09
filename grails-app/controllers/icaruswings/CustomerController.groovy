@@ -1,7 +1,5 @@
 package icaruswings
 
-import Customer
-
 class CustomerController {
     def index() {
     }

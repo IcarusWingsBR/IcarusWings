@@ -1,4 +1,4 @@
-package utils
+package icaruswings.utils
 
 abstract class BaseEntity {
     Date dateCreated

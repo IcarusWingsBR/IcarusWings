@@ -1,7 +1,7 @@
 package icaruswings
 
 import grails.gorm.transactions.Transactional
-
+import icaruswings.utils.PersonType
 
 @Transactional
 class CustomerService {
@@ -10,6 +10,7 @@ class CustomerService {
         customer.name = name
         customer.email = email
         customer.cpfCnpj = cpfCnpj
+        customer.personType = PersonType.NATURAL
         customer.save(failOnError: true)
         return customer
 
