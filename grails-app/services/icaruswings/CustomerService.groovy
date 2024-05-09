@@ -10,8 +10,6 @@ class CustomerService {
         customer.name = name
         customer.email = email
         customer.cpfCnpj = cpfCnpj
-//        customer.passwordHash = passwordHash
-//        customer.address = address
         customer.save(failOnError: true)
         return customer
 

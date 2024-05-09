@@ -1,10 +1,8 @@
-import grails.compiler.GrailsCompileStatic
+import utils.BaseEntity
 
-@GrailsCompileStatic
-class Payer {
+class Payer extends BaseEntity {
     String name
     String email
     String cpfCnpj
     Customer customer
-
 }
