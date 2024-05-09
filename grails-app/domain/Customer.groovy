@@ -1,11 +1,7 @@
-import grails.compiler.GrailsCompileStatic
+import utils.BaseEntity
 
-
-@GrailsCompileStatic
-class Customer {
-    String username
-    String passwordHash
+class Customer extends BaseEntity {
+    String name
     String email
     String cpfCnpj
-    Address address
 }

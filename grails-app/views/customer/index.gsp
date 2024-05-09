@@ -92,46 +92,22 @@
 <body>
 <div class="background-box">
 
-    <g:form controller="customer" action="processForm">
+    <form action="${createLink(controller:"customer", action: "save") }">
         <img src="${resource(dir: 'images', file: 'logo.png')}" alt="Logo" style="width: 50%; height: auto;">
 
         <h1 style= "color: #f1f5fb"> Formulário de Cadastro de Cliente</h1>
 
-        <label for="username">Nome:</label><br>
-        <g:textField name="username" class="form-field"/><br>
+        <label for="name">Nome:</label><br>
+        <input name="name" id="name"  value="${params.name}" class="form-field"/><br>
 
         <label for="email">Nome:</label><br>
-        <g:textField name="email" class="form-field"/><br>
+        <input name="email" id="email" value="${params.email}" class="form-field"/><br>
 
-        <label for="cpfCnpj">CPF:</label><br>
-        <g:textField name="cpfCnpj" class="form-field"/><br>
+        <label for="cpfCnpj">CPF/CNPJ:</label><br>
+        <input name="cpfCnpj" id="cpfCnpj" value="${params.cpfCnpj}" class="form-field"/><br>
 
-        <label for="cep">CEP:</label><br>
-        <g:textField name="cep" class="form-field"/><br>
-
-        <label for="state">Estado:</label><br>
-        <g:textField name="state" class="form-field"/><br>
-
-        <label for="city">Cidade:</label><br>
-        <g:textField name="city" class="form-field"/><br>
-
-        <label for="neighborhood">Bairro:</label><br>
-        <g:textField name="neighborhood" class="form-field"/><br>
-
-        <label for="street">Rua:</label><br>
-        <g:textField name="street" class="form-field"/><br>
-
-        <label for="number">Número:</label><br>
-        <g:textField name="number" class="form-field"/><br>
-
-        <label for="details">Complemento:</label><br>
-        <g:textField name="details" class="form-field"/><br>
-
-        <label for="password">Nome:</label><br>
-        <g:textField name="password" class="form-field"/><br>
-
-        <input type="submit" value="Send">
-    </g:form>
+        <button type="submit">Enviar</button>
+    </form>
 
 </div>
 
