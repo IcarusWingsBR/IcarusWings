@@ -7,10 +7,7 @@ class CustomerController {
 
     def save() {
         try {
-            String name = params.name
-            String email = params.email
-            String cpfCnpj = params.cpfCnpj
-            Customer customer = customerService.save(name, email, cpfCnpj)
+            Customer customer = customerService.save(params)
             redirect(action: "show", id: customer.id)
         } catch (Exception e) {
             println(e)
