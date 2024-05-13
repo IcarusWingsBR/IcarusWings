@@ -1,14 +1,13 @@
-import grails.compiler.GrailsCompileStatic
+package icaruswings.utils
 
-@GrailsCompileStatic
-class Address {
-    private String cep
-    private String street
-    private String neighborhood
-    private String city
-    private String state
-    private int number
-    private String details
+abstract class BasePerson extends BaseEntity{
+    String cep
+    String street
+    String neighborhood
+    String city
+    String state
+    int number
+    String details
 
     static constraints = {
         cep nullable: true, blank: false

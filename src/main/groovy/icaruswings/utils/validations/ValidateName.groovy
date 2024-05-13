@@ -1,3 +1,5 @@
+package icaruswings.utils.validations
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,5 +21,4 @@ public class ValidateName {
 
         return isNameValid;
     }
-
 }

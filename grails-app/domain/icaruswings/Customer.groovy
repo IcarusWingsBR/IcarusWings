@@ -2,7 +2,7 @@ package icaruswings
 
 import icaruswings.utils.PersonType
 
-class Customer extends icaruswings.utils.BaseEntity {
+class Customer extends icaruswings.utils.BasePerson {
     String name
     String email
     String cpfCnpj

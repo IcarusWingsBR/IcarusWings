@@ -2,8 +2,9 @@ package icaruswings
 
 import grails.gorm.transactions.Transactional
 import icaruswings.utils.PersonType
-import icaruswings.utils.ValidateCpfCnpj
-import icaruswings.utils.ValidateEmail
+import icaruswings.utils.validations.ValidateCpfCnpj
+import icaruswings.utils.validations.ValidateEmail
+import icaruswings.utils.validations.ValidateName
 
 import grails.validation.ValidationException
 
@@ -14,6 +15,7 @@ class CustomerService {
         if (validateCustomer.hasErrors()){
             throw new ValidationException("Não foi possível salvar o cliente",validateCustomer.errors)
         }
+        
         Customer customer = new Customer()
         customer.name = params.name
         customer.email = params.email
