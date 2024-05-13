@@ -3,13 +3,6 @@ import java.util.regex.Pattern;
 
 public class ValidateName {
 
-    public static void main(String[] args) {
-        System.out.println( isValidName("aa12") );
-        System.out.println( isValidName("aaaaa") );
-        System.out.println( isValidName("alvaresds") );
-        System.out.println( isValidName("oio1oio") );
-    }
-
     public static boolean isValidName(String name) {
         boolean isNameValid = false;
 

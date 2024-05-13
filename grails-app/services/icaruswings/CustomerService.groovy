@@ -38,6 +38,8 @@ class CustomerService {
 
         if(!params.name){
             customer.errors.rejectValue("name",  null,"O campo nome é obrigatório")
+        } else if (!ValidateName.isValidName(params.name)) {
+            customer.errors.rejectValue("name", null, "O nome informado é inválido")
         }
 
         if(!params.email){
