@@ -11,7 +11,7 @@ class Customer extends icaruswings.utils.BaseEntity {
     static constraints = {
         name nullable: true, blank: false
         email nullable: true, blank: false, email: true
-        cpfCnpj nullable: true, blank: false, size: 11..14
+        cpfCnpj nullable: true, blank: false, size: 11..18
         personType nullable: true, blank: false
     }
 }
