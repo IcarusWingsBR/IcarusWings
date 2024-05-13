@@ -10,29 +10,30 @@ import grails.validation.ValidationException
 @Transactional
 class CustomerService {
     public Customer save(Map params) {
-        Customer validateCustomer = validadeCustomerParams(params)
+        Customer validateCustomer = validateCustomerParams(params)
         if (validateCustomer.hasErrors()){
             throw new ValidationException("Não foi possível salvar o cliente",validateCustomer.errors)
         }
         Customer customer = new Customer()
         customer.name = params.name
         customer.email = params.email
-        customer.cpfCnpj = ValidateCpfCnpj.cleanCpf(params.cpfCnpj)
         if(ValidateCpfCnpj.isCPF(params.cpfCnpj)){
+            customer.cpfCnpj = ValidateCpfCnpj.cleanCpf(params.cpfCnpj)
             customer.personType = PersonType.NATURAL
-        } else{
+        } else if (ValidateCpfCnpj.isCNPJ(params.cpfCnpj)) {
+            customer.cpfCnpj = ValidateCpfCnpj.cleanCnpj(params.cpfCnpj)
             customer.personType = PersonType.LEGAL
         }
         customer.save(failOnError: true)
         return customer
     }
 
-    private Customer validadeCustomerParams(Map params){
+    private Customer validateCustomerParams(Map params){
         Customer customer = new Customer()
 
         if(!params.cpfCnpj){
             customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
-        } else if (!ValidateCpfCnpj.isCPF(params.cpfCnpj)) {//verificar se é cpf cnpj com metodo que valida os dois ao mesmo tempo
+        } else if (!ValidateCpfCnpj.isCPF(params.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(params.cpfCnpj)) {
             customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
         }
 
@@ -47,10 +48,7 @@ class CustomerService {
         } else if(!ValidateEmail.isValidEmail(params.email)){
             customer.errors.rejectValue("email", null, "O email informado é inválido")
         }
-
         return customer
     }
-
-
 }
 
