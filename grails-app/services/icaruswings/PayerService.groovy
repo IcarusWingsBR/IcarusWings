@@ -32,7 +32,7 @@ class PayerService {
             payer.personType = PersonType.LEGAL
         }
 
-        payer.phone = parsedParams.phone
+        payer.phone = ValidatePhone.cleanPhoneNumber(parsedParams.phone)
         payer.customer = Customer.get(parsedParams.customerId)
         payer.personType = PersonType.NATURAL
 
