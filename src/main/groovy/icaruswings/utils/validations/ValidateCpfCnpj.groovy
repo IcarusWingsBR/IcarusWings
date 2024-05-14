@@ -30,7 +30,7 @@ class ValidateCpfCnpj {
         return true
     }
 
-    public static checkIfCpfExists(String cpf) {
+    public static Boolean checkIfCpfExists(String cpf) {
         String sanitizedCpf = cleanCpf(cpf)
         Customer customer = Customer.findByCpfCnpj(sanitizedCpf)
 
@@ -39,7 +39,7 @@ class ValidateCpfCnpj {
         return true
     }
 
-    public static checkIfCnpjExists(String cnpj) {
+    public static Boolean checkIfCnpjExists(String cnpj) {
         String sanitizedCnpj = cleanCnpj(cnpj)
         Customer customer = Customer.findByCpfCnpj(sanitizedCnpj)
 
