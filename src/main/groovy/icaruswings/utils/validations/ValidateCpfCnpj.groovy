@@ -4,11 +4,11 @@ import icaruswings.Customer
 
 class ValidateCpfCnpj {
 
-    public static Boolean isCPF(String cpf){
+    public static Boolean isCPF(String cpf) {
         return checkForCpfFormat(cpf) && !allCpfDigitsAreTheSame(cpf) && isValidCpf(cpf)  && checkIfCpfExists(cpf)
     }
 
-    public static Boolean isCNPJ(String cnpj){
+    public static Boolean isCNPJ(String cnpj) {
         return checkForCnpjFormat(cnpj) && !allCnpjDigitsAreTheSame(cnpj) && isValidCnpj(cnpj) && checkIfCnpjExists(cnpj)
     }
 
@@ -54,11 +54,13 @@ class ValidateCpfCnpj {
                 "88888888888",
                 "99999999999"
         ]
+
         return sameDigitsCpfs.contains(sanitizedCpf)
     }
 
     public static String cleanCpf(String cpf) {
-        String sanitizedCpf = cpf.replace(".", "").replace("-", "");
+        String sanitizedCpf = cpf.replace(".", "").replace("-", "")
+
         return sanitizedCpf
     }
 
@@ -77,10 +79,13 @@ class ValidateCpfCnpj {
                 i += 1
             }
         }
+
         int firstValidDigit = (cpfSum * 10) % 11
+
         if (firstValidDigit > 9) {
             firstValidDigit = 0
         }
+
         return firstValidDigit.toString()
     }
 
@@ -100,11 +105,13 @@ class ValidateCpfCnpj {
                 i += 1
             }
         }
+
         int secondValidDigit = (cpfSum * 10) % 11
 
         if (secondValidDigit > 9) {
             secondValidDigit = 0
         }
+
         return secondValidDigit.toString()
     }
 
@@ -127,6 +134,7 @@ class ValidateCpfCnpj {
 
     public static String cleanCnpj(String cnpj) {
         String sanitizedCnpj = cnpj.replace(".", "").replace("-", "").replace("/", "")
+
         return sanitizedCnpj
     }
 
@@ -144,6 +152,7 @@ class ValidateCpfCnpj {
                 "88888888888888",
                 "99999999999999"
         ]
+
         return sameDigitsCnpjs.contains(sanitizedCnpj)
     }
 
@@ -165,12 +174,16 @@ class ValidateCpfCnpj {
                 i += 1
             }
         }
+
         int firstValidDigit = 11 - (cnpjSum % 11)
+
         if (firstValidDigit >= 10) {
             firstValidDigit = 0
         }
+
         return firstValidDigit.toString()
     }
+
     public static String calculateSecondCnpjDigit(String cnpj) {
         String sanitizedCnpj = cleanCnpj(cnpj)
         sanitizedCnpj = "${sanitizedCnpj[0..11]}${calculateFirstCnpjDigit(cnpj)}" // Sanitized + first digit
@@ -190,10 +203,13 @@ class ValidateCpfCnpj {
                 i += 1
             }
         }
+
         int secondValidDigit = 11 - (cnpjSum % 11)
+
         if (secondValidDigit >= 10) {
             secondValidDigit = 0
         }
+
         return secondValidDigit.toString()
     }
 

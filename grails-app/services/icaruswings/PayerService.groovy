@@ -10,27 +10,34 @@ import icaruswings.utils.validations.ValidatePhone
 
 @Transactional
 class PayerService {
+    
     public Payer save(Map parsedParams) {
+
         Payer validatePayer = validatePayerParams(parsedParams)
-        if (validatePayer.hasErrors()){
-            throw new ValidationException("Não foi possível salvar o pagador",validatePayer.errors)
+
+        if (validatePayer.hasErrors()) {
+            throw new ValidationException("Não foi possível salvar o pagador", validatePayer.errors)
         }
 
         Payer payer = new Payer()
 
         payer.name = parsedParams.name
         payer.email = parsedParams.email
-        if(ValidateCpfCnpj.isCPF(parsedParams.cpfCnpj)){
+
+        if(ValidateCpfCnpj.isCPF(parsedParams.cpfCnpj)) {
             payer.cpfCnpj = ValidateCpfCnpj.cleanCpf(parsedParams.cpfCnpj)
             payer.personType = PersonType.NATURAL
         } else if (ValidateCpfCnpj.isCNPJ(parsedParams.cpfCnpj)) {
             payer.cpfCnpj = ValidateCpfCnpj.cleanCnpj(parsedParams.cpfCnpj)
             payer.personType = PersonType.LEGAL
         }
+
         payer.phone = parsedParams.phone
         payer.customer = Customer.get(parsedParams.customerId)
         payer.personType = PersonType.NATURAL
+
         payer.save(failOnError: true)
+
         return payer
     }
 
