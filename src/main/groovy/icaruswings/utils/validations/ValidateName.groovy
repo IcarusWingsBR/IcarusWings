@@ -5,20 +5,28 @@ import java.util.regex.Pattern;
 
 public class ValidateName {
 
-    public static boolean isValidName(String name) {
-        boolean isNameValid = false;
+    public static Boolean isValidName(String name) {
+        if(!isValidNameLength(name)) return false
 
-        if (name != null && name.length() > 0) {
-            String regex = "^[a-zA-Z]+";
+        if(!isValidNameFormat(name)) return false
 
-            Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-            Matcher matcher = pattern.matcher(name);
+        return true;
+    }
 
-            if (matcher.matches()) {
-                isNameValid = true;
-            }
-        }
+    public static Boolean isValidNameFormat(String name) {
+        String regex = "(?!^\\s)[[ ]|\\p{L}*]+";
 
-        return isNameValid;
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(name);
+
+        if (matcher.matches()) return true
+
+        return false
+    }
+
+    public static Boolean isValidNameLength(String name) {
+        if(name.length() < 3 || name.length() > 255) return false
+
+        return true
     }
 }
