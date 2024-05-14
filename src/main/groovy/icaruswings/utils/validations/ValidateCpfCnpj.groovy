@@ -1,13 +1,37 @@
 package icaruswings.utils.validations
 
+import icaruswings.Customer
+
 class ValidateCpfCnpj {
 
     public static Boolean isCPF(String cpf){
-        return checkForCpfFormat(cpf) && !allCpfDigitsAreTheSame(cpf) && isValidCpf(cpf)
+        return checkForCpfFormat(cpf) && !allCpfDigitsAreTheSame(cpf) && isValidCpf(cpf)  && checkIfCpfExists(cpf)
     }
 
     public static Boolean isCNPJ(String cnpj){
-        return checkForCnpjFormat(cnpj) && !allCnpjDigitsAreTheSame(cnpj) && isValidCnpj(cnpj)
+        return checkForCnpjFormat(cnpj) && !allCnpjDigitsAreTheSame(cnpj) && isValidCnpj(cnpj) && checkIfCnpjExists(cnpj)
+    }
+
+    public static checkIfCpfExists(String cpf) {
+        String sanitizedCpf = cleanCpf(cpf)
+        Customer customer = Customer.findByCpfCnpj(sanitizedCpf)
+
+        if(customer == null) {
+            return true
+        }
+
+        return false
+    }
+
+    public static checkIfCnpjExists(String cnpj) {
+        String sanitizedCnpj = cleanCnpj(cnpj)
+        Customer customer = Customer.findByCpfCnpj(sanitizedCnpj)
+
+        if(customer == null) {
+            return true
+        }
+
+        return false
     }
 
     public static Boolean checkForCpfFormat(String cpf) {
