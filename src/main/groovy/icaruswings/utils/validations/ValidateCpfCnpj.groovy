@@ -5,33 +5,47 @@ import icaruswings.Customer
 class ValidateCpfCnpj {
 
     public static Boolean isCPF(String cpf) {
-        return checkForCpfFormat(cpf) && !allCpfDigitsAreTheSame(cpf) && isValidCpf(cpf)  && checkIfCpfExists(cpf)
+
+        if(!checkForCpfFormat(cpf)) return false
+
+        if(allCpfDigitsAreTheSame(cpf)) return false
+
+        if(!isValidCpf(cpf)) return false
+
+        if(checkIfCpfExists(cpf)) return false
+
+        return true
     }
 
     public static Boolean isCNPJ(String cnpj) {
-        return checkForCnpjFormat(cnpj) && !allCnpjDigitsAreTheSame(cnpj) && isValidCnpj(cnpj) && checkIfCnpjExists(cnpj)
+
+        if(!checkForCnpjFormat(cnpj)) return false
+
+        if(allCnpjDigitsAreTheSame(cnpj)) return false
+
+        if(!isValidCnpj(cnpj)) return false
+
+        if(checkIfCnpjExists(cnpj)) return false
+
+        return true
     }
 
     public static checkIfCpfExists(String cpf) {
         String sanitizedCpf = cleanCpf(cpf)
         Customer customer = Customer.findByCpfCnpj(sanitizedCpf)
 
-        if(customer == null) {
-            return true
-        }
+        if(customer == null) return false
 
-        return false
+        return true
     }
 
     public static checkIfCnpjExists(String cnpj) {
         String sanitizedCnpj = cleanCnpj(cnpj)
         Customer customer = Customer.findByCpfCnpj(sanitizedCnpj)
 
-        if(customer == null) {
-            return true
-        }
+        if(customer == null) return false
 
-        return false
+        return true
     }
 
     public static Boolean checkForCpfFormat(String cpf) {
