@@ -26,5 +26,7 @@ class CustomerController {
             render "Cliente não encontrado"
         }
     }
-
+    //Modificar as consultas para excluir os deletados
+    def delete() {
+    }
 }

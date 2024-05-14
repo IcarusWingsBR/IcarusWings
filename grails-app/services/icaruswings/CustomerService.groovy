@@ -1,6 +1,7 @@
 package icaruswings
 
 import grails.gorm.transactions.Transactional
+import icaruswings.utils.BaseEntity
 import icaruswings.utils.PersonType
 import icaruswings.utils.validations.ValidateCpfCnpj
 import icaruswings.utils.validations.ValidateEmail
@@ -17,6 +18,7 @@ class CustomerService {
         }
         
         Customer customer = new Customer()
+
         customer.name = params.name
         customer.email = params.email
         if(ValidateCpfCnpj.isCPF(params.cpfCnpj)){
@@ -28,6 +30,11 @@ class CustomerService {
         }
         customer.save(failOnError: true)
         return customer
+    }
+    //Modificar as consultas para excluir os deletados(consulta do payer da lista de consumers)
+    def delete() {
+        BaseEntity.deleted = true
+        save(flush: true)
     }
 
     private Customer validateCustomerParams(Map params){
@@ -50,6 +57,7 @@ class CustomerService {
         } else if(!ValidateEmail.isValidEmail(params.email)){
             customer.errors.rejectValue("email", null, "O email informado é inválido")
         }
+
         return customer
     }
 }

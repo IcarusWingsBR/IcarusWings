@@ -1,6 +1,5 @@
 package icaruswings
 
-
 class PayerController {
 
     def payerService
@@ -16,6 +15,7 @@ class PayerController {
                 name : params.name,
                 email : params.email,
                 cpfCnpj : params.cpfCnpj,
+                phone: params.phone,
                 customerId : params.long("customerId")
             ]
             Payer payer = payerService.save(parsedParams)
