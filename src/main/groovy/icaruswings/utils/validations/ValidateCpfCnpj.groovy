@@ -16,6 +16,14 @@ class ValidateCpfCnpj {
         return true
     }
 
+    public static Boolean isCNPJ(String cnpj) {
+        if(allCnpjDigitsAreTheSame(cnpj)) return false
+
+        if(!isValidCnpj(cnpj)) return false
+
+        return true
+    }
+
     private static Boolean isValidCpf(String cpf) {
         String sanitizedCpf = cleanCpfCnpj(cpf)
         String firstDigit = calculateFirstCpfDigit(sanitizedCpf)
@@ -75,14 +83,6 @@ class ValidateCpfCnpj {
         }
 
         return secondValidDigit.toString()
-    }
-
-    public static Boolean isCNPJ(String cnpj) {
-        if(allCnpjDigitsAreTheSame(cnpj)) return false
-
-        if(!isValidCnpj(cnpj)) return false
-
-        return true
     }
 
     private static Boolean isValidCnpj(String cnpj) {
