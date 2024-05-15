@@ -20,8 +20,8 @@ class PayerController {
             ]
 
             Payer payer = payerService.save(parsedParams)
-            redirect(action: "show", id: payer.id)
 
+            redirect(action: "show", id: payer.id)
         } catch (Exception e) {
             redirect(action: "index", params: params)
         }
@@ -29,14 +29,12 @@ class PayerController {
 
     def show() {
         try {
-
             Payer payer = Payer.get(params.id)
             if (!payer) {
                 render "Pagador não encontrado"
             }
 
             return [payer: payer]
-
         } catch (Exception e) {
             render "Pagador não encontrado"
         }
