@@ -1,6 +1,6 @@
 package icaruswings.utils
 
-abstract class BasePerson {
+abstract class BasePerson extends BaseEntity {
     String name
 
     String email
