@@ -1,9 +1,8 @@
 package icaruswings
 
 import icaruswings.utils.PersonType
-import icaruswings.utils.BaseEntity
 
-class Customer extends BaseEntity {
+class Customer {
     String name
 
     String email
@@ -15,7 +14,7 @@ class Customer extends BaseEntity {
     static constraints = {
         name nullable: false, blank: false
         email nullable: false, blank: false, email: true
-        cpfCnpj nullable: false, blank: false, size: 11..18
+        cpfCnpj nullable: false, blank: false, size: 11..18, unique: true
         personType nullable: false, blank: false
     }
 }
