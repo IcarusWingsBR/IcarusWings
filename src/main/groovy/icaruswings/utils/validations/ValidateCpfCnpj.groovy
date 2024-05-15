@@ -2,6 +2,12 @@ package icaruswings.utils.validations
 
 class ValidateCpfCnpj {
 
+    public static String cleanCpfCnpj(String cpf) {
+        String sanitizedCpf = cpf.replaceAll("[^0-9]", "")
+
+        return sanitizedCpf
+    }
+
     public static Boolean isCPF(String cpf) {
         if(allCpfDigitsAreTheSame(cpf)) return false
 
@@ -10,36 +16,14 @@ class ValidateCpfCnpj {
         return true
     }
 
-    public static Boolean isCNPJ(String cnpj) {
-        if(allCnpjDigitsAreTheSame(cnpj)) return false
-
-        if(!isValidCnpj(cnpj)) return false
-
-        return true
-    }
-
-    public static String cleanCpfCnpj(String cpf) {
-        String sanitizedCpf = cpf.replaceAll("[^0-9]", "")
-
-        return sanitizedCpf
-    }
-
-    public static Boolean allCpfDigitsAreTheSame(String cpf) {
+    public static Boolean isValidCpf(String cpf) {
         String sanitizedCpf = cleanCpfCnpj(cpf)
-        List<String> sameDigitsCpfs = [
-                "00000000000",
-                "11111111111",
-                "22222222222",
-                "33333333333",
-                "44444444444",
-                "55555555555",
-                "66666666666",
-                "77777777777",
-                "88888888888",
-                "99999999999"
-        ]
+        String firstDigit = calculateFirstCpfDigit(sanitizedCpf)
+        String secondDigit = calculateSecondCpfDigit(sanitizedCpf)
 
-        return sameDigitsCpfs.contains(sanitizedCpf)
+        String validCpf = "${sanitizedCpf[0..8]}${firstDigit}${secondDigit}"
+
+        return sanitizedCpf == validCpf
     }
 
     public static String calculateFirstCpfDigit(String cpf) {
@@ -93,32 +77,22 @@ class ValidateCpfCnpj {
         return secondValidDigit.toString()
     }
 
-    public static Boolean isValidCpf(String cpf) {
-        String sanitizedCpf = cleanCpfCnpj(cpf)
-        String firstDigit = calculateFirstCpfDigit(sanitizedCpf)
-        String secondDigit = calculateSecondCpfDigit(sanitizedCpf)
+    public static Boolean isCNPJ(String cnpj) {
+        if(allCnpjDigitsAreTheSame(cnpj)) return false
 
-        String validCpf = "${sanitizedCpf[0..8]}${firstDigit}${secondDigit}"
+        if(!isValidCnpj(cnpj)) return false
 
-        return sanitizedCpf == validCpf
+        return true
     }
 
-    public static Boolean allCnpjDigitsAreTheSame(String cnpj) {
+    public static Boolean isValidCnpj(String cnpj) {
         String sanitizedCnpj = cleanCpfCnpj(cnpj)
-        List<String> sameDigitsCnpjs = [
-                "00000000000000",
-                "11111111111111",
-                "22222222222222",
-                "33333333333333",
-                "44444444444444",
-                "55555555555555",
-                "66666666666666",
-                "77777777777777",
-                "88888888888888",
-                "99999999999999"
-        ]
+        String firstDigit = calculateFirstCnpjDigit(sanitizedCnpj)
+        String secondDigit = calculateSecondCnpjDigit(sanitizedCnpj)
 
-        return sameDigitsCnpjs.contains(sanitizedCnpj)
+        String validCnpj= "${sanitizedCnpj[0..11]}${firstDigit}${secondDigit}"
+
+        return sanitizedCnpj == validCnpj
     }
 
     public static String calculateFirstCnpjDigit(String cnpj) {
@@ -178,13 +152,39 @@ class ValidateCpfCnpj {
         return secondValidDigit.toString()
     }
 
-    public static Boolean isValidCnpj(String cnpj) {
+    private static Boolean allCpfDigitsAreTheSame(String cpf) {
+        String sanitizedCpf = cleanCpfCnpj(cpf)
+        List<String> sameDigitsCpfs = [
+                "00000000000",
+                "11111111111",
+                "22222222222",
+                "33333333333",
+                "44444444444",
+                "55555555555",
+                "66666666666",
+                "77777777777",
+                "88888888888",
+                "99999999999"
+        ]
+
+        return sameDigitsCpfs.contains(sanitizedCpf)
+    }
+
+    private static Boolean allCnpjDigitsAreTheSame(String cnpj) {
         String sanitizedCnpj = cleanCpfCnpj(cnpj)
-        String firstDigit = calculateFirstCnpjDigit(sanitizedCnpj)
-        String secondDigit = calculateSecondCnpjDigit(sanitizedCnpj)
+        List<String> sameDigitsCnpjs = [
+                "00000000000000",
+                "11111111111111",
+                "22222222222222",
+                "33333333333333",
+                "44444444444444",
+                "55555555555555",
+                "66666666666666",
+                "77777777777777",
+                "88888888888888",
+                "99999999999999"
+        ]
 
-        String validCnpj= "${sanitizedCnpj[0..11]}${firstDigit}${secondDigit}"
-
-        return sanitizedCnpj == validCnpj
+        return sameDigitsCnpjs.contains(sanitizedCnpj)
     }
 }
