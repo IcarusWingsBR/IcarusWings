@@ -1,8 +1,6 @@
 package icaruswings
 
-import icaruswings.utils.PersonType
-
-class Payer extends icaruswings.utils.BaseEntity {
+class Payer {
     String name
 
     String email
