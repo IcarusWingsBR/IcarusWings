@@ -21,6 +21,8 @@ abstract class BasePerson extends BaseEntity {
 
     String complement
 
+    PersonType personType
+
     static constraints = {
         name nullable: false, blank: false
         email nullable: false, blank: false
