@@ -18,7 +18,7 @@ class ValidatePhone {
         return true;
     }
 
-    public static Boolean isValidDDD(String ddd) {
+    private static Boolean isValidDDD(String ddd) {
         List<String> dddCodes = [
             "11", "12", "13", "14", "15", "16", "17", "18", "19",
             "21", "22", "24", "27", "28", "31", "32", "33", "34",
