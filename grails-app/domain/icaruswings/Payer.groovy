@@ -1,21 +1,16 @@
 package icaruswings
 
-class Payer {
-    String name
+import icaruswings.utils.BasePerson
 
-    String email
-
-    String cpfCnpj
-
+class Payer extends BasePerson {
     Customer customer
 
-    PersonType personType
+    String phoneNumber
 
     static constraints = {
-        name nullable: false, blank: false
-        email nullable: false, blank: false, email: true
-        customer nullable: false, blank:false
-        cpfCnpj nullable: false, blank: false, size: 11..18
-        personType nullable: false, blank: false
+        phoneNumber nullable: false, blank: false
+        customer nullable: false, blank: false
+        email nullable: false, blank: false
+        cpfCnpj nullable: false, blank: false
     }
 }
