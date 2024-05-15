@@ -10,7 +10,5 @@ class Payer extends BasePerson {
     static constraints = {
         phoneNumber nullable: false, blank: false
         customer nullable: false, blank: false
-        email nullable: false, blank: false
-        cpfCnpj nullable: false, blank: false
     }
 }
