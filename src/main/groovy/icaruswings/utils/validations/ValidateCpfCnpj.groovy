@@ -12,8 +12,6 @@ class ValidateCpfCnpj {
 
         if(!isValidCpf(cpf)) return false
 
-        if(checkIfCpfExists(cpf)) return false
-
         return true
     }
 
@@ -24,26 +22,6 @@ class ValidateCpfCnpj {
         if(allCnpjDigitsAreTheSame(cnpj)) return false
 
         if(!isValidCnpj(cnpj)) return false
-
-        if(checkIfCnpjExists(cnpj)) return false
-
-        return true
-    }
-
-    public static Boolean checkIfCpfExists(String cpf) {
-        String sanitizedCpf = cleanCpf(cpf)
-        Customer customer = Customer.findByCpfCnpj(sanitizedCpf)
-
-        if(customer == null) return false
-
-        return true
-    }
-
-    public static Boolean checkIfCnpjExists(String cnpj) {
-        String sanitizedCnpj = cleanCnpj(cnpj)
-        Customer customer = Customer.findByCpfCnpj(sanitizedCnpj)
-
-        if(customer == null) return false
 
         return true
     }
