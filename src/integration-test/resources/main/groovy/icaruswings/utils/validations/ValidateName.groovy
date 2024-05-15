@@ -19,9 +19,9 @@ public class ValidateName {
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(name);
 
-        if (matcher.matches()) return true
+        if (!matcher.matches()) return false
 
-        return false
+        return true
     }
 
     public static Boolean isValidNameLength(String name) {
