@@ -32,9 +32,9 @@ class ValidateEmail {
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE)
         Matcher matcher = pattern.matcher(username)
 
-        if (matcher.matches()) return true
+        if (!matcher.matches()) return false
 
-        return false
+        return true
     }
 
     public static Boolean isValidEmailDomain(String emailDomain) {
@@ -43,8 +43,8 @@ class ValidateEmail {
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE)
         Matcher matcher = pattern.matcher(emailDomain)
 
-        if (matcher.matches()) return true
+        if (!matcher.matches()) return false
 
-        return false
+        return true
     }
 }
