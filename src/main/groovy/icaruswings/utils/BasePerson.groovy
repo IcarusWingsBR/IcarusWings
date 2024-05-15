@@ -19,7 +19,7 @@ abstract class BasePerson {
 
     Integer number
 
-    String details
+    String complement
 
     static constraints = {
         name nullable: false, blank: false
@@ -31,6 +31,6 @@ abstract class BasePerson {
         city nullable: false, blank: false
         state nullable: false, blank: false
         number nullable: false
-        details nullable: false
+        complement nullable: false
     }
 }
