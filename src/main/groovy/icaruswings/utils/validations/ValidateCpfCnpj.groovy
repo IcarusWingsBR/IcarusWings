@@ -3,9 +3,6 @@ package icaruswings.utils.validations
 class ValidateCpfCnpj {
 
     public static Boolean isCPF(String cpf) {
-
-        if(!checkForCpfFormat(cpf)) return false
-
         if(allCpfDigitsAreTheSame(cpf)) return false
 
         if(!isValidCpf(cpf)) return false
@@ -14,9 +11,6 @@ class ValidateCpfCnpj {
     }
 
     public static Boolean isCNPJ(String cnpj) {
-
-        if(!checkForCnpjFormat(cnpj)) return false
-
         if(allCnpjDigitsAreTheSame(cnpj)) return false
 
         if(!isValidCnpj(cnpj)) return false
@@ -24,14 +18,14 @@ class ValidateCpfCnpj {
         return true
     }
 
-    public static Boolean checkForCpfFormat(String cpf) {
-        if (!cpf) return false
+    public static String cleanCpfCnpj(String cpf) {
+        String sanitizedCpf = cpf.replaceAll("[^0-9]", "")
 
-        return (cpf.matches(~/\d{3}\.\d{3}\.\d{3}-\d{2}/) || (cpf.matches("\\d{11}")))
+        return sanitizedCpf
     }
 
     public static Boolean allCpfDigitsAreTheSame(String cpf) {
-        String sanitizedCpf = cleanCpf(cpf)
+        String sanitizedCpf = cleanCpfCnpj(cpf)
         List<String> sameDigitsCpfs = [
                 "00000000000",
                 "11111111111",
@@ -48,21 +42,8 @@ class ValidateCpfCnpj {
         return sameDigitsCpfs.contains(sanitizedCpf)
     }
 
-    public static String cleanCpf(String cpf) {
-        String sanitizedCpf = cpf.replace(".", "").replace("-", "")
-
-        return sanitizedCpf
-    }
-
-    /*LÓGICA DE VALIDAÇÃO CPF
-
-    https://www.devmedia.com.br/validando-o-cpf-em-uma-aplicacao-java/22097
-    https://www.udemy.com/course/python-3-do-zero-ao-avancado/?couponCode=LEADERSALE24B -> Atividade de validação de CPF
-
-     */
-
     public static String calculateFirstCpfDigit(String cpf) {
-        String sanitizedCpf = cleanCpf(cpf)
+        String sanitizedCpf = cleanCpfCnpj(cpf)
         int cpfSum = 0
         int actualSum = 0
         int i = 0
@@ -87,7 +68,7 @@ class ValidateCpfCnpj {
     }
 
     public static String calculateSecondCpfDigit(String cpf) {
-        String sanitizedCpf = cleanCpf(cpf)
+        String sanitizedCpf = cleanCpfCnpj(cpf)
         sanitizedCpf = "${sanitizedCpf[0..8]}${calculateFirstCpfDigit(cpf)}" //Sanitized + first digit
         int cpfSum = 0
         int actualSum = 0
@@ -113,7 +94,7 @@ class ValidateCpfCnpj {
     }
 
     public static Boolean isValidCpf(String cpf) {
-        String sanitizedCpf = cleanCpf(cpf)
+        String sanitizedCpf = cleanCpfCnpj(cpf)
         String firstDigit = calculateFirstCpfDigit(sanitizedCpf)
         String secondDigit = calculateSecondCpfDigit(sanitizedCpf)
 
@@ -122,21 +103,8 @@ class ValidateCpfCnpj {
         return sanitizedCpf == validCpf
     }
 
-    public static Boolean checkForCnpjFormat(String cnpj) {
-        if (!cnpj) return false
-
-        return (cnpj.matches(/^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/) || (cnpj.matches("\\d{14}")))
-    }
-
-
-    public static String cleanCnpj(String cnpj) {
-        String sanitizedCnpj = cnpj.replace(".", "").replace("-", "").replace("/", "")
-
-        return sanitizedCnpj
-    }
-
     public static Boolean allCnpjDigitsAreTheSame(String cnpj) {
-        String sanitizedCnpj = cleanCnpj(cnpj)
+        String sanitizedCnpj = cleanCpfCnpj(cnpj)
         List<String> sameDigitsCnpjs = [
                 "00000000000000",
                 "11111111111111",
@@ -153,15 +121,8 @@ class ValidateCpfCnpj {
         return sameDigitsCnpjs.contains(sanitizedCnpj)
     }
 
-
-    /* LÓGICA DE VALIDAÇÃO CNPJ
-
-    https://www.macoratti.net/alg_cnpj.htm
-    https://www.devmedia.com.br/validando-o-cnpj-em-uma-aplicacao-java/22374
-
-    */
     public static String calculateFirstCnpjDigit(String cnpj) {
-        String sanitizedCnpj = cleanCnpj(cnpj)
+        String sanitizedCnpj = cleanCpfCnpj(cnpj)
         int cnpjSum = 0
         int actualSum = 0
         int i = 0
@@ -189,7 +150,7 @@ class ValidateCpfCnpj {
     }
 
     public static String calculateSecondCnpjDigit(String cnpj) {
-        String sanitizedCnpj = cleanCnpj(cnpj)
+        String sanitizedCnpj = cleanCpfCnpj(cnpj)
         sanitizedCnpj = "${sanitizedCnpj[0..11]}${calculateFirstCnpjDigit(cnpj)}" // Sanitized + first digit
         int cnpjSum = 0
         int actualSum = 0
@@ -218,7 +179,7 @@ class ValidateCpfCnpj {
     }
 
     public static Boolean isValidCnpj(String cnpj) {
-        String sanitizedCnpj = cleanCnpj(cnpj)
+        String sanitizedCnpj = cleanCpfCnpj(cnpj)
         String firstDigit = calculateFirstCnpjDigit(sanitizedCnpj)
         String secondDigit = calculateSecondCnpjDigit(sanitizedCnpj)
 
