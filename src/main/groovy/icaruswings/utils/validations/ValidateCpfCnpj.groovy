@@ -56,6 +56,13 @@ class ValidateCpfCnpj {
         return sanitizedCpf
     }
 
+    /*LÓGICA DE VALIDAÇÃO CPF
+
+    https://www.devmedia.com.br/validando-o-cpf-em-uma-aplicacao-java/22097
+    https://www.udemy.com/course/python-3-do-zero-ao-avancado/?couponCode=LEADERSALE24B -> Atividade de validação de CPF
+
+     */
+
     public static String calculateFirstCpfDigit(String cpf) {
         String sanitizedCpf = cleanCpf(cpf)
         int cpfSum = 0
@@ -148,6 +155,13 @@ class ValidateCpfCnpj {
         return sameDigitsCnpjs.contains(sanitizedCnpj)
     }
 
+
+    /* LÓGICA DE VALIDAÇÃO CNPJ
+
+    https://www.macoratti.net/alg_cnpj.htm
+    https://www.devmedia.com.br/validando-o-cnpj-em-uma-aplicacao-java/22374
+
+    */
     public static String calculateFirstCnpjDigit(String cnpj) {
         String sanitizedCnpj = cleanCnpj(cnpj)
         int cnpjSum = 0
