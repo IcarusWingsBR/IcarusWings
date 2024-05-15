@@ -17,7 +17,7 @@ class Payer extends icaruswings.utils.BaseEntity {
         name nullable: false, blank: false
         email nullable: false, blank: false, email: true
         customer nullable: false, blank:false
-        cpfCnpj nullable: false, blank: false, size: 11..14, unique: true
+        cpfCnpj nullable: false, blank: false, size: 11..18
         personType nullable: false, blank: false
     }
 }
