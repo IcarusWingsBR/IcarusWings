@@ -16,7 +16,7 @@ class ValidateCpfCnpj {
         return true
     }
 
-    public static Boolean isValidCpf(String cpf) {
+    private static Boolean isValidCpf(String cpf) {
         String sanitizedCpf = cleanCpfCnpj(cpf)
         String firstDigit = calculateFirstCpfDigit(sanitizedCpf)
         String secondDigit = calculateSecondCpfDigit(sanitizedCpf)
@@ -26,7 +26,7 @@ class ValidateCpfCnpj {
         return sanitizedCpf == validCpf
     }
 
-    public static String calculateFirstCpfDigit(String cpf) {
+    private static String calculateFirstCpfDigit(String cpf) {
         String sanitizedCpf = cleanCpfCnpj(cpf)
         int cpfSum = 0
         int actualSum = 0
@@ -51,7 +51,7 @@ class ValidateCpfCnpj {
         return firstValidDigit.toString()
     }
 
-    public static String calculateSecondCpfDigit(String cpf) {
+    private static String calculateSecondCpfDigit(String cpf) {
         String sanitizedCpf = cleanCpfCnpj(cpf)
         sanitizedCpf = "${sanitizedCpf[0..8]}${calculateFirstCpfDigit(cpf)}" //Sanitized + first digit
         int cpfSum = 0
@@ -85,7 +85,7 @@ class ValidateCpfCnpj {
         return true
     }
 
-    public static Boolean isValidCnpj(String cnpj) {
+    private static Boolean isValidCnpj(String cnpj) {
         String sanitizedCnpj = cleanCpfCnpj(cnpj)
         String firstDigit = calculateFirstCnpjDigit(sanitizedCnpj)
         String secondDigit = calculateSecondCnpjDigit(sanitizedCnpj)
@@ -95,7 +95,7 @@ class ValidateCpfCnpj {
         return sanitizedCnpj == validCnpj
     }
 
-    public static String calculateFirstCnpjDigit(String cnpj) {
+    private static String calculateFirstCnpjDigit(String cnpj) {
         String sanitizedCnpj = cleanCpfCnpj(cnpj)
         int cnpjSum = 0
         int actualSum = 0
@@ -123,7 +123,7 @@ class ValidateCpfCnpj {
         return firstValidDigit.toString()
     }
 
-    public static String calculateSecondCnpjDigit(String cnpj) {
+    private static String calculateSecondCnpjDigit(String cnpj) {
         String sanitizedCnpj = cleanCpfCnpj(cnpj)
         sanitizedCnpj = "${sanitizedCnpj[0..11]}${calculateFirstCnpjDigit(cnpj)}" // Sanitized + first digit
         int cnpjSum = 0
