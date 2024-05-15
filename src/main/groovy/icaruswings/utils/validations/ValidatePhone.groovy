@@ -4,14 +4,15 @@ class ValidatePhone {
 
     public static Boolean isValidPhoneNumber(String phoneNumber) {
         String sanitizedPhoneNumber = cleanPhoneNumber(phoneNumber)
-        String ddd = sanitizedPhoneNumber.substring(0, 2)
-        String digitNine = sanitizedPhoneNumber.substring(2, 3)
-        String rest = sanitizedPhoneNumber.substring(3)
 
         if(sanitizedPhoneNumber.length() != 11) return false
 
+        String ddd = sanitizedPhoneNumber.substring(0, 2)
+
         if(!isValidDDD(ddd)) return false
 
+        String digitNine = sanitizedPhoneNumber.substring(2, 3)
+                
         if(!digitNine.equals("9")) return false
 
         return true;
