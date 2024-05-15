@@ -1,20 +1,12 @@
 package icaruswings
 
 import icaruswings.utils.PersonType
+import icaruswings.utils.BasePerson
 
-class Customer {
-    String name
-
-    String email
-
-    String cpfCnpj
-
-    PersonType personType
+class Customer extends BasePerson{
 
     static constraints = {
-        name nullable: false, blank: false
-        email nullable: false, blank: false, email: true
+        email nullable: false, blank: false, email: true, unique: true
         cpfCnpj nullable: false, blank: false, size: 11..18, unique: true
-        personType nullable: false, blank: false
     }
 }
