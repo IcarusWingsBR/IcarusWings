@@ -32,7 +32,7 @@ class CustomerController {
                     personType: params.personType,
             ]
 
-            Customer customer = customerService.save(params)
+            Customer customer = customerService.save(parsedParams)
 
             redirect(action: "show", id: customer.id)
         } catch (Exception e) {

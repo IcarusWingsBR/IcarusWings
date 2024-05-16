@@ -2,7 +2,7 @@ package icaruswings
 
 import icaruswings.utils.BasePerson
 
-class Customer extends BasePerson{
+class Customer extends BasePerson {
 
     static constraints = {
         email unique: true
