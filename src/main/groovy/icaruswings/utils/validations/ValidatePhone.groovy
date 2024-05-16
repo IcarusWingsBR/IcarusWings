@@ -18,7 +18,13 @@ class ValidatePhone {
         return true;
     }
 
-    public static Boolean isValidDDD(String ddd) {
+    public static String cleanPhoneNumber(String phoneNumber) {
+        String sanitizedPhoneNumber = phoneNumber.replaceAll("[^0-9]", "")
+
+        return sanitizedPhoneNumber
+    }
+
+    private static Boolean isValidDDD(String ddd) {
         List<String> dddCodes = [
             "11", "12", "13", "14", "15", "16", "17", "18", "19",
             "21", "22", "24", "27", "28", "31", "32", "33", "34",
@@ -31,11 +37,5 @@ class ValidatePhone {
         ]
 
         return ddd.contains(ddd)
-    }
-
-    public static String cleanPhoneNumber(String phoneNumber) {
-        String sanitizedPhoneNumber = phoneNumber.replaceAll("[^0-9]", "")
-
-        return sanitizedPhoneNumber
     }
 }
