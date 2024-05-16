@@ -25,7 +25,7 @@ abstract class BasePerson extends BaseEntity {
 
     static constraints = {
         name nullable: false, blank: false
-        email nullable: false, blank: false
+        email nullable: false, blank: false, email: true
         cpfCnpj nullable: false, blank: false
         cep nullable: false, blank: false
         street nullable: false, blank: false
