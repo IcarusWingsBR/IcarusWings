@@ -15,8 +15,6 @@ class PaymentController {
 
                     value: params.value,
 
-                    paymentStatus: params.paymentStatus,
-
                     dueDate: params.dueDate,
             ]
 

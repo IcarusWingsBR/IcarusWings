@@ -7,15 +7,15 @@ class PaymentService {
     public Payment save(Map parsedParams) {
         Payment payment = new Payment()
 
-        payment.payer = parsedParams.name
+        payment.payer = parsedParams.payer
 
-        payment.paymentType = parsedParams.email
+        payment.paymentType = parsedParams.paymentType
 
-        payment.value = parsedParams.cpfCnpj
+        payment.value = parsedParams.value
 
-        payment.paymentStatus = parsedParams.cep
+        payment.paymentStatus = parsedParams.paymentStatus
 
-        payment.dueDate = parsedParams.street
+        payment.dueDate = parsedParams.dueDate
 
         payment.save(failOnError: true)
 

@@ -1,9 +1,9 @@
 package icaruswings.utils
 
 enum PaymentStatus {
-    WAITING,
+    WAITING_PAYMENT,
     PAYED,
-    DUE,
+    OVERDUE,
     CANCELED
 
     public static PaymentStatus convert(String paymentStatus) {

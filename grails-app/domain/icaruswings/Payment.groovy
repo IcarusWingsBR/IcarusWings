@@ -6,10 +6,15 @@ import icaruswings.utils.PaymentType
 import java.sql.Date
 
 class Payment {
+
     Payer payer
+
     PaymentType paymentType
+
     Double value
+
     PaymentStatus paymentStatus
+
     Date dueDate
 
     static constraints = {
