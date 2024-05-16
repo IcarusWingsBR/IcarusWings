@@ -5,15 +5,36 @@ import icaruswings.utils.PersonType
 
 @Transactional
 class PayerService {
-    
     public Payer save(Map parsedParams) {
         Payer payer = new Payer()
         payer.name = parsedParams.name
+
         payer.email = parsedParams.email
+
         payer.cpfCnpj = parsedParams.cpfCnpj
-        payer.customer = Customer.get(parsedParams.customerId)
+
+        payer.cep = parsedParams.cep
+
+        payer.street = parsedParams.street
+
+        payer.neighborhood = parsedParams.neighborhood
+
+        payer.city = parsedParams.neighborhood
+
+        payer.state = parsedParams.state
+
+        payer.number = parsedParams.number
+
+        payer.complement = parsedParams.complement
+
         payer.personType = PersonType.NATURAL
+
+        payer.customer = payer.get(parsedParams.customerId)
+
+        payer.personType = PersonType.NATURAL
+
         payer.save(failOnError: true)
+
         return payer
     }
 }
