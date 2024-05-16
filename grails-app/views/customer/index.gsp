@@ -3,6 +3,7 @@
     <meta name="layout" content="">
     <title>Cadastro de Cliente</title>
     <asset:stylesheet href="customer/index.css" />
+    <asset:javascript src="customer/index.js" />
 </head>
 <body>
     <div class="background-box">
@@ -37,10 +38,10 @@
             <input type="text" name="state" id="state" placeholder="Digite seu Estado" class="form-field" value="${params.state}" autocomplete="off"/>
 
             <label for="number">Número:</label><br>
-            <input type="text" name="number" id="number" placeholder="Digite o número de sua residência" class="form-field" value="${params.number}" autocomplete="off" required/>
+            <input type="number" name="number" id="number" placeholder="Digite o número de sua residência" class="form-field" value="${params.number}" autocomplete="off" required/>
 
-            <label for="details">Complemento:</label><br>
-            <input type="text" name="details" id="details" placeholder="Digite o complemento" class="form-field" value="${params.complement}" autocomplete="off" required/>
+            <label for="complement">Complemento:</label><br>
+            <input type="text" name="complement" id="complement" placeholder="Digite o complemento" class="form-field" value="${params.complement}" autocomplete="off" required/>
 
             <button type="submit" class="inputButton">Enviar</button>
         </form>
