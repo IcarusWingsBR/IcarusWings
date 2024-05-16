@@ -35,7 +35,9 @@ class PayerController {
 
                 personType: params.personType,
 
-                customerId: params.long("customerId")
+                customerId: params.long("customerId"),
+
+                phoneNumber: params.phoneNumber
             ]
 
             Payer payer = payerService.save(parsedParams)

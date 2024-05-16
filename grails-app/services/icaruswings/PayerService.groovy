@@ -7,6 +7,7 @@ import icaruswings.utils.PersonType
 class PayerService {
     public Payer save(Map parsedParams) {
         Payer payer = new Payer()
+
         payer.name = parsedParams.name
 
         payer.email = parsedParams.email
@@ -30,6 +31,8 @@ class PayerService {
         payer.personType = PersonType.NATURAL
 
         payer.customer = payer.get(parsedParams.customerId)
+
+        payer.phoneNumber = parsedParams.phoneNumber
 
         payer.save(failOnError: true)
 
