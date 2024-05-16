@@ -20,7 +20,7 @@ class CustomerService {
 
         customer.neighborhood = parsedParams.neighborhood
 
-        customer.city = parsedParams.neighborhood
+        customer.city = parsedParams.city
 
         customer.state = parsedParams.state
 
