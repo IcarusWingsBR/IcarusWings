@@ -14,6 +14,20 @@ class CustomerService {
 
         customer.cpfCnpj = parsedParams.cpfCnpj
 
+        customer.cep = parsedParams.cep
+
+        customer.street = parsedParams.street
+
+        customer.neighborhood = parsedParams.neighborhood
+
+        customer.city = parsedParams.neighborhood
+
+        customer.state = parsedParams.state
+
+        customer.number = parsedParams.number
+
+        customer.complement = parsedParams.complement
+        
         customer.personType = PersonType.NATURAL
 
         customer.save(failOnError: true)
