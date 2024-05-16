@@ -30,7 +30,7 @@ class PayerService {
 
         payer.personType = PersonType.NATURAL
 
-        payer.customer = payer.get(parsedParams.customerId)
+        payer.customer = Customer.get(parsedParams.customerId)
 
         payer.phoneNumber = parsedParams.phoneNumber
 
