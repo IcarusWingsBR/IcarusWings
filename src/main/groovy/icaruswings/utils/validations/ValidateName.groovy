@@ -13,7 +13,7 @@ public class ValidateName {
         return true;
     }
 
-    public static Boolean isValidNameFormat(String name) {
+    private static Boolean isValidNameFormat(String name) {
         String regex = "(?!^\\s)[[ ]|\\p{L}*]+";
 
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
@@ -24,7 +24,7 @@ public class ValidateName {
         return true
     }
 
-    public static Boolean isValidNameLength(String name) {
+    private static Boolean isValidNameLength(String name) {
         if(name.length() < 3 || name.length() > 255) return false
 
         return true
