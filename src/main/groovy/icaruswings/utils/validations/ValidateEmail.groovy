@@ -20,13 +20,13 @@ class ValidateEmail {
         return true;
     }
 
-    public static Boolean isValidEmailLength(String email) {
+    private static Boolean isValidEmailLength(String email) {
         if(email.length() < 10 || email.length() > 255) return false
 
         return true
     }
 
-    public static Boolean isValidUsername(String username) {
+    private static Boolean isValidUsername(String username) {
         String regex = "^[\\w]+(?:\\.[\\w-]+)*"
 
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE)
@@ -37,7 +37,7 @@ class ValidateEmail {
         return true
     }
 
-    public static Boolean isValidEmailDomain(String emailDomain) {
+    private static Boolean isValidEmailDomain(String emailDomain) {
         String regex = "^([\\w-]+\\.)+[A-Z]{2,4}"
 
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE)
