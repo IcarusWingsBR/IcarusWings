@@ -8,10 +8,35 @@ class CustomerController {
 
     def save() {
         try {
+            Map parsedParams = [
+                    name: params.name,
+
+                    email: params.email,
+
+                    cpfCnpj: params.cpfCnpj,
+
+                    cep: params.cep,
+
+                    street: params.street,
+
+                    neighborhood: params.neighborhood,
+
+                    city: params.city,
+
+                    state: params.state,
+
+                    number: params.number,
+
+                    complement: params.complement,
+
+                    personType: params.personType,
+            ]
+
             Customer customer = customerService.save(params)
+
             redirect(action: "show", id: customer.id)
         } catch (Exception e) {
-            render "Não foi possível salvar"
+            redirect(action: "index", params : params)
         }
     }
 
