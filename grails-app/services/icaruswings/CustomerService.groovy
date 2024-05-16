@@ -20,11 +20,11 @@ class CustomerService {
 
         customer.neighborhood = parsedParams.neighborhood
 
-        customer.city = parsedParams.neighborhood
+        customer.city = parsedParams.city
 
         customer.state = parsedParams.state
 
-        customer.number = parsedParams.number
+        customer.number = Integer.parseInt(parsedParams.number)
 
         customer.complement = parsedParams.complement
         
