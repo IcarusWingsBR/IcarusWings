@@ -2,13 +2,14 @@
 <head>
     <meta name="layout" content="">
     <title>Cadastro de Cliente</title>
+    <asset:stylesheet href="customer/index.css" />
 </head>
 <body>
     <div class="background-box">
         <form action="${createLink(controller:"customer", action: "save") }">
             <img src="${resource(dir: 'images', file: 'logo.png')}" alt="Logo" style="width: 50%; height: auto;">
 
-            <h1 style= "color: #f1f5fb"> Formulário de Cadastro</h1>
+            <h1 style= "color: #f1f5fb">Formulário de Cadastro</h1>
 
             <label for="name">Nome:</label><br>
             <input name="name" id="name" placeholder="Digite seu Nome" value="${params.name}" class="form-field" required/><br>
