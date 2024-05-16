@@ -31,8 +31,6 @@ class PayerService {
 
         payer.customer = payer.get(parsedParams.customerId)
 
-        payer.personType = PersonType.NATURAL
-
         payer.save(failOnError: true)
 
         return payer
