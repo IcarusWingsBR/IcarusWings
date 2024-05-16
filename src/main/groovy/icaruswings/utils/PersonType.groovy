@@ -2,6 +2,7 @@ package icaruswings.utils
 
 enum PersonType {
     NATURAL,
+
     LEGAL
 
     public static PersonType convert(String personType) {

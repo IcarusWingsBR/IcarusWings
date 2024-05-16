@@ -34,5 +34,6 @@ abstract class BasePerson extends BaseEntity {
         state nullable: false, blank: false
         number nullable: false
         complement nullable: false
+        personType nullable: false
     }
 }
