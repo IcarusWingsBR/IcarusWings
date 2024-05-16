@@ -1,6 +1,5 @@
 package icaruswings
 
-import icaruswings.utils.PersonType
 import icaruswings.utils.BasePerson
 
 class Customer extends BasePerson{

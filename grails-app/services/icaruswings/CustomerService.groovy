@@ -24,7 +24,7 @@ class CustomerService {
 
         customer.state = parsedParams.state
 
-        customer.number = parsedParams.number
+        customer.number = Integer.parseInt(parsedParams.number)
 
         customer.complement = parsedParams.complement
         
