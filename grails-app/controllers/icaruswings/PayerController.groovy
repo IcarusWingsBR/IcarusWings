@@ -14,8 +14,27 @@ class PayerController {
         try {
             Map parsedParams = [
                 name: params.name,
+
                 email: params.email,
+
                 cpfCnpj: params.cpfCnpj,
+
+                cep: params.cep,
+
+                street: params.street,
+
+                neighborhood: params.neighborhood,
+
+                city: params.city,
+
+                state: params.state,
+
+                number: params.number,
+
+                complement: params.complement,
+
+                personType: params.personType,
+
                 customerId: params.long("customerId")
             ]
 
