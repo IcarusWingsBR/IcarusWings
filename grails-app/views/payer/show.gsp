@@ -14,7 +14,7 @@
     <input type="text" id="cpfCnpj" value="${payer.cpfCnpj}">
   </div>
   <div>
-    <label for="personType">Data Criação</label>
+    <label for="personType">Tipo de pessoa</label>
     <input type="text" id="personType" value="${payer.personType}">
   </div>
   <div>
@@ -30,7 +30,7 @@
     <input type="text" id="street" value="${payer.street}">
   </div>
   <div>
-    <label for="neighborhood">Rua</label>
+    <label for="neighborhood">Bairro</label>
     <input type="text" id="neighborhood" value="${payer.neighborhood}">
   </div>
   <div>
@@ -42,7 +42,7 @@
     <input type="text" id="state" value="${payer.state}">
   </div>
   <div>
-    <label for="number">Número da casa:</label>
+    <label for="number">Número da residência:</label>
     <input type="text" id="number" value="${payer.number}">
   </div>
   <div>
