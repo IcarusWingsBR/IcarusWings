@@ -1,6 +1,7 @@
 package icaruswings
 
 import grails.gorm.transactions.Transactional
+import icaruswings.utils.PaymentStatus
 
 @Transactional
 class PaymentService {
@@ -12,6 +13,8 @@ class PaymentService {
         payment.paymentType = parsedParams.paymentType
 
         payment.value = parsedParams.value
+
+        payment.paymentStatus = PaymentStatus.WAITING_PAYMENT
 
         payment.dueDate = parsedParams.dueDate
 
