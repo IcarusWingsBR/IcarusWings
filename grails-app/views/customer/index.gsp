@@ -23,7 +23,7 @@
 
             <label for="cep">CEP:</label><br>
             <input type="text" name="cep" id="cep" placeholder="Digite seu CEP" class="form-field"
-                value="" size="10" maxlength="9" onblur="pesquisacep(this.value);" value="${params.cep}" autocomplete="off" required/>
+                value="" size="10" maxlength="9" onblur="searchZipCode(this.value);" value="${params.cep}" autocomplete="off" required/>
 
             <label for="street">Rua:</label><br>
             <input type="text" name="street" id="street" placeholder="Digite sua Rua" class="form-field" value="${params.street}" autocomplete="off"/>

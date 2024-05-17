@@ -1,60 +1,79 @@
-function desabilita_inputs() {
-    document.getElementById('street').readOnly = true
-    document.getElementById('neighborhood').readOnly = true
-    document.getElementById('city').readOnly = true
-    document.getElementById('state').readOnly = true
+function searchZipCode(value) {
+    let zipCode = value.replace(/\D/g, '')
+
+    if(isZipCodeEmpty(zipCode)) return
+ 
+    if(!validateZipCodeFormat(zipCode)) return
+
+    setInputValuesToPending()
+
+    let script = document.createElement('script')
+
+    script.src = 'https://viacep.com.br/ws/'+ zipCode + '/json/?callback=zipCodeCallback'
+
+    document.body.appendChild(script)
 }
 
-function limpa_formulário_cep() {
+function isZipCodeEmpty(zipCode) {
+    if(zipCode != "") return false
+
+    clearZipCodeFormat()
+
+    return true
+}
+
+function clearZipCodeFormat() {
     document.getElementById('street').value=("")
     document.getElementById('neighborhood').value=("")
     document.getElementById('city').value=("")
     document.getElementById('state').value=("")
 }
 
-function cep_callback(conteudo) {
-    if (!("erro" in conteudo)) {
-        document.getElementById('street').value=(conteudo.logradouro)
-        document.getElementById('neighborhood').value=(conteudo.bairro)
-        document.getElementById('city').value=(conteudo.localidade)
-        document.getElementById('state').value=(conteudo.uf)
+function validateZipCodeFormat(zipCode) {
+    let validacep = /^[0-9]{8}$/ 
+    
+    if(!validacep.test(zipCode)) {
+        clearZipCodeFormat()
+        alert("Formato de CEP inválido.")
 
-        desabilita_inputs();
+        return false
     }
-    else {
-        limpa_formulário_cep();
-        alert("CEP não encontrado.")
-    }
+
+    return true
 }
 
-function pesquisacep(valor) {
+function setInputValuesToPending() {
+    document.getElementById('street').value="Aguardando"
+    document.getElementById('neighborhood').value="Aguardando"
+    document.getElementById('city').value="Aguardando"
+    document.getElementById('state').value="Aguardando"
+}
 
-    var cep = valor.replace(/\D/g, '')
+function zipCodeCallback(content) {
+    if(!isContentValid(content)) return
 
-    if (cep != "") {
+    document.getElementById('street').value=(content.logradouro)
+    document.getElementById('neighborhood').value=(content.bairro)
+    document.getElementById('city').value=(content.localidade)
+    document.getElementById('state').value=(content.uf)
 
-        var validacep = /^[0-9]{8}$/
+    disableInputs()
+}
 
-        if(validacep.test(cep)) {
+function isContentValid(content) {
+    if("erro" in content) {
+        clearZipCodeFormat()
+        alert("CEP não encontrado.")
 
-            document.getElementById('street').value="..."
-            document.getElementById('neighborhood').value="..."
-            document.getElementById('city').value="..."
-            document.getElementById('state').value="..."
-
-            var script = document.createElement('script')
-
-            script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=cep_callback'
-
-            document.body.appendChild(script)
-
-        }
-        else {
-            limpa_formulário_cep();
-            alert("Formato de CEP inválido.")
-        }
+        return false
     }
-    else {
-        limpa_formulário_cep()
-    }
+
+    return true
+}
+
+function disableInputs() {
+    document.getElementById('street').readOnly = true
+    document.getElementById('neighborhood').readOnly = true
+    document.getElementById('city').readOnly = true
+    document.getElementById('state').readOnly = true
 }
