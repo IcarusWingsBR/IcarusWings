@@ -2,8 +2,8 @@
 <head>
     <meta name="layout" content="">
     <title>Cadastro de Cliente</title>
-    <asset:stylesheet href="customer/index.css" />
-    <asset:javascript src="customer/index.js" />
+    <asset:stylesheet href="utilsCss/index.css" />
+    <asset:javascript src="utilsJavaScript/index.js" />
 </head>
 <body>
     <div class="background-box">
