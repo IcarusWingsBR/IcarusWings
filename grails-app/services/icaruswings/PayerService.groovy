@@ -84,6 +84,14 @@ class PayerService {
             payer.errors.rejectValue("cep", null, "O cep inserido é inválido")
         }
 
+        if(!parsedParams.street) {
+            payer.errors.rejectValue("street", null, "O campo rua é obrigatório")
+        }
+
+        if(!parsedParams.neighborhood) {
+            payer.errors.rejectValue("neighborhood", null, "O campo bairro é obrigatório")
+        }
+        
         if(!parsedParams.number) {
             payer.errors.rejectValue("number", null, "O campo número de residência é obrigatório")
         } else if (!StringUtils.containsOnlyNumbers(parsedParams.number)) {
