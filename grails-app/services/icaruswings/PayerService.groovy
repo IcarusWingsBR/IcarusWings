@@ -24,7 +24,13 @@ class PayerService {
 
         payer.email = parsedParams.email
 
-        payer.cpfCnpj = parsedParams.cpfCnpj
+        customer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(parsedParams.cpfCnpj)
+
+        if(ValidateCpfCnpj.isCPF(parsedParams.cpfCnpj)) {
+            customer.personType = PersonType.NATURAL
+        } else if (ValidateCpfCnpj.isCNPJ(parsedParams.cpfCnpj)) {
+            customer.personType = PersonType.LEGAL
+        }
 
         payer.cep = parsedParams.cep
 
@@ -39,8 +45,6 @@ class PayerService {
         payer.number = Integer.parseInt(parsedParams.number)
 
         payer.complement = parsedParams.complement
-
-        payer.personType = PersonType.NATURAL
 
         payer.customer = Customer.get(parsedParams.customerId)
 
