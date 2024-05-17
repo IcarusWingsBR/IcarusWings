@@ -80,6 +80,8 @@ class PayerService {
 
         if(!parsedParams.cep) {
             payer.errors.rejectValue("cep", null, "O campo cep é obrigatório")
+        } else if (!StringUtils.containsOnlyNumbers(parsedParams.cep)) {
+            payer.errors.rejectValue("cep", null, "O cep inserido é inválido")
         }
 
         if(!parsedParams.number) {
