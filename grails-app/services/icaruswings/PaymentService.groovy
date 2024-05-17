@@ -13,8 +13,6 @@ class PaymentService {
 
         payment.value = parsedParams.value
 
-        payment.paymentStatus = parsedParams.paymentStatus
-
         payment.dueDate = parsedParams.dueDate
 
         payment.save(failOnError: true)
