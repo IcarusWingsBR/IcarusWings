@@ -18,6 +18,10 @@
         <input type="text" id="cpfCnpj" value="${customer.cpfCnpj}">
     </div>
     <div>
+        <label for="personType">Tipo de pessoa</label>
+        <input type="text" id="personType" value="${customer.personType}">
+    </div>
+    <div>
         <label for="CEP">CEP</label>
         <input type="text" id="CEP" value="${customer.cep}">
     </div>
@@ -30,16 +34,12 @@
         <input type="text" id="city" value="${customer.city}">
     </div>
     <div>
-        <label for="number">Número da casa:</label>
+        <label for="number">Número de residência</label>
         <input type="text" id="number" value="${customer.number}">
     </div>
     <div>
         <label for="complement">Complemento</label>
         <input type="text" id="complement" value="${customer.complement}">
-    </div>
-    <div>
-        <label for="personType">Data Criação</label>
-        <input type="text" id="personType" value="${customer.personType}">
     </div>
     <div>
         <label for="dateCreated">Data Criação</label>
