@@ -24,12 +24,12 @@ class PayerService {
 
         payer.email = parsedParams.email
 
-        customer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(parsedParams.cpfCnpj)
+        payer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(parsedParams.cpfCnpj)
 
         if(ValidateCpfCnpj.isCPF(parsedParams.cpfCnpj)) {
-            customer.personType = PersonType.NATURAL
+            payer.personType = PersonType.NATURAL
         } else if (ValidateCpfCnpj.isCNPJ(parsedParams.cpfCnpj)) {
-            customer.personType = PersonType.LEGAL
+            payer.personType = PersonType.LEGAL
         }
 
         payer.cep = parsedParams.cep
