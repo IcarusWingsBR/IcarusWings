@@ -2,12 +2,6 @@ package icaruswings.utils.validations
 
 class ValidateCpfCnpj {
 
-    public static String cleanCpfCnpj(String cpf) {
-        String sanitizedCpf = cpf.replaceAll("[^0-9]", "")
-
-        return sanitizedCpf
-    }
-
     public static Boolean isCPF(String cpf) {
         if(allCpfDigitsAreTheSame(cpf)) return false
 
@@ -25,7 +19,7 @@ class ValidateCpfCnpj {
     }
 
     private static Boolean isValidCpf(String cpf) {
-        String sanitizedCpf = cleanCpfCnpj(cpf)
+        String sanitizedCpf = StringUtils.cleanString(cpf)
         String firstDigit = calculateFirstCpfDigit(sanitizedCpf)
         String secondDigit = calculateSecondCpfDigit(sanitizedCpf)
 
@@ -35,7 +29,7 @@ class ValidateCpfCnpj {
     }
 
     private static String calculateFirstCpfDigit(String cpf) {
-        String sanitizedCpf = cleanCpfCnpj(cpf)
+        String sanitizedCpf = StringUtils.cleanString(cpf)
         int cpfSum = 0
         int actualSum = 0
         int i = 0
@@ -60,7 +54,7 @@ class ValidateCpfCnpj {
     }
 
     private static String calculateSecondCpfDigit(String cpf) {
-        String sanitizedCpf = cleanCpfCnpj(cpf)
+        String sanitizedCpf = StringUtils.cleanString(cpf)
         sanitizedCpf = "${sanitizedCpf[0..8]}${calculateFirstCpfDigit(cpf)}" //Sanitized + first digit
         int cpfSum = 0
         int actualSum = 0
@@ -86,7 +80,7 @@ class ValidateCpfCnpj {
     }
 
     private static Boolean isValidCnpj(String cnpj) {
-        String sanitizedCnpj = cleanCpfCnpj(cnpj)
+        String sanitizedCnpj = StringUtils.cleanString(cnpj)
         String firstDigit = calculateFirstCnpjDigit(sanitizedCnpj)
         String secondDigit = calculateSecondCnpjDigit(sanitizedCnpj)
 
@@ -96,7 +90,7 @@ class ValidateCpfCnpj {
     }
 
     private static String calculateFirstCnpjDigit(String cnpj) {
-        String sanitizedCnpj = cleanCpfCnpj(cnpj)
+        String sanitizedCnpj = StringUtils.cleanString(cnpj)
         int cnpjSum = 0
         int actualSum = 0
         int i = 0
@@ -124,7 +118,7 @@ class ValidateCpfCnpj {
     }
 
     private static String calculateSecondCnpjDigit(String cnpj) {
-        String sanitizedCnpj = cleanCpfCnpj(cnpj)
+        String sanitizedCnpj = StringUtils.cleanString(cnpj)
         sanitizedCnpj = "${sanitizedCnpj[0..11]}${calculateFirstCnpjDigit(cnpj)}" // Sanitized + first digit
         int cnpjSum = 0
         int actualSum = 0
@@ -153,7 +147,7 @@ class ValidateCpfCnpj {
     }
 
     private static Boolean allCpfDigitsAreTheSame(String cpf) {
-        String sanitizedCpf = cleanCpfCnpj(cpf)
+        String sanitizedCpf = StringUtils.cleanString(cpf)
         List<String> sameDigitsCpfs = [
                 "00000000000",
                 "11111111111",
@@ -171,7 +165,7 @@ class ValidateCpfCnpj {
     }
 
     private static Boolean allCnpjDigitsAreTheSame(String cnpj) {
-        String sanitizedCnpj = cleanCpfCnpj(cnpj)
+        String sanitizedCnpj = StringUtils.cleanString(cnpj)
         List<String> sameDigitsCnpjs = [
                 "00000000000000",
                 "11111111111111",

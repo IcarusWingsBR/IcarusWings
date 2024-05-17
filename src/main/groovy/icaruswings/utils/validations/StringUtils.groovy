@@ -9,6 +9,12 @@ public class StringUtils {
         return !number.matches(".*\\D.*");
     }
 
+    public static String cleanString(String str) {
+        String sanitizedStr = str.replaceAll("[^0-9]", "")
+
+        return sanitizedStr
+    }
+
     public static Boolean isValidString(String str) {
         if(!isValidStringLength(str)) return false
 
