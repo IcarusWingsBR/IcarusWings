@@ -20,7 +20,7 @@ class PayerService {
 
         payer.neighborhood = parsedParams.neighborhood
 
-        payer.city = parsedParams.neighborhood
+        payer.city = parsedParams.city
 
         payer.state = parsedParams.state
 
