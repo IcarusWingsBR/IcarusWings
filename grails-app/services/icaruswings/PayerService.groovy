@@ -5,7 +5,6 @@ import grails.validation.ValidationException
 import icaruswings.utils.PersonType
 import icaruswings.utils.validations.ValidateCpfCnpj
 import icaruswings.utils.validations.ValidateEmail
-import icaruswings.utils.validations.ValidateName
 import icaruswings.utils.validations.ValidatePhone
 import icaruswings.utils.validations.StringUtils
 
@@ -63,7 +62,7 @@ class PayerService {
 
         if(!parsedParams.name) {
             payer.errors.rejectValue("name", null, "O campo nome é obrigatório")
-        } else if (!ValidateName.isValidName(parsedParams.name)) {
+        } else if (!StringUtils.isValidString(parsedParams.name)) {
             payer.errors.rejectValue("name", null, "O nome informado é inválido")
         }
 
@@ -91,6 +90,18 @@ class PayerService {
 
         if(!parsedParams.complement) {
             payer.errors.rejectValue("complement", null, "O campo complemento é obrigatório")
+        }
+
+        if(!parsedParams.city) {
+            payer.errors.rejectValue("city", null, "O campo cidade é obrigatório")
+        } else if (!StringUtils.isValidString(parsedParams.city)) {
+            payer.errors.rejectValue("city", null, "A cidade informado é inválida")
+        }
+
+        if(!parsedParams.state) {
+            payer.errors.rejectValue("state", null, "O campo estado é obrigatório")
+        } else if (!StringUtils.isValidString(parsedParams.state)) {
+            payer.errors.rejectValue("state", null, "O estado informado é inválido")
         }
 
         if(!parsedParams.customerId) {
