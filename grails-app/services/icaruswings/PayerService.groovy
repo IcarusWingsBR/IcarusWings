@@ -24,7 +24,7 @@ class PayerService {
 
         payer.state = parsedParams.state
 
-        payer.number = parsedParams.number
+        payer.number = Integer.parseInt(parsedParams.number)
 
         payer.complement = parsedParams.complement
 
