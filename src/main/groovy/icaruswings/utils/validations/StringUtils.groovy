@@ -9,25 +9,25 @@ public class StringUtils {
         return !number.matches(".*\\D.*");
     }
 
-    public static Boolean isValidString(String name) {
-        if(!isValidStringLength(name)) return false
+    public static Boolean isValidString(String str) {
+        if(!isValidStringLength(str)) return false
 
-        if(!noNumberAndSpace(name)) return false
+        if(!noNumberAndSpace(str)) return false
 
         return true;
     }
 
-    private static Boolean isValidStringLength(String name) {
-        if(name.length() < 3 || name.length() > 255) return false
+    private static Boolean isValidStringLength(String str) {
+        if(str.length() < 3 || str.length() > 255) return false
 
         return true
     }
 
-    private static Boolean noNumberAndSpace(String name) {
+    private static Boolean noNumberAndSpace(String str) {
         String regex = "(?!^\\s)[[ ]|\\p{L}*]+";
 
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(name);
+        Matcher matcher = pattern.matcher(str);
 
         if (!matcher.matches()) return false
 
