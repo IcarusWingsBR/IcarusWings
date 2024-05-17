@@ -70,6 +70,8 @@ class CustomerService {
             customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
         } else if (!ValidateCpfCnpj.isCPF(parsedParams.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(parsedParams.cpfCnpj)) {
             customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
+        } else if(checkIfCpfOrCnpjExists(params.cpfCnpj)) {
+            customer.errors.rejectValue("cpfCnpj", null, "O Cpf/Cnpj já está cadastrado")
         }
 
         if(!parsedParams.cep) {
@@ -109,5 +111,14 @@ class CustomerService {
         }
 
         return customer
+    }
+
+    public Boolean checkIfCpfOrCnpjExists(String cpfCnpj) {
+        String sanitizedCpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(cpfCnpj)
+        Customer customer = Customer.findByCpfCnpj(sanitizedCpfCnpj)
+
+        if(customer == null) return false
+
+        return true
     }
 }
