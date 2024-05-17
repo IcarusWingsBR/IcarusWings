@@ -10,6 +10,7 @@
 
     <h1 style= "color: #f1f5fb"> Formulário de Cadastro de Pagador</h1>
 
+    <label for="name">Cliente:</label>
     <div>
       <g:select
               name="customerId"
@@ -51,8 +52,8 @@
     <label for="number">Número:</label><br>
     <input type="text" name="number" id="number" placeholder="Digite o número de sua residência" class="form-field" value="${params.number}" autocomplete="off" required/>
 
-    <label for="details">Complemento:</label><br>
-    <input type="text" name="details" id="details" placeholder="Digite o complemento" class="form-field" value="${params.complement}" autocomplete="off" required/>
+    <label for="complement">Complemento:</label><br>
+    <input type="text" name="complement" id="complement" placeholder="Digite o complemento" class="form-field" value="${params.complement}" autocomplete="off" required/>
 
     <button type="submit" class="inputButton">Enviar</button>
   </form>
