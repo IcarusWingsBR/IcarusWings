@@ -45,8 +45,6 @@ class CustomerService {
         customer.number = Integer.parseInt(parsedParams.number)
 
         customer.complement = parsedParams.complement
-        
-        customer.personType = PersonType.NATURAL
 
         customer.save(failOnError: true)
 
