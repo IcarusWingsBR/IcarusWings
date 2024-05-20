@@ -15,7 +15,7 @@ class CustomerController {
 
             redirect(action: "show", id: customer.id)
         } catch (Exception e) {
-            render e.getMessage()
+            redirect(action: "index", params: params)
         }
     }
 
