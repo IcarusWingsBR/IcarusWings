@@ -1,8 +1,4 @@
 package icaruswings.utils.adapters
-import icaruswings.utils.PersonType
-import icaruswings.utils.validations.StringUtils
-import icaruswings.utils.validations.ValidateCpfCnpj
-import icaruswings.utils.validations.ValidateEmail
 
 class CustomerAdapter {
 
@@ -22,22 +18,16 @@ class CustomerAdapter {
 
     String state
 
-    Integer number
+    String number
 
     String complement
 
-    PersonType personType
-
     public CustomerAdapter(Map params) {
-        this.name = StringUtils.isValidString(params.name)
+        this.name = params.name
 
-        this.email = ValidateEmail.isValidEmail(params.email)
+        this.email = params.email
 
-        if(ValidateCpfCnpj.isCPF(params.cpfCnpj)) {
-            this.personType = PersonType.NATURAL
-        } else if (ValidateCpfCnpj.isCNPJ(params.cpfCnpj)) {
-            this.personType = PersonType.LEGAL
-        }
+        this.cpfCnpj = params.cpfCnpj
 
         this.cep = params.cep
 
@@ -52,7 +42,5 @@ class CustomerAdapter {
         this.number = params.number
 
         this.complement = params.complement
-
-        this.personType = params.personType
     }
 }

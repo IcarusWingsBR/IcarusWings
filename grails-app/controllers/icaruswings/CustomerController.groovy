@@ -1,5 +1,8 @@
 package icaruswings
 
+import grails.validation.ValidationException
+import icaruswings.utils.adapters.CustomerAdapter
+
 class CustomerController {
 
     def customerService
@@ -8,35 +11,11 @@ class CustomerController {
 
     def save() {
         try {
-            Map parsedParams = [
-                    name: params.name,
-
-                    email: params.email,
-
-                    cpfCnpj: params.cpfCnpj,
-
-                    cep: params.cep,
-
-                    street: params.street,
-
-                    neighborhood: params.neighborhood,
-
-                    city: params.city,
-
-                    state: params.state,
-
-                    number: params.number,
-
-                    complement: params.complement,
-
-                    personType: params.personType,
-            ]
-
-            Customer customer = customerService.save(parsedParams)
+            Customer customer = customerService.save(new CustomerAdapter(params))
 
             redirect(action: "show", id: customer.id)
         } catch (Exception e) {
-            redirect(action: "index", params : params)
+            render e.getMessage()
         }
     }
 
