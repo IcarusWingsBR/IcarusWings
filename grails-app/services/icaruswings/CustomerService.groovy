@@ -6,6 +6,7 @@ import icaruswings.utils.PersonType
 import icaruswings.utils.validations.ValidateCpfCnpj
 import icaruswings.utils.validations.StringUtils
 import icaruswings.utils.validations.ValidateEmail
+import icaruswings.utils.validations.ValidateCep
 
 @Transactional
 class CustomerService {
@@ -56,7 +57,7 @@ class CustomerService {
 
         if(!parsedParams.name) {
             customer.errors.rejectValue("name",  null,"O campo nome é obrigatório")
-        } else if (!ValidateName.isValidName(parsedParams.name)) {
+        } else if (!StringUtils.isValidString(parsedParams.name)) {
             customer.errors.rejectValue("name", null, "O nome informado é inválido")
         }
 
@@ -70,44 +71,44 @@ class CustomerService {
             customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
         } else if (!ValidateCpfCnpj.isCPF(parsedParams.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(parsedParams.cpfCnpj)) {
             customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
-        } else if(checkIfCpfOrCnpjExists(params.cpfCnpj)) {
+        } else if(checkIfCpfOrCnpjExists(parsedParams.cpfCnpj)) {
             customer.errors.rejectValue("cpfCnpj", null, "O Cpf/Cnpj já está cadastrado")
         }
 
         if(!parsedParams.cep) {
-            payer.errors.rejectValue("cep", null, "O campo cep é obrigatório")
-        } else if (!StringUtils.containsOnlyNumbers(parsedParams.cep)) {
-            payer.errors.rejectValue("cep", null, "O cep inserido é inválido")
+            customer.errors.rejectValue("cep", null, "O campo cep é obrigatório")
+        } else if (!ValidateCep.isValidCep(parsedParams.cep)) {
+            customer.errors.rejectValue("cep", null, "O cep inserido é inválido")
         }
 
         if(!parsedParams.street) {
-            payer.errors.rejectValue("street", null, "O campo rua é obrigatório")
+            customer.errors.rejectValue("street", null, "O campo rua é obrigatório")
         }
 
         if(!parsedParams.neighborhood) {
-            payer.errors.rejectValue("neighborhood", null, "O campo bairro é obrigatório")
+            customer.errors.rejectValue("neighborhood", null, "O campo bairro é obrigatório")
         }
 
         if(!parsedParams.number) {
-            payer.errors.rejectValue("number", null, "O campo número de residência é obrigatório")
+            customer.errors.rejectValue("number", null, "O campo número de residência é obrigatório")
         } else if (!StringUtils.containsOnlyNumbers(parsedParams.number)) {
-            payer.errors.rejectValue("number", null, "O número de residência é inválido")
+            customer.errors.rejectValue("number", null, "O número de residência é inválido")
         }
 
         if(!parsedParams.complement) {
-            payer.errors.rejectValue("complement", null, "O campo complemento é obrigatório")
+            customer.errors.rejectValue("complement", null, "O campo complemento é obrigatório")
         }
 
         if(!parsedParams.city) {
-            payer.errors.rejectValue("city", null, "O campo cidade é obrigatório")
+            customer.errors.rejectValue("city", null, "O campo cidade é obrigatório")
         } else if (!StringUtils.isValidString(parsedParams.city)) {
-            payer.errors.rejectValue("city", null, "A cidade informado é inválida")
+            customer.errors.rejectValue("city", null, "A cidade informado é inválida")
         }
 
         if(!parsedParams.state) {
-            payer.errors.rejectValue("state", null, "O campo estado é obrigatório")
+            customer.errors.rejectValue("state", null, "O campo estado é obrigatório")
         } else if (!StringUtils.isValidString(parsedParams.state)) {
-            payer.errors.rejectValue("state", null, "O estado informado é inválido")
+            customer.errors.rejectValue("state", null, "O estado informado é inválido")
         }
 
         return customer
