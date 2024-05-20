@@ -23,7 +23,7 @@ public class StringUtils {
         return true
     }
 
-    private static Boolean noNumberAndSpace(String str) {
+    private static Boolean dontHaveNumberAndSpace(String str) {
         String regex = "(?!^\\s)[[ ]|\\p{L}*]+";
 
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
