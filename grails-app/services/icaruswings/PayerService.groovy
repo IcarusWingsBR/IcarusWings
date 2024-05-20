@@ -78,9 +78,9 @@ class PayerService {
         }
 
         if(!parsedParams.phoneNumber) {
-            payer.errors.rejectValue("phone", null, "O campo telefone é obrigatório")
+            payer.errors.rejectValue("phoneNumber", null, "O campo telefone é obrigatório")
         } else if (!ValidatePhone.isValidPhoneNumber(parsedParams.phoneNumber)) {
-            payer.errors.rejectValue("phone", null, "O numero de telefone inserido é inválido")
+            payer.errors.rejectValue("phoneNumber", null, "O numero de telefone inserido é inválido")
         }
 
         if(!parsedParams.cep) {
