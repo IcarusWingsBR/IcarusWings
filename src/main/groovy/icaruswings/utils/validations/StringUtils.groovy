@@ -12,7 +12,7 @@ public class StringUtils {
     public static Boolean isValidString(String str) {
         if(!isValidStringLength(str)) return false
 
-        if(!noNumberAndSpace(str)) return false
+        if(!dontHaveNumberAndSpace(str)) return false
 
         return true;
     }
