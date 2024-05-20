@@ -1,5 +1,7 @@
 package icaruswings
 
+import icaruswings.utils.adapters.PayerAdapter
+
 class PayerController {
 
     def payerService
@@ -12,39 +14,12 @@ class PayerController {
 
     def save() {
         try {
-            Map parsedParams = [
-                name: params.name,
-
-                email: params.email,
-
-                cpfCnpj: params.cpfCnpj,
-
-                cep: params.cep,
-
-                street: params.street,
-
-                neighborhood: params.neighborhood,
-
-                city: params.city,
-
-                state: params.state,
-
-                number: params.number,
-
-                complement: params.complement,
-
-                personType: params.personType,
-
-                customerId: params.long("customerId"),
-
-                phoneNumber: params.phoneNumber
-            ]
-
-            Payer payer = payerService.save(parsedParams)
+            Payer payer = payerService.save(new PayerAdapter(params))
 
             redirect(action: "show", id: payer.id)
         } catch (Exception e) {
-            redirect(action: "index", params: params)
+            //redirect(action: "index", params: params)
+            render e.getMessage()
         }
     }
 
