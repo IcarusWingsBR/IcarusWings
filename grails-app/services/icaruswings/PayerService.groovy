@@ -7,6 +7,7 @@ import icaruswings.utils.validations.ValidateCpfCnpj
 import icaruswings.utils.validations.ValidateEmail
 import icaruswings.utils.validations.ValidatePhone
 import icaruswings.utils.validations.StringUtils
+import icaruswings.utils.validations.ValidateCep
 
 @Transactional
 class PayerService {
@@ -84,7 +85,7 @@ class PayerService {
 
         if(!parsedParams.cep) {
             payer.errors.rejectValue("cep", null, "O campo cep é obrigatório")
-        } else if (!StringUtils.containsOnlyNumbers(parsedParams.cep)) {
+        } else if (!ValidateCep.isValidCep(parsedParams.cep)) {
             payer.errors.rejectValue("cep", null, "O cep inserido é inválido")
         }
 
