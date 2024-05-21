@@ -34,4 +34,14 @@ class PayerController {
             render "Pagador não encontrado"
         }
     }
+
+    def update() {
+        try {
+            Payer payer = payerService.update(new PayerAdapter(params))
+
+            redirect(action: "show", id: payer.id)
+        } catch (Exception e) {
+            redirect(action: "index", params: params)
+        }
+    }
 }

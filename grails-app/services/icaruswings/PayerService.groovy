@@ -27,6 +27,25 @@ class PayerService {
         return payer
     }
 
+    public Payer update(PayerAdapter payerAdapter) {
+        
+        Payer validatePayer = validatePayerParams(payerAdapter)
+
+        if(validatePayer.hasErrors()) {
+            throw new ValidationException("Não foi possível salvar o pagador", validatePayer.errors)
+        }
+
+        Long id = Long.parseLong(payerAdapter.id)
+
+        Payer payer = Payer.get(id)
+        
+        editPayer(payerAdapter, payer)
+
+        payer.save(failOnError: true)
+
+        return payer
+    }
+
     private Payer validatePayerParams(PayerAdapter payerAdapter) {
         Payer payer = new Payer()
         
@@ -133,6 +152,42 @@ class PayerService {
         payer.phoneNumber =payerAdapter.phoneNumber
 
         setPersonType(payerAdapter, payer)
+
+        return payer
+    }
+
+    private Payer editPayer(PayerAdapter payerAdapter, Payer payer) {
+        payer.name = payerAdapter.name
+
+        if(payer.email != payerAdapter.email) {
+            payer.email = payerAdapter.email
+        }
+
+        String sanitizedCpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(payerAdapter.cpfCnpj)
+
+        if(payer.cpfCnpj != sanitizedCpfCnpj) {
+            payer.cpfCnpj = sanitizedCpfCnpj
+
+            setPersonType(payerAdapter, payer)
+        }
+
+        payer.cep = payerAdapter.cep
+
+        payer.street = payerAdapter.street
+
+        payer.neighborhood = payerAdapter.neighborhood
+
+        payer.city = payerAdapter.city
+
+        payer.state = payerAdapter.state
+
+        payer.number = Integer.parseInt(payerAdapter.number)
+
+        payer.complement = payerAdapter.complement
+
+        payer.customer = payerAdapter.customer
+
+        payer.phoneNumber = payerAdapter.phoneNumber
 
         return payer
     }
