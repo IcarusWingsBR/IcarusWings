@@ -27,6 +27,25 @@ class CustomerService {
         return customer
     }
 
+    public Customer update(CustomerAdapter customerAdapter) {
+
+        Customer validateCustomer = validateDefaultFields(customerAdapter)
+
+        if (validateCustomer.hasErrors()) {
+            throw new ValidationException("Não foi possível salvar o cliente", validateCustomer.errors)
+        }
+
+        Long id = Long.parseLong(customerAdapter.id)
+
+        Customer customer = Customer.get(id)
+
+        editCustomer(customerAdapter, customer)
+
+        customer.save(failOnError: true)
+
+        return customer
+    }
+
     private Customer validateSave(CustomerAdapter customerAdapter) {
         Customer customer = validateDefaultFields(customerAdapter)
 
@@ -132,5 +151,25 @@ class CustomerService {
         }
 
         return customer
+    }
+
+    private void editCustomer(CustomerAdapter customerAdapter, Customer customer) {
+        customer.name = customerAdapter.name
+
+        customer.email = customerAdapter.email
+
+        customer.cep = customerAdapter.cep
+
+        customer.street = customerAdapter.street
+
+        customer.neighborhood = customerAdapter.neighborhood
+
+        customer.city = customerAdapter.city
+
+        customer.state = customerAdapter.state
+
+        customer.number = Integer.parseInt(customerAdapter.number)
+
+        customer.complement = customerAdapter.complement
     }
 }
