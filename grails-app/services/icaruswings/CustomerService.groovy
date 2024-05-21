@@ -14,7 +14,7 @@ class CustomerService {
 
     public Customer save(CustomerAdapter customerAdapter) {
 
-        Customer validateCustomer = validateSaveParams(customerAdapter)
+        Customer validateCustomer = validateSave(customerAdapter)
 
         if (validateCustomer.hasErrors()) {
             throw new ValidationException("Não foi possível salvar o cliente", validateCustomer.errors)
@@ -27,8 +27,8 @@ class CustomerService {
         return customer
     }
 
-    private Customer validateSaveParams(CustomerAdapter customerAdapter) {
-        Customer customer = validateCustomerParams(customerAdapter)
+    private Customer validateSave(CustomerAdapter customerAdapter) {
+        Customer customer = validateDefaultFields(customerAdapter)
 
         if(!customerAdapter.cpfCnpj) {
             customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
@@ -41,7 +41,7 @@ class CustomerService {
         return customer
     }
 
-    private Customer validateCustomerParams(CustomerAdapter customerAdapter) {
+    private Customer validateDefaultFields(CustomerAdapter customerAdapter) {
         Customer customer = new Customer()
 
         if(!customerAdapter.name) {
