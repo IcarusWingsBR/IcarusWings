@@ -2,7 +2,7 @@ package icaruswings.utils.adapters
 
 class CustomerAdapter {
 
-    Long id
+    String id
 
     String name
 
