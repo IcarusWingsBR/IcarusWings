@@ -4,6 +4,8 @@ import icaruswings.Customer
 
 class PayerAdapter {
 
+    String id
+
     String name
 
     String email
@@ -29,6 +31,8 @@ class PayerAdapter {
     String phoneNumber
 
     public PayerAdapter(Map params) {
+        this.id = params.id
+        
         this.name = params.name
 
         this.email = params.email
