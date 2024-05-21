@@ -132,12 +132,16 @@ class PayerService {
 
         payer.phoneNumber =payerAdapter.phoneNumber
 
+        setPersonType(payerAdapter, payer)
+
+        return payer
+    }
+
+    private void setPersonType(PayerAdapter payerAdapter, Payer payer) {
         if(ValidateCpfCnpj.isCPF(payerAdapter.cpfCnpj)) {
             payer.personType = PersonType.NATURAL
         } else if (ValidateCpfCnpj.isCNPJ(payerAdapter.cpfCnpj)) {
             payer.personType = PersonType.LEGAL
         }
-
-        return payer
     }
 }
