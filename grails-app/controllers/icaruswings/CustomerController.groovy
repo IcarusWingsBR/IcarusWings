@@ -30,4 +30,14 @@ class CustomerController {
             render "Cliente não encontrado"
         }
     }
+
+    def update() {
+        try {
+            Customer customer = customerService.update(new CustomerAdapter(params))
+
+            redirect(action: "show", id: customer.id)
+        } catch (Exception e) {
+            redirect(action: "index", params: params)
+        }
+    }
 }
