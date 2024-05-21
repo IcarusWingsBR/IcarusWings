@@ -1,6 +1,5 @@
 package icaruswings
 
-import grails.validation.ValidationException
 import icaruswings.utils.adapters.CustomerAdapter
 
 class CustomerController {
