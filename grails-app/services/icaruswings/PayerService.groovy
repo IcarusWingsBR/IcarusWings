@@ -112,7 +112,7 @@ class PayerService {
 
         payer.email = payerAdapter.email
 
-        payer.cpfCnpj = payerAdapter.cpfCnpj
+        payer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(payerAdapter.cpfCnpj)
 
         payer.cep = payerAdapter.cep
 
