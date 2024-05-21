@@ -14,7 +14,7 @@ class CustomerService {
 
     public Customer save(CustomerAdapter customerAdapter) {
 
-        Customer validateCustomer = validateCustomerParams(customerAdapter)
+        Customer validateCustomer = validateSaveParams(customerAdapter)
 
         if (validateCustomer.hasErrors()) {
             throw new ValidationException("Não foi possível salvar o cliente", validateCustomer.errors)
@@ -23,6 +23,20 @@ class CustomerService {
         Customer customer = createCustomerFromAdapter(customerAdapter, new Customer())
 
         customer.save(failOnError: true)
+
+        return customer
+    }
+
+    private Customer validateSaveParams(CustomerAdapter customerAdapter) {
+        Customer customer = validateCustomerParams(customerAdapter)
+
+        if(!customerAdapter.cpfCnpj) {
+            customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
+        } else if (!ValidateCpfCnpj.isCPF(customerAdapter.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(customerAdapter.cpfCnpj)) {
+            customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
+        } else if(checkIfCpfOrCnpjExists(customerAdapter.cpfCnpj)) {
+            customer.errors.rejectValue("cpfCnpj", null, "O Cpf/Cnpj já está cadastrado")
+        }
 
         return customer
     }
@@ -40,14 +54,6 @@ class CustomerService {
             customer.errors.rejectValue("email", null, "O campo email é obrigatório")
         } else if(!ValidateEmail.isValidEmail(customerAdapter.email)){
             customer.errors.rejectValue("email", null, "O email informado é inválido")
-        }
-
-        if(!customerAdapter.cpfCnpj) {
-            customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
-        } else if (!ValidateCpfCnpj.isCPF(customerAdapter.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(customerAdapter.cpfCnpj)) {
-            customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
-        } else if(checkIfCpfOrCnpjExists(customerAdapter.cpfCnpj)) {
-            customer.errors.rejectValue("cpfCnpj", null, "O Cpf/Cnpj já está cadastrado")
         }
 
         if(!customerAdapter.cep) {
