@@ -130,7 +130,7 @@ class PayerService {
 
         payer.customer = payerAdapter.customer
 
-        payer.phoneNumber =payerAdapter.phoneNumber
+        payer.phoneNumber = payerAdapter.phoneNumber
 
         setPersonType(payerAdapter, payer)
 
