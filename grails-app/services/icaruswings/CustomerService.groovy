@@ -103,7 +103,7 @@ class CustomerService {
 
         customer.email = customerAdapter.email
 
-        customer.cpfCnpj = customerAdapter.cpfCnpj
+        customer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(customerAdapter.cpfCnpj)
 
         customer.cep = customerAdapter.cep
 

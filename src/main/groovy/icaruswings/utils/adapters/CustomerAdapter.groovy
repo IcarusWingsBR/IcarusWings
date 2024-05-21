@@ -2,6 +2,8 @@ package icaruswings.utils.adapters
 
 class CustomerAdapter {
 
+    Long id
+
     String name
 
     String email
@@ -23,6 +25,8 @@ class CustomerAdapter {
     String complement
 
     public CustomerAdapter(Map params) {
+        this.id = params.id
+
         this.name = params.name
 
         this.email = params.email
