@@ -18,8 +18,7 @@ class PayerController {
 
             redirect(action: "show", id: payer.id)
         } catch (Exception e) {
-            //redirect(action: "index", params: params)
-            render e.getMessage()
+            redirect(action: "index", params: params)
         }
     }
 
