@@ -130,7 +130,7 @@ class PayerService {
 
         payer.customer = payerAdapter.customer
 
-        payer.phoneNumber =payerAdapter.phoneNumber
+        payer.phoneNumber = payerAdapter.phoneNumber
 
         if(ValidateCpfCnpj.isCPF(payerAdapter.cpfCnpj)) {
             payer.personType = PersonType.NATURAL
