@@ -156,7 +156,7 @@ class CustomerService {
     private void editCustomer(CustomerAdapter customerAdapter, Customer customer) {
         customer.name = customerAdapter.name
 
-        if(customer.email != customerAdapter.email) {
+        if (customer.email != customerAdapter.email) {
             customer.email = customerAdapter.email
         }
 
