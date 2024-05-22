@@ -10,10 +10,13 @@ class CustomerController {
 
     def save() {
         try {
-            Customer customer = customerService.save(new CustomerAdapter(params))
+            CustomerAdapter customerAdapter = new CustomerAdapter(params)
+            Customer customer = customerService.save(customerAdapter)
 
             redirect(action: "show", id: customer.id)
         } catch (Exception e) {
+            log.error("Erro ao criar customer", e)
+
             redirect(action: "index", params: params)
         }
     }
