@@ -35,10 +35,13 @@ class CustomerController {
 
     def update() {
         try {
-            Customer customer = customerService.update(new CustomerAdapter(params))
+            CustomerAdapter customerAdapter = new CustomerAdapter(params)
+            Customer customer = customerService.update(customerAdapter)
 
             redirect(action: "show", id: customer.id)
         } catch (Exception e) {
+            log.error("Erro ao editar customer", e)
+
             redirect(action: "index", params: params)
         }
     }
