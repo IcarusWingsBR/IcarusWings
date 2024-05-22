@@ -71,7 +71,7 @@ class CustomerService {
 
         if (!customerAdapter.email) {
             customer.errors.rejectValue("email", null, "O campo email é obrigatório")
-        } else if (!ValidateEmail.isValidEmail(parsedParams.email)){
+        } else if (!ValidateEmail.isValidEmail(customerAdapter.email)){
             customer.errors.rejectValue("email", null, "O email informado é inválido")
         }
 
