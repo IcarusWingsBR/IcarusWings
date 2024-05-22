@@ -132,7 +132,7 @@ class PayerService {
 
         payer.phoneNumber = payerAdapter.phoneNumber
 
-        if(ValidateCpfCnpj.isCPF(payerAdapter.cpfCnpj)) {
+        if (ValidateCpfCnpj.isCPF(payerAdapter.cpfCnpj)) {
             payer.personType = PersonType.NATURAL
         } else if (ValidateCpfCnpj.isCNPJ(payerAdapter.cpfCnpj)) {
             payer.personType = PersonType.LEGAL
