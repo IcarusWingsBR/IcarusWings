@@ -5,9 +5,9 @@ import groovyx.net.http.RESTClient
 class ValidateCep {
 
     public static Boolean isValidCep(String cep) {
-        if(!StringUtils.containsOnlyNumbers(cep)) return false
+        if (!StringUtils.containsOnlyNumbers(cep)) return false
 
-        if(!ValidateExistingCep(cep)) return false
+        if (!ValidateExistingCep(cep)) return false
 
         return true
     }
@@ -25,9 +25,9 @@ class ValidateCep {
             return false
         }
 
-        if(response.status != 200) return false
+        if (response.status != 200) return false
         
-        if(response.data.erro) return false
+        if (response.data.erro) return false
 
         return true
     }
