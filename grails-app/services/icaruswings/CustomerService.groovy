@@ -30,19 +30,19 @@ class CustomerService {
     private Customer validateCustomerParams(CustomerAdapter customerAdapter) {
         Customer customer = new Customer()
 
-        if(!customerAdapter.name) {
+        if (!customerAdapter.name) {
             customer.errors.rejectValue("name",  null,"O campo nome é obrigatório")
         } else if (!StringUtils.isValidString(customerAdapter.name)) {
             customer.errors.rejectValue("name", null, "O nome informado é inválido")
         }
 
-        if(!customerAdapter.email) {
+        if (!customerAdapter.email) {
             customer.errors.rejectValue("email", null, "O campo email é obrigatório")
         } else if(!ValidateEmail.isValidEmail(customerAdapter.email)){
             customer.errors.rejectValue("email", null, "O email informado é inválido")
         }
 
-        if(!customerAdapter.cpfCnpj) {
+        if (!customerAdapter.cpfCnpj) {
             customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
         } else if (!ValidateCpfCnpj.isCPF(customerAdapter.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(customerAdapter.cpfCnpj)) {
             customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
@@ -50,37 +50,37 @@ class CustomerService {
             customer.errors.rejectValue("cpfCnpj", null, "O Cpf/Cnpj já está cadastrado")
         }
 
-        if(!customerAdapter.cep) {
+        if (!customerAdapter.cep) {
             customer.errors.rejectValue("cep", null, "O campo cep é obrigatório")
         } else if (!ValidateCep.isValidCep(customerAdapter.cep)) {
             customer.errors.rejectValue("cep", null, "O cep inserido é inválido")
         }
 
-        if(!customerAdapter.street) {
+        if (!customerAdapter.street) {
             customer.errors.rejectValue("street", null, "O campo rua é obrigatório")
         }
 
-        if(!customerAdapter.neighborhood) {
+        if (!customerAdapter.neighborhood) {
             customer.errors.rejectValue("neighborhood", null, "O campo bairro é obrigatório")
         }
 
-        if(!customerAdapter.number) {
+        if (!customerAdapter.number) {
             customer.errors.rejectValue("number", null, "O campo número de residência é obrigatório")
         } else if (!StringUtils.containsOnlyNumbers(customerAdapter.number)) {
             customer.errors.rejectValue("number", null, "O número de residência é inválido")
         }
 
-        if(!customerAdapter.complement) {
+        if (!customerAdapter.complement) {
             customer.errors.rejectValue("complement", null, "O campo complemento é obrigatório")
         }
 
-        if(!customerAdapter.city) {
+        if (!customerAdapter.city) {
             customer.errors.rejectValue("city", null, "O campo cidade é obrigatório")
         } else if (!StringUtils.isValidString(customerAdapter.city)) {
             customer.errors.rejectValue("city", null, "A cidade informado é inválida")
         }
 
-        if(!customerAdapter.state) {
+        if (!customerAdapter.state) {
             customer.errors.rejectValue("state", null, "O campo estado é obrigatório")
         } else if (!StringUtils.isValidString(customerAdapter.state)) {
             customer.errors.rejectValue("state", null, "O estado informado é inválido")
@@ -93,7 +93,7 @@ class CustomerService {
         String sanitizedCpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(cpfCnpj)
         Customer customer = Customer.findByCpfCnpj(sanitizedCpfCnpj)
 
-        if(customer == null) return false
+        if (customer == null) return false
 
         return true
     }
