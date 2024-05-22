@@ -3,7 +3,6 @@ package icaruswings.utils.adapters
 import icaruswings.Customer
 
 class PayerAdapter {
-
     String id
 
     String name

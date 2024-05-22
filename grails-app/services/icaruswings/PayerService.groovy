@@ -16,7 +16,7 @@ class PayerService {
         
         Payer validatePayer = validatePayerParams(payerAdapter)
 
-        if(validatePayer.hasErrors()) {
+        if (validatePayer.hasErrors()) {
             throw new ValidationException("Não foi possível salvar o pagador", validatePayer.errors)
         }
 
@@ -33,12 +33,12 @@ class PayerService {
 
         Payer validatePayer = validatePayerParams(payerAdapter)
 
-        if (!payer) throw new RuntimeException("Pagador nao encontrado") 
+        if (!payer) throw new RuntimeException("Pagador nao encontrado")
 
         if (validatePayer.hasErrors()) {
             throw new ValidationException("Não foi possível salvar o pagador", validatePayer.errors)
         }
- 
+
         createPayerFromAdapter(payerAdapter, payer)
 
         payer.save(failOnError: true)
@@ -49,69 +49,69 @@ class PayerService {
     private Payer validatePayerParams(PayerAdapter payerAdapter) {
         Payer payer = new Payer()
         
-        if(!payerAdapter.cpfCnpj) {
+        if (!payerAdapter.cpfCnpj) {
             payer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
         } else if (!ValidateCpfCnpj.isCPF(payerAdapter.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(payerAdapter.cpfCnpj)) {
             payer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
         }
 
-        if(!payerAdapter.name) {
+        if (!payerAdapter.name) {
             payer.errors.rejectValue("name", null, "O campo nome é obrigatório")
         } else if (!StringUtils.isValidString(payerAdapter.name)) {
             payer.errors.rejectValue("name", null, "O nome informado é inválido")
         }
 
-        if(!payerAdapter.email) {
+        if (!payerAdapter.email) {
             payer.errors.rejectValue("email", null, "O campo email é obrigatório")
         } else if (!ValidateEmail.isValidEmail(payerAdapter.email)) {
             payer.errors.rejectValue("email", null, "O email informado é inválido")
         }
 
-        if(!payerAdapter.phoneNumber) {
+        if (!payerAdapter.phoneNumber) {
             payer.errors.rejectValue("phoneNumber", null, "O campo telefone é obrigatório")
         } else if (!ValidatePhone.isValidPhoneNumber(payerAdapter.phoneNumber)) {
             payer.errors.rejectValue("phoneNumber", null, "O numero de telefone inserido é inválido")
         }
 
-        if(!payerAdapter.cep) {
+        if (!payerAdapter.cep) {
             payer.errors.rejectValue("cep", null, "O campo cep é obrigatório")
         } else if (!ValidateCep.isValidCep(payerAdapter.cep)) {
             payer.errors.rejectValue("cep", null, "O cep inserido é inválido")
         }
 
-        if(!payerAdapter.street) {
+        if (!payerAdapter.street) {
             payer.errors.rejectValue("street", null, "O campo rua é obrigatório")
         }
 
-        if(!payerAdapter.neighborhood) {
+        if (!payerAdapter.neighborhood) {
             payer.errors.rejectValue("neighborhood", null, "O campo bairro é obrigatório")
         }
         
-        if(!payerAdapter.number) {
+        if (!payerAdapter.number) {
             payer.errors.rejectValue("number", null, "O campo número de residência é obrigatório")
         } else if (!StringUtils.containsOnlyNumbers(payerAdapter.number)) {
             payer.errors.rejectValue("number", null, "O número de residência é inválido")
         }
 
-        if(!payerAdapter.complement) {
+        if (!payerAdapter.complement) {
             payer.errors.rejectValue("complement", null, "O campo complemento é obrigatório")
         }
 
-        if(!payerAdapter.city) {
+        if (!payerAdapter.city) {
             payer.errors.rejectValue("city", null, "O campo cidade é obrigatório")
         } else if (!StringUtils.isValidString(payerAdapter.city)) {
             payer.errors.rejectValue("city", null, "A cidade informado é inválida")
         }
 
-        if(!payerAdapter.state) {
+        if (!payerAdapter.state) {
             payer.errors.rejectValue("state", null, "O campo estado é obrigatório")
         } else if (!StringUtils.isValidString(payerAdapter.state)) {
             payer.errors.rejectValue("state", null, "O estado informado é inválido")
         }
 
-        if(!payerAdapter.customer.id) {
+        if (!payerAdapter.customer.id) {
             payer.errors.rejectValue("customerId", null, "O payer precisa estar vinculado a um customer")
-        } else if(!isCustomerIdValid(payerAdapter.customer.id)) {
+        } else if (!isCustomerIdValid(payerAdapter.customer.id)) {
             payer.errors.rejectValue("customerId", null, "O customer é inválido")
         }
 
@@ -121,7 +121,7 @@ class PayerService {
     private Boolean isCustomerIdValid(Long customerId) {
         Customer customer = Customer.get(customerId)
  
-        if(!customer || customer.deleted) return false
+        if (!customer || customer.deleted) return false
 
         return true
     }
@@ -157,7 +157,7 @@ class PayerService {
     }
 
     private void setPersonType(PayerAdapter payerAdapter, Payer payer) {
-        if(ValidateCpfCnpj.isCPF(payerAdapter.cpfCnpj)) {
+        if (ValidateCpfCnpj.isCPF(payerAdapter.cpfCnpj)) {
             payer.personType = PersonType.NATURAL
         } else if (ValidateCpfCnpj.isCNPJ(payerAdapter.cpfCnpj)) {
             payer.personType = PersonType.LEGAL
