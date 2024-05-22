@@ -55,19 +55,19 @@ class CustomerService {
     private Customer validateCustomerParams(Map parsedParams) {
         Customer customer = new Customer()
 
-        if(!parsedParams.name) {
+        if (!parsedParams.name) {
             customer.errors.rejectValue("name",  null,"O campo nome é obrigatório")
         } else if (!StringUtils.isValidString(parsedParams.name)) {
             customer.errors.rejectValue("name", null, "O nome informado é inválido")
         }
 
-        if(!parsedParams.email) {
+        if (!parsedParams.email) {
             customer.errors.rejectValue("email", null, "O campo email é obrigatório")
         } else if(!ValidateEmail.isValidEmail(parsedParams.email)){
             customer.errors.rejectValue("email", null, "O email informado é inválido")
         }
 
-        if(!parsedParams.cpfCnpj) {
+        if (!parsedParams.cpfCnpj) {
             customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
         } else if (!ValidateCpfCnpj.isCPF(parsedParams.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(parsedParams.cpfCnpj)) {
             customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
@@ -75,37 +75,37 @@ class CustomerService {
             customer.errors.rejectValue("cpfCnpj", null, "O Cpf/Cnpj já está cadastrado")
         }
 
-        if(!parsedParams.cep) {
+        if (!parsedParams.cep) {
             customer.errors.rejectValue("cep", null, "O campo cep é obrigatório")
         } else if (!ValidateCep.isValidCep(parsedParams.cep)) {
             customer.errors.rejectValue("cep", null, "O cep inserido é inválido")
         }
 
-        if(!parsedParams.street) {
+        if (!parsedParams.street) {
             customer.errors.rejectValue("street", null, "O campo rua é obrigatório")
         }
 
-        if(!parsedParams.neighborhood) {
+        if (!parsedParams.neighborhood) {
             customer.errors.rejectValue("neighborhood", null, "O campo bairro é obrigatório")
         }
 
-        if(!parsedParams.number) {
+        if (!parsedParams.number) {
             customer.errors.rejectValue("number", null, "O campo número de residência é obrigatório")
         } else if (!StringUtils.containsOnlyNumbers(parsedParams.number)) {
             customer.errors.rejectValue("number", null, "O número de residência é inválido")
         }
 
-        if(!parsedParams.complement) {
+        if (!parsedParams.complement) {
             customer.errors.rejectValue("complement", null, "O campo complemento é obrigatório")
         }
 
-        if(!parsedParams.city) {
+        if (!parsedParams.city) {
             customer.errors.rejectValue("city", null, "O campo cidade é obrigatório")
         } else if (!StringUtils.isValidString(parsedParams.city)) {
             customer.errors.rejectValue("city", null, "A cidade informado é inválida")
         }
 
-        if(!parsedParams.state) {
+        if (!parsedParams.state) {
             customer.errors.rejectValue("state", null, "O campo estado é obrigatório")
         } else if (!StringUtils.isValidString(parsedParams.state)) {
             customer.errors.rejectValue("state", null, "O estado informado é inválido")
@@ -118,7 +118,7 @@ class CustomerService {
         String sanitizedCpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(cpfCnpj)
         Customer customer = Customer.findByCpfCnpj(sanitizedCpfCnpj)
 
-        if(customer == null) return false
+        if (customer == null) return false
 
         return true
     }
