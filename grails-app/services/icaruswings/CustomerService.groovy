@@ -27,17 +27,17 @@ class CustomerService {
         return customer
     }
 
-    public Customer update(CustomerAdapter customerAdapter) {
+    public Customer update(CustomerAdapter customerAdapter) {        
+        Long id = Long.parseLong(customerAdapter.id)
+        Customer customer = Customer.get(id)
 
         Customer validateCustomer = validateDefaultFields(customerAdapter)
+
+        if (!customer) throw new RuntimeException("Customer não encontrado")
 
         if (validateCustomer.hasErrors()) {
             throw new ValidationException("Não foi possível salvar o cliente", validateCustomer.errors)
         }
-
-        Long id = Long.parseLong(customerAdapter.id)
-
-        Customer customer = Customer.get(id)
 
         editCustomer(customerAdapter, customer)
 
