@@ -34,4 +34,18 @@ class PayerController {
             render "Pagador não encontrado"
         }
     }
+
+    def delete() {
+        try {
+            Long id = Long.parseLong(params.id)
+
+            payerService.delete(id)
+        } catch (RuntimeException runtimeException) {
+            flash.errors = [runtimeException.getMessage()]
+        } catch (Exception e) {
+            flash.errors = ["Erro ao deletar o pagador"]
+        }
+        flash.message = "Pagador deletado com sucesso"
+        redirect(action: "index")
+    }
 }

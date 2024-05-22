@@ -4,6 +4,7 @@ import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 import icaruswings.utils.PersonType
 import icaruswings.utils.adapters.PayerAdapter
+import icaruswings.utils.repositories.PayerRepository
 import icaruswings.utils.validations.ValidateCpfCnpj
 import icaruswings.utils.validations.ValidateEmail
 import icaruswings.utils.validations.ValidatePhone
@@ -25,6 +26,18 @@ class PayerService {
         payer.save(failOnError: true)
 
         return payer
+    }
+
+    public void delete(Long id){
+        Payer payer = PayerRepository.query([:]).get()
+
+        if(!payer) throw new RuntimeException("Esse pagador não existe")
+
+        if(payer.deleted) throw new RuntimeException("O pagador já foi deletado")
+
+        payer.deleted = true
+
+        payer.save(failOnError: true)
     }
 
     private Payer validatePayerParams(PayerAdapter payerAdapter) {

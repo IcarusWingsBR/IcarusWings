@@ -7,15 +7,22 @@ class PayerRepository implements Repository<Payer, PayerRepository> {
 
     @Override
     void buildCriteria() {
+        addCriteria {
+            if (search.containsKey("id")) {
+                eq("id", Boolean.valueOf(search.id.toString()))
+            }
+        }
     }
 
     @Override
     List<String> listAllowedFilters() {
-        return null
+        return [
+                "id"
+        ]
     }
 
     @Override
     BuildableCriteria getBuildableCriteria() {
-        return null
+        return Payer.createCriteria()
     }
 }
