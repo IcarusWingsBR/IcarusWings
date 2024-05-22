@@ -119,7 +119,7 @@ class CustomerService {
 
         customer.complement = customerAdapter.complement
 
-        if(ValidateCpfCnpj.isCPF(customerAdapter.cpfCnpj)) {
+        if (ValidateCpfCnpj.isCPF(customerAdapter.cpfCnpj)) {
             customer.personType = PersonType.NATURAL
         } else if (ValidateCpfCnpj.isCNPJ(customerAdapter.cpfCnpj)) {
             customer.personType = PersonType.LEGAL
