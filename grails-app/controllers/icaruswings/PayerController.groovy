@@ -41,6 +41,8 @@ class PayerController {
 
             redirect(action: "show", id: payer.id)
         } catch (Exception e) {
+            log.error("Erro no update", e)
+
             redirect(action: "index", params: params)
         }
     }
