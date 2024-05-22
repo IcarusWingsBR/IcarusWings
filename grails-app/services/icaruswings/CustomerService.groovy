@@ -27,7 +27,7 @@ class CustomerService {
 
         customer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(parsedParams.cpfCnpj)
 
-        if(ValidateCpfCnpj.isCPF(parsedParams.cpfCnpj)) {
+        if (ValidateCpfCnpj.isCPF(parsedParams.cpfCnpj)) {
             customer.personType = PersonType.NATURAL
         } else if (ValidateCpfCnpj.isCNPJ(parsedParams.cpfCnpj)) {
             customer.personType = PersonType.LEGAL
