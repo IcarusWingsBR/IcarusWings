@@ -38,7 +38,7 @@ class CustomerService {
 
         if (!customerAdapter.email) {
             customer.errors.rejectValue("email", null, "O campo email é obrigatório")
-        } else if(!ValidateEmail.isValidEmail(customerAdapter.email)){
+        } else if (!ValidateEmail.isValidEmail(parsedParams.email)){
             customer.errors.rejectValue("email", null, "O email informado é inválido")
         }
 
@@ -46,7 +46,7 @@ class CustomerService {
             customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
         } else if (!ValidateCpfCnpj.isCPF(customerAdapter.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(customerAdapter.cpfCnpj)) {
             customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
-        } else if(checkIfCpfOrCnpjExists(customerAdapter.cpfCnpj)) {
+        } else if (checkIfCpfOrCnpjExists(parsedParams.cpfCnpj)) {
             customer.errors.rejectValue("cpfCnpj", null, "O Cpf/Cnpj já está cadastrado")
         }
 
