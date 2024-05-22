@@ -1,79 +1,47 @@
-function searchZipCode(value) {
-    let zipCode = value.replace(/\D/g, '')
+function searchPostalCode(value) {
+    let postalCode = value.replace(/\D/g, '');
 
-    if(isZipCodeEmpty(zipCode)) return
+    if (isPostalCodeEmpty(postalCode)) return;
  
-    if(!validateZipCodeFormat(zipCode)) return
+    if (!validatePostalCodeFormat(postalCode)) return;
 
-    setInputValuesToPending()
+    setInputValuesToPending();
 
-    let script = document.createElement('script')
+    let script = document.createElement('script');
 
-    script.src = 'https://viacep.com.br/ws/'+ zipCode + '/json/?callback=zipCodeCallback'
+    script.src = 'https://viacep.com.br/ws/'+ postalCode + '/json/?callback=postalCodeCallback';
 
-    document.body.appendChild(script)
+    document.body.appendChild(script);
 }
 
-function isZipCodeEmpty(zipCode) {
-    if(zipCode != "") return false
+function isPostalCodeEmpty(postalCode) {
+    if (postalCode != "") return false;
 
-    clearZipCodeFormat()
+    clearPostalCodeFormat();
 
-    return true
+    return true;
 }
 
-function clearZipCodeFormat() {
-    document.getElementById('street').value=("")
-    document.getElementById('neighborhood').value=("")
-    document.getElementById('city').value=("")
-    document.getElementById('state').value=("")
-}
-
-function validateZipCodeFormat(zipCode) {
-    let validacep = /^[0-9]{8}$/ 
+function validatePostalCodeFormat(postalCode) {
+    let validatePostalCode = /^[0-9]{8}$/;
     
-    if(!validacep.test(zipCode)) {
-        clearZipCodeFormat()
-        alert("Formato de CEP inválido.")
+    if (!validatePostalCode.test(postalCode)) {
+        clearPostalCodeFormat();
+        alert("Formato de CEP inválido.");
 
-        return false
+        return false;
     }
 
-    return true
-}
-
-function setInputValuesToPending() {
-    document.getElementById('street').value="Aguardando"
-    document.getElementById('neighborhood').value="Aguardando"
-    document.getElementById('city').value="Aguardando"
-    document.getElementById('state').value="Aguardando"
-}
-
-function zipCodeCallback(content) {
-    if(!isContentValid(content)) return
-
-    document.getElementById('street').value=(content.logradouro)
-    document.getElementById('neighborhood').value=(content.bairro)
-    document.getElementById('city').value=(content.localidade)
-    document.getElementById('state').value=(content.uf)
-
-    disableInputs()
+    return true;
 }
 
 function isContentValid(content) {
-    if("erro" in content) {
-        clearZipCodeFormat()
-        alert("CEP não encontrado.")
+    if ("erro" in content) {
+        clearPostalCodeFormat();
+        alert("CEP não encontrado.");
 
-        return false
+        return false;
     }
 
-    return true
-}
-
-function disableInputs() {
-    document.getElementById('street').readOnly = true
-    document.getElementById('neighborhood').readOnly = true
-    document.getElementById('city').readOnly = true
-    document.getElementById('state').readOnly = true
+    return true;
 }
