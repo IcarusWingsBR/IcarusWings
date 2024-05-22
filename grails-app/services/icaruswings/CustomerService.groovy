@@ -30,11 +30,11 @@ class CustomerService {
     private Customer validateSave(CustomerAdapter customerAdapter) {
         Customer customer = validateDefaultFields(customerAdapter)
 
-        if(!customerAdapter.cpfCnpj) {
+        if (!customerAdapter.cpfCnpj) {
             customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
         } else if (!ValidateCpfCnpj.isCPF(customerAdapter.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(customerAdapter.cpfCnpj)) {
             customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
-        } else if(checkIfCpfOrCnpjExists(customerAdapter.cpfCnpj)) {
+        } else if (checkIfCpfOrCnpjExists(customerAdapter.cpfCnpj)) {
             customer.errors.rejectValue("cpfCnpj", null, "O Cpf/Cnpj já está cadastrado")
         }
 
