@@ -14,10 +14,13 @@ class PayerController {
 
     def save() {
         try {
-            Payer payer = payerService.save(new PayerAdapter(params))
+            PayerAdapter payerAdapter = new PayerAdapter(params)
+            Payer payer = payerService.save(payerAdapter)
 
             redirect(action: "show", id: payer.id)
         } catch (Exception e) {
+            log.error("Erro ao salvar pagador", e)
+
             redirect(action: "index", params: params)
         }
     }
