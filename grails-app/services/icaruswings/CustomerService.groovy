@@ -27,19 +27,19 @@ class CustomerService {
 
         customer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(customerAdapter.cpfCnpj)
 
-        customer.cep = customerAdapter.cep
+        customer.cep = customerAdapter.postalCode
 
-        customer.street = customerAdapter.street
+        customer.street = customerAdapter.address
 
-        customer.neighborhood = customerAdapter.neighborhood
+        customer.neighborhood = customerAdapter.province
 
         customer.city = customerAdapter.city
 
         customer.state = customerAdapter.state
 
-        customer.number = Integer.parseInt(customerAdapter.number)
+        customer.number = Integer.parseInt(customerAdapter.addressNumber)
 
-        customer.complement = customerAdapter.complement
+        customer.complement = customerAdapter.addressComplement
 
         if (ValidateCpfCnpj.isCPF(customerAdapter.cpfCnpj)) {
             customer.personType = PersonType.NATURAL
@@ -75,27 +75,27 @@ class CustomerService {
             customer.errors.rejectValue("cpfCnpj", null, "O Cpf/Cnpj já está cadastrado")
         }
 
-        if (!customerAdapter.cep) {
+        if (!customerAdapter.postalCode) {
             customer.errors.rejectValue("cep", null, "O campo cep é obrigatório")
-        } else if (!PostalCodeValidator.isValid(customerAdapter.cep)) {
+        } else if (!PostalCodeValidator.isValid(customerAdapter.postalCode)) {
             customer.errors.rejectValue("cep", null, "O cep inserido é inválido")
         }
 
-        if (!customerAdapter.street) {
+        if (!customerAdapter.address) {
             customer.errors.rejectValue("street", null, "O campo rua é obrigatório")
         }
 
-        if (!customerAdapter.neighborhood) {
+        if (!customerAdapter.province) {
             customer.errors.rejectValue("neighborhood", null, "O campo bairro é obrigatório")
         }
 
-        if (!customerAdapter.number) {
+        if (!customerAdapter.addressNumber) {
             customer.errors.rejectValue("number", null, "O campo número de residência é obrigatório")
-        } else if (!StringUtils.containsOnlyNumbers(customerAdapter.number)) {
+        } else if (!StringUtils.containsOnlyNumbers(customerAdapter.addressNumber)) {
             customer.errors.rejectValue("number", null, "O número de residência é inválido")
         }
 
-        if (!customerAdapter.complement) {
+        if (!customerAdapter.addressComplement) {
             customer.errors.rejectValue("complement", null, "O campo complemento é obrigatório")
         }
 
