@@ -28,19 +28,19 @@ class PayerService {
 
         payer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(payerAdapter.cpfCnpj)
 
-        payer.cep = payerAdapter.cep
+        payer.cep = payerAdapter.postalCode
 
-        payer.street = payerAdapter.street
+        payer.street = payerAdapter.address
 
-        payer.neighborhood = payerAdapter.neighborhood
+        payer.neighborhood = payerAdapter.province
 
         payer.city = payerAdapter.city
 
         payer.state = payerAdapter.state
 
-        payer.number = Integer.parseInt(payerAdapter.number)
+        payer.number = Integer.parseInt(payerAdapter.addressNumber)
 
-        payer.complement = payerAdapter.complement
+        payer.complement = payerAdapter.addressComplement
 
         payer.customer = payerAdapter.customer
 
@@ -84,27 +84,27 @@ class PayerService {
             payer.errors.rejectValue("phoneNumber", null, "O numero de telefone inserido é inválido")
         }
 
-        if (!payerAdapter.cep) {
+        if (!payerAdapter.postalCode) {
             payer.errors.rejectValue("cep", null, "O campo cep é obrigatório")
-        } else if (!PostalCodeValidator.isValid(payerAdapter.cep)) {
+        } else if (!PostalCodeValidator.isValid(payerAdapter.postalCode)) {
             payer.errors.rejectValue("cep", null, "O cep inserido é inválido")
         }
 
-        if (!payerAdapter.street) {
+        if (!payerAdapter.address) {
             payer.errors.rejectValue("street", null, "O campo rua é obrigatório")
         }
 
-        if (!payerAdapter.neighborhood) {
+        if (!payerAdapter.province) {
             payer.errors.rejectValue("neighborhood", null, "O campo bairro é obrigatório")
         }
         
-        if (!payerAdapter.number) {
+        if (!payerAdapter.addressNumber) {
             payer.errors.rejectValue("number", null, "O campo número de residência é obrigatório")
-        } else if (!StringUtils.containsOnlyNumbers(payerAdapter.number)) {
+        } else if (!StringUtils.containsOnlyNumbers(payerAdapter.addressNumber)) {
             payer.errors.rejectValue("number", null, "O número de residência é inválido")
         }
 
-        if (!payerAdapter.complement) {
+        if (!payerAdapter.addressComplement) {
             payer.errors.rejectValue("complement", null, "O campo complemento é obrigatório")
         }
 

@@ -11,19 +11,19 @@ class PayerAdapter {
 
     String cpfCnpj
 
-    String cep
+    String postalCode
 
-    String street
+    String address
 
-    String neighborhood
+    String province
 
     String city
 
     String state
 
-    String number
+    String addressNumber
 
-    String complement
+    String addressComplement
 
     Customer customer
 
@@ -38,19 +38,19 @@ class PayerAdapter {
 
         this.cpfCnpj = params.cpfCnpj
 
-        this.cep = params.cep
+        this.postalCode = params.cep
 
-        this.street = params.street
+        this.address = params.street
 
-        this.neighborhood = params.neighborhood
+        this.province = params.neighborhood
 
         this.city = params.city
 
         this.state = params.state
 
-        this.number = params.number
+        this.addressNumber = params.number
 
-        this.complement = params.complement
+        this.addressComplement = params.complement
 
         this.customer = Customer.get(params.customerId)
 
