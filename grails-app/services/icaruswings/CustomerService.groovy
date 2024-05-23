@@ -3,18 +3,16 @@ package icaruswings
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 import icaruswings.utils.PersonType
-import icaruswings.utils.adapters.CustomerAdapter
-import icaruswings.utils.validations.ValidateCep
-import icaruswings.utils.validations.ValidateCpfCnpj
-import icaruswings.utils.validations.StringUtils
-import icaruswings.utils.validations.ValidateEmail
+import icaruswings.utils.validator.ValidateCpfCnpj
+import icaruswings.utils.validator.StringUtils
+import icaruswings.utils.validator.ValidateEmail
+import icaruswings.utils.validator.PostalCodeValidator
 
 @Transactional
 class CustomerService {
 
     public Customer save(CustomerAdapter customerAdapter) {
-
-        Customer validateCustomer = validateCustomerParams(customerAdapter)
+        Customer validateCustomer = validateSave(customerAdapter)
 
         if (validateCustomer.hasErrors()) {
             throw new ValidationException("Não foi possível salvar o cliente", validateCustomer.errors)
@@ -27,7 +25,7 @@ class CustomerService {
         return customer
     }
 
-    private Customer validateCustomerParams(CustomerAdapter customerAdapter) {
+    private Customer validateSave(CustomerAdapter customerAdapter) {
         Customer customer = new Customer()
 
         if (!customerAdapter.name) {
@@ -52,7 +50,7 @@ class CustomerService {
 
         if (!customerAdapter.cep) {
             customer.errors.rejectValue("cep", null, "O campo cep é obrigatório")
-        } else if (!ValidateCep.isValidCep(customerAdapter.cep)) {
+        } else if (!PostalCodeValidator.isValid(customerAdapter.cep)) {
             customer.errors.rejectValue("cep", null, "O cep inserido é inválido")
         }
 
