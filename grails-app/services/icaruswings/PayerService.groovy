@@ -20,7 +20,37 @@ class PayerService {
             throw new ValidationException("Não foi possível salvar o pagador", validatePayer.errors)
         }
 
-        Payer payer = createPayerFromAdapter(payerAdapter, new Payer())
+        Payer payer = new Payer()
+
+        payer.name = payerAdapter.name
+
+        payer.email = payerAdapter.email
+
+        payer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(payerAdapter.cpfCnpj)
+
+        payer.cep = payerAdapter.cep
+
+        payer.street = payerAdapter.street
+
+        payer.neighborhood = payerAdapter.neighborhood
+
+        payer.city = payerAdapter.city
+
+        payer.state = payerAdapter.state
+
+        payer.number = Integer.parseInt(payerAdapter.number)
+
+        payer.complement = payerAdapter.complement
+
+        payer.customer = payerAdapter.customer
+
+        payer.phoneNumber = payerAdapter.phoneNumber
+
+        if (ValidateCpfCnpj.isCPF(payerAdapter.cpfCnpj)) {
+            payer.personType = PersonType.NATURAL
+        } else if (ValidateCpfCnpj.isCNPJ(payerAdapter.cpfCnpj)) {
+            payer.personType = PersonType.LEGAL
+        }
 
         payer.save(failOnError: true)
 
@@ -105,39 +135,5 @@ class PayerService {
         if (!customer || customer.deleted) return false
 
         return true
-    }
-
-    private Payer createPayerFromAdapter(PayerAdapter payerAdapter, Payer payer) {
-        payer.name = payerAdapter.name
-
-        payer.email = payerAdapter.email
-
-        payer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(payerAdapter.cpfCnpj)
-
-        payer.cep = payerAdapter.cep
-
-        payer.street = payerAdapter.street
-
-        payer.neighborhood = payerAdapter.neighborhood
-
-        payer.city = payerAdapter.city
-
-        payer.state = payerAdapter.state
-
-        payer.number = Integer.parseInt(payerAdapter.number)
-
-        payer.complement = payerAdapter.complement
-
-        payer.customer = payerAdapter.customer
-
-        payer.phoneNumber = payerAdapter.phoneNumber
-
-        if (ValidateCpfCnpj.isCPF(payerAdapter.cpfCnpj)) {
-            payer.personType = PersonType.NATURAL
-        } else if (ValidateCpfCnpj.isCNPJ(payerAdapter.cpfCnpj)) {
-            payer.personType = PersonType.LEGAL
-        }
-
-        return payer
     }
 }
