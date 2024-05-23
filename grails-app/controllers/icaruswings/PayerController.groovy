@@ -38,7 +38,7 @@ class PayerController {
 
     def delete() {
         try {
-            Long id = Long.parseLong(params.id)
+            Long id = Long.valueOf(params.id)
 
             payerService.delete(id)
         } catch (RuntimeException runtimeException) {
