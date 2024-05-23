@@ -3,7 +3,6 @@ package icaruswings.utils.validator
 import groovyx.net.http.HttpResponseDecorator
 import groovyx.net.http.RESTClient
 import io.micronaut.http.HttpStatus
-
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -32,8 +31,6 @@ class PostalCodeValidator {
             return true
         } catch (Exception exception) {
             log.error("Erro ao validar CEP: ${exception.message}", exception)
-
-            println log.error("Erro ao validar CEP: ${exception.message}", exception)
 
             return false
         }
