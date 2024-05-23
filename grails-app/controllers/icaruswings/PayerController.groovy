@@ -41,12 +41,19 @@ class PayerController {
             Long id = Long.valueOf(params.id)
 
             payerService.delete(id)
+
+            flash.type = "success"
+            flash.message = "Pagador deletado com sucesso"
         } catch (RuntimeException runtimeException) {
             flash.errors = [runtimeException.getMessage()]
-        } catch (Exception e) {
+        } catch (Exception exception) {
             flash.errors = ["Erro ao deletar o pagador"]
+        } catch (Exception exception) {
+            log.error("PayerController.save >> Erro ao atualizar um payer ${params}", exception)
+
+            redirect(action: "index", params: params)
+        } finally {
+            redirect(action: "index")
         }
-        flash.message = "Pagador deletado com sucesso"
-        redirect(action: "index")
     }
 }
