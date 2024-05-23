@@ -1,13 +1,13 @@
 function clearPostalCodeFormat() {
-    document.getElementById('street').value=("");
-    document.getElementById('neighborhood').value=("");
+    document.getElementById('address').value=("");
+    document.getElementById('province').value=("");
     document.getElementById('city').value=("");
     document.getElementById('state').value=("");
 }
 
 function setInputValuesToPending() {
-    document.getElementById('street').value="Aguardando";
-    document.getElementById('neighborhood').value="Aguardando";
+    document.getElementById('address').value="Aguardando";
+    document.getElementById('province').value="Aguardando";
     document.getElementById('city').value="Aguardando";
     document.getElementById('state').value="Aguardando";
 }
@@ -15,8 +15,8 @@ function setInputValuesToPending() {
 function postalCodeCallback(content) {
     if (!isContentValid(content)) return;
 
-    document.getElementById('street').value=(content.logradouro);
-    document.getElementById('neighborhood').value=(content.bairro);
+    document.getElementById('address').value=(content.logradouro);
+    document.getElementById('province').value=(content.bairro);
     document.getElementById('city').value=(content.localidade);
     document.getElementById('state').value=(content.uf);
 
@@ -24,8 +24,8 @@ function postalCodeCallback(content) {
 }
 
 function disableInputs() {
-    document.getElementById('street').readOnly = true;
-    document.getElementById('neighborhood').readOnly = true;
+    document.getElementById('address').readOnly = true;
+    document.getElementById('province').readOnly = true;
     document.getElementById('city').readOnly = true;
     document.getElementById('state').readOnly = true;
 }
