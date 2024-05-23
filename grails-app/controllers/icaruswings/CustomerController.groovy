@@ -14,8 +14,8 @@ class CustomerController {
             Customer customer = customerService.save(customerAdapter)
 
             redirect(action: "show", id: customer.id)
-        } catch (Exception e) {
-            log.error("Erro ao criar customer", e)
+        } catch (Exception exception) {
+            log.error("CustomerController.save >> Erro ao criar customer ${params}", exception)
 
             redirect(action: "index", params: params)
         }
