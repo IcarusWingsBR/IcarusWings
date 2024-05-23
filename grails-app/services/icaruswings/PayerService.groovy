@@ -14,7 +14,7 @@ import icaruswings.utils.validator.StringUtils
 class PayerService {
     public Payer save(PayerAdapter payerAdapter) {
 
-        Payer validatePayer = validateDefaultFields(payerAdapter)
+        Payer validatePayer = validateSave(payerAdapter)
 
         if (validatePayer.hasErrors()) {
             throw new ValidationException("Não foi possível salvar o pagador", validatePayer.errors)
@@ -27,7 +27,7 @@ class PayerService {
         return payer
     }
 
-    private Payer validateDefaultFields(PayerAdapter payerAdapter) {
+    private Payer validateSave(PayerAdapter payerAdapter) {
         Payer payer = new Payer()
         
         if (!payerAdapter.cpfCnpj) {
