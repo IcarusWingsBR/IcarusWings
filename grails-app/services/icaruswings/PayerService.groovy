@@ -3,17 +3,17 @@ package icaruswings
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 import icaruswings.utils.PersonType
-import icaruswings.utils.validations.ValidateCpfCnpj
-import icaruswings.utils.validations.ValidateEmail
-import icaruswings.utils.validations.ValidatePhone
-import icaruswings.utils.validations.StringUtils
-import icaruswings.utils.validations.ValidateCep
+import icaruswings.utils.validator.PostalCodeValidator
+import icaruswings.utils.validator.ValidateCpfCnpj
+import icaruswings.utils.validator.ValidateEmail
+import icaruswings.utils.validator.ValidatePhone
+import icaruswings.utils.validator.StringUtils
 
 @Transactional
 class PayerService {
     public Payer save(Map parsedParams) {
         
-        Payer validatePayer = validatePayerParams(parsedParams)
+        Payer validatePayer = validateSave(parsedParams)
 
         if (validatePayer.hasErrors()) {
             throw new ValidationException("Não foi possível salvar o pagador", validatePayer.errors)
@@ -25,13 +25,9 @@ class PayerService {
 
         payer.email = parsedParams.email
 
-        payer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(parsedParams.cpfCnpj)
+        payer.cpfCnpj = parsedParams.cpfCnpj
 
-        if (ValidateCpfCnpj.isCPF(parsedParams.cpfCnpj)) {
-            payer.personType = PersonType.NATURAL
-        } else if (ValidateCpfCnpj.isCNPJ(parsedParams.cpfCnpj)) {
-            payer.personType = PersonType.LEGAL
-        }
+        payer.personType = PersonType.NATURAL
 
         payer.cep = parsedParams.cep
 
@@ -56,7 +52,7 @@ class PayerService {
         return payer
     }
 
-    private Payer validatePayerParams(Map parsedParams) {
+    private Payer validateSave(Map parsedParams) {
         Payer payer = new Payer()
         
         if (!parsedParams.cpfCnpj) {
@@ -85,7 +81,7 @@ class PayerService {
 
         if (!parsedParams.cep) {
             payer.errors.rejectValue("cep", null, "O campo cep é obrigatório")
-        } else if (!ValidateCep.isValidCep(parsedParams.cep)) {
+        } else if (!PostalCodeValidator.isValid(parsedParams.cep)) {
             payer.errors.rejectValue("cep", null, "O cep inserido é inválido")
         }
 
