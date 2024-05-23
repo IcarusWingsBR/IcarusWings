@@ -4,23 +4,53 @@ import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 import icaruswings.utils.PersonType
 import icaruswings.utils.adapters.PayerAdapter
-import icaruswings.utils.validations.ValidateCpfCnpj
-import icaruswings.utils.validations.ValidateEmail
-import icaruswings.utils.validations.ValidatePhone
-import icaruswings.utils.validations.StringUtils
-import icaruswings.utils.validations.ValidateCep
+import icaruswings.utils.validator.PostalCodeValidator
+import icaruswings.utils.validator.ValidateCpfCnpj
+import icaruswings.utils.validator.ValidateEmail
+import icaruswings.utils.validator.ValidatePhone
+import icaruswings.utils.validator.StringUtils
 
 @Transactional
 class PayerService {
     public Payer save(PayerAdapter payerAdapter) {
 
-        Payer validatePayer = validateDefaultFields(payerAdapter)
+        Payer validatePayer = validateSave(payerAdapter)
 
         if (validatePayer.hasErrors()) {
             throw new ValidationException("Não foi possível salvar o pagador", validatePayer.errors)
         }
 
-        Payer payer = createPayerFromAdapter(payerAdapter, new Payer())
+        Payer payer = new Payer()
+
+        payer.name = payerAdapter.name
+
+        payer.email = payerAdapter.email
+
+        payer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(payerAdapter.cpfCnpj)
+
+        payer.cep = payerAdapter.postalCode
+
+        payer.street = payerAdapter.address
+
+        payer.neighborhood = payerAdapter.province
+
+        payer.city = payerAdapter.city
+
+        payer.state = payerAdapter.state
+
+        payer.number = Integer.parseInt(payerAdapter.addressNumber)
+
+        payer.complement = payerAdapter.addressComplement
+
+        payer.customer = payerAdapter.customer
+
+        payer.phoneNumber = payerAdapter.phoneNumber
+
+        if (ValidateCpfCnpj.isCPF(payerAdapter.cpfCnpj)) {
+            payer.personType = PersonType.NATURAL
+        } else if (ValidateCpfCnpj.isCNPJ(payerAdapter.cpfCnpj)) {
+            payer.personType = PersonType.LEGAL
+        }
 
         payer.save(failOnError: true)
 
@@ -46,7 +76,7 @@ class PayerService {
         return payer
     }
 
-    private Payer validateDefaultFields(PayerAdapter payerAdapter) {
+    private Payer validateSave(PayerAdapter payerAdapter) {
         Payer payer = new Payer()
         
         if (!payerAdapter.cpfCnpj) {
@@ -73,27 +103,27 @@ class PayerService {
             payer.errors.rejectValue("phoneNumber", null, "O numero de telefone inserido é inválido")
         }
 
-        if (!payerAdapter.cep) {
+        if (!payerAdapter.postalCode) {
             payer.errors.rejectValue("cep", null, "O campo cep é obrigatório")
-        } else if (!ValidateCep.isValidCep(payerAdapter.cep)) {
+        } else if (!PostalCodeValidator.isValid(payerAdapter.postalCode)) {
             payer.errors.rejectValue("cep", null, "O cep inserido é inválido")
         }
 
-        if (!payerAdapter.street) {
+        if (!payerAdapter.address) {
             payer.errors.rejectValue("street", null, "O campo rua é obrigatório")
         }
 
-        if (!payerAdapter.neighborhood) {
+        if (!payerAdapter.province) {
             payer.errors.rejectValue("neighborhood", null, "O campo bairro é obrigatório")
         }
         
-        if (!payerAdapter.number) {
+        if (!payerAdapter.addressNumber) {
             payer.errors.rejectValue("number", null, "O campo número de residência é obrigatório")
-        } else if (!StringUtils.containsOnlyNumbers(payerAdapter.number)) {
+        } else if (!StringUtils.containsOnlyNumbers(payerAdapter.addressNumber)) {
             payer.errors.rejectValue("number", null, "O número de residência é inválido")
         }
 
-        if (!payerAdapter.complement) {
+        if (!payerAdapter.addressComplement) {
             payer.errors.rejectValue("complement", null, "O campo complemento é obrigatório")
         }
 
@@ -125,39 +155,4 @@ class PayerService {
 
         return true
     }
-
-    private Payer createPayerFromAdapter(PayerAdapter payerAdapter, Payer payer) {
-        payer.name = payerAdapter.name
-
-        payer.email = payerAdapter.email
-
-        payer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(payerAdapter.cpfCnpj)
-
-        payer.cep = payerAdapter.cep
-
-        payer.street = payerAdapter.street
-
-        payer.neighborhood = payerAdapter.neighborhood
-
-        payer.city = payerAdapter.city
-
-        payer.state = payerAdapter.state
-
-        payer.number = Integer.parseInt(payerAdapter.number)
-
-        payer.complement = payerAdapter.complement
-
-        payer.customer = payerAdapter.customer
-
-        payer.phoneNumber = payerAdapter.phoneNumber
-
-        if (ValidateCpfCnpj.isCPF(payerAdapter.cpfCnpj)) {
-            payer.personType = PersonType.NATURAL
-        } else if (ValidateCpfCnpj.isCNPJ(payerAdapter.cpfCnpj)) {
-            payer.personType = PersonType.LEGAL
-        }
-
-        return payer
-    }
 }
-
