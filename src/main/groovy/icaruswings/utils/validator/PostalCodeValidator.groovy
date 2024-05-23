@@ -2,7 +2,7 @@ package icaruswings.utils.validator
 
 import groovyx.net.http.RESTClient
 
-class ValidateCep {
+class PostalCodeValidator {
 
     public static Boolean isValidCep(String cep) {
         if (!StringUtils.containsOnlyNumbers(cep)) return false
