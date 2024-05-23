@@ -4,11 +4,11 @@ import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 import icaruswings.utils.PersonType
 import icaruswings.utils.adapters.PayerAdapter
-import icaruswings.utils.validations.ValidateCpfCnpj
-import icaruswings.utils.validations.ValidateEmail
-import icaruswings.utils.validations.ValidatePhone
-import icaruswings.utils.validations.StringUtils
-import icaruswings.utils.validations.ValidateCep
+import icaruswings.utils.validator.PostalCodeValidator
+import icaruswings.utils.validator.ValidateCpfCnpj
+import icaruswings.utils.validator.ValidateEmail
+import icaruswings.utils.validator.ValidatePhone
+import icaruswings.utils.validator.StringUtils
 
 @Transactional
 class PayerService {
@@ -56,7 +56,7 @@ class PayerService {
 
         if (!payerAdapter.cep) {
             payer.errors.rejectValue("cep", null, "O campo cep é obrigatório")
-        } else if (!ValidateCep.isValidCep(payerAdapter.cep)) {
+        } else if (!PostalCodeValidator.isValid(payerAdapter.cep)) {
             payer.errors.rejectValue("cep", null, "O cep inserido é inválido")
         }
 
