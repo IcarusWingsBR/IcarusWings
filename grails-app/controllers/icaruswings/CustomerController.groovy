@@ -1,5 +1,7 @@
 package icaruswings
 
+import icaruswings.utils.adapters.CustomerAdapter
+
 class CustomerController {
 
     def customerService
@@ -8,35 +10,14 @@ class CustomerController {
 
     def save() {
         try {
-            Map parsedParams = [
-                    name: params.name,
-
-                    email: params.email,
-
-                    cpfCnpj: params.cpfCnpj,
-
-                    cep: params.cep,
-
-                    street: params.street,
-
-                    neighborhood: params.neighborhood,
-
-                    city: params.city,
-
-                    state: params.state,
-
-                    number: params.number,
-
-                    complement: params.complement,
-
-                    personType: params.personType,
-            ]
-
-            Customer customer = customerService.save(parsedParams)
+            CustomerAdapter customerAdapter = new CustomerAdapter(params)
+            Customer customer = customerService.save(customerAdapter)
 
             redirect(action: "show", id: customer.id)
-        } catch (Exception e) {
-            redirect(action: "index", params : params)
+        } catch (Exception exception) {
+            log.error("CustomerController.save >> Erro ao criar customer ${params}", exception)
+
+            redirect(action: "index", params: params)
         }
     }
 
