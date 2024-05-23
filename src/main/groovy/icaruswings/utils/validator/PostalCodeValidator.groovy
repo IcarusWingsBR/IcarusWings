@@ -1,8 +1,15 @@
 package icaruswings.utils.validator
 
+import groovyx.net.http.HttpResponseDecorator
 import groovyx.net.http.RESTClient
+import io.micronaut.http.HttpStatus
+
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 class PostalCodeValidator {
+
+    private static final Logger log = LoggerFactory.getLogger(PostalCodeValidator.class)
 
     public static Boolean isValid(String postalCode) {
         if (!StringUtils.containsOnlyNumbers(postalCode)) return false
@@ -13,22 +20,22 @@ class PostalCodeValidator {
     }
 
     private static Boolean isValidOnViacep(String postalCode) {
-        def apiUrl = "https://viacep.com.br/ws/${postalCode}/json/"
-        def restClient = new RESTClient(apiUrl)
-        def response
-        
         try {
-            response = restClient.get(path: '', contentType: groovyx.net.http.ContentType.JSON)
-        } catch (Exception e) {
-            throw new RuntimeException("Erro ao validar CEP: ${e.message}", e)
+            String apiUrl = "https://viacep.com.br/ws/${postalCode}/json/"
+            RESTClient restClient = new RESTClient(apiUrl)
+            HttpResponseDecorator apiResponse = restClient.get(path: '', contentType: groovyx.net.http.ContentType.JSON)
+
+            if (apiResponse.status != HttpStatus.OK.code) return false
+
+            if (apiResponse.data.erro) return false
+
+            return true
+        } catch (Exception exception) {
+            log.error("Erro ao validar CEP: ${exception.message}", exception)
+
+            println log.error("Erro ao validar CEP: ${exception.message}", exception)
 
             return false
         }
-
-        if (response.status != 200) return false
-        
-        if (response.data.erro) return false
-
-        return true
     }
 }
