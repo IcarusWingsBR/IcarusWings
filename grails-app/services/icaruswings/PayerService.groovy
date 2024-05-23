@@ -57,6 +57,26 @@ class PayerService {
         return payer
     }
 
+    public Payer update(PayerAdapter payerAdapter) {
+        Long id = Long.valueOf(payerAdapter.id)
+        Payer payer = Payer.get(id)
+
+        if (!payer) throw new RuntimeException("Pagador nao encontrado")
+
+        Payer validatedPayer = validateSave(payerAdapter)
+
+        if (validatedPayer.hasErrors()) {
+            throw new ValidationException("Não foi possível salvar o pagador", validatePayer.errors)
+        }
+
+        payer.properties = payerAdapter.properties
+
+        payer.save(failOnError: true)
+
+        return payer
+    }
+
+
     private Payer validateSave(PayerAdapter payerAdapter) {
         Payer payer = new Payer()
         

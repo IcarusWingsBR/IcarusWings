@@ -18,7 +18,9 @@ class PayerController {
             Payer payer = payerService.save(payerAdapter)
 
             redirect(action: "show", id: payer.id)
-        } catch (Exception e) {
+        } catch (Exception exception) {
+            log.error("PayerController.save >> Erro ao criar payer ${params}", exception)
+
             redirect(action: "index", params: params)
         }
     }
@@ -33,6 +35,18 @@ class PayerController {
             return [payer: payer]
         } catch (Exception e) {
             render "Pagador não encontrado"
+        }
+    }
+
+    def update() {
+        try {
+            Payer payer = payerService.update(new PayerAdapter(params))
+
+            redirect(action: "show", id: payer.id)
+        } catch (Exception e) {
+            log.error("Erro no update", e)
+
+            redirect(action: "index", params: params)
         }
     }
 }
