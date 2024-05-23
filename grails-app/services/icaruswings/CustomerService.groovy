@@ -3,17 +3,16 @@ package icaruswings
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 import icaruswings.utils.PersonType
-import icaruswings.utils.validations.ValidateCpfCnpj
-import icaruswings.utils.validations.StringUtils
-import icaruswings.utils.validations.ValidateEmail
-import icaruswings.utils.validations.ValidateCep
+import icaruswings.utils.validator.ValidateCpfCnpj
+import icaruswings.utils.validator.StringUtils
+import icaruswings.utils.validator.ValidateEmail
+import icaruswings.utils.validator.PostalCodeValidator
 
 @Transactional
 class CustomerService {
 
     public Customer save(Map parsedParams) {
-
-        Customer validateCustomer = validateCustomerParams(parsedParams)
+        Customer validateCustomer = validateSave(parsedParams)
 
         if (validateCustomer.hasErrors()) {
             throw new ValidationException("Não foi possível salvar o cliente", validateCustomer.errors)
@@ -25,13 +24,9 @@ class CustomerService {
 
         customer.email = parsedParams.email
 
-        customer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(parsedParams.cpfCnpj)
+        customer.cpfCnpj = parsedParams.cpfCnpj
 
-        if (ValidateCpfCnpj.isCPF(parsedParams.cpfCnpj)) {
-            customer.personType = PersonType.NATURAL
-        } else if (ValidateCpfCnpj.isCNPJ(parsedParams.cpfCnpj)) {
-            customer.personType = PersonType.LEGAL
-        }
+        customer.personType = PersonType.NATURAL
 
         customer.cep = parsedParams.cep
 
@@ -52,7 +47,7 @@ class CustomerService {
         return customer
     }
 
-    private Customer validateCustomerParams(Map parsedParams) {
+    private Customer validateSave(Map parsedParams) {
         Customer customer = new Customer()
 
         if (!parsedParams.name) {
@@ -77,7 +72,7 @@ class CustomerService {
 
         if (!parsedParams.cep) {
             customer.errors.rejectValue("cep", null, "O campo cep é obrigatório")
-        } else if (!ValidateCep.isValidCep(parsedParams.cep)) {
+        } else if (!PostalCodeValidator.isValid(parsedParams.cep)) {
             customer.errors.rejectValue("cep", null, "O cep inserido é inválido")
         }
 
