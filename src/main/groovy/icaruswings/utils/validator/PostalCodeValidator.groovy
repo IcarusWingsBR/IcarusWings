@@ -4,16 +4,16 @@ import groovyx.net.http.RESTClient
 
 class PostalCodeValidator {
 
-    public static Boolean isValidCep(String cep) {
-        if (!StringUtils.containsOnlyNumbers(cep)) return false
+    public static Boolean isValid(String postalCode) {
+        if (!StringUtils.containsOnlyNumbers(postalCode)) return false
 
-        if (!ValidateExistingCep(cep)) return false
+        if (!isValidOnViacep(postalCode)) return false
 
         return true
     }
 
-    public static Boolean ValidateExistingCep(String cep) {
-        def apiUrl = "https://viacep.com.br/ws/${cep}/json/"
+    private static Boolean isValidOnViacep(String postalCode) {
+        def apiUrl = "https://viacep.com.br/ws/${postalCode}/json/"
         def restClient = new RESTClient(apiUrl)
         def response
         
