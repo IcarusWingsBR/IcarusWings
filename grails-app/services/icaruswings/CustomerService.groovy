@@ -2,6 +2,7 @@ package icaruswings
 
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
+import icaruswings.utils.adapters.CustomerAdapter
 import icaruswings.utils.PersonType
 import icaruswings.utils.validator.ValidateCpfCnpj
 import icaruswings.utils.validator.StringUtils
@@ -18,7 +19,33 @@ class CustomerService {
             throw new ValidationException("Não foi possível salvar o cliente", validateCustomer.errors)
         }
 
-        Customer customer = createCustomerFromAdapter(customerAdapter, new Customer())
+        Customer customer = new Customer()
+
+        customer.name = customerAdapter.name
+
+        customer.email = customerAdapter.email
+
+        customer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(customerAdapter.cpfCnpj)
+
+        customer.cep = customerAdapter.cep
+
+        customer.street = customerAdapter.street
+
+        customer.neighborhood = customerAdapter.neighborhood
+
+        customer.city = customerAdapter.city
+
+        customer.state = customerAdapter.state
+
+        customer.number = Integer.parseInt(customerAdapter.number)
+
+        customer.complement = customerAdapter.complement
+
+        if (ValidateCpfCnpj.isCPF(customerAdapter.cpfCnpj)) {
+            customer.personType = PersonType.NATURAL
+        } else if (ValidateCpfCnpj.isCNPJ(customerAdapter.cpfCnpj)) {
+            customer.personType = PersonType.LEGAL
+        }
 
         customer.save(failOnError: true)
 
@@ -94,35 +121,5 @@ class CustomerService {
         if (customer == null) return false
 
         return true
-    }
-
-    private Customer createCustomerFromAdapter(CustomerAdapter customerAdapter, Customer customer) {
-        customer.name = customerAdapter.name
-
-        customer.email = customerAdapter.email
-
-        customer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(customerAdapter.cpfCnpj)
-
-        customer.cep = customerAdapter.cep
-
-        customer.street = customerAdapter.street
-
-        customer.neighborhood = customerAdapter.neighborhood
-
-        customer.city = customerAdapter.city
-
-        customer.state = customerAdapter.state
-
-        customer.number = Integer.parseInt(customerAdapter.number)
-
-        customer.complement = customerAdapter.complement
-
-        if (ValidateCpfCnpj.isCPF(customerAdapter.cpfCnpj)) {
-            customer.personType = PersonType.NATURAL
-        } else if (ValidateCpfCnpj.isCNPJ(customerAdapter.cpfCnpj)) {
-            customer.personType = PersonType.LEGAL
-        }
-
-        return customer
     }
 }
