@@ -47,11 +47,7 @@ class PayerService {
 
         payer.phone = payerAdapter.phone
 
-        if (ValidateCpfCnpj.isCPF(payerAdapter.cpfCnpj)) {
-            payer.personType = PersonType.NATURAL
-        } else if (ValidateCpfCnpj.isCNPJ(payerAdapter.cpfCnpj)) {
-            payer.personType = PersonType.LEGAL
-        }
+        payer.personType = payerAdapter.personType
 
         payer.save(failOnError: true)
 
