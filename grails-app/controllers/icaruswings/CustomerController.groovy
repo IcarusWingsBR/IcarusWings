@@ -17,7 +17,7 @@ class CustomerController {
         }catch (Exception exception) {
             log.error("CustomerController.save >> Erro ao criar customer ${params}", exception)
 
-            flash.type = MessageType.ERROR
+            flash.type = "error"
             flash.message = exception
 
             redirect(action: "index", params: params)
