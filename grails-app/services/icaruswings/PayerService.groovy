@@ -14,19 +14,19 @@ class PayerService {
 
         payer.cpfCnpj = parsedParams.cpfCnpj
 
-        payer.cep = parsedParams.cep
+        payer.postalCode = parsedParams.postalCode
 
-        payer.street = parsedParams.street
+        payer.address = parsedParams.address
 
-        payer.neighborhood = parsedParams.neighborhood
+        payer.province = parsedParams.province
 
         payer.city = parsedParams.city
 
         payer.state = parsedParams.state
 
-        payer.number = parsedParams.number
+        payer.addressNumber = Integer.parseInt(parsedParams.addressNumber)
 
-        payer.complement = parsedParams.complement
+        payer.addressComplement = parsedParams.addressComplement
 
         payer.personType = PersonType.NATURAL
 

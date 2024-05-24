@@ -27,6 +27,8 @@ class CustomerAdapter {
 
     String addressComplement
 
+    String phoneNumber
+
     PersonType personType
 
     public CustomerAdapter(Map params) {
@@ -41,6 +43,7 @@ class CustomerAdapter {
         this.state = params.state
         this.addressNumber = params.addressNumber
         this.addressComplement = params.addressComplement
+        this.phoneNumber = params.phoneNumber
 
         if (ValidateCpfCnpj.isCPF(params.cpfCnpj)) {
             this.personType = PersonType.NATURAL
