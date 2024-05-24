@@ -31,7 +31,7 @@ class CustomerController {
 
                     personType: params.personType,
 
-                    phoneNumber: params.phoneNumber
+                    phone: params.phone
             ]
 
             Customer customer = customerService.save(parsedParams)

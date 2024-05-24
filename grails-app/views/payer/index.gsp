@@ -30,8 +30,8 @@
     <label for="cpfCnpj">CPF/CNPJ:</label><br>
     <input type="text" name="cpfCnpj" id="cpfCnpj" placeholder="Digite seu CPF ou CNPJ" value="${params.cpfCnpj}" class="form-field" required/><br>
 
-    <label for="phoneNumber">Telefone:</label><br>
-    <input type="text" name="phoneNumber" id="phoneNumber" placeholder="Digite o telefone" class="form-field" value="${params.phoneNumber}" autocomplete="off" required/>
+    <label for="phone">Telefone:</label><br>
+    <input type="text" name="phone" id="phone" placeholder="Digite o telefone" class="form-field" value="${params.phone}" autocomplete="off" required/>
 
     <label for="postalCode">CEP:</label><br>
     <input type="text" name="postalCode" id="postalCode" placeholder="Digite seu CEP" class="form-field"

@@ -32,7 +32,7 @@ class PayerService {
 
         payer.customer = Customer.get(parsedParams.customerId)
 
-        payer.phoneNumber = parsedParams.phoneNumber
+        payer.phone = parsedParams.phone
 
         payer.save(failOnError: true)
 
