@@ -22,8 +22,8 @@
                 <input type="text" id="personType" value="${customer.personType}">
             </div>
             <div>
-                <label for="phoneNumber">Número de telefone</label>
-                <input type="text" id="phoneNumber" value="${customer.phoneNumber}">
+                <label for="phone">Número de telefone</label>
+                <input type="text" id="phone" value="${customer.phone}">
             </div>
             <div>
                 <label for="postalCode">CEP</label>
