@@ -9,7 +9,7 @@ class PayerRepository implements Repository<Payer, PayerRepository> {
     void buildCriteria() {
         addCriteria {
             if (search.containsKey("id")) {
-                eq("id", Boolean.valueOf(search.id.toString()))
+                eq("id", Long.valueOf(search.id.toString()))
             }
         }
     }
