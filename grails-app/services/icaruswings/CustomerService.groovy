@@ -3,20 +3,20 @@ package icaruswings
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 import icaruswings.utils.adapters.CustomerAdapter
-import icaruswings.utils.PersonType
 import icaruswings.utils.validator.ValidateCpfCnpj
 import icaruswings.utils.validator.StringUtils
 import icaruswings.utils.validator.ValidateEmail
 import icaruswings.utils.validator.PostalCodeValidator
+import icaruswings.utils.validator.ValidatePhone
 
 @Transactional
 class CustomerService {
 
     public Customer save(CustomerAdapter customerAdapter) {
-        Customer validateCustomer = validateSave(customerAdapter)
+        Customer validatedCustomer = validateSave(customerAdapter)
 
-        if (validateCustomer.hasErrors()) {
-            throw new ValidationException("Não foi possível salvar o cliente", validateCustomer.errors)
+        if (validatedCustomer.hasErrors()) {
+            throw new ValidationException("Não foi possível salvar o cliente", validatedCustomer.errors)
         }
 
         Customer customer = new Customer()
@@ -27,25 +27,23 @@ class CustomerService {
 
         customer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(customerAdapter.cpfCnpj)
 
-        customer.cep = customerAdapter.postalCode
+        customer.postalCode = customerAdapter.postalCode
 
-        customer.street = customerAdapter.address
+        customer.address = customerAdapter.address
 
-        customer.neighborhood = customerAdapter.province
+        customer.province = customerAdapter.province
 
         customer.city = customerAdapter.city
 
         customer.state = customerAdapter.state
 
-        customer.number = Integer.parseInt(customerAdapter.addressNumber)
+        customer.addressNumber = Integer.parseInt(customerAdapter.addressNumber)
 
-        customer.complement = customerAdapter.addressComplement
+        customer.addressComplement = customerAdapter.addressComplement
 
-        if (ValidateCpfCnpj.isCPF(customerAdapter.cpfCnpj)) {
-            customer.personType = PersonType.NATURAL
-        } else if (ValidateCpfCnpj.isCNPJ(customerAdapter.cpfCnpj)) {
-            customer.personType = PersonType.LEGAL
-        }
+        customer.phoneNumber = customerAdapter.phoneNumber
+
+        customer.personType = customerAdapter.personType
 
         customer.save(failOnError: true)
 
@@ -82,23 +80,23 @@ class CustomerService {
         }
 
         if (!customerAdapter.postalCode) {
-            customer.errors.rejectValue("cep", null, "O campo cep é obrigatório")
+            customer.errors.rejectValue("postalCode", null, "O campo cep é obrigatório")
         } else if (!PostalCodeValidator.isValid(customerAdapter.postalCode)) {
-            customer.errors.rejectValue("cep", null, "O cep inserido é inválido")
+            customer.errors.rejectValue("postalCode", null, "O cep inserido é inválido")
         }
 
         if (!customerAdapter.address) {
-            customer.errors.rejectValue("street", null, "O campo rua é obrigatório")
+            customer.errors.rejectValue("address", null, "O campo rua é obrigatório")
         }
 
         if (!customerAdapter.province) {
-            customer.errors.rejectValue("neighborhood", null, "O campo bairro é obrigatório")
+            customer.errors.rejectValue("province", null, "O campo bairro é obrigatório")
         }
 
         if (!customerAdapter.addressNumber) {
-            customer.errors.rejectValue("number", null, "O campo número de residência é obrigatório")
+            customer.errors.rejectValue("addressNumber", null, "O campo número de residência é obrigatório")
         } else if (!StringUtils.containsOnlyNumbers(customerAdapter.addressNumber)) {
-            customer.errors.rejectValue("number", null, "O número de residência é inválido")
+            customer.errors.rejectValue("addressNumber", null, "O número de residência é inválido")
         }
 
         if (!customerAdapter.addressComplement) {
@@ -115,6 +113,12 @@ class CustomerService {
             customer.errors.rejectValue("state", null, "O campo estado é obrigatório")
         } else if (!StringUtils.isValidString(customerAdapter.state)) {
             customer.errors.rejectValue("state", null, "O estado informado é inválido")
+        }
+
+        if (!customerAdapter.phoneNumber) {
+            customer.errors.rejectValue("phoneNumber", null, "O campo telefone é obrigatório")
+        } else if (!ValidatePhone.isValidPhoneNumber(customerAdapter.phoneNumber)) {
+            customer.errors.rejectValue("phoneNumber", null, "O numero de telefone inserido é inválido")
         }
 
         return customer
