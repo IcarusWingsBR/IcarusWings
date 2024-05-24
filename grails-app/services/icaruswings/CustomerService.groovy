@@ -52,7 +52,7 @@ class CustomerService {
         return customer
     }
 
-    public Customer update(CustomerAdapter customerAdapter) {        
+    public void update(CustomerAdapter customerAdapter) {        
         Long id = Long.parseLong(customerAdapter.id)
         Customer customer = Customer.get(id)
 
@@ -64,11 +64,27 @@ class CustomerService {
             throw new ValidationException("Não foi possível salvar o cliente", validateCustomer.errors)
         }
 
-        editCustomer(customerAdapter, customer)
+        customer.name = customerAdapter.name
+
+        if (customer.email != customerAdapter.email) {
+            customer.email = customerAdapter.email
+        }
+
+        customer.cep = customerAdapter.postalCode
+
+        customer.street = customerAdapter.address
+
+        customer.neighborhood = customerAdapter.province
+
+        customer.city = customerAdapter.city
+
+        customer.state = customerAdapter.state
+
+        customer.number = Integer.parseInt(customerAdapter.addressNumber)
+
+        customer.complement = customerAdapter.addressComplement
 
         customer.save(failOnError: true)
-
-        return customer
     }
 
     private Customer validateSave(CustomerAdapter customerAdapter) {
@@ -146,27 +162,5 @@ class CustomerService {
         if (customer == null) return false
 
         return true
-    }
-
-    private void editCustomer(CustomerAdapter customerAdapter, Customer customer) {
-        customer.name = customerAdapter.name
-
-        if (customer.email != customerAdapter.email) {
-            customer.email = customerAdapter.email
-        }
-
-        customer.cep = customerAdapter.cep
-
-        customer.street = customerAdapter.street
-
-        customer.neighborhood = customerAdapter.neighborhood
-
-        customer.city = customerAdapter.city
-
-        customer.state = customerAdapter.state
-
-        customer.number = Integer.parseInt(customerAdapter.number)
-
-        customer.complement = customerAdapter.complement
     }
 }
