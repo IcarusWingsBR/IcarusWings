@@ -7,6 +7,7 @@ import icaruswings.utils.validator.ValidateCpfCnpj
 import icaruswings.utils.validator.StringUtils
 import icaruswings.utils.validator.ValidateEmail
 import icaruswings.utils.validator.PostalCodeValidator
+import icaruswings.utils.validator.ValidatePhone
 
 @Transactional
 class CustomerService {
@@ -40,7 +41,7 @@ class CustomerService {
 
         customer.complement = customerAdapter.addressComplement
 
-        customer.personType = customerAdapter.personType
+        customer.phoneNumber = parsedParams.phoneNumber
 
         customer.save(failOnError: true)
 
@@ -104,6 +105,12 @@ class CustomerService {
             customer.errors.rejectValue("state", null, "O campo estado é obrigatório")
         } else if (!StringUtils.isValidString(customerAdapter.state)) {
             customer.errors.rejectValue("state", null, "O estado informado é inválido")
+        }
+
+        if (!parsedParams.phoneNumber) {
+            customer.errors.rejectValue("phoneNumber", null, "O campo telefone é obrigatório")
+        } else if (!ValidatePhone.isValidPhoneNumber(parsedParams.phoneNumber)) {
+            customer.errors.rejectValue("phoneNumber", null, "O numero de telefone inserido é inválido")
         }
 
         return customer
