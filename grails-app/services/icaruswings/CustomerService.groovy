@@ -3,7 +3,6 @@ package icaruswings
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 import icaruswings.utils.adapters.CustomerAdapter
-import icaruswings.utils.PersonType
 import icaruswings.utils.validator.ValidateCpfCnpj
 import icaruswings.utils.validator.StringUtils
 import icaruswings.utils.validator.ValidateEmail
@@ -41,11 +40,7 @@ class CustomerService {
 
         customer.complement = customerAdapter.addressComplement
 
-        if (ValidateCpfCnpj.isCPF(customerAdapter.cpfCnpj)) {
-            customer.personType = PersonType.NATURAL
-        } else if (ValidateCpfCnpj.isCNPJ(customerAdapter.cpfCnpj)) {
-            customer.personType = PersonType.LEGAL
-        }
+        customer.personType = customerAdapter.personType
 
         customer.save(failOnError: true)
 
