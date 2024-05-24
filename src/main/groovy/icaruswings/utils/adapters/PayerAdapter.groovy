@@ -27,7 +27,7 @@ class PayerAdapter {
 
     Customer customer
 
-    String phoneNumber
+    String phone
 
     public PayerAdapter(Map params) {
         this.id = params.id
@@ -54,6 +54,6 @@ class PayerAdapter {
 
         this.customer = Customer.get(params.customerId)
 
-        this.phoneNumber = params.phoneNumber
+        this.phone = params.phone
     }
 }

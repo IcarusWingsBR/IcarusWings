@@ -44,7 +44,7 @@ class PayerService {
 
         payer.customer = payerAdapter.customer
 
-        payer.phoneNumber = payerAdapter.phoneNumber
+        payer.phone = payerAdapter.phone
 
         if (ValidateCpfCnpj.isCPF(payerAdapter.cpfCnpj)) {
             payer.personType = PersonType.NATURAL
@@ -78,10 +78,10 @@ class PayerService {
             payer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
         }
 
-        if (!payerAdapter.phoneNumber) {
-            payer.errors.rejectValue("phoneNumber", null, "O campo telefone é obrigatório")
-        } else if (!ValidatePhone.isValidPhoneNumber(payerAdapter.phoneNumber)) {
-            payer.errors.rejectValue("phoneNumber", null, "O numero de telefone inserido é inválido")
+        if (!payerAdapter.phone) {
+            payer.errors.rejectValue("phone", null, "O campo telefone é obrigatório")
+        } else if (!ValidatePhone.isValidPhoneNumber(payerAdapter.phone)) {
+            payer.errors.rejectValue("phone", null, "O numero de telefone inserido é inválido")
         }
 
         if (!payerAdapter.postalCode) {
