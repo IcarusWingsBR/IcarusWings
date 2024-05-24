@@ -2,7 +2,11 @@ function CustomerShowController() {
     this.reference = document.querySelector(".background-box")
     var _this = this;
     var postalCodeValidator
-
+    var addressReference = _this.reference.querySelector('#address')
+    var provinceReference = _this.reference.querySelector('#province')
+    var cityReference = _this.reference.querySelector('#city')
+    var stateReference = _this.reference.querySelector('#state')
+    
     this.init = function() {
         postalCodeValidator = new PostalCodeValidator();
         document.getElementById("postalCode").addEventListener("blur", _this.processPostalCodeInput);
@@ -39,17 +43,17 @@ function CustomerShowController() {
     }
 
     this.clearPostalCodeFormat = function() {
-        _this.reference.querySelector('#address').value = ("");
-        _this.reference.querySelector('#province').value = ("");
-        _this.reference.querySelector('#city').value = ("");
-        _this.reference.querySelector('#state').value = ("");
+        addressReference.value = ("");
+        provinceReference.value = ("");
+        cityReference.value = ("");
+        stateReference.value = ("");
     };
 
     this.setInputValuesToPending = function() {
-        _this.reference.querySelector('#address').value = "Aguardando";
-        _this.reference.querySelector('#province').value = "Aguardando";
-        _this.reference.querySelector('#city').value = "Aguardando";
-        _this.reference.querySelector('#state').value = "Aguardando";
+        addressReference.value = "Aguardando";
+        provinceReference.value = "Aguardando";
+        cityReference.value = "Aguardando";
+        stateReference.value = "Aguardando";
     };
 
     this.processPostalCodeResponse = function(response) {
@@ -63,19 +67,19 @@ function CustomerShowController() {
     };
 
     this.updateAddressFields = function(response) {
-        _this.reference.querySelector('#address').value = (response.logradouro);
-        _this.reference.querySelector('#province').value = (response.bairro);
-        _this.reference.querySelector('#city').value = (response.localidade);
-        _this.reference.querySelector('#state').value = (response.uf);
+        addressReference.value = (response.logradouro);
+        provinceReference.value = (response.bairro);
+        cityReference.value = (response.localidade);
+        stateReference.value = (response.uf);
 
         _this.disableInputs();
     };
 
     this.disableInputs = function() {
-        _this.reference.querySelector('#address').readOnly = true;
-        _this.reference.querySelector('#province').readOnly = true;
-        _this.reference.querySelector('#city').readOnly = true;
-        _this.reference.querySelector('#state').readOnly = true;
+        addressReference.readOnly = true;
+        provinceReference.readOnly = true;
+        cityReference.readOnly = true;
+        stateReference.readOnly = true;
     };
 }
 
