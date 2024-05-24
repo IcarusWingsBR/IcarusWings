@@ -85,27 +85,27 @@ class PayerService {
         }
 
         if (!payerAdapter.postalCode) {
-            payer.errors.rejectValue("cep", null, "O campo cep é obrigatório")
+            payer.errors.rejectValue("postalCode", null, "O campo cep é obrigatório")
         } else if (!PostalCodeValidator.isValid(payerAdapter.postalCode)) {
-            payer.errors.rejectValue("cep", null, "O cep inserido é inválido")
+            payer.errors.rejectValue("postalCode", null, "O cep inserido é inválido")
         }
 
         if (!payerAdapter.address) {
-            payer.errors.rejectValue("street", null, "O campo rua é obrigatório")
+            payer.errors.rejectValue("address", null, "O campo rua é obrigatório")
         }
 
         if (!payerAdapter.province) {
-            payer.errors.rejectValue("neighborhood", null, "O campo bairro é obrigatório")
+            payer.errors.rejectValue("province", null, "O campo bairro é obrigatório")
         }
 
         if (!payerAdapter.addressNumber) {
-            payer.errors.rejectValue("number", null, "O campo número de residência é obrigatório")
+            payer.errors.rejectValue("addressNumber", null, "O campo número de residência é obrigatório")
         } else if (!StringUtils.containsOnlyNumbers(payerAdapter.addressNumber)) {
-            payer.errors.rejectValue("number", null, "O número de residência é inválido")
+            payer.errors.rejectValue("addressNumber", null, "O número de residência é inválido")
         }
 
         if (!payerAdapter.addressComplement) {
-            payer.errors.rejectValue("complement", null, "O campo complemento é obrigatório")
+            payer.errors.rejectValue("addressComplement", null, "O campo complemento é obrigatório")
         }
 
         if (!payerAdapter.city) {
