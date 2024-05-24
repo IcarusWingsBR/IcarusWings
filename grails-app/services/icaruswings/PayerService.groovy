@@ -13,10 +13,10 @@ import icaruswings.utils.validator.StringUtils
 class PayerService {
     public Payer save(Map parsedParams) {
         
-        Payer validatePayer = validateSave(parsedParams)
+        Payer validatedPayer = validateSave(parsedParams)
 
-        if (validatePayer.hasErrors()) {
-            throw new ValidationException("Não foi possível salvar o pagador", validatePayer.errors)
+        if (validatedPayer.hasErrors()) {
+            throw new ValidationException("Não foi possível salvar o pagador", validatedPayer.errors)
         }
 
         Payer payer = new Payer()
