@@ -63,8 +63,6 @@ class PayerService {
 
         if(!payer) throw new RuntimeException("Esse pagador não existe")
 
-        if(payer.deleted) throw new RuntimeException("O pagador já foi deletado")
-
         payer.deleted = true
 
         payer.save(failOnError: true)
