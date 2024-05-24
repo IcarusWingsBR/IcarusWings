@@ -25,7 +25,7 @@ class CustomerService {
 
         customer.email = customerAdapter.email
 
-        customer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(customerAdapter.cpfCnpj)
+        customer.cpfCnpj = customerAdapter.cpfCnpj
 
         customer.postalCode = customerAdapter.postalCode
 
