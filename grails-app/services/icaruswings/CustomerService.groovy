@@ -56,7 +56,7 @@ class CustomerService {
 
         Customer validatedCustomer = validateDefaultFields(customerAdapter)
 
-        if (!customer) throw new RuntimeException("Customer não encontrado")
+        if (!customer || customer.deleted) throw new RuntimeException("Customer não encontrado")
 
         if (validatedCustomer.hasErrors()) {
             throw new ValidationException("Não foi possível salvar o cliente", validatedCustomer.errors)
