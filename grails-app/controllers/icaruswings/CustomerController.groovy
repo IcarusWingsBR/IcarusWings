@@ -14,8 +14,11 @@ class CustomerController {
             Customer customer = customerService.save(customerAdapter)
 
             redirect(action: "show", id: customer.id)
-        } catch (Exception exception) {
+        }catch (Exception exception) {
             log.error("CustomerController.save >> Erro ao criar customer ${params}", exception)
+
+            flash.type = MessageType.ERROR
+            flash.message = exception
 
             redirect(action: "index", params: params)
         }
