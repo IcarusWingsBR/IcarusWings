@@ -17,8 +17,16 @@ class PayerController {
             PayerAdapter payerAdapter = new PayerAdapter(params)
             Payer payer = payerService.save(payerAdapter)
 
+            flash.type = "success"
+            flash.message = "Cadastro realizado!!"
+
             redirect(action: "show", id: payer.id)
-        } catch (Exception e) {
+        } catch (Exception exception) {
+            log.error("PayerController.save >> Erro ao criar payer ${params}", exception)
+
+            flash.type = "error"
+            flash.message = exception
+
             redirect(action: "index", params: params)
         }
     }
@@ -31,7 +39,7 @@ class PayerController {
             }
 
             return [payer: payer]
-        } catch (Exception e) {
+        } catch (Exception exception) {
             render "Pagador não encontrado"
         }
     }
