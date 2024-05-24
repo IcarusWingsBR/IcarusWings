@@ -44,11 +44,11 @@ class CustomerAdapter {
         this.addressComplement = params.addressComplement
         this.phone = params.phone
 
-        if(!params.cpfCnpj) return
+        if (!params.cpfCnpj) return
 
         this.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(params.cpfCnpj)
   
-        if(ValidateCpfCnpj.isCPF(params.cpfCnpj)) {
+        if (ValidateCpfCnpj.isCPF(params.cpfCnpj)) {
             this.personType = PersonType.NATURAL
         } else if (ValidateCpfCnpj.isCNPJ(params.cpfCnpj)) 
             this.personType = PersonType.LEGAL
