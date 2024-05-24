@@ -21,7 +21,7 @@ abstract class BasePerson extends BaseEntity {
 
     String addressComplement
 
-    String phoneNumber
+    String phone
 
     PersonType personType
 
@@ -36,7 +36,7 @@ abstract class BasePerson extends BaseEntity {
         state nullable: false, blank: false
         addressNumber nullable: false
         addressComplement nullable: false
-        phoneNumber nullable: false, blank: false
+        phone nullable: false, blank: false
         personType nullable: false
     }
 }

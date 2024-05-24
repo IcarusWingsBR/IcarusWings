@@ -43,7 +43,7 @@ class CustomerService {
 
         customer.addressComplement = parsedParams.addressComplement
 
-        customer.phoneNumber = parsedParams.phoneNumber
+        customer.phone = parsedParams.phone
 
         customer.save(failOnError: true)
 
@@ -109,10 +109,10 @@ class CustomerService {
             customer.errors.rejectValue("state", null, "O estado informado é inválido")
         }
 
-        if (!parsedParams.phoneNumber) {
-            customer.errors.rejectValue("phoneNumber", null, "O campo telefone é obrigatório")
-        } else if (!ValidatePhone.isValidPhoneNumber(parsedParams.phoneNumber)) {
-            customer.errors.rejectValue("phoneNumber", null, "O numero de telefone inserido é inválido")
+        if (!parsedParams.phone) {
+            customer.errors.rejectValue("phone", null, "O campo telefone é obrigatório")
+        } else if (!ValidatePhone.isValidPhoneNumber(parsedParams.phone)) {
+            customer.errors.rejectValue("phone", null, "O numero de telefone inserido é inválido")
         }
 
         return customer
