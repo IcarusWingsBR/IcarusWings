@@ -22,6 +22,9 @@
                 <label for="cpfCnpj">CPF/CNPJ:</label><br>
                 <input name="cpfCnpj" id="cpfCnpj" placeholder="Digite seu CPF ou CNPJ" value="${params.cpfCnpj}" class="form-field" required/><br>
 
+                <label for="phoneNumber">Número de telefone:</label><br>
+                <input name="phoneNumber" id="phoneNumber" placeholder="Digite seu Número de Telefone" value="${params.phoneNumber}" class="form-field" required/><br>
+
                 <label for="postalCode">CEP:</label><br>
                 <input type="text" name="postalCode" id="postalCode" placeholder="Digite seu CEP" class="form-field"
                     value="" size="10" maxlength="9" value="${params.postalCode}" autocomplete="off" required/>

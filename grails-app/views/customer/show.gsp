@@ -22,24 +22,32 @@
                 <input type="text" id="personType" value="${customer.personType}">
             </div>
             <div>
-                <label for="CEP">CEP</label>
-                <input type="text" id="CEP" value="${customer.cep}">
+                <label for="phoneNumber">Número de telefone</label>
+                <input type="text" id="phoneNumber" value="${customer.phoneNumber}">
             </div>
             <div>
-                <label for="street">Rua</label>
-                <input type="text" id="street" value="${customer.street}">
+                <label for="postalCode">CEP</label>
+                <input type="text" id="postalCode" value="${customer.postalCode}">
+            </div>
+            <div>
+                <label for="address">Rua</label>
+                <input type="text" id="address" value="${customer.address}">
             </div>
             <div>
                 <label for="city">Cidade</label>
                 <input type="text" id="city" value="${customer.city}">
             </div>
             <div>
-                <label for="number">Número de residência</label>
-                <input type="text" id="number" value="${customer.number}">
+                <label for="state">Estado</label>
+                <input type="text" id="state" value="${customer.state}">
             </div>
             <div>
-                <label for="complement">Complemento</label>
-                <input type="text" id="complement" value="${customer.complement}">
+                <label for="number">Número de residência</label>
+                <input type="text" id="number" value="${customer.addressNumber}">
+            </div>
+            <div>
+                <label for="addressComplement">Complemento</label>
+                <input type="text" id="addressComplement" value="${customer.addressComplement}">
             </div>
             <div>
                 <label for="dateCreated">Data Criação</label>
