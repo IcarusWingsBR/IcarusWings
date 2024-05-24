@@ -27,7 +27,7 @@ class CustomerAdapter {
 
     String addressComplement
 
-    String phoneNumber
+    String phone
 
     PersonType personType
 
@@ -42,7 +42,7 @@ class CustomerAdapter {
         this.state = params.state
         this.addressNumber = params.addressNumber
         this.addressComplement = params.addressComplement
-        this.phoneNumber = params.phoneNumber
+        this.phone = params.phone
 
         if(!params.cpfCnpj) return
 
