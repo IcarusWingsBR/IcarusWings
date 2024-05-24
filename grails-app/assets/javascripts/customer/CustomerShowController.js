@@ -1,81 +1,82 @@
 function CustomerShowController() {
-        var _this = this;
-        var postalCodeValidator
+    this.reference = document.querySelector(".background-box")
+    var _this = this;
+    var postalCodeValidator
 
-        this.init = function () {
-            postalCodeValidator = new PostalCodeValidator();
-            document.getElementById("postalCode").addEventListener("blur", _this.processPostalCodeInput);
-        };
+    this.init = function() {
+        postalCodeValidator = new PostalCodeValidator();
+        document.getElementById("postalCode").addEventListener("blur", _this.processPostalCodeInput);
+    };
 
-        this.processPostalCodeInput = async function(event) {
-            const postalCode = event.target.value
+    this.processPostalCodeInput = async function(event) {
+        const postalCode = event.target.value
 
-            if (postalCodeValidator.isPostalCodeEmpty(postalCode)) {
-                _this.clearPostalCodeFormat();
+        if (postalCodeValidator.isPostalCodeEmpty(postalCode)) {
+            _this.clearPostalCodeFormat();
 
-                return;
-            }
-
-            const postalCodeSanitized = postalCode.replace(/\D/g, '');
-        
-            if (!postalCodeValidator.validatePostalCodeFormat(postalCodeSanitized)) {
-                _this.clearPostalCodeFormat();
-
-                return;
-            }
-
-            _this.setInputValuesToPending()
-
-            postalCodeValidator.fetchPostalCode(postalCodeSanitized)
-                .then(response => {
-                    _this.processPostalCodeResponse(response);
-                })
-                .catch(() => {
-                    _this.clearPostalCodeFormat();
-
-                    return;
-                });
+            return;
         }
 
-        this.clearPostalCodeFormat = function() {
-            document.getElementById('address').value = ("");
-            document.getElementById('province').value = ("");
-            document.getElementById('city').value = ("");
-            document.getElementById('state').value = ("");
-        };
+        const postalCodeSanitized = postalCode.replace(/\D/g, '');
+    
+        if (!postalCodeValidator.validatePostalCodeFormat(postalCodeSanitized)) {
+            _this.clearPostalCodeFormat();
 
-        this.setInputValuesToPending = function() {
-            document.getElementById('address').value = "Aguardando";
-            document.getElementById('province').value = "Aguardando";
-            document.getElementById('city').value = "Aguardando";
-            document.getElementById('state').value = "Aguardando";
-        };
+            return;
+        }
 
-        this.processPostalCodeResponse = function(response) {
-            if (!postalCodeValidator.isContentValid(response)) {
+        _this.setInputValuesToPending()
+
+        postalCodeValidator.fetchPostalCode(postalCodeSanitized)
+            .then(response => {
+                _this.processPostalCodeResponse(response);
+            })
+            .catch(() => {
                 _this.clearPostalCodeFormat();
 
                 return;
-            }
+            });
+    }
 
-            _this.updateAddressFields(response);
-        };
+    this.clearPostalCodeFormat = function() {
+        _this.reference.querySelector('#address').value = ("");
+        _this.reference.querySelector('#province').value = ("");
+        _this.reference.querySelector('#city').value = ("");
+        _this.reference.querySelector('#state').value = ("");
+    };
 
-        this.updateAddressFields = function(response) {
-            document.getElementById('address').value = (response.logradouro);
-            document.getElementById('province').value = (response.bairro);
-            document.getElementById('city').value = (response.localidade);
-            document.getElementById('state').value = (response.uf);
+    this.setInputValuesToPending = function() {
+        _this.reference.querySelector('#address').value = "Aguardando";
+        _this.reference.querySelector('#province').value = "Aguardando";
+        _this.reference.querySelector('#city').value = "Aguardando";
+        _this.reference.querySelector('#state').value = "Aguardando";
+    };
 
-            _this.disableInputs();
-        };
+    this.processPostalCodeResponse = function(response) {
+        if (!postalCodeValidator.isContentValid(response)) {
+            _this.clearPostalCodeFormat();
 
-        this.disableInputs = function() {
-            document.getElementById('address').readOnly = true;
-            document.getElementById('province').readOnly = true;
-            document.getElementById('city').readOnly = true;
-            document.getElementById('state').readOnly = true;
-        };
+            return;
+        }
+
+        _this.updateAddressFields(response);
+    };
+
+    this.updateAddressFields = function(response) {
+        _this.reference.querySelector('#address').value = (response.logradouro);
+        _this.reference.querySelector('#province').value = (response.bairro);
+        _this.reference.querySelector('#city').value = (response.localidade);
+        _this.reference.querySelector('#state').value = (response.uf);
+
+        _this.disableInputs();
+    };
+
+    this.disableInputs = function() {
+        _this.reference.querySelector('#address').readOnly = true;
+        _this.reference.querySelector('#province').readOnly = true;
+        _this.reference.querySelector('#city').readOnly = true;
+        _this.reference.querySelector('#state').readOnly = true;
+    };
 }
 
 var customerShowController;
@@ -84,8 +85,3 @@ document.addEventListener("DOMContentLoaded", () => {
     customerShowController = new CustomerShowController();
     customerShowController.init();
 })
-
-
-
-
-
