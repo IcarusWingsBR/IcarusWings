@@ -15,21 +15,23 @@ class CustomerController {
 
                     cpfCnpj: params.cpfCnpj,
 
-                    cep: params.cep,
+                    postalCode: params.postalCode,
 
-                    street: params.street,
+                    address: params.address,
 
-                    neighborhood: params.neighborhood,
+                    province: params.province,
 
                     city: params.city,
 
                     state: params.state,
 
-                    number: params.number,
+                    addressNumber: params.addressNumber,
 
-                    complement: params.complement,
+                    addressComplement: params.addressComplement,
 
                     personType: params.personType,
+
+                    phone: params.phone
             ]
 
             Customer customer = customerService.save(parsedParams)

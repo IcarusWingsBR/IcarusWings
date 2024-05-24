@@ -7,19 +7,21 @@ abstract class BasePerson extends BaseEntity {
 
     String cpfCnpj
 
-    String cep
+    String postalCode
 
-    String street
+    String address
 
-    String neighborhood
+    String province
 
     String city
 
     String state
 
-    Integer number
+    Integer addressNumber
 
-    String complement
+    String addressComplement
+
+    String phone
 
     PersonType personType
 
@@ -27,13 +29,14 @@ abstract class BasePerson extends BaseEntity {
         name nullable: false, blank: false
         email nullable: false, blank: false, email: true
         cpfCnpj nullable: false, blank: false
-        cep nullable: false, blank: false
-        street nullable: false, blank: false
-        neighborhood nullable: false, blank: false
+        postalCode nullable: false, blank: false
+        address nullable: false, blank: false
+        province nullable: false, blank: false
         city nullable: false, blank: false
         state nullable: false, blank: false
-        number nullable: false
-        complement nullable: false
+        addressNumber nullable: false
+        addressComplement nullable: false
+        phone nullable: false, blank: false
         personType nullable: false
     }
 }

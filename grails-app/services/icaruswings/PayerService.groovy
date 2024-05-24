@@ -12,7 +12,7 @@ import icaruswings.utils.validator.StringUtils
 @Transactional
 class PayerService {
     public Payer save(Map parsedParams) {
-        
+
         Payer validatedPayer = validateSave(parsedParams)
 
         if (validatedPayer.hasErrors()) {
@@ -29,23 +29,23 @@ class PayerService {
 
         payer.personType = PersonType.NATURAL
 
-        payer.cep = parsedParams.cep
+        payer.postalCode = parsedParams.postalCode
 
-        payer.street = parsedParams.street
+        payer.address = parsedParams.address
 
-        payer.neighborhood = parsedParams.neighborhood
+        payer.province = parsedParams.province
 
         payer.city = parsedParams.city
 
         payer.state = parsedParams.state
 
-        payer.number = Integer.parseInt(parsedParams.number)
+        payer.addressNumber = Integer.parseInt(parsedParams.addressNumber)
 
-        payer.complement = parsedParams.complement
+        payer.addressComplement = parsedParams.addressComplement
 
         payer.customer = Customer.get(parsedParams.customerId)
 
-        payer.phoneNumber = parsedParams.phoneNumber
+        payer.phone = parsedParams.phone
 
         payer.save(failOnError: true)
 
@@ -54,7 +54,7 @@ class PayerService {
 
     private Payer validateSave(Map parsedParams) {
         Payer payer = new Payer()
-        
+
         if (!parsedParams.cpfCnpj) {
             payer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
         } else if (!ValidateCpfCnpj.isCPF(parsedParams.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(parsedParams.cpfCnpj)) {
@@ -73,34 +73,34 @@ class PayerService {
             payer.errors.rejectValue("email", null, "O email informado é inválido")
         }
 
-        if (!parsedParams.phoneNumber) {
-            payer.errors.rejectValue("phoneNumber", null, "O campo telefone é obrigatório")
-        } else if (!ValidatePhone.isValidPhoneNumber(parsedParams.phoneNumber)) {
-            payer.errors.rejectValue("phoneNumber", null, "O numero de telefone inserido é inválido")
+        if (!parsedParams.phone) {
+            payer.errors.rejectValue("phone", null, "O campo telefone é obrigatório")
+        } else if (!ValidatePhone.isValidPhoneNumber(parsedParams.phone)) {
+            payer.errors.rejectValue("phone", null, "O numero de telefone inserido é inválido")
         }
 
-        if (!parsedParams.cep) {
-            payer.errors.rejectValue("cep", null, "O campo cep é obrigatório")
-        } else if (!PostalCodeValidator.isValid(parsedParams.cep)) {
-            payer.errors.rejectValue("cep", null, "O cep inserido é inválido")
+        if (!parsedParams.postalCode) {
+            payer.errors.rejectValue("postalCode", null, "O campo cep é obrigatório")
+        } else if (!PostalCodeValidator.isValid(parsedParams.postalCode)) {
+            payer.errors.rejectValue("postalCode", null, "O cep inserido é inválido")
         }
 
-        if (!parsedParams.street) {
-            payer.errors.rejectValue("street", null, "O campo rua é obrigatório")
+        if (!parsedParams.address) {
+            payer.errors.rejectValue("address", null, "O campo rua é obrigatório")
         }
 
-        if (!parsedParams.neighborhood) {
-            payer.errors.rejectValue("neighborhood", null, "O campo bairro é obrigatório")
-        }
-        
-        if (!parsedParams.number) {
-            payer.errors.rejectValue("number", null, "O campo número de residência é obrigatório")
-        } else if (!StringUtils.containsOnlyNumbers(parsedParams.number)) {
-            payer.errors.rejectValue("number", null, "O número de residência é inválido")
+        if (!parsedParams.province) {
+            payer.errors.rejectValue("province", null, "O campo bairro é obrigatório")
         }
 
-        if (!parsedParams.complement) {
-            payer.errors.rejectValue("complement", null, "O campo complemento é obrigatório")
+        if (!parsedParams.addressNumber) {
+            payer.errors.rejectValue("addressNumber", null, "O campo número de residência é obrigatório")
+        } else if (!StringUtils.containsOnlyNumbers(parsedParams.addressNumber)) {
+            payer.errors.rejectValue("addressNumber", null, "O número de residência é inválido")
+        }
+
+        if (!parsedParams.addressComplement) {
+            payer.errors.rejectValue("addressComplement", null, "O campo complemento é obrigatório")
         }
 
         if (!parsedParams.city) {
@@ -126,7 +126,7 @@ class PayerService {
 
     private Boolean isCustomerIdValid(Long customerId) {
         Customer customer = Customer.get(customerId)
- 
+
         if (!customer || customer.deleted) return false
 
         return true
