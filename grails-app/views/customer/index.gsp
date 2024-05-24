@@ -3,8 +3,8 @@
         <meta name="layout" content="">
         <title>Cadastro de Cliente</title>
         <asset:stylesheet href="utilsCss/index.css" />
-        <asset:javascript src="utilsJavaScript/index.js" />
-        <asset:javascript src="utilsJavaScript/customer/indexForCustomer.js" />
+        <asset:javascript src="validator/PostalCodeValidator.js" />
+        <asset:javascript src="customer/CustomerShowController.js" />
     </head>
     <body>
         <div class="background-box">
@@ -24,7 +24,7 @@
 
                 <label for="postalCode">CEP:</label><br>
                 <input type="text" name="postalCode" id="postalCode" placeholder="Digite seu CEP" class="form-field"
-                    value="" size="10" maxlength="9" onblur="searchPostalCode(this.value);" value="${params.cep}" autocomplete="off" required/>
+                    value="" size="10" maxlength="9" value="${params.postalCode}" autocomplete="off" required/>
 
                 <label for="address">Rua:</label><br>
                 <input type="text" name="address" id="address" placeholder="Digite sua Rua" class="form-field" value="${params.address}" autocomplete="off"/>
