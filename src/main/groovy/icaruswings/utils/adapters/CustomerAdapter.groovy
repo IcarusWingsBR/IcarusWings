@@ -27,7 +27,7 @@ class CustomerAdapter {
 
     String addressComplement
 
-    String phoneNumber
+    String phone
 
     PersonType personType
 
@@ -35,7 +35,6 @@ class CustomerAdapter {
         this.id = params.id
         this.name = params.name
         this.email = params.email
-        this.cpfCnpj = params.cpfCnpj
         this.postalCode = params.postalCode
         this.address = params.address
         this.province = params.province
@@ -43,12 +42,15 @@ class CustomerAdapter {
         this.state = params.state
         this.addressNumber = params.addressNumber
         this.addressComplement = params.addressComplement
-        this.phoneNumber = params.phoneNumber
+        this.phone = params.phone
 
-        if (ValidateCpfCnpj.isCPF(params.cpfCnpj)) {
+        if(!params.cpfCnpj) return
+
+        this.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(params.cpfCnpj)
+  
+        if(ValidateCpfCnpj.isCPF(params.cpfCnpj)) {
             this.personType = PersonType.NATURAL
-        } else if (ValidateCpfCnpj.isCNPJ(params.cpfCnpj)) {
+        } else if (ValidateCpfCnpj.isCNPJ(params.cpfCnpj)) 
             this.personType = PersonType.LEGAL
         }
-    }
 }
