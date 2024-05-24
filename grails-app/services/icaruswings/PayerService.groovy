@@ -28,19 +28,19 @@ class PayerService {
 
         payer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(payerAdapter.cpfCnpj)
 
-        payer.cep = payerAdapter.postalCode
+        payer.postalCode = payerAdapter.postalCode
 
-        payer.street = payerAdapter.address
+        payer.address = payerAdapter.address
 
-        payer.neighborhood = payerAdapter.province
+        payer.province = payerAdapter.province
 
         payer.city = payerAdapter.city
 
         payer.state = payerAdapter.state
 
-        payer.number = Integer.parseInt(payerAdapter.addressNumber)
+        payer.addressNumber = Integer.parseInt(payerAdapter.addressNumber)
 
-        payer.complement = payerAdapter.addressComplement
+        payer.addressComplement = payerAdapter.addressComplement
 
         payer.customer = payerAdapter.customer
 
@@ -59,7 +59,7 @@ class PayerService {
 
     private Payer validateSave(PayerAdapter payerAdapter) {
         Payer payer = new Payer()
-        
+
         if (!payerAdapter.cpfCnpj) {
             payer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
         } else if (!ValidateCpfCnpj.isCPF(payerAdapter.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(payerAdapter.cpfCnpj)) {
@@ -97,7 +97,7 @@ class PayerService {
         if (!payerAdapter.province) {
             payer.errors.rejectValue("neighborhood", null, "O campo bairro é obrigatório")
         }
-        
+
         if (!payerAdapter.addressNumber) {
             payer.errors.rejectValue("number", null, "O campo número de residência é obrigatório")
         } else if (!StringUtils.containsOnlyNumbers(payerAdapter.addressNumber)) {
@@ -131,7 +131,7 @@ class PayerService {
 
     private Boolean isCustomerIdValid(Long customerId) {
         Customer customer = Customer.get(customerId)
- 
+
         if (!customer || customer.deleted) return false
 
         return true
