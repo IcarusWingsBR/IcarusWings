@@ -1,4 +1,4 @@
-package icaruswings.utils.validations
+package icaruswings.utils.validator
 
 class ValidateCpfCnpj {
 

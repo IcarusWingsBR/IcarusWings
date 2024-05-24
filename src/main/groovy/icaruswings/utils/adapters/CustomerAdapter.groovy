@@ -10,19 +10,19 @@ class CustomerAdapter {
 
     String cpfCnpj
 
-    String cep
+    String postalCode
 
-    String street
+    String address
 
-    String neighborhood
+    String province
 
     String city
 
     String state
 
-    String number
+    String addressNumber
 
-    String complement
+    String addressComplement
 
     public CustomerAdapter(Map params) {
         this.id = params.id
@@ -33,18 +33,18 @@ class CustomerAdapter {
 
         this.cpfCnpj = params.cpfCnpj
 
-        this.cep = params.cep
+        this.postalCode = params.postalCode
 
-        this.street = params.street
+        this.address = params.address
 
-        this.neighborhood = params.neighborhood
+        this.province = params.province
 
         this.city = params.city
 
         this.state = params.state
 
-        this.number = params.number
+        this.addressNumber = params.addressNumber
 
-        this.complement = params.complement
+        this.addressComplement = params.addressComplement
     }
 }
