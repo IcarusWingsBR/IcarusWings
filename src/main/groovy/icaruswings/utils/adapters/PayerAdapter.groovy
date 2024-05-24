@@ -38,19 +38,19 @@ class PayerAdapter {
 
         this.cpfCnpj = params.cpfCnpj
 
-        this.postalCode = params.cep
+        this.postalCode = params.postalCode
 
-        this.address = params.street
+        this.address = params.address
 
-        this.province = params.neighborhood
+        this.province = params.province
 
         this.city = params.city
 
         this.state = params.state
 
-        this.addressNumber = params.number
+        this.addressNumber = params.addressNumber
 
-        this.addressComplement = params.complement
+        this.addressComplement = params.addressComplement
 
         this.customer = Customer.get(params.customerId)
 
