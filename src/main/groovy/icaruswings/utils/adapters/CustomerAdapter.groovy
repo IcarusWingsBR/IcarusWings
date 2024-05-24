@@ -45,10 +45,12 @@ class CustomerAdapter {
         this.addressComplement = params.addressComplement
         this.phoneNumber = params.phoneNumber
 
-        if (ValidateCpfCnpj.isCPF(params.cpfCnpj)) {
-            this.personType = PersonType.NATURAL
-        } else if (ValidateCpfCnpj.isCNPJ(params.cpfCnpj)) {
-            this.personType = PersonType.LEGAL
+        if(this.cpfCnpj) {
+            if (ValidateCpfCnpj.isCPF(params.cpfCnpj)) {
+                this.personType = PersonType.NATURAL
+            } else if (ValidateCpfCnpj.isCNPJ(params.cpfCnpj)) {
+                this.personType = PersonType.LEGAL
+            }
         }
     }
 }

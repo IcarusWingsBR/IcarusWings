@@ -54,12 +54,12 @@ class CustomerService {
         Long id = Long.parseLong(customerAdapter.id)
         Customer customer = Customer.get(id)
 
-        Customer validateCustomer = validateDefaultFields(customerAdapter)
+        Customer validatedCustomer = validateDefaultFields(customerAdapter)
 
         if (!customer) throw new RuntimeException("Customer não encontrado")
 
-        if (validateCustomer.hasErrors()) {
-            throw new ValidationException("Não foi possível salvar o cliente", validateCustomer.errors)
+        if (validatedCustomer.hasErrors()) {
+            throw new ValidationException("Não foi possível salvar o cliente", validatedCustomer.errors)
         }
 
         customer.name = customerAdapter.name
@@ -68,19 +68,19 @@ class CustomerService {
             customer.email = customerAdapter.email
         }
 
-        customer.cep = customerAdapter.postalCode
+        customer.postalCode = customerAdapter.postalCode
 
-        customer.street = customerAdapter.address
+        customer.address = customerAdapter.address
 
-        customer.neighborhood = customerAdapter.province
+        customer.province = customerAdapter.province
 
         customer.city = customerAdapter.city
 
         customer.state = customerAdapter.state
 
-        customer.number = Integer.parseInt(customerAdapter.addressNumber)
+        customer.addressNumber = Integer.parseInt(customerAdapter.addressNumber)
 
-        customer.complement = customerAdapter.addressComplement
+        customer.addressComplement = customerAdapter.addressComplement
 
         customer.save(failOnError: true)
     }
