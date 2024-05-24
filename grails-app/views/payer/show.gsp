@@ -22,16 +22,16 @@
     <input type="text" id="phoneNumber" value="${payer.phoneNumber}">
   </div>
   <div>
-    <label for="CEP">CEP</label>
-    <input type="text" id="CEP" value="${payer.cep}">
+    <label for="postalCode">CEP</label>
+    <input type="text" id="postalCode" value="${payer.postalCode}">
   </div>
   <div>
-    <label for="street">Rua</label>
-    <input type="text" id="street" value="${payer.street}">
+    <label for="address">Rua</label>
+    <input type="text" id="address" value="${payer.address}">
   </div>
   <div>
-    <label for="neighborhood">Bairro</label>
-    <input type="text" id="neighborhood" value="${payer.neighborhood}">
+    <label for="province">Bairro</label>
+    <input type="text" id="province" value="${payer.province}">
   </div>
   <div>
     <label for="city">Cidade</label>
@@ -42,12 +42,12 @@
     <input type="text" id="state" value="${payer.state}">
   </div>
   <div>
-    <label for="number">Número da residência:</label>
-    <input type="text" id="number" value="${payer.number}">
+    <label for="addressNumber">Número da residência:</label>
+    <input type="text" id="addressNumber" value="${payer.addressNumber}">
   </div>
   <div>
-    <label for="complement">Complemento</label>
-    <input type="text" id="complement" value="${payer.complement}">
+    <label for="addressComplement">Complemento</label>
+    <input type="text" id="addressComplement" value="${payer.addressComplement}">
   </div>
   <div>
     <label for="dateCreated">Data Criação</label>
