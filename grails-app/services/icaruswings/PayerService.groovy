@@ -80,12 +80,6 @@ class PayerService {
     private Payer validateSave(PayerAdapter payerAdapter) {
         Payer payer = new Payer()
 
-        if (!payerAdapter.cpfCnpj) {
-            payer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
-        } else if (!ValidateCpfCnpj.isCPF(payerAdapter.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(payerAdapter.cpfCnpj)) {
-            payer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
-        }
-
         if (!payerAdapter.name) {
             payer.errors.rejectValue("name", null, "O campo nome é obrigatório")
         } else if (!StringUtils.isValidString(payerAdapter.name)) {
@@ -98,6 +92,12 @@ class PayerService {
             payer.errors.rejectValue("email", null, "O email informado é inválido")
         }
 
+        if (!payerAdapter.cpfCnpj) {
+            payer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
+        } else if (!ValidateCpfCnpj.isCPF(payerAdapter.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(payerAdapter.cpfCnpj)) {
+            payer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
+        }
+
         if (!payerAdapter.phoneNumber) {
             payer.errors.rejectValue("phoneNumber", null, "O campo telefone é obrigatório")
         } else if (!ValidatePhone.isValidPhoneNumber(payerAdapter.phoneNumber)) {
@@ -105,27 +105,27 @@ class PayerService {
         }
 
         if (!payerAdapter.postalCode) {
-            payer.errors.rejectValue("cep", null, "O campo cep é obrigatório")
+            payer.errors.rejectValue("postalCode", null, "O campo cep é obrigatório")
         } else if (!PostalCodeValidator.isValid(payerAdapter.postalCode)) {
-            payer.errors.rejectValue("cep", null, "O cep inserido é inválido")
+            payer.errors.rejectValue("postalCode", null, "O cep inserido é inválido")
         }
 
         if (!payerAdapter.address) {
-            payer.errors.rejectValue("street", null, "O campo rua é obrigatório")
+            payer.errors.rejectValue("address", null, "O campo rua é obrigatório")
         }
 
         if (!payerAdapter.province) {
-            payer.errors.rejectValue("neighborhood", null, "O campo bairro é obrigatório")
+            payer.errors.rejectValue("province", null, "O campo bairro é obrigatório")
         }
 
         if (!payerAdapter.addressNumber) {
-            payer.errors.rejectValue("number", null, "O campo número de residência é obrigatório")
+            payer.errors.rejectValue("addressNumber", null, "O campo número de residência é obrigatório")
         } else if (!StringUtils.containsOnlyNumbers(payerAdapter.addressNumber)) {
-            payer.errors.rejectValue("number", null, "O número de residência é inválido")
+            payer.errors.rejectValue("addressNumber", null, "O número de residência é inválido")
         }
 
         if (!payerAdapter.addressComplement) {
-            payer.errors.rejectValue("complement", null, "O campo complemento é obrigatório")
+            payer.errors.rejectValue("addressComplement", null, "O campo complemento é obrigatório")
         }
 
         if (!payerAdapter.city) {
