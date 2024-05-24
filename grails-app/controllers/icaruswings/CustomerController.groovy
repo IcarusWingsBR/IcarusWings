@@ -13,6 +13,9 @@ class CustomerController {
             CustomerAdapter customerAdapter = new CustomerAdapter(params)
             Customer customer = customerService.save(customerAdapter)
 
+            flash.type = "success"
+            flash.message = "Cadastro realizado!!"
+
             redirect(action: "show", id: customer.id)
         }catch (Exception exception) {
             log.error("CustomerController.save >> Erro ao criar customer ${params}", exception)
