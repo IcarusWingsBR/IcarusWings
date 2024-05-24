@@ -46,11 +46,18 @@ class PayerController {
 
     def update() {
         try {
-            Payer payer = payerService.update(new PayerAdapter(params))
+            PayerAdapter payerAdapter = new PayerAdapter(params)
+            payerService.update(payerAdapter)
 
-            redirect(action: "show", id: payer.id)
-        } catch (Exception e) {
-            log.error("Erro no update", e)
+            flash.type = "success"
+            flash.message = "Alterações realizadas!!"
+
+            redirect(action: "show", id: params.id)
+        } catch (Exception exception) {
+            log.error("PayerController.update >> Erro ao atualizar pagador", exception)
+
+            flash.type = "error"
+            flash.message = exception
 
             redirect(action: "index", params: params)
         }
