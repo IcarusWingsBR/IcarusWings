@@ -2,21 +2,22 @@ package icaruswings
 
 import grails.gorm.transactions.Transactional
 import icaruswings.utils.PaymentStatus
+import icaruswings.utils.adapters.PaymentAdapter
 
 @Transactional
 class PaymentService {
-    public Payment save(Map parsedParams) {
+    public Payment save(PaymentAdapter paymentAdapter) {
         Payment payment = new Payment()
 
-        payment.payer = parsedParams.payer
+        payment.payer = paymentAdapter.payer
 
-        payment.paymentType = parsedParams.paymentType
+        payment.paymentType = paymentAdapter.paymentType
 
-        payment.value = parsedParams.value
+        payment.value = paymentAdapter.value
 
         payment.paymentStatus = PaymentStatus.WAITING_PAYMENT
 
-        payment.dueDate = parsedParams.dueDate
+        payment.dueDate = paymentAdapter.dueDate
 
         payment.save(failOnError: true)
 
