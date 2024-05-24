@@ -12,10 +12,10 @@ import icaruswings.utils.validator.PostalCodeValidator
 class CustomerService {
 
     public Customer save(CustomerAdapter customerAdapter) {
-        Customer validateCustomer = validateSave(customerAdapter)
+        Customer validatedCustomer = validateSave(customerAdapter)
 
-        if (validateCustomer.hasErrors()) {
-            throw new ValidationException("Não foi possível salvar o cliente", validateCustomer.errors)
+        if (validatedCustomer.hasErrors()) {
+            throw new ValidationException("Não foi possível salvar o cliente", validatedCustomer.errors)
         }
 
         Customer customer = new Customer()
