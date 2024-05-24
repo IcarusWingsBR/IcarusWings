@@ -100,7 +100,7 @@ class CustomerService {
         }
 
         if (!customerAdapter.addressComplement) {
-            customer.errors.rejectValue("complement", null, "O campo complemento é obrigatório")
+            customer.errors.rejectValue("addressComplement", null, "O campo complemento é obrigatório")
         }
 
         if (!customerAdapter.city) {
