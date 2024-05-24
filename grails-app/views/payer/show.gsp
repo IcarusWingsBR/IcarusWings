@@ -18,8 +18,8 @@
     <input type="text" id="personType" value="${payer.personType}">
   </div>
   <div>
-    <label for="phoneNumber">Telefone</label>
-    <input type="text" id="phoneNumber" value="${payer.phoneNumber}">
+    <label for="phone">Telefone</label>
+    <input type="text" id="phone" value="${payer.phone}">
   </div>
   <div>
     <label for="postalCode">CEP</label>

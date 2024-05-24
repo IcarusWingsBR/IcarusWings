@@ -25,7 +25,7 @@ class CustomerService {
 
         customer.email = customerAdapter.email
 
-        customer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(customerAdapter.cpfCnpj)
+        customer.cpfCnpj = customerAdapter.cpfCnpj
 
         customer.postalCode = customerAdapter.postalCode
 
@@ -41,7 +41,7 @@ class CustomerService {
 
         customer.addressComplement = customerAdapter.addressComplement
 
-        customer.phoneNumber = customerAdapter.phoneNumber
+        customer.phone= customerAdapter.phone
 
         customer.personType = customerAdapter.personType
 
@@ -67,6 +67,8 @@ class CustomerService {
         if (customer.email != customerAdapter.email) {
             customer.email = customerAdapter.email
         }
+
+        customer.phone = customerAdapter.phone
 
         customer.postalCode = customerAdapter.postalCode
 
@@ -150,10 +152,10 @@ class CustomerService {
             customer.errors.rejectValue("state", null, "O estado informado é inválido")
         }
 
-        if (!customerAdapter.phoneNumber) {
-            customer.errors.rejectValue("phoneNumber", null, "O campo telefone é obrigatório")
-        } else if (!ValidatePhone.isValidPhoneNumber(customerAdapter.phoneNumber)) {
-            customer.errors.rejectValue("phoneNumber", null, "O numero de telefone inserido é inválido")
+        if (!customerAdapter.phone) {
+            customer.errors.rejectValue("phone", null, "O campo telefone é obrigatório")
+        } else if (!ValidatePhone.isValidPhoneNumber(customerAdapter.phone)) {
+            customer.errors.rejectValue("phone", null, "O numero de telefone inserido é inválido")
         }
 
         return customer
