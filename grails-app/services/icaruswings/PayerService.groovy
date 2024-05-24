@@ -60,12 +60,6 @@ class PayerService {
     private Payer validateSave(PayerAdapter payerAdapter) {
         Payer payer = new Payer()
 
-        if (!payerAdapter.cpfCnpj) {
-            payer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
-        } else if (!ValidateCpfCnpj.isCPF(payerAdapter.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(payerAdapter.cpfCnpj)) {
-            payer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
-        }
-
         if (!payerAdapter.name) {
             payer.errors.rejectValue("name", null, "O campo nome é obrigatório")
         } else if (!StringUtils.isValidString(payerAdapter.name)) {
@@ -76,6 +70,12 @@ class PayerService {
             payer.errors.rejectValue("email", null, "O campo email é obrigatório")
         } else if (!ValidateEmail.isValidEmail(payerAdapter.email)) {
             payer.errors.rejectValue("email", null, "O email informado é inválido")
+        }
+
+        if (!payerAdapter.cpfCnpj) {
+            payer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
+        } else if (!ValidateCpfCnpj.isCPF(payerAdapter.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(payerAdapter.cpfCnpj)) {
+            payer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
         }
 
         if (!payerAdapter.phoneNumber) {
