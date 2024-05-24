@@ -7,6 +7,7 @@ import icaruswings.utils.validator.ValidateCpfCnpj
 import icaruswings.utils.validator.StringUtils
 import icaruswings.utils.validator.ValidateEmail
 import icaruswings.utils.validator.PostalCodeValidator
+import icaruswings.utils.validator.ValidatePhone
 
 @Transactional
 class CustomerService {
@@ -28,19 +29,21 @@ class CustomerService {
 
         customer.personType = PersonType.NATURAL
 
-        customer.cep = parsedParams.cep
+        customer.postalCode = parsedParams.postalCode
 
-        customer.street = parsedParams.street
+        customer.address = parsedParams.address
 
-        customer.neighborhood = parsedParams.neighborhood
+        customer.province = parsedParams.province
 
         customer.city = parsedParams.city
 
         customer.state = parsedParams.state
 
-        customer.number = Integer.parseInt(parsedParams.number)
+        customer.addressNumber = Integer.parseInt(parsedParams.addressNumber)
 
-        customer.complement = parsedParams.complement
+        customer.addressComplement = parsedParams.addressComplement
+
+        customer.phoneNumber = parsedParams.phoneNumber
 
         customer.save(failOnError: true)
 
@@ -70,28 +73,28 @@ class CustomerService {
             customer.errors.rejectValue("cpfCnpj", null, "O Cpf/Cnpj já está cadastrado")
         }
 
-        if (!parsedParams.cep) {
-            customer.errors.rejectValue("cep", null, "O campo cep é obrigatório")
-        } else if (!PostalCodeValidator.isValid(parsedParams.cep)) {
-            customer.errors.rejectValue("cep", null, "O cep inserido é inválido")
+        if (!parsedParams.postalCode) {
+            customer.errors.rejectValue("postalCode", null, "O campo cep é obrigatório")
+        } else if (!PostalCodeValidator.isValid(parsedParams.postalCode)) {
+            customer.errors.rejectValue("postalCode", null, "O cep inserido é inválido")
         }
 
-        if (!parsedParams.street) {
-            customer.errors.rejectValue("street", null, "O campo rua é obrigatório")
+        if (!parsedParams.address) {
+            customer.errors.rejectValue("address", null, "O campo rua é obrigatório")
         }
 
-        if (!parsedParams.neighborhood) {
-            customer.errors.rejectValue("neighborhood", null, "O campo bairro é obrigatório")
+        if (!parsedParams.province) {
+            customer.errors.rejectValue("province", null, "O campo bairro é obrigatório")
         }
 
-        if (!parsedParams.number) {
-            customer.errors.rejectValue("number", null, "O campo número de residência é obrigatório")
-        } else if (!StringUtils.containsOnlyNumbers(parsedParams.number)) {
-            customer.errors.rejectValue("number", null, "O número de residência é inválido")
+        if (!parsedParams.addressNumber) {
+            customer.errors.rejectValue("addressNumber", null, "O campo número de residência é obrigatório")
+        } else if (!StringUtils.containsOnlyNumbers(parsedParams.addressNumber)) {
+            customer.errors.rejectValue("addressNumber", null, "O número de residência é inválido")
         }
 
-        if (!parsedParams.complement) {
-            customer.errors.rejectValue("complement", null, "O campo complemento é obrigatório")
+        if (!parsedParams.addressComplement) {
+            customer.errors.rejectValue("addressComplement", null, "O campo complemento é obrigatório")
         }
 
         if (!parsedParams.city) {
@@ -104,6 +107,12 @@ class CustomerService {
             customer.errors.rejectValue("state", null, "O campo estado é obrigatório")
         } else if (!StringUtils.isValidString(parsedParams.state)) {
             customer.errors.rejectValue("state", null, "O estado informado é inválido")
+        }
+
+        if (!parsedParams.phoneNumber) {
+            customer.errors.rejectValue("phoneNumber", null, "O campo telefone é obrigatório")
+        } else if (!ValidatePhone.isValidPhoneNumber(parsedParams.phoneNumber)) {
+            customer.errors.rejectValue("phoneNumber", null, "O numero de telefone inserido é inválido")
         }
 
         return customer
