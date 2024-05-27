@@ -9,6 +9,7 @@ import icaruswings.utils.validator.ValidateCpfCnpj
 import icaruswings.utils.validator.ValidateEmail
 import icaruswings.utils.validator.ValidatePhone
 import icaruswings.utils.validator.StringUtils
+import icaruswings.utils.validator.CheckEntityExistenceById
 
 @Transactional
 class PayerService {
@@ -118,18 +119,10 @@ class PayerService {
 
         if (!payerAdapter.customer.id) {
             payer.errors.rejectValue("customerId", null, "O payer precisa estar vinculado a um customer")
-        } else if (!isCustomerIdValid(payerAdapter.customer.id)) {
+        } else if (!CheckEntityExistenceById.CheckCustomerExistenceById(payerAdapter.customer.id)) {
             payer.errors.rejectValue("customerId", null, "O customer é inválido")
         }
 
         return payer
-    }
-
-    private Boolean isCustomerIdValid(Long customerId) {
-        Customer customer = Customer.get(customerId)
-
-        if (!customer || customer.deleted) return false
-
-        return true
     }
 }
