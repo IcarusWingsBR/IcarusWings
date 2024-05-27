@@ -1,9 +1,9 @@
 package icaruswings.utils.adapters
 
+import icaruswings.Payer
 import icaruswings.utils.PaymentStatus
 import icaruswings.utils.PaymentType
 import icaruswings.utils.date.DateParser
-import icaruswings.Payer
 import java.sql.Date
 
 class PaymentAdapter {
@@ -14,15 +14,21 @@ class PaymentAdapter {
 
     PaymentType paymentType
 
+    PaymentStatus paymentStatus
+
     Double value
 
     Date dueDate
 
     public PaymentAdapter(Map params) {
-        Long idPayer = Long.parseLong(params.id)
+        this.id = params.id
+
+        Long idPayer = Long.parseLong(params.idPayer)
         this.payer = Payer.get(idPayer)
+
         this.paymentType = PaymentType.convert(params.paymentType)
-        this.value = params.value
+        this.paymentStatus = PaymentStatus.WAITING_PAYMENT
+        this.value = value
         this.dueDate = DateParser.parse(params.dueDate)
     }
 }

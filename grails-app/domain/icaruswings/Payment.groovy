@@ -2,10 +2,10 @@ package icaruswings
 
 import icaruswings.utils.PaymentStatus
 import icaruswings.utils.PaymentType
-
+import icaruswings.utils.BaseEntity
 import java.sql.Date
 
-class Payment {
+class Payment extends BaseEntity{
 
     Payer payer
 

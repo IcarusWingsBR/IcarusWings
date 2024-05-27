@@ -6,6 +6,7 @@ import icaruswings.utils.adapters.PaymentAdapter
 
 @Transactional
 class PaymentService {
+
     public Payment save(PaymentAdapter paymentAdapter) {
         Payment payment = new Payment()
 
@@ -13,9 +14,10 @@ class PaymentService {
 
         payment.paymentType = paymentAdapter.paymentType
 
-        payment.value = paymentAdapter.value
+        payment.paymentStatus = paymentAdapter.paymentStatus
 
-        payment.paymentStatus = PaymentStatus.WAITING_PAYMENT
+        Long value = Double.parseDouble(paymentAdapter.value)
+        payment.value = value
 
         payment.dueDate = paymentAdapter.dueDate
 
