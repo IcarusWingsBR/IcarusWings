@@ -12,8 +12,8 @@ import icaruswings.utils.validator.StringUtils
 
 @Transactional
 class PayerService {
+    
     public Payer save(PayerAdapter payerAdapter) {
-
         Payer validatedPayer = validateSave(payerAdapter)
 
         if (validatedPayer.hasErrors()) {
