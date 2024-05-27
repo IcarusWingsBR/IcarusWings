@@ -16,7 +16,7 @@ class PaymentAdapter {
 
     PaymentStatus paymentStatus
 
-    Double value
+    String value
 
     Date dueDate
 
@@ -28,7 +28,7 @@ class PaymentAdapter {
 
         this.paymentType = PaymentType.convert(params.paymentType)
         this.paymentStatus = PaymentStatus.WAITING_PAYMENT
-        this.value = value
+        this.value = params.value
         this.dueDate = DateParser.parse(params.dueDate)
     }
 }

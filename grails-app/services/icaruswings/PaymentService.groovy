@@ -16,7 +16,7 @@ class PaymentService {
 
         payment.paymentStatus = paymentAdapter.paymentStatus
 
-        Long value = Double.parseDouble(paymentAdapter.value)
+        Double value = Double.parseDouble(paymentAdapter.value)
         payment.value = value
 
         payment.dueDate = paymentAdapter.dueDate
