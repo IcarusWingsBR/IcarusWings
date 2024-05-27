@@ -1,13 +1,21 @@
 package icaruswings
 
 import grails.gorm.transactions.Transactional
-import icaruswings.utils.PaymentStatus
+import grails.validation.ValidationException
 import icaruswings.utils.adapters.PaymentAdapter
+import icaruswings.utils.validator.ValueValidator
+import icaruswings.utils.validator.DateValidator
 
 @Transactional
 class PaymentService {
 
     public Payment save(PaymentAdapter paymentAdapter) {
+        Payment validatedPayment= validateSave(paymentAdapter)
+
+        if (validatedPayment.hasErrors()) {
+            throw new ValidationException("Não foi possível salvar a cobrança", validatedPayment.errors)
+        }
+
         Payment payment = new Payment()
 
         payment.payer = paymentAdapter.payer
@@ -16,13 +24,41 @@ class PaymentService {
 
         payment.paymentStatus = paymentAdapter.paymentStatus
 
-        Double value = Double.parseDouble(paymentAdapter.value)
-        payment.value = value
+        payment.value = parseValueToDouble(paymentAdapter.value)
 
         payment.dueDate = paymentAdapter.dueDate
 
         payment.save(failOnError: true)
 
         return payment
+    }
+
+    private Payment validateSave(PaymentAdapter paymentAdapter) {
+        Payment payment = new Payment()
+
+        if (!paymentAdapter.paymentType) {
+            payment.errors.rejectValue("paymentType", null, "O tipo de pagamento é inválido")
+        }
+
+        if (!paymentAdapter.value) {
+            payment.errors.rejectValue("value", null, "O campo valor é obrigatório")
+        } else if (!ValueValidator.isValid(paymentAdapter.value)) {
+            payment.errors.rejectValue("value", null, "O valor informado é inválido")
+        }
+
+        if (!paymentAdapter.dueDate) {
+            payment.errors.rejectValue("dueDate",  null, "O campo data de vencimento é obrigatório")
+        } else if (!DateValidator.isValid(paymentAdapter.dueDate)) {
+            payment.errors.rejectValue("dueDate",  null, "A data informada é inválida")
+        }
+
+        return payment
+    }
+
+    private Double parseValueToDouble(String stringValue) {
+        String valueWithDote = stringValue.replaceAll( "," , "." )
+        Double value = Double.parseDouble(valueWithDote)
+
+        return value
     }
 }
