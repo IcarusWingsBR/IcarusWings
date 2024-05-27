@@ -2,7 +2,7 @@ package icaruswings
 
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
-import icaruswings.utils.PersonType
+import icaruswings.utils.adapters.CustomerAdapter
 import icaruswings.utils.validator.ValidateCpfCnpj
 import icaruswings.utils.validator.StringUtils
 import icaruswings.utils.validator.ValidateEmail
@@ -12,106 +12,106 @@ import icaruswings.utils.validator.ValidatePhone
 @Transactional
 class CustomerService {
 
-    public Customer save(Map parsedParams) {
-        Customer validateCustomer = validateSave(parsedParams)
+    public Customer save(CustomerAdapter customerAdapter) {
+        Customer validatedCustomer = validateSave(customerAdapter)
 
-        if (validateCustomer.hasErrors()) {
-            throw new ValidationException("Não foi possível salvar o cliente", validateCustomer.errors)
+        if (validatedCustomer.hasErrors()) {
+            throw new ValidationException("Não foi possível salvar o cliente", validatedCustomer.errors)
         }
 
         Customer customer = new Customer()
 
-        customer.name = parsedParams.name
+        customer.name = customerAdapter.name
 
-        customer.email = parsedParams.email
+        customer.email = customerAdapter.email
 
-        customer.cpfCnpj = parsedParams.cpfCnpj
+        customer.cpfCnpj = customerAdapter.cpfCnpj
 
-        customer.personType = PersonType.NATURAL
+        customer.postalCode = customerAdapter.postalCode
 
-        customer.postalCode = parsedParams.postalCode
+        customer.address = customerAdapter.address
 
-        customer.address = parsedParams.address
+        customer.province = customerAdapter.province
 
-        customer.province = parsedParams.province
+        customer.city = customerAdapter.city
 
-        customer.city = parsedParams.city
+        customer.state = customerAdapter.state
 
-        customer.state = parsedParams.state
+        customer.addressNumber = Integer.parseInt(customerAdapter.addressNumber)
 
-        customer.addressNumber = Integer.parseInt(parsedParams.addressNumber)
+        customer.addressComplement = customerAdapter.addressComplement
 
-        customer.addressComplement = parsedParams.addressComplement
+        customer.phone= customerAdapter.phone
 
-        customer.phone = parsedParams.phone
+        customer.personType = customerAdapter.personType
 
         customer.save(failOnError: true)
 
         return customer
     }
 
-    private Customer validateSave(Map parsedParams) {
+    private Customer validateSave(CustomerAdapter customerAdapter) {
         Customer customer = new Customer()
 
-        if (!parsedParams.name) {
+        if (!customerAdapter.name) {
             customer.errors.rejectValue("name",  null,"O campo nome é obrigatório")
-        } else if (!StringUtils.isValidString(parsedParams.name)) {
+        } else if (!StringUtils.isValidString(customerAdapter.name)) {
             customer.errors.rejectValue("name", null, "O nome informado é inválido")
         }
 
-        if (!parsedParams.email) {
+        if (!customerAdapter.email) {
             customer.errors.rejectValue("email", null, "O campo email é obrigatório")
-        } else if (!ValidateEmail.isValidEmail(parsedParams.email)){
+        } else if (!ValidateEmail.isValidEmail(customerAdapter.email)){
             customer.errors.rejectValue("email", null, "O email informado é inválido")
         }
 
-        if (!parsedParams.cpfCnpj) {
+        if (!customerAdapter.cpfCnpj) {
             customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
-        } else if (!ValidateCpfCnpj.isCPF(parsedParams.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(parsedParams.cpfCnpj)) {
+        } else if (!ValidateCpfCnpj.isCPF(customerAdapter.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(customerAdapter.cpfCnpj)) {
             customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
-        } else if (checkIfCpfOrCnpjExists(parsedParams.cpfCnpj)) {
+        } else if (checkIfCpfOrCnpjExists(customerAdapter.cpfCnpj)) {
             customer.errors.rejectValue("cpfCnpj", null, "O Cpf/Cnpj já está cadastrado")
         }
 
-        if (!parsedParams.postalCode) {
+        if (!customerAdapter.postalCode) {
             customer.errors.rejectValue("postalCode", null, "O campo cep é obrigatório")
-        } else if (!PostalCodeValidator.isValid(parsedParams.postalCode)) {
+        } else if (!PostalCodeValidator.isValid(customerAdapter.postalCode)) {
             customer.errors.rejectValue("postalCode", null, "O cep inserido é inválido")
         }
 
-        if (!parsedParams.address) {
+        if (!customerAdapter.address) {
             customer.errors.rejectValue("address", null, "O campo rua é obrigatório")
         }
 
-        if (!parsedParams.province) {
+        if (!customerAdapter.province) {
             customer.errors.rejectValue("province", null, "O campo bairro é obrigatório")
         }
 
-        if (!parsedParams.addressNumber) {
+        if (!customerAdapter.addressNumber) {
             customer.errors.rejectValue("addressNumber", null, "O campo número de residência é obrigatório")
-        } else if (!StringUtils.containsOnlyNumbers(parsedParams.addressNumber)) {
+        } else if (!StringUtils.containsOnlyNumbers(customerAdapter.addressNumber)) {
             customer.errors.rejectValue("addressNumber", null, "O número de residência é inválido")
         }
 
-        if (!parsedParams.addressComplement) {
+        if (!customerAdapter.addressComplement) {
             customer.errors.rejectValue("addressComplement", null, "O campo complemento é obrigatório")
         }
 
-        if (!parsedParams.city) {
+        if (!customerAdapter.city) {
             customer.errors.rejectValue("city", null, "O campo cidade é obrigatório")
-        } else if (!StringUtils.isValidString(parsedParams.city)) {
+        } else if (!StringUtils.isValidString(customerAdapter.city)) {
             customer.errors.rejectValue("city", null, "A cidade informado é inválida")
         }
 
-        if (!parsedParams.state) {
+        if (!customerAdapter.state) {
             customer.errors.rejectValue("state", null, "O campo estado é obrigatório")
-        } else if (!StringUtils.isValidString(parsedParams.state)) {
+        } else if (!StringUtils.isValidString(customerAdapter.state)) {
             customer.errors.rejectValue("state", null, "O estado informado é inválido")
         }
 
-        if (!parsedParams.phone) {
+        if (!customerAdapter.phone) {
             customer.errors.rejectValue("phone", null, "O campo telefone é obrigatório")
-        } else if (!ValidatePhone.isValidPhoneNumber(parsedParams.phone)) {
+        } else if (!ValidatePhone.isValidPhoneNumber(customerAdapter.phone)) {
             customer.errors.rejectValue("phone", null, "O numero de telefone inserido é inválido")
         }
 
