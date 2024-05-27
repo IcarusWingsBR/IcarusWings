@@ -3,6 +3,7 @@ package icaruswings
 import grails.gorm.transactions.Transactional
 import icaruswings.utils.PaymentStatus
 import icaruswings.utils.adapters.PaymentAdapter
+import icaruswings.utils.repositories.PaymentRepository
 
 @Transactional
 class PaymentService {
@@ -24,5 +25,9 @@ class PaymentService {
         payment.save(failOnError: true)
 
         return payment
+    }
+
+    public List<Payment> list(){
+        return PaymentRepository.query([:]).list()
     }
 }
