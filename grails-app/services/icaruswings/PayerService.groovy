@@ -9,7 +9,6 @@ import icaruswings.utils.validator.ValidateCpfCnpj
 import icaruswings.utils.validator.ValidateEmail
 import icaruswings.utils.validator.ValidatePhone
 import icaruswings.utils.validator.StringUtils
-import icaruswings.utils.validator.CheckEntityExistenceById
 
 @Transactional
 class PayerService {
@@ -115,12 +114,6 @@ class PayerService {
             payer.errors.rejectValue("state", null, "O campo estado é obrigatório")
         } else if (!StringUtils.isValidString(payerAdapter.state)) {
             payer.errors.rejectValue("state", null, "O estado informado é inválido")
-        }
-
-        if (!payerAdapter.customer.id) {
-            payer.errors.rejectValue("customerId", null, "O payer precisa estar vinculado a um customer")
-        } else if (!CheckEntityExistenceById.CheckCustomerExistenceById(payerAdapter.customer.id)) {
-            payer.errors.rejectValue("customerId", null, "O customer é inválido")
         }
 
         return payer

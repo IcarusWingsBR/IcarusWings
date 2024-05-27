@@ -3,6 +3,7 @@ package icaruswings.utils.adapters
 import icaruswings.Customer
 import icaruswings.utils.PersonType
 import icaruswings.utils.validator.ValidateCpfCnpj
+import icaruswings.utils.validator.CheckEntityExistenceById
 
 class PayerAdapter {
     String id
@@ -34,6 +35,8 @@ class PayerAdapter {
     PersonType personType
 
     public PayerAdapter(Map params) {
+        if (!CheckEntityExistenceById.CheckCustomerExistenceById(params.customerId)) throw new RuntimeException("Cliente nao encontrado")
+
         this.id = params.id
         this.name = params.name
         this.email = params.email
