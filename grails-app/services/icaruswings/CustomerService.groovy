@@ -8,6 +8,7 @@ import icaruswings.utils.validator.StringUtils
 import icaruswings.utils.validator.ValidateEmail
 import icaruswings.utils.validator.PostalCodeValidator
 import icaruswings.utils.validator.ValidatePhone
+import icaruswings.utils.validator.CheckEntityExistenceById
 
 @Transactional
 class CustomerService {
@@ -50,17 +51,17 @@ class CustomerService {
         return customer
     }
 
-    public void update(CustomerAdapter customerAdapter) {        
-        Long id = Long.parseLong(customerAdapter.id)
-        Customer customer = Customer.get(id)
+    public void update(CustomerAdapter customerAdapter) {    
+        if (!CheckEntityExistenceById.CheckCustomerExistenceById(customerAdapter.id)) throw new RuntimeException("Cliente nao encontrado")    
 
         Customer validatedCustomer = validateDefaultFields(customerAdapter)
-
-        if (!customer || customer.deleted) throw new RuntimeException("Customer não encontrado")
 
         if (validatedCustomer.hasErrors()) {
             throw new ValidationException("Não foi possível salvar o cliente", validatedCustomer.errors)
         }
+
+        Long id = Long.parseLong(customerAdapter.id)
+        Customer customer = Customer.get(id)
 
         customer.name = customerAdapter.name
 
