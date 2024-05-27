@@ -9,6 +9,7 @@ import icaruswings.utils.validator.ValidateCpfCnpj
 import icaruswings.utils.validator.ValidateEmail
 import icaruswings.utils.validator.ValidatePhone
 import icaruswings.utils.validator.StringUtils
+import icaruswings.utils.validator.CheckEntityExistenceById
 
 @Transactional
 class PayerService {
@@ -54,16 +55,16 @@ class PayerService {
     }
 
     public Payer update(PayerAdapter payerAdapter) {
-        Long id = Long.valueOf(payerAdapter.id)
-        Payer payer = Payer.get(id)
-
-        if (!payer || payer.deleted) throw new RuntimeException("Pagador nao encontrado")
+        if (!CheckEntityExistenceById.CheckPayerExistenceById(payerAdapter.id)) throw new RuntimeException("Pagador nao encontrado")
 
         Payer validatedPayer = validateSave(payerAdapter)
 
         if (validatedPayer.hasErrors()) {
             throw new ValidationException("Não foi possível salvar o pagador", validatedPayer.errors)
         }
+
+        Long id = Long.valueOf(payerAdapter.id)
+        Payer payer = Payer.get(id)
 
         payer.properties = payerAdapter.properties
 
