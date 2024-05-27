@@ -2,6 +2,7 @@ function CustomerShowController() {
     this.reference = document.querySelector(".background-box")
     var _this = this;
     var postalCodeValidator
+    var postalCodeReference = _this.reference.querySelector("#postalCode")
     var addressReference = _this.reference.querySelector('#address')
     var provinceReference = _this.reference.querySelector('#province')
     var cityReference = _this.reference.querySelector('#city')
@@ -9,7 +10,7 @@ function CustomerShowController() {
     
     this.init = function() {
         postalCodeValidator = new PostalCodeValidator();
-        document.getElementById("postalCode").addEventListener("blur", _this.processPostalCodeInput);
+        postalCodeReference.addEventListener("blur", _this.processPostalCodeInput);
     };
 
     this.processPostalCodeInput = async function(event) {
