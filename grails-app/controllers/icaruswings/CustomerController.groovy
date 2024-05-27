@@ -38,4 +38,8 @@ class CustomerController {
             render "Cliente não encontrado"
         }
     }
+
+    def list() {
+        return [customerList: customerService.list()]
+    }
 }
