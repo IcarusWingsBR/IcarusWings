@@ -64,6 +64,10 @@ class PayerService {
         payer.save(failOnError: true)
     }
 
+    public List<Payer> list(){
+        return PayerRepository.query([:]).list()
+    }
+
     private Payer validateSave(PayerAdapter payerAdapter) {
         Payer payer = new Payer()
 
