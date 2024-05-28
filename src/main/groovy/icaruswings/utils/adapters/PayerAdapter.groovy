@@ -1,6 +1,7 @@
 package icaruswings.utils.adapters
 
 import icaruswings.Customer
+import icaruswings.utils.repositories.CustomerRepository
 import icaruswings.utils.PersonType
 import icaruswings.utils.validator.ValidateCpfCnpj
 
@@ -47,7 +48,7 @@ class PayerAdapter {
         this.state = params.state
         this.addressNumber = Integer.parseInt(params.addressNumber)
         this.addressComplement = params.addressComplement
-        this.customer = Customer.get(params.customerId)
+        this.customer = CustomerRepository.get(params.customerId)
         this.phone = params.phone
 
         if (ValidateCpfCnpj.isCPF(params.cpfCnpj)) {
