@@ -16,9 +16,7 @@ class CustomerRepository implements Repository<Customer, CustomerRepository> {
 
     @Override
     List<String> listAllowedFilters() {
-        return [
-                "id"
-        ]
+        return ["id"]
     }
 
     @Override
