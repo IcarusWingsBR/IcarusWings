@@ -16,9 +16,7 @@ class PayerService {
     public Payer save(PayerAdapter payerAdapter) {
         Payer validatedPayer = validateSave(payerAdapter)
 
-        if (validatedPayer.hasErrors()) {
-            throw new ValidationException("Não foi possível salvar o pagador", validatedPayer.errors)
-        }
+        if (validatedPayer.hasErrors()) throw new ValidationException("Não foi possível salvar o pagador", validatedPayer.errors)
 
         Payer payer = new Payer()
 
