@@ -8,7 +8,7 @@ import java.sql.Date
 
 class PaymentAdapter {
 
-    Long id
+    String id
 
     Payer payer
 
@@ -23,8 +23,8 @@ class PaymentAdapter {
     public PaymentAdapter(Map params) {
         this.id = params.id
 
-        Long idPayer = Long.parseLong(params.idPayer)
-        this.payer = Payer.get(idPayer)
+        Long payerId = Long.parseLong(params.payerId)
+        this.payer = Payer.get(payerId)
 
         this.paymentType = PaymentType.convert(params.paymentType)
         this.paymentStatus = PaymentStatus.WAITING_PAYMENT
