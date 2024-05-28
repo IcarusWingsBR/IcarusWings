@@ -44,10 +44,20 @@ class PayerService {
 
         Long id = payerAdapter.id
         Payer payer = PayerRepository.get(id)
-        payer.properties = payerAdapter.properties
+        payer.name = payerAdapter.name
+        payer.email = payerAdapter.email
+        payer.cpfCnpj = payerAdapter.cpfCnpj
+        payer.phone = payerAdapter.phone
+        payer.postalCode = payerAdapter.postalCode
+        payer.address = payerAdapter.address
+        payer.province = payerAdapter.province
+        payer.city = payerAdapter.city
+        payer.state = payerAdapter.state
+        payer.addressNumber = payerAdapter.addressNumber
+        payer.addressComplement = payerAdapter.addressComplement
+        payer.customer = payerAdapter.customer
         payer.save(failOnError: true)
     }
-
 
     private Payer validateSave(PayerAdapter payerAdapter) {
         Payer payer = new Payer()
