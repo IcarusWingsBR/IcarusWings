@@ -8,6 +8,7 @@ import icaruswings.utils.validator.StringUtils
 import icaruswings.utils.validator.ValidateEmail
 import icaruswings.utils.validator.PostalCodeValidator
 import icaruswings.utils.validator.ValidatePhone
+import icaruswings.utils.repositories.CustomerRepository
 
 @Transactional
 class CustomerService {
@@ -41,7 +42,7 @@ class CustomerService {
         if (validatedCustomer.hasErrors()) throw new ValidationException("Não foi possível salvar o cliente", validatedCustomer.errors)
 
         Long id = customerAdapter.id
-        Customer customer = Customer.get(id)
+        Customer customer = CustomerRepository.get(id)
         customer.name = customerAdapter.name
         customer.email = customerAdapter.email
         customer.phone = customerAdapter.phone
