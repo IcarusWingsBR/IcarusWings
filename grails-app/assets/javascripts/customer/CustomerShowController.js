@@ -35,7 +35,7 @@ function CustomerShowController() {
 
                 return;
             });
-    }
+    };
 
     this.clearPostalCodeFormat = function() {
         addressReference.value = ("");
