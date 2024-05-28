@@ -50,7 +50,8 @@ class CustomerAdapter {
   
         if (ValidateCpfCnpj.isCPF(params.cpfCnpj)) {
             this.personType = PersonType.NATURAL
-        } else if (ValidateCpfCnpj.isCNPJ(params.cpfCnpj)) 
+        } else if (ValidateCpfCnpj.isCNPJ(params.cpfCnpj)) { 
             this.personType = PersonType.LEGAL
         }
+    }
 }
