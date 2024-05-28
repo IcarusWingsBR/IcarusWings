@@ -10,13 +10,9 @@ function PostalCodeValidator() {
             });
     };
 
-    this.isPostalCodeEmpty = function(postalCode) {
-        if (postalCode != "") return false;
-
-        return true;
-    };
-
     this.validatePostalCodeFormat = function(postalCode) {
+        if (postalCode == "") return false;
+
         let validatePostalCode = /^[0-9]{8}$/;
 
         if (!validatePostalCode.test(postalCode)) {

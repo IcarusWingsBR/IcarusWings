@@ -16,12 +16,6 @@ function CustomerShowController() {
     this.processPostalCodeInput = async function() {
         const postalCode = postalCodeReference.value
 
-        if (postalCodeValidator.isPostalCodeEmpty(postalCode)) {
-            _this.clearPostalCodeFormat();
-
-            return;
-        }
-
         const postalCodeSanitized = postalCode.replace(/\D/g, '');
     
         if (!postalCodeValidator.validatePostalCodeFormat(postalCodeSanitized)) {
