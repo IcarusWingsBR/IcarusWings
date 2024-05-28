@@ -60,4 +60,8 @@ class PaymentController {
             //redirect(action: "index", params: params)
         }
     }
+
+    def list() {
+        return [paymentList: paymentService.list()]
+    }
 }
