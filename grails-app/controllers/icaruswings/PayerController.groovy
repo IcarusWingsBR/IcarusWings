@@ -55,9 +55,9 @@ class PayerController {
         } catch (RuntimeException runtimeException) {
             flash.errors = [runtimeException.getMessage()]
         } catch (Exception exception) {
-            flash.errors = ["Erro ao deletar o pagador"]
-        } catch (Exception exception) {
             log.error("PayerController.save >> Erro ao atualizar um payer ${params}", exception)
+
+            flash.errors = ["Erro ao deletar o pagador"]
 
             redirect(action: "index", params: params)
         } finally {
