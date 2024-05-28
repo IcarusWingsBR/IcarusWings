@@ -2,7 +2,7 @@ package icaruswings
 
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
-import icaruswings.utils.PersonType
+import icaruswings.utils.adapters.PayerAdapter
 import icaruswings.utils.validator.PostalCodeValidator
 import icaruswings.utils.validator.ValidateCpfCnpj
 import icaruswings.utils.validator.ValidateEmail
@@ -11,91 +11,89 @@ import icaruswings.utils.validator.StringUtils
 
 @Transactional
 class PayerService {
-    public Payer save(Map parsedParams) {
 
-        Payer validatedPayer = validateSave(parsedParams)
+    public Payer save(PayerAdapter payerAdapter) {
+        Payer validatedPayer = validateSave(payerAdapter)
 
         if (validatedPayer.hasErrors()) throw new ValidationException("Não foi possível salvar o pagador", validatedPayer.errors)
 
         Payer payer = new Payer()
-        payer.name = parsedParams.name
-        payer.email = parsedParams.email
-        payer.cpfCnpj = parsedParams.cpfCnpj
-        payer.personType = PersonType.NATURAL
-        payer.postalCode = parsedParams.postalCode
-        payer.address = parsedParams.address
-        payer.province = parsedParams.province
-        payer.city = parsedParams.city
-        payer.state = parsedParams.state
-        payer.addressNumber = Integer.parseInt(parsedParams.addressNumber)
-        payer.addressComplement = parsedParams.addressComplement
-        payer.customer = Customer.get(parsedParams.customerId)
-        payer.phone = parsedParams.phone
+        payer.name = payerAdapter.name
+        payer.email = payerAdapter.email
+        payer.cpfCnpj = payerAdapter.cpfCnpj
+        payer.postalCode = payerAdapter.postalCode
+        payer.address = payerAdapter.address
+        payer.province = payerAdapter.province
+        payer.city = payerAdapter.city
+        payer.state = payerAdapter.state
+        payer.addressNumber = payerAdapter.addressNumber
+        payer.addressComplement = payerAdapter.addressComplement
+        payer.customer = payerAdapter.customer
+        payer.phone = payerAdapter.phone
+        payer.personType = payerAdapter.personType
         payer.save(failOnError: true)
 
         return payer
     }
 
-    private Payer validateSave(Map parsedParams) {
+    private Payer validateSave(PayerAdapter payerAdapter) {
         Payer payer = new Payer()
 
-        if (!parsedParams.cpfCnpj) {
-            payer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
-        } else if (!ValidateCpfCnpj.isCPF(parsedParams.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(parsedParams.cpfCnpj)) {
-            payer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
-        }
-
-        if (!parsedParams.name) {
+        if (!payerAdapter.name) {
             payer.errors.rejectValue("name", null, "O campo nome é obrigatório")
-        } else if (!StringUtils.isValidString(parsedParams.name)) {
+        } else if (!StringUtils.isValidString(payerAdapter.name)) {
             payer.errors.rejectValue("name", null, "O nome informado é inválido")
         }
 
-        if (!parsedParams.email) {
+        if (!payerAdapter.email) {
             payer.errors.rejectValue("email", null, "O campo email é obrigatório")
-        } else if (!ValidateEmail.isValidEmail(parsedParams.email)) {
+        } else if (!ValidateEmail.isValidEmail(payerAdapter.email)) {
             payer.errors.rejectValue("email", null, "O email informado é inválido")
         }
 
-        if (!parsedParams.phone) {
+        if (!payerAdapter.cpfCnpj) {
+            payer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
+        } else if (!ValidateCpfCnpj.isCPF(payerAdapter.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(payerAdapter.cpfCnpj)) {
+            payer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
+        }
+
+        if (!payerAdapter.phone) {
             payer.errors.rejectValue("phone", null, "O campo telefone é obrigatório")
-        } else if (!ValidatePhone.isValidPhoneNumber(parsedParams.phone)) {
+        } else if (!ValidatePhone.isValidPhoneNumber(payerAdapter.phone)) {
             payer.errors.rejectValue("phone", null, "O numero de telefone inserido é inválido")
         }
 
-        if (!parsedParams.postalCode) {
+        if (!payerAdapter.postalCode) {
             payer.errors.rejectValue("postalCode", null, "O campo cep é obrigatório")
-        } else if (!PostalCodeValidator.isValid(parsedParams.postalCode)) {
+        } else if (!PostalCodeValidator.isValid(payerAdapter.postalCode)) {
             payer.errors.rejectValue("postalCode", null, "O cep inserido é inválido")
         }
 
-        if (!parsedParams.address) {
+        if (!payerAdapter.address) {
             payer.errors.rejectValue("address", null, "O campo rua é obrigatório")
         }
 
-        if (!parsedParams.province) {
+        if (!payerAdapter.province) {
             payer.errors.rejectValue("province", null, "O campo bairro é obrigatório")
         }
 
-        if (!parsedParams.addressNumber) {
+        if (!payerAdapter.addressNumber) {
             payer.errors.rejectValue("addressNumber", null, "O campo número de residência é obrigatório")
-        } else if (!StringUtils.containsOnlyNumbers(parsedParams.addressNumber)) {
-            payer.errors.rejectValue("addressNumber", null, "O número de residência é inválido")
         }
 
-        if (!parsedParams.addressComplement) {
+        if (!payerAdapter.addressComplement) {
             payer.errors.rejectValue("addressComplement", null, "O campo complemento é obrigatório")
         }
 
-        if (!parsedParams.city) {
+        if (!payerAdapter.city) {
             payer.errors.rejectValue("city", null, "O campo cidade é obrigatório")
-        } else if (!StringUtils.isValidString(parsedParams.city)) {
+        } else if (!StringUtils.isValidString(payerAdapter.city)) {
             payer.errors.rejectValue("city", null, "A cidade informado é inválida")
         }
 
-        if (!parsedParams.state) {
+        if (!payerAdapter.state) {
             payer.errors.rejectValue("state", null, "O campo estado é obrigatório")
-        } else if (!StringUtils.isValidString(parsedParams.state)) {
+        } else if (!StringUtils.isValidString(payerAdapter.state)) {
             payer.errors.rejectValue("state", null, "O estado informado é inválido")
         }
 
