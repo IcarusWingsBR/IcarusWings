@@ -2,7 +2,6 @@ package icaruswings
 
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
-import icaruswings.utils.PersonType
 import icaruswings.utils.adapters.PayerAdapter
 import icaruswings.utils.repositories.PayerRepository
 import icaruswings.utils.validator.PostalCodeValidator
@@ -13,13 +12,11 @@ import icaruswings.utils.validator.StringUtils
 
 @Transactional
 class PayerService {
+    
     public Payer save(PayerAdapter payerAdapter) {
-
         Payer validatedPayer = validateSave(payerAdapter)
 
-        if (validatedPayer.hasErrors()) {
-            throw new ValidationException("Não foi possível salvar o pagador", validatedPayer.errors)
-        }
+        if (validatedPayer.hasErrors()) throw new ValidationException("Não foi possível salvar o pagador", validatedPayer.errors)
 
         Payer payer = new Payer()
 
@@ -27,7 +24,7 @@ class PayerService {
 
         payer.email = payerAdapter.email
 
-        payer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(payerAdapter.cpfCnpj)
+        payer.cpfCnpj = payerAdapter.cpfCnpj
 
         payer.postalCode = payerAdapter.postalCode
 
@@ -39,7 +36,7 @@ class PayerService {
 
         payer.state = payerAdapter.state
 
-        payer.addressNumber = Integer.parseInt(payerAdapter.addressNumber)
+        payer.addressNumber = payerAdapter.addressNumber
 
         payer.addressComplement = payerAdapter.addressComplement
 
@@ -107,8 +104,6 @@ class PayerService {
 
         if (!payerAdapter.addressNumber) {
             payer.errors.rejectValue("addressNumber", null, "O campo número de residência é obrigatório")
-        } else if (!StringUtils.containsOnlyNumbers(payerAdapter.addressNumber)) {
-            payer.errors.rejectValue("addressNumber", null, "O número de residência é inválido")
         }
 
         if (!payerAdapter.addressComplement) {
@@ -127,20 +122,6 @@ class PayerService {
             payer.errors.rejectValue("state", null, "O estado informado é inválido")
         }
 
-        if (!payerAdapter.customer.id) {
-            payer.errors.rejectValue("customerId", null, "O payer precisa estar vinculado a um customer")
-        } else if (!isCustomerIdValid(payerAdapter.customer.id)) {
-            payer.errors.rejectValue("customerId", null, "O customer é inválido")
-        }
-
         return payer
-    }
-
-    private Boolean isCustomerIdValid(Long customerId) {
-        Customer customer = Customer.get(customerId)
-
-        if (!customer || customer.deleted) return false
-
-        return true
     }
 }
