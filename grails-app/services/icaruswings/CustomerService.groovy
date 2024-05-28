@@ -15,9 +15,7 @@ class CustomerService {
     public Customer save(CustomerAdapter customerAdapter) {
         Customer validatedCustomer = validateSave(customerAdapter)
 
-        if (validatedCustomer.hasErrors()) {
-            throw new ValidationException("Não foi possível salvar o cliente", validatedCustomer.errors)
-        }
+        if (validatedCustomer.hasErrors()) throw new ValidationException("Não foi possível salvar o cliente", validatedCustomer.errors)
 
         Customer customer = new Customer()
 
