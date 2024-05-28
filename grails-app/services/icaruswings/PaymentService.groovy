@@ -40,7 +40,7 @@ class PaymentService {
 
         payment.paymentType = paymentAdapter.paymentType
 
-        payment.value = parseValueToDouble(paymentAdapter.value)
+        payment.value = paymentAdapter.value
 
         payment.dueDate = paymentAdapter.dueDate
 
