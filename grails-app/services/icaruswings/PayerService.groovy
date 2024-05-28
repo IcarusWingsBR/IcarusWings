@@ -12,7 +12,7 @@ import icaruswings.utils.validator.StringUtils
 
 @Transactional
 class PayerService {
-    
+
     public Payer save(PayerAdapter payerAdapter) {
         Payer validatedPayer = validateSave(payerAdapter)
 
@@ -21,29 +21,17 @@ class PayerService {
         Payer payer = new Payer()
 
         payer.name = payerAdapter.name
-
         payer.email = payerAdapter.email
-
         payer.cpfCnpj = payerAdapter.cpfCnpj
-
         payer.postalCode = payerAdapter.postalCode
-
         payer.address = payerAdapter.address
-
         payer.province = payerAdapter.province
-
         payer.city = payerAdapter.city
-
         payer.state = payerAdapter.state
-
         payer.addressNumber = payerAdapter.addressNumber
-
         payer.addressComplement = payerAdapter.addressComplement
-
         payer.customer = payerAdapter.customer
-
         payer.phone = payerAdapter.phone
-
         payer.personType = payerAdapter.personType
 
         payer.save(failOnError: true)
