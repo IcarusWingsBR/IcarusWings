@@ -10,13 +10,11 @@ class PaymentService {
 
     public Payment save(PaymentAdapter paymentAdapter) {
         Payment payment = new Payment()
-
         payment.payer = paymentAdapter.payer
         payment.paymentType = paymentAdapter .paymentType
         payment.paymentStatus = paymentAdapter.paymentStatus
         payment.value = paymentAdapter.value
         payment.dueDate = paymentAdapter.dueDate
-
         payment.save(failOnError: true)
 
         return payment
