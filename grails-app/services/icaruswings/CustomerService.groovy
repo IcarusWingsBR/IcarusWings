@@ -18,31 +18,18 @@ class CustomerService {
         if (validatedCustomer.hasErrors()) throw new ValidationException("Não foi possível salvar o cliente", validatedCustomer.errors)
 
         Customer customer = new Customer()
-
         customer.name = customerAdapter.name
-
         customer.email = customerAdapter.email
-
         customer.cpfCnpj = customerAdapter.cpfCnpj
-
         customer.postalCode = customerAdapter.postalCode
-
         customer.address = customerAdapter.address
-
         customer.province = customerAdapter.province
-
         customer.city = customerAdapter.city
-
         customer.state = customerAdapter.state
-
         customer.addressNumber = customerAdapter.addressNumber
-
         customer.addressComplement = customerAdapter.addressComplement
-
         customer.phone= customerAdapter.phone
-
         customer.personType = customerAdapter.personType
-
         customer.save(failOnError: true)
 
         return customer
