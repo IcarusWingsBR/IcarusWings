@@ -3,6 +3,7 @@ package icaruswings
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 import icaruswings.utils.adapters.PayerAdapter
+import icaruswings.utils.repositories.PayerRepository
 import icaruswings.utils.validator.PostalCodeValidator
 import icaruswings.utils.validator.ValidateCpfCnpj
 import icaruswings.utils.validator.ValidateEmail
@@ -34,6 +35,16 @@ class PayerService {
         payer.save(failOnError: true)
 
         return payer
+    }
+
+    public void delete(Long id){
+        Payer payer = PayerRepository.get(id)
+
+        if (!payer) throw new RuntimeException("Esse pagador não existe")
+
+        payer.deleted = true
+
+        payer.save(failOnError: true)
     }
 
     private Payer validateSave(PayerAdapter payerAdapter) {
