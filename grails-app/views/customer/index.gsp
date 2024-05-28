@@ -47,7 +47,7 @@
                 <label for="addressComplement">Complemento:</label><br>
                 <input type="text" name="addressComplement" id="addressComplement" placeholder="Digite o Complemento" class="form-field" value="${params.addressComplement}" autocomplete="off" required/>
 
-                <button type="submit" class="inputButton">Enviar</button>
+                <button type="submit" class="input-button">Enviar</button>
             </form>
         </div>
     </body>

@@ -59,7 +59,7 @@ input[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-.inputButton {
+.input-button {
     width: 200px;
     height: 40px;
     border-radius: 5px;
