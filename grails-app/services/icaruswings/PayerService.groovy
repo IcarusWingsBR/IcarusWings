@@ -35,7 +35,7 @@ class PayerService {
 
         payer.state = payerAdapter.state
 
-        payer.addressNumber = Integer.parseInt(payerAdapter.addressNumber)
+        payer.addressNumber = payerAdapter.addressNumber
 
         payer.addressComplement = payerAdapter.addressComplement
 
@@ -93,8 +93,6 @@ class PayerService {
 
         if (!payerAdapter.addressNumber) {
             payer.errors.rejectValue("addressNumber", null, "O campo número de residência é obrigatório")
-        } else if (!StringUtils.containsOnlyNumbers(payerAdapter.addressNumber)) {
-            payer.errors.rejectValue("addressNumber", null, "O número de residência é inválido")
         }
 
         if (!payerAdapter.addressComplement) {

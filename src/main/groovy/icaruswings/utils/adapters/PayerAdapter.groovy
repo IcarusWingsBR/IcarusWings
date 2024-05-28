@@ -23,7 +23,7 @@ class PayerAdapter {
 
     String state
 
-    String addressNumber
+    Integer addressNumber
 
     String addressComplement
 
@@ -43,7 +43,7 @@ class PayerAdapter {
         this.province = params.province
         this.city = params.city
         this.state = params.state
-        this.addressNumber = params.addressNumber
+        this.addressNumber = Integer.parseInt(params.addressNumber)
         this.addressComplement = params.addressComplement
         this.customer = Customer.get(params.customerId)
         this.phone = params.phone
