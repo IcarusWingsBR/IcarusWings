@@ -20,29 +20,17 @@ class PayerService {
         Payer payer = new Payer()
 
         payer.name = parsedParams.name
-
         payer.email = parsedParams.email
-
         payer.cpfCnpj = parsedParams.cpfCnpj
-
         payer.personType = PersonType.NATURAL
-
         payer.postalCode = parsedParams.postalCode
-
         payer.address = parsedParams.address
-
         payer.province = parsedParams.province
-
         payer.city = parsedParams.city
-
         payer.state = parsedParams.state
-
         payer.addressNumber = Integer.parseInt(parsedParams.addressNumber)
-
         payer.addressComplement = parsedParams.addressComplement
-
         payer.customer = Customer.get(parsedParams.customerId)
-
         payer.phone = parsedParams.phone
 
         payer.save(failOnError: true)
