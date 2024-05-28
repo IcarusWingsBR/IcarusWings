@@ -38,7 +38,7 @@ class CustomerService {
 
         customer.state = customerAdapter.state
 
-        customer.addressNumber = Integer.parseInt(customerAdapter.addressNumber)
+        customer.addressNumber = customerAdapter.addressNumber
 
         customer.addressComplement = customerAdapter.addressComplement
 
@@ -133,8 +133,6 @@ class CustomerService {
 
         if (!customerAdapter.addressNumber) {
             customer.errors.rejectValue("addressNumber", null, "O campo número de residência é obrigatório")
-        } else if (!StringUtils.containsOnlyNumbers(customerAdapter.addressNumber)) {
-            customer.errors.rejectValue("addressNumber", null, "O número de residência é inválido")
         }
 
         if (!customerAdapter.addressComplement) {
