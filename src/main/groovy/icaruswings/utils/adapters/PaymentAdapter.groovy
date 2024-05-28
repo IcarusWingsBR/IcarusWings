@@ -26,7 +26,6 @@ class PaymentAdapter {
 
         Long payerId = Long.parseLong(params.payerId)
         this.payer = PayerRepository.get(payerId)
-
         this.paymentType = PaymentType.convert(params.paymentType)
         this.paymentStatus = PaymentStatus.WAITING_PAYMENT
         this.value = BigDecimalUtis.parse(params.value)
