@@ -113,10 +113,6 @@ class PayerService {
             payer.errors.rejectValue("state", null, "O estado informado é inválido")
         }
 
-        if (!parsedParams.customerId) {
-            payer.errors.rejectValue("customerId", null, "O payer precisa estar vinculado a um customer")
-        }
-
         return payer
     }
 }
