@@ -23,8 +23,8 @@ class PaymentAdapter {
     public PaymentAdapter(Map params) {
         if(params.id) this.id = Long.valueOf(params.id)
 
-        Long idPayer = Long.parseLong(params.idPayer)
-        this.payer = Payer.get(idPayer)
+        Long payerId = Long.parseLong(params.payerId)
+        this.payer = Payer.get(payerId)
 
         this.paymentType = PaymentType.convert(params.paymentType)
         this.paymentStatus = PaymentStatus.WAITING_PAYMENT
