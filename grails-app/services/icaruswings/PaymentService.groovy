@@ -3,6 +3,7 @@ package icaruswings
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 import icaruswings.utils.adapters.PaymentAdapter
+import icaruswings.utils.date.DateUtils
 
 @Transactional
 class PaymentService {
@@ -36,23 +37,16 @@ class PaymentService {
 
         if (!paymentAdapter.value) {
             payment.errors.rejectValue("value", null, "O campo valor é obrigatório")
-        } else if (!ValueValidator.isValid(paymentAdapter.value)) {
-            payment.errors.rejectValue("value", null, "O valor informado é inválido")
+        } else if (paymentAdapter.value < 0) {
+            payment.errors.rejectValue("value", null, "O valor informado deve ser positivo")
         }
 
         if (!paymentAdapter.dueDate) {
             payment.errors.rejectValue("dueDate",  null, "O campo data de vencimento é obrigatório")
-        } else if (!DateValidator.isValid(paymentAdapter.dueDate)) {
+        } else if (!DateUtils.isBeforeToday(paymentAdapter.dueDate)) {
             payment.errors.rejectValue("dueDate",  null, "A data informada é inválida")
         }
 
         return payment
-    }
-
-    private Double parseValueToDouble(String stringValue) {
-        String valueWithDote = stringValue.replaceAll( "," , "." )
-        Double value = Double.parseDouble(valueWithDote)
-
-        return value
     }
 }
