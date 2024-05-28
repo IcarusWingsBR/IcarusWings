@@ -3,7 +3,6 @@ package icaruswings.utils.adapters
 import icaruswings.Customer
 import icaruswings.utils.PersonType
 import icaruswings.utils.validator.ValidateCpfCnpj
-import icaruswings.utils.validator.CheckEntityExistenceById
 
 class PayerAdapter {
     String id
@@ -24,7 +23,7 @@ class PayerAdapter {
 
     String state
 
-    String addressNumber
+    Integer addressNumber
 
     String addressComplement
 
@@ -35,8 +34,6 @@ class PayerAdapter {
     PersonType personType
 
     public PayerAdapter(Map params) {
-        if (!CheckEntityExistenceById.CheckCustomerExistenceById(params.customerId)) throw new RuntimeException("Cliente nao encontrado")
-
         this.id = params.id
         this.name = params.name
         this.email = params.email
@@ -46,12 +43,12 @@ class PayerAdapter {
         this.province = params.province
         this.city = params.city
         this.state = params.state
-        this.addressNumber = params.addressNumber
+        this.addressNumber = Integer.parseInt(params.addressNumber)
         this.addressComplement = params.addressComplement
         this.customer = Customer.get(params.customerId)
         this.phone = params.phone
 
-        if(ValidateCpfCnpj.isCPF(params.cpfCnpj)) {
+        if (ValidateCpfCnpj.isCPF(params.cpfCnpj)) {
             this.personType = PersonType.NATURAL
         } else if (ValidateCpfCnpj.isCNPJ(params.cpfCnpj)){
             this.personType = PersonType.LEGAL
