@@ -7,7 +7,7 @@
         <asset:javascript src="customer/CustomerShowController.js" />
     </head>
     <body>
-        <div class="background-box">
+        <div class="background-box js-save-customer-form">
             <form action="${createLink(controller:"customer", action: "save") }">
                 <img src="${resource(dir: 'images', file: 'logo.png')}" alt="Logo" class="img-logo">
 
@@ -26,20 +26,20 @@
                 <input name="phone" id="phone" placeholder="Digite seu Número de Telefone" value="${params.phone}" class="form-field" required/><br>
 
                 <label for="postalCode">CEP:</label><br>
-                <input type="text" name="postalCode" id="postalCode" placeholder="Digite seu CEP" class="form-field"
+                <input type="text" name="postalCode" id="postalCode" placeholder="Digite seu CEP" class="form-field js-postalCode"
                     value="" size="10" maxlength="9" value="${params.postalCode}" autocomplete="off" required/>
 
                 <label for="address">Rua:</label><br>
-                <input type="text" name="address" id="address" placeholder="Digite sua Rua" class="form-field" value="${params.address}" autocomplete="off"/>
+                <input type="text" name="address" id="address" placeholder="Digite sua Rua" class="form-field js-address" value="${params.address}" autocomplete="off"/>
 
                 <label for="province">Bairro:</label><br>
-                <input type="text" name="province" id="province" placeholder="Digite seu Bairro" class="form-field" value="${params.province}" autocomplete="off"/>
+                <input type="text" name="province" id="province" placeholder="Digite seu Bairro" class="form-field js-province" value="${params.province}" autocomplete="off"/>
 
                 <label for="city">Cidade:</label><br>
-                <input type="text" name="city" id="city" placeholder="Digite sua Cidade" class="form-field" value="${params.city}" autocomplete="off"/>
+                <input type="text" name="city" id="city" placeholder="Digite sua Cidade" class="form-field js-city" value="${params.city}" autocomplete="off"/>
 
                 <label for="state">Estado:</label><br>
-                <input type="text" name="state" id="state" placeholder="Digite seu Estado" class="form-field" value="${params.state}" autocomplete="off"/>
+                <input type="text" name="state" id="state" placeholder="Digite seu Estado" class="form-field js-state" value="${params.state}" autocomplete="off"/>
 
                 <label for="addressNumber">Número:</label><br>
                 <input type="addressNumber" name="addressNumber" id="addressNumber" placeholder="Digite o número de sua residência" class="form-field" value="${params.addressNumber}" autocomplete="off" required/>
