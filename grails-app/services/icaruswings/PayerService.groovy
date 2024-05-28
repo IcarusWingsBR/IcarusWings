@@ -44,9 +44,7 @@ class PayerService {
 
         Long id = payerAdapter.id
         Payer payer = PayerRepository.get(id)
-
         payer.properties = payerAdapter.properties
-
         payer.save(failOnError: true)
     }
 
