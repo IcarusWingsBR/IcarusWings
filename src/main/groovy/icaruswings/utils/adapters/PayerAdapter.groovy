@@ -5,7 +5,7 @@ import icaruswings.utils.PersonType
 import icaruswings.utils.validator.ValidateCpfCnpj
 
 class PayerAdapter {
-    String id
+    Long id
 
     String name
 
@@ -34,7 +34,9 @@ class PayerAdapter {
     PersonType personType
 
     public PayerAdapter(Map params) {
-        this.id = params.id
+
+        if (params.id) this.id = Long.valueOf(params.id)
+
         this.name = params.name
         this.email = params.email
         this.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(params.cpfCnpj)
