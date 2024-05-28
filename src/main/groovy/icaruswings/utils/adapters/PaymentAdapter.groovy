@@ -21,7 +21,7 @@ class PaymentAdapter {
     Date dueDate
 
     public PaymentAdapter(Map params) {
-        this.id = params.id
+        if(params.id) this.id = Long.valueOf(params.id)
 
         Long idPayer = Long.parseLong(params.idPayer)
         this.payer = Payer.get(idPayer)
