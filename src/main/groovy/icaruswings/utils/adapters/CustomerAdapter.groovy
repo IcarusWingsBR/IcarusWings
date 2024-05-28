@@ -5,7 +5,7 @@ import icaruswings.utils.validator.ValidateCpfCnpj
 
 class CustomerAdapter {
 
-    String id
+    Long id
 
     String name
 
@@ -23,7 +23,7 @@ class CustomerAdapter {
 
     String state
 
-    String addressNumber
+    Integer addressNumber
 
     String addressComplement
 
@@ -32,7 +32,6 @@ class CustomerAdapter {
     PersonType personType
 
     public CustomerAdapter(Map params) {
-        this.id = params.id
         this.name = params.name
         this.email = params.email
         this.postalCode = params.postalCode
@@ -40,9 +39,11 @@ class CustomerAdapter {
         this.province = params.province
         this.city = params.city
         this.state = params.state
-        this.addressNumber = params.addressNumber
+        this.addressNumber = Integer.parseInt(params.addressNumber)
         this.addressComplement = params.addressComplement
         this.phone = params.phone
+
+        if (params.id) this.id = Long.valueOf(params.id)
 
         if (!params.cpfCnpj) return
 
