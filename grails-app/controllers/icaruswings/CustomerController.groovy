@@ -45,7 +45,7 @@ class CustomerController {
             customerService.update(customerAdapter)
 
             flash.type = "success"
-            flash.message = "Alterações realizadas!!"
+            flash.message = "Alterações realizadas com sucesso."
 
             redirect(action: "index")
         } catch (Exception exception) {

@@ -8,7 +8,6 @@ import icaruswings.utils.validator.StringUtils
 import icaruswings.utils.validator.ValidateEmail
 import icaruswings.utils.validator.PostalCodeValidator
 import icaruswings.utils.validator.ValidatePhone
-import icaruswings.utils.validator.CheckEntityExistenceById
 
 @Transactional
 class CustomerService {
@@ -51,23 +50,17 @@ class CustomerService {
         return customer
     }
 
-    public void update(CustomerAdapter customerAdapter) {    
-        if (!CheckEntityExistenceById.CheckCustomerExistenceById(customerAdapter.id)) throw new RuntimeException("Cliente nao encontrado")    
-
+    public void update(CustomerAdapter customerAdapter) {      
         Customer validatedCustomer = validateDefaultFields(customerAdapter)
 
-        if (validatedCustomer.hasErrors()) {
-            throw new ValidationException("Não foi possível salvar o cliente", validatedCustomer.errors)
-        }
+        if (validatedCustomer.hasErrors()) throw new ValidationException("Não foi possível salvar o cliente", validatedCustomer.errors)
 
-        Long id = Long.parseLong(customerAdapter.id)
+        Long id = customerAdapter.id
         Customer customer = Customer.get(id)
 
         customer.name = customerAdapter.name
 
-        if (customer.email != customerAdapter.email) {
-            customer.email = customerAdapter.email
-        }
+        customer.email = customerAdapter.email
 
         customer.phone = customerAdapter.phone
 
@@ -81,7 +74,7 @@ class CustomerService {
 
         customer.state = customerAdapter.state
 
-        customer.addressNumber = Integer.parseInt(customerAdapter.addressNumber)
+        customer.addressNumber = customerAdapter.addressNumber
 
         customer.addressComplement = customerAdapter.addressComplement
 
