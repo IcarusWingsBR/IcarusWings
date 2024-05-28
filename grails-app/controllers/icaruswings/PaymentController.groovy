@@ -14,7 +14,7 @@ class PaymentController {
             Payment payment = paymentService.save(paymentAdapter)
 
             flash.type = "success"
-            flash.message = "Cadastro realizado!!"
+            flash.message = "Cadastro realizado com sucesso."
 
             redirect(action: "show", id: payment.id)
         } catch (Exception exception) {
