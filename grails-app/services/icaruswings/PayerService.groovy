@@ -8,7 +8,6 @@ import icaruswings.utils.validator.ValidateCpfCnpj
 import icaruswings.utils.validator.ValidateEmail
 import icaruswings.utils.validator.ValidatePhone
 import icaruswings.utils.validator.StringUtils
-import icaruswings.utils.validator.CheckEntityExistenceById
 
 @Transactional
 class PayerService {
@@ -16,9 +15,7 @@ class PayerService {
 
         Payer validatedPayer = validateSave(parsedParams)
 
-        if (validatedPayer.hasErrors()) {
-            throw new ValidationException("Não foi possível salvar o pagador", validatedPayer.errors)
-        }
+        if (validatedPayer.hasErrors()) throw new ValidationException("Não foi possível salvar o pagador", validatedPayer.errors)
 
         Payer payer = new Payer()
 
@@ -118,8 +115,6 @@ class PayerService {
 
         if (!parsedParams.customerId) {
             payer.errors.rejectValue("customerId", null, "O payer precisa estar vinculado a um customer")
-        } else if (!CheckEntityExistenceById.CheckCustomerExistenceById(parsedParams.customerId)) {
-            payer.errors.rejectValue("customerId", null, "O customer é inválido")
         }
 
         return payer
