@@ -58,7 +58,7 @@ class PayerService {
             throw new ValidationException("Não foi possível salvar o pagador", validatedPayer.errors)
         }
 
-        Long id = Long.valueOf(payerAdapter.id)
+        Long id = payerAdapter.id
         Payer payer = PayerRepository.get(id)
 
         payer.properties = payerAdapter.properties
