@@ -7,11 +7,11 @@
 <table>
     <thead>
     <tr>
-        <th>Payer</th>
-        <th>PaymentStatus</th>
-        <th>Value</th>
-        <th>PaymentStatus</th>
-        <th>DueDate</th>
+        <th>Pagador</th>
+        <th>Tipo do pagamento</th>
+        <th>Valor</th>
+        <th>Status do pagamento</th>
+        <th>Data de vencimento</th>
     </tr>
     </thead>
     <tbody>
