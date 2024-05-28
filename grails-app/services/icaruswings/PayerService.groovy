@@ -18,7 +18,6 @@ class PayerService {
         if (validatedPayer.hasErrors()) throw new ValidationException("Não foi possível salvar o pagador", validatedPayer.errors)
 
         Payer payer = new Payer()
-
         payer.name = parsedParams.name
         payer.email = parsedParams.email
         payer.cpfCnpj = parsedParams.cpfCnpj
@@ -32,7 +31,6 @@ class PayerService {
         payer.addressComplement = parsedParams.addressComplement
         payer.customer = Customer.get(parsedParams.customerId)
         payer.phone = parsedParams.phone
-
         payer.save(failOnError: true)
 
         return payer
