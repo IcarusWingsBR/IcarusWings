@@ -8,7 +8,7 @@ import java.sql.Date
 
 class PaymentAdapter {
 
-    Long id
+    String id
 
     Payer payer
 
