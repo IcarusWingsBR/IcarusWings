@@ -3,7 +3,6 @@ package icaruswings
 import grails.gorm.transactions.Transactional
 import icaruswings.utils.PaymentStatus
 import icaruswings.utils.adapters.PaymentAdapter
-import icaruswings.utils.bigDecimal.BigDecimalUtis
 
 @Transactional
 class PaymentService {
