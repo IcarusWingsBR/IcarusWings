@@ -43,7 +43,7 @@ class PaymentService {
 
         if (!paymentAdapter.dueDate) {
             payment.errors.rejectValue("dueDate",  null, "O campo data de vencimento é obrigatório")
-        } else if (!DateUtils.isBeforeToday(paymentAdapter.dueDate)) {
+        } else if (DateUtils.isBeforeToday(paymentAdapter.dueDate)) {
             payment.errors.rejectValue("dueDate",  null, "A data informada é inválida")
         }
 
