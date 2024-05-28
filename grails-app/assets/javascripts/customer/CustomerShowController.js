@@ -1,7 +1,7 @@
 function CustomerShowController() {
     this.reference = document.querySelector(".js-save-customer-form");
     var _this = this;
-    var postalCodeValidator
+    var postalCodeValidator;
     var postalCodeReference = _this.reference.querySelector(".js-postalCode");
     var addressReference = _this.reference.querySelector('.js-address');
     var provinceReference = _this.reference.querySelector('.js-province');
@@ -14,7 +14,7 @@ function CustomerShowController() {
     };
 
     this.processPostalCodeInput = async function() {
-        const postalCode = postalCodeReference.value
+        const postalCode = postalCodeReference.value;
 
         const postalCodeSanitized = postalCode.replace(/\D/g, '');
     
@@ -24,7 +24,7 @@ function CustomerShowController() {
             return;
         }
 
-        _this.setInputValuesToPending()
+        _this.setInputValuesToPending();
 
         postalCodeValidator.fetchPostalCode(postalCodeSanitized)
             .then(response => {
