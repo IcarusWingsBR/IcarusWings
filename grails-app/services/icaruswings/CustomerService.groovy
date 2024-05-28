@@ -55,27 +55,16 @@ class CustomerService {
 
         Long id = customerAdapter.id
         Customer customer = Customer.get(id)
-
         customer.name = customerAdapter.name
-
         customer.email = customerAdapter.email
-
         customer.phone = customerAdapter.phone
-
         customer.postalCode = customerAdapter.postalCode
-
         customer.address = customerAdapter.address
-
         customer.province = customerAdapter.province
-
         customer.city = customerAdapter.city
-
         customer.state = customerAdapter.state
-
         customer.addressNumber = customerAdapter.addressNumber
-
         customer.addressComplement = customerAdapter.addressComplement
-
         customer.save(failOnError: true)
     }
 
