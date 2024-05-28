@@ -26,25 +26,15 @@ class PaymentService {
     }
 
     public void update(PaymentAdapter paymentAdapter) {
-        Long id = Long.parseLong(paymentAdapter.id)
-        Payment payment = PaymentRepository.get(id)
-
         Payment validatedPayment = validateSave(paymentAdapter)
 
-        if (!payment || payment.deleted) throw new RuntimeException("Customer não encontrado")
+        if (validatedPayment.hasErrors()) throw new ValidationException("Não foi possível salvar o cliente", validatedPayment.errors)
 
-        if (validatedPayment.hasErrors()) {
-            throw new ValidationException("Não foi possível salvar o cliente", validatedPayment.errors)
-        }
-
+        Payment payment = PaymentRepository.get(paymentAdapter.id)
         payment.payer = paymentAdapter.payer
-
         payment.paymentType = paymentAdapter.paymentType
-
         payment.value = paymentAdapter.value
-
         payment.dueDate = paymentAdapter.dueDate
-
         payment.save(failOnError: true)
     }
 
