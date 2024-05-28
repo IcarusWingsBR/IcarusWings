@@ -32,7 +32,6 @@ class PayerService {
         payer.customer = payerAdapter.customer
         payer.phone = payerAdapter.phone
         payer.personType = payerAdapter.personType
-
         payer.save(failOnError: true)
 
         return payer
