@@ -3,8 +3,8 @@ package icaruswings.utils.adapters
 import icaruswings.Payer
 import icaruswings.utils.PaymentStatus
 import icaruswings.utils.PaymentType
-import icaruswings.utils.date.DateParser
-import java.sql.Date
+import icaruswings.utils.bigDecimal.BigDecimalUtis
+import icaruswings.utils.date.DateUtils
 
 class PaymentAdapter {
 
@@ -16,7 +16,7 @@ class PaymentAdapter {
 
     PaymentStatus paymentStatus
 
-    String value
+    BigDecimal value
 
     Date dueDate
 
@@ -28,7 +28,7 @@ class PaymentAdapter {
 
         this.paymentType = PaymentType.convert(params.paymentType)
         this.paymentStatus = PaymentStatus.WAITING_PAYMENT
-        this.value = params.value
-        this.dueDate = DateParser.parse(params.dueDate)
+        this.value = BigDecimalUtis.parse(params.value)
+        this.dueDate = DateUtils.parse(params.dueDate)
     }
 }

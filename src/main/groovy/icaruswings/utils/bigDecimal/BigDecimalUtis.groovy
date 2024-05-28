@@ -3,7 +3,7 @@ package icaruswings.utils.bigDecimal
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-class BigDecimalUtis{
+class BigDecimalUtis {
 
     public static Boolean isValidBigDecimal(String stringValue) {
         if (!isFormatValid(stringValue)) return false
