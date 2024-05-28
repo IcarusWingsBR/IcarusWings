@@ -42,7 +42,7 @@ class PayerService {
     public void delete(Long id){
         Payer payer = PayerRepository.get(id)
 
-        if(!payer) throw new RuntimeException("Esse pagador não existe")
+        if (!payer) throw new RuntimeException("Esse pagador não existe")
 
         payer.deleted = true
 
