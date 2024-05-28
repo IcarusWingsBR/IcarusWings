@@ -11,9 +11,7 @@ class PaymentService {
     public Payment save(PaymentAdapter paymentAdapter) {
         Payment validatedPayment= validateSave(paymentAdapter)
 
-        if (validatedPayment.hasErrors()) {
-            throw new ValidationException("Não foi possível salvar a cobrança", validatedPayment.errors)
-        }
+        if (validatedPayment.hasErrors()) throw new ValidationException("Não foi possível salvar a cobrança", validatedPayment.errors)
 
         Payment payment = new Payment()
         payment.payer = paymentAdapter.payer
