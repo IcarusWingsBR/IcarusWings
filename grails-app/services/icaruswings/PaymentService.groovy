@@ -27,7 +27,7 @@ class PaymentService {
 
     public void update(PaymentAdapter paymentAdapter) {
         Long id = Long.parseLong(paymentAdapter.id)
-        Payment payment = Payment.get(id)
+        Payment payment = PaymentRepository.get(id)
 
         Payment validatedPayment = validateSave(paymentAdapter)
 
