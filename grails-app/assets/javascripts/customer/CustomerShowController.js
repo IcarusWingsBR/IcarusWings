@@ -1,12 +1,12 @@
 function CustomerShowController() {
-    this.reference = document.getElementsByClassName("js-save-customer-form")[0]
+    this.reference = document.querySelector(".js-save-customer-form");
     var _this = this;
     var postalCodeValidator
-    var postalCodeReference = _this.reference.getElementsByClassName("js-postalCode")[0];
-    var addressReference = _this.reference.getElementsByClassName('js-address')[0];
-    var provinceReference = _this.reference.getElementsByClassName('js-province')[0];
-    var cityReference = _this.reference.getElementsByClassName('js-city')[0];
-    var stateReference = _this.reference.getElementsByClassName('js-state')[0];
+    var postalCodeReference = _this.reference.querySelector(".js-postalCode");
+    var addressReference = _this.reference.querySelector('.js-address');
+    var provinceReference = _this.reference.querySelector('.js-province');
+    var cityReference = _this.reference.querySelector('.js-city');
+    var stateReference = _this.reference.querySelector('.js-state');
     
     this.init = function() {
         postalCodeValidator = new PostalCodeValidator();
