@@ -7,11 +7,11 @@ class ValueValidator {
 
     public static Boolean isValid(String stringValue) {
         if (!isFormatValid(stringValue)) return false
-
+        print stringValue
         String valueWithDote = stringValue.replaceAll( "," , "." )
-        Double value = Double.parseDouble(valueWithDote)
+        BigDecimal value = new BigDecimal(valueWithDote)
 
-        if(value < 0) return false
+        if (value < 0) return false
 
         return true
     }
