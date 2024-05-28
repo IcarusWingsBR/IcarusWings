@@ -1,15 +1,14 @@
-package icaruswings.utils.validator
+package icaruswings.utils.bigDecimal
 
 import java.util.regex.Matcher
 import java.util.regex.Pattern
-import icaruswings.utils.parsers.BigDecimalParser
 
-class ValueValidator {
+class BigDecimalUtis{
 
-    public static Boolean isValid(String stringValue) {
+    public static Boolean isValidBigDecimal(String stringValue) {
         if (!isFormatValid(stringValue)) return false
 
-        BigDecimal value = BigDecimalParser.parse(stringValue)
+        BigDecimal value = parse(stringValue)
 
         if (value < 0) return false
 
@@ -25,5 +24,12 @@ class ValueValidator {
         if (!matcher.matches()) return false
 
         return true
+    }
+
+    public static BigDecimal parse(String stringValue) {
+        String valueWithDote = stringValue.replaceAll( "," , "." )
+        BigDecimal value = new BigDecimal(valueWithDote)
+
+        return value
     }
 }
