@@ -35,7 +35,6 @@ class PayerAdapter {
     PersonType personType
 
     public PayerAdapter(Map params) {
-
         if (params.id) this.id = Long.valueOf(params.id)
 
         this.name = params.name
