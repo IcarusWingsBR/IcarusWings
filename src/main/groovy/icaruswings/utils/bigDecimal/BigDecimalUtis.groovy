@@ -1,6 +1,6 @@
 package icaruswings.utils.bigDecimal
 
-class BigDecimalUtis{
+class BigDecimalUtis {
 
     public static BigDecimal parse(String stringValue) {
         String valueWithDote = stringValue.replaceAll( "," , "." )
