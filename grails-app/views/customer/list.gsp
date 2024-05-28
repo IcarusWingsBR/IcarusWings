@@ -9,17 +9,16 @@
   <tr>
     <th>Nome</th>
     <th>Email</th>
-    <th>cpfCnpj</th>
-    <th>postalCode</th>
-    <th>address</th>
-    <th>address</th>
-    <th>province</th>
-    <th>city</th>
-    <th>state</th>
-    <th>addressNumber</th>
-    <th>addressComplement</th>
-    <th>phone</th>
-    <th>personType</th>
+    <th>Cpf/Cnpj</th>
+    <th>Cep</th>
+    <th>Endereço</th>
+    <th>Bairro</th>
+    <th>Cidade</th>
+    <th>Estado</th>
+    <th>Número do endereço</th>
+    <th>Complemento do endereço</th>
+    <th>Telefone</th>
+    <th>Tipo de pessoa</th>
   </tr>
   </thead>
   <tbody>
