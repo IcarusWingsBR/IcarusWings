@@ -2,13 +2,13 @@
     <head>
         <meta name="layout" content="">
         <title>Cadastro de Cliente</title>
-        <asset:stylesheet href="utilsCss/index.css" />
-        <asset:javascript src="validator/PostalCodeValidator.js" />
-        <asset:javascript src="customer/CustomerShowController.js" />
+        <asset:stylesheet href="utilsCss/index.css"/>
+        <asset:javascript src="validator/PostalCodeValidator.js"/>
+        <asset:javascript src="customer/CustomerShowController.js"/>
     </head>
     <body>
         <div class="background-box js-save-customer-form">
-            <form action="${createLink(controller:"customer", action: "save") }">
+            <form action="${createLink(controller:"customer", action: "save")}">
                 <img src="${resource(dir: 'images', file: 'logo.png')}" alt="Logo" class="img-logo">
 
                 <h1 class="color-title">Formulário de Cadastro</h1>
