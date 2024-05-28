@@ -50,7 +50,7 @@ class PayerController {
             payerService.update(payerAdapter)
 
             flash.type = "success"
-            flash.message = "Alterações realizadas!!"
+            flash.message = "Alterações realizadas com sucesso."
 
             redirect(action: "show", id: params.id)
         } catch (Exception exception) {
