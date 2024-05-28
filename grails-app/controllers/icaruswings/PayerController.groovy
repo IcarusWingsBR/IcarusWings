@@ -18,7 +18,7 @@ class PayerController {
             Payer payer = payerService.save(payerAdapter)
 
             flash.type = "success"
-            flash.message = "Cadastro realizado!!"
+            flash.message = "Cadastro realizado com sucesso."
 
             redirect(action: "show", id: payer.id)
         } catch (Exception exception) {
