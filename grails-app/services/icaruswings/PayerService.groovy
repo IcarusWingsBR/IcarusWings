@@ -2,7 +2,6 @@ package icaruswings
 
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
-import icaruswings.utils.PersonType
 import icaruswings.utils.adapters.PayerAdapter
 import icaruswings.utils.validator.PostalCodeValidator
 import icaruswings.utils.validator.ValidateCpfCnpj
@@ -24,7 +23,7 @@ class PayerService {
 
         payer.email = payerAdapter.email
 
-        payer.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(payerAdapter.cpfCnpj)
+        payer.cpfCnpj = payerAdapter.cpfCnpj
 
         payer.postalCode = payerAdapter.postalCode
 
