@@ -3,8 +3,6 @@ package icaruswings
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 import icaruswings.utils.adapters.PaymentAdapter
-import icaruswings.utils.validator.ValueValidator
-import icaruswings.utils.validator.DateValidator
 
 @Transactional
 class PaymentService {
@@ -19,13 +17,9 @@ class PaymentService {
         Payment payment = new Payment()
 
         payment.payer = paymentAdapter.payer
-
-        payment.paymentType = paymentAdapter.paymentType
-
+        payment.paymentType = paymentAdapter .paymentType
         payment.paymentStatus = paymentAdapter.paymentStatus
-
-        payment.value = parseValueToDouble(paymentAdapter.value)
-
+        payment.value = paymentAdapter.value
         payment.dueDate = paymentAdapter.dueDate
 
         payment.save(failOnError: true)

@@ -3,7 +3,6 @@ package icaruswings
 import icaruswings.utils.PaymentStatus
 import icaruswings.utils.PaymentType
 import icaruswings.utils.BaseEntity
-import java.sql.Date
 
 class Payment extends BaseEntity{
 
@@ -11,7 +10,7 @@ class Payment extends BaseEntity{
 
     PaymentType paymentType
 
-    Double value
+    BigDecimal value
 
     PaymentStatus paymentStatus
 
