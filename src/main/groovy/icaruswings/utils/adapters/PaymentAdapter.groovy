@@ -9,7 +9,7 @@ import icaruswings.utils.repositories.PayerRepository
 
 class PaymentAdapter {
 
-    String id
+    Long id
 
     Payer payer
 

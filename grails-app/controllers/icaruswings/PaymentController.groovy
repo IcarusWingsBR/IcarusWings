@@ -56,8 +56,7 @@ class PaymentController {
             flash.type = "error"
             flash.message = exception
 
-            render exception.getMessage()
-            //redirect(action: "index", params: params)
+            redirect(action: "index", params: params)
         }
     }
 
