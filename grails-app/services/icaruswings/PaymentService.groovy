@@ -67,7 +67,7 @@ class PaymentService {
     public void delete(Long id){
         Payment payment = PaymentRepository.get(id)
 
-        if(!payment) throw new RuntimeException("Esse pagador não existe")
+        if (!payment) throw new RuntimeException("Esse pagador não existe")
 
         payment.deleted = true
 
