@@ -40,4 +40,8 @@ class PaymentController {
             render "Pagamento não encontrado"
         }
     }
+
+    def list() {
+        return [paymentList: paymentService.list()]
+    }
 }
