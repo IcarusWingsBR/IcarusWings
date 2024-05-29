@@ -5,15 +5,9 @@ import java.text.ParseException
     
 public class DateUtils {
     
-    public static Boolean isBeforeToday(String date) {
-        Date parsedDate = parse(date)
-        
-        return isBeforeToday(parsedDate)
-    }
-
     public static Boolean isBeforeToday(Date date) {
         Date receivedDate = new Date(date.getTime())
-        Date today = new Date(System.currentTimeMillis());
+        Date today = new Date()
         
         if (receivedDate.before(today)) return true
 
