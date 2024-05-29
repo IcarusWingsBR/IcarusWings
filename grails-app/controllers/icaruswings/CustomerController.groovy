@@ -23,9 +23,7 @@ class CustomerController extends BaseController {
         Long id = Long.valueOf(params.id)
         Customer customer = CustomerRepository.get(id)
 
-        if (!customer) {
-            render "Cliente não encontrado"
-        }
+        if (!customer) render "Cliente não encontrado"
 
         return [customer: customer]
     }
