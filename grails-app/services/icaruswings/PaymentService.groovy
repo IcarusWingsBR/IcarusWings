@@ -60,11 +60,11 @@ class PaymentService {
         return payment
     }
 
-    public List<Payment> list(){
+    public List<Payment> list() {
         return PaymentRepository.query([:]).list()
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         Payment payment = PaymentRepository.get(id)
 
         if (!payment) throw new RuntimeException("Esse pagador não existe")
