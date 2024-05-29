@@ -1,5 +1,7 @@
 package icaruswings
 
+import icaruswings.utils.adapters.PayerAdapter
+
 class PayerController {
 
     def payerService
@@ -12,38 +14,19 @@ class PayerController {
 
     def save() {
         try {
-            Map parsedParams = [
-                name: params.name,
+            PayerAdapter payerAdapter = new PayerAdapter(params)
+            Payer payer = payerService.save(payerAdapter)
 
-                email: params.email,
-
-                cpfCnpj: params.cpfCnpj,
-
-                postalCode: params.postalCode,
-
-                address: params.address,
-
-                province: params.province,
-
-                city: params.city,
-
-                state: params.state,
-
-                addressNumber: params.addressNumber,
-
-                addressComplement: params.addressComplement,
-
-                personType: params.personType,
-
-                customerId: params.long("customerId"),
-
-                phone: params.phone
-            ]
-
-            Payer payer = payerService.save(parsedParams)
+            flash.type = "success"
+            flash.message = "Cadastro realizado com sucesso."
 
             redirect(action: "show", id: payer.id)
-        } catch (Exception e) {
+        } catch (Exception exception) {
+            log.error("PayerController.save >> Erro ao criar payer ${params}", exception)
+
+            flash.type = "error"
+            flash.message = exception
+
             redirect(action: "index", params: params)
         }
     }
@@ -56,8 +39,29 @@ class PayerController {
             }
 
             return [payer: payer]
-        } catch (Exception e) {
+        } catch (Exception exception) {
             render "Pagador não encontrado"
+        }
+    }
+
+    def delete() {
+        try {
+            Long id = Long.valueOf(params.id)
+
+            payerService.delete(id)
+
+            flash.type = "success"
+            flash.message = "Pagador deletado com sucesso"
+        } catch (RuntimeException runtimeException) {
+            flash.errors = [runtimeException.getMessage()]
+        } catch (Exception exception) {
+            log.error("PayerController.save >> Erro ao atualizar um payer ${params}", exception)
+
+            flash.errors = ["Erro ao deletar o pagador"]
+
+            redirect(action: "index", params: params)
+        } finally {
+            redirect(action: "index")
         }
     }
 }
