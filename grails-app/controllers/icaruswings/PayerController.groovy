@@ -64,4 +64,8 @@ class PayerController {
             redirect(action: "index")
         }
     }
+
+    def list() {
+        return [payerList: payerService.list()]
+    }
 }
