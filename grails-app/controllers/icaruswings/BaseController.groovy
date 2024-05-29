@@ -21,4 +21,22 @@ abstract class BaseController {
 
         redirect(action: "index", params: params)
     }
+
+    def handleNullPointerException(NullPointerException exception) {
+        log.error("Erro com os seguintes parâmetros ${params}", exception)
+
+        flash.type = "error"
+        flash.message = "Por favor, preencha todos os campos."
+
+        redirect(action: "index", params: params)
+    }
+
+     def handleRuntimeException(RuntimeException exception) {
+        log.error("Erro com os seguintes parâmetros ${params}", exception)
+
+        flash.type = "error"
+        flash.message = "Algo deu errado. Tente novamente."
+
+        redirect(action: "index", params: params)
+    }
 }
