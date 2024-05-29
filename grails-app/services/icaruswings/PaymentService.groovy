@@ -10,7 +10,7 @@ import icaruswings.utils.date.DateUtils
 class PaymentService {
 
     public Payment save(PaymentAdapter paymentAdapter) {
-        Payment validatedPayment= validateSave(paymentAdapter)
+        Payment validatedPayment = validateSave(paymentAdapter)
 
         if (validatedPayment.hasErrors()) throw new ValidationException("Não foi possível salvar a cobrança", validatedPayment.errors)
 
