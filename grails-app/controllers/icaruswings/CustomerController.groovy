@@ -57,4 +57,8 @@ class CustomerController {
             redirect(action: "index", params: params)
         }
     }
+
+    def list() {
+        return [customerList: customerService.list()]
+    }
 }
