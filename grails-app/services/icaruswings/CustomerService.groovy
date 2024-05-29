@@ -41,8 +41,7 @@ class CustomerService {
 
         if (validatedCustomer.hasErrors()) throw new ValidationException("Não foi possível salvar o cliente", validatedCustomer.errors)
 
-        Long id = customerAdapter.id
-        Customer customer = CustomerRepository.get(id)
+        Customer customer = CustomerRepository.get(customerAdapter.id)
         customer.name = customerAdapter.name
         customer.email = customerAdapter.email
         customer.phone = customerAdapter.phone
