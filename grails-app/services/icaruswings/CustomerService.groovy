@@ -56,6 +56,20 @@ class CustomerService {
     }
 
     private Customer validateSave(CustomerAdapter customerAdapter) {
+        Customer customer = validateDefaultFields(customerAdapter)
+
+        if (!customerAdapter.cpfCnpj) {
+            customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
+        } else if (!ValidateCpfCnpj.isCPF(customerAdapter.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(customerAdapter.cpfCnpj)) {
+            customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
+        } else if (checkIfCpfOrCnpjExists(customerAdapter.cpfCnpj)) {
+            customer.errors.rejectValue("cpfCnpj", null, "O Cpf/Cnpj já está cadastrado")
+        }
+
+        return customer
+    }
+
+    private Customer validateDefaultFields(CustomerAdapter customerAdapter) {
         Customer customer = new Customer()
 
         if (!customerAdapter.name) {
@@ -68,14 +82,6 @@ class CustomerService {
             customer.errors.rejectValue("email", null, "O campo email é obrigatório")
         } else if (!ValidateEmail.isValidEmail(customerAdapter.email)){
             customer.errors.rejectValue("email", null, "O email informado é inválido")
-        }
-
-        if (!customerAdapter.cpfCnpj) {
-            customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
-        } else if (!ValidateCpfCnpj.isCPF(customerAdapter.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(customerAdapter.cpfCnpj)) {
-            customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
-        } else if (checkIfCpfOrCnpjExists(customerAdapter.cpfCnpj)) {
-            customer.errors.rejectValue("cpfCnpj", null, "O Cpf/Cnpj já está cadastrado")
         }
 
         if (!customerAdapter.postalCode) {
