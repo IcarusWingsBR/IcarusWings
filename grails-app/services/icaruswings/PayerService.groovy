@@ -59,6 +59,20 @@ class PayerService {
         payer.save(failOnError: true)
     }
 
+    public void delete(Long id){
+        Payer payer = PayerRepository.get(id)
+
+        if (!payer) throw new RuntimeException("Esse pagador não existe")
+
+        payer.deleted = true
+
+        payer.save(failOnError: true)
+    }
+
+    public List<Payer> list(){
+        return PayerRepository.query([:]).list()
+    }
+
     private Payer validateSave(PayerAdapter payerAdapter) {
         Payer payer = new Payer()
 

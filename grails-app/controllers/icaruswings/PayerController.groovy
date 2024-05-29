@@ -62,4 +62,29 @@ class PayerController {
             redirect(action: "index", params: params)
         }
     }
+
+    def delete() {
+        try {
+            Long id = Long.valueOf(params.id)
+
+            payerService.delete(id)
+
+            flash.type = "success"
+            flash.message = "Pagador deletado com sucesso"
+        } catch (RuntimeException runtimeException) {
+            flash.errors = [runtimeException.getMessage()]
+        } catch (Exception exception) {
+            log.error("PayerController.save >> Erro ao atualizar um payer ${params}", exception)
+
+            flash.errors = ["Erro ao deletar o pagador"]
+
+            redirect(action: "index", params: params)
+        } finally {
+            redirect(action: "index")
+        }
+    }
+
+    def list() {
+        return [payerList: payerService.list()]
+    }
 }
