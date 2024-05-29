@@ -12,4 +12,13 @@ abstract class BaseController {
 
         redirect(action: "index", params: params)
     }
+
+    def handleNumberFormatException(NumberFormatException exception) {
+        log.error("Erro com os seguintes parâmetros ${params}", exception)
+
+        flash.type = "error"
+        flash.message = "Verifique se você preencheu todos os campos e tente novamente."
+
+        redirect(action: "index", params: params)
+    }
 }
