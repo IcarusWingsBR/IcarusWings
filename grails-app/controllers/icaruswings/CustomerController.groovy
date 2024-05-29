@@ -14,7 +14,7 @@ class CustomerController {
             Customer customer = customerService.save(customerAdapter)
 
             flash.type = "success"
-            flash.message = "Seu cadastro foi realizado."
+            flash.message = "Cadastro realizado com sucesso."
 
             redirect(action: "show", id: customer.id)
         } catch (Exception exception) {
