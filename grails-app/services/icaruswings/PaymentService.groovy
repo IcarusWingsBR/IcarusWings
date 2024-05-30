@@ -28,7 +28,7 @@ class PaymentService {
     public void update(PaymentAdapter paymentAdapter) {
         Payment validatedPayment = validateSave(paymentAdapter)
 
-        if (validatedPayment.hasErrors()) throw new ValidationException("Não foi possível salvar o cliente", validatedPayment.errors)
+        if (validatedPayment.hasErrors()) throw new ValidationException("Não foi possível salvar a cobrança", validatedPayment.errors)
 
         Payment payment = PaymentRepository.get(paymentAdapter.id)
         payment.payer = paymentAdapter.payer
