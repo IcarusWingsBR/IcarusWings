@@ -7,11 +7,11 @@
     <title>Criar Cobrança</title>
 </head>
 <body page-title="Detalhes da Cobrança">
-    <atlas-form-panel action="${createLink(controller: "payment", action: "update")}" header="Detalhes da cobrança - ${payment.id}">
+    <atlas-form-panel action="${createLink(controller: "payment", action: "update")}" header="Detalhes da cobrança - ${payment.id}" class="js-edit-payment-form">
         <atlas-input
-                value="${payment.id}"
-                name="id"
-                hidden
+            value="${payment.id}"
+            name="id"
+            hidden
         >
         </atlas-input>
         <atlas-button slot="actions" description="Editar" data-panel-start-editing></atlas-button>
@@ -23,6 +23,7 @@
                         name="payerId"
                         value="${payment.payer.id}"
                         required="true"
+                        class="js-payer"
                     >
                         <g:each var="payer" in="${ payerList }">
                             <atlas-option label="${payer.name}" value="${payer.id}"></atlas-option>
@@ -36,6 +37,7 @@
                         value="${payment.payer.name}"
                         required="true"
                         readonly
+                        class="js-payer-name"
                     />
                 </atlas-col>
             </atlas-row>
@@ -48,6 +50,7 @@
                         value="${payment.payer.cpfCnpj}"
                         required="true"
                         readonly
+                        class="js-payer-cpfCnpj"
                     />
                 </atlas-col>
                 <atlas-col lg="6">
@@ -57,6 +60,7 @@
                             value="${payment.payer.email}"
                             required="true"
                             readonly
+                            class="js-payer-email"
                     />
                 </atlas-col>
             </atlas-row>
