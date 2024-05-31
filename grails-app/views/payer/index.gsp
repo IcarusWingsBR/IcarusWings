@@ -8,7 +8,7 @@
   <atlas-form action="${createLink(customer: "payer", action: "save")}">
     <atlas-grid>
       <atlas-row>
-        <atlas-col lg="7">
+        <atlas-col>
           <atlas-select
                   label="Cliente"
                   name="customerId"
@@ -114,7 +114,7 @@
         </atlas-col>
       </atlas-row>
       <atlas-row>
-        <atlas-col lg="7">
+        <atlas-col>
           <atlas-input
                   label="Complemento"
                   name="addressComplement"
