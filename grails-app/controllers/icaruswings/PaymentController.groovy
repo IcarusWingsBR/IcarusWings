@@ -2,12 +2,17 @@ package icaruswings
 
 import icaruswings.utils.adapters.PaymentAdapter
 import icaruswings.utils.repositories.PaymentRepository
+import icaruswings.utils.repositories.PayerRepository
 
 class PaymentController extends BaseController {
 
     def paymentService
 
-    def index() {}
+    def index() {
+        List<Payer> payerList = Payer.list()
+
+        return [payerList: payerList]
+    }
 
     def save() {
         PaymentAdapter paymentAdapter = new PaymentAdapter(params)
@@ -22,10 +27,11 @@ class PaymentController extends BaseController {
     def show(){
         Long id = Long.valueOf(params.id)
         Payment payment = PaymentRepository.get(id)
+        List<Payer> payerList = PayerRepository.list()
         
         if (!payment) render "Cobrança não encontrada."
 
-        return [payment: payment]
+        return [payment: payment, payerList: payerList]
     }
 
     def update() {
