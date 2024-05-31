@@ -44,6 +44,25 @@ class PayerController {
         }
     }
 
+    def update() {
+        try {
+            PayerAdapter payerAdapter = new PayerAdapter(params)
+            payerService.update(payerAdapter)
+
+            flash.type = "success"
+            flash.message = "Alterações realizadas com sucesso."
+
+            redirect(action: "show", id: params.id)
+        } catch (Exception exception) {
+            log.error("PayerController.update >> Erro ao atualizar pagador", exception)
+
+            flash.type = "error"
+            flash.message = exception
+
+            redirect(action: "index", params: params)
+        }
+    }
+
     def delete() {
         try {
             Long id = Long.valueOf(params.id)
