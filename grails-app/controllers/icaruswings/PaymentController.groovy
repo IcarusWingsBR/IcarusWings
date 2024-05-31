@@ -40,4 +40,27 @@ class PaymentController {
             render "Pagamento não encontrado"
         }
     }
+
+    def update() {
+        try {
+            PaymentAdapter paymentAdapter = new PaymentAdapter(params)
+            paymentService.update(paymentAdapter)
+
+            flash.type = "success"
+            flash.message = "Alterações realizadas!!"
+
+            redirect(action: "show", id: params.id)
+        } catch (Exception exception) {
+            log.error("PaymentController.update >> Erro ao atualizar pagador", exception)
+
+            flash.type = "error"
+            flash.message = exception
+
+            redirect(action: "index", params: params)
+        }
+    }
+
+    def list() {
+        return [paymentList: paymentService.list()]
+    }
 }
