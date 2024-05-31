@@ -14,7 +14,7 @@ class CustomerController {
             Customer customer = customerService.save(customerAdapter)
 
             flash.type = "success"
-            flash.message = "Cadastro realizado!!"
+            flash.message = "Cadastro realizado com sucesso."
 
             redirect(action: "show", id: customer.id)
         } catch (Exception exception) {
@@ -36,6 +36,25 @@ class CustomerController {
             return [customer: customer]
         } catch (Exception e) {
             render "Cliente não encontrado"
+        }
+    }
+
+    def update() {
+        try {
+            CustomerAdapter customerAdapter = new CustomerAdapter(params)
+            customerService.update(customerAdapter)
+
+            flash.type = "success"
+            flash.message = "Alterações realizadas com sucesso."
+
+            redirect(action: "index")
+        } catch (Exception exception) {
+            log.error("CustomerController.update >> Erro ao editar customer ${params}", exception)
+
+            flash.type = "error"
+            flash.message = exception
+
+            redirect(action: "index", params: params)
         }
     }
 

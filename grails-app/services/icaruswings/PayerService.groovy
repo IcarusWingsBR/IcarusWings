@@ -37,6 +37,28 @@ class PayerService {
         return payer
     }
 
+    public void update(PayerAdapter payerAdapter) {
+        Payer validatedPayer = validateSave(payerAdapter)
+
+        if (validatedPayer.hasErrors()) throw new ValidationException("Não foi possível salvar o pagador", validatedPayer.errors)
+
+        Long id = payerAdapter.id
+        Payer payer = PayerRepository.get(id)
+        payer.name = payerAdapter.name
+        payer.email = payerAdapter.email
+        payer.cpfCnpj = payerAdapter.cpfCnpj
+        payer.phone = payerAdapter.phone
+        payer.postalCode = payerAdapter.postalCode
+        payer.address = payerAdapter.address
+        payer.province = payerAdapter.province
+        payer.city = payerAdapter.city
+        payer.state = payerAdapter.state
+        payer.addressNumber = payerAdapter.addressNumber
+        payer.addressComplement = payerAdapter.addressComplement
+        payer.customer = payerAdapter.customer
+        payer.save(failOnError: true)
+    }
+
     public void delete(Long id){
         Payer payer = PayerRepository.get(id)
 
