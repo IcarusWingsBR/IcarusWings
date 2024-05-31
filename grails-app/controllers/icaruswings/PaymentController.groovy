@@ -48,6 +48,6 @@ class PaymentController extends BaseController {
         paymentService.delete(id)
 
         flash.type = "success"
-        flash.message = "Pagador deletado com sucesso"
+        flash.message = "Cobrança deletada com sucesso"
     }
 }

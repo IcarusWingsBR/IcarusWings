@@ -28,7 +28,7 @@ class PaymentService {
     public void update(PaymentAdapter paymentAdapter) {
         Payment validatedPayment = validateSave(paymentAdapter)
 
-        if (validatedPayment.hasErrors()) throw new ValidationException("Não foi possível salvar o cliente", validatedPayment.errors)
+        if (validatedPayment.hasErrors()) throw new ValidationException("Não foi editar a cobrança", validatedPayment.errors)
 
         Payment payment = PaymentRepository.get(paymentAdapter.id)
         payment.payer = paymentAdapter.payer
@@ -67,7 +67,7 @@ class PaymentService {
     public void delete(Long id) {
         Payment payment = PaymentRepository.get(id)
 
-        if (!payment) throw new RuntimeException("Esse pagador não existe")
+        if (!payment) throw new RuntimeException("Essa cobrança não existe")
 
         payment.deleted = true
 
