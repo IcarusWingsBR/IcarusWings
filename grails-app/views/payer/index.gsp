@@ -8,7 +8,7 @@
   <atlas-form action="${createLink(customer: "payer", action: "save")}">
     <atlas-grid>
       <atlas-row>
-        <atlas-col>
+        <atlas-col lg="7">
           <atlas-select
                   label="Cliente"
                   name="customerId"
@@ -21,7 +21,7 @@
         </atlas-col>
       </atlas-row>
       <atlas-row>
-        <atlas-col>
+        <atlas-col lg="6">
           <atlas-input
                   label="Nome"
                   name="name"
@@ -29,9 +29,18 @@
           >
           </atlas-input>
         </atlas-col>
+        <atlas-col lg="6">
+          <atlas-masked-input
+                  label="Cpf/Cnpj"
+                  name="cpfCnpj"
+                  mask-alias="cpf-cnpj"
+                  required="true"
+          >
+          </atlas-masked-input>
+        </atlas-col>
       </atlas-row>
       <atlas-row>
-        <atlas-col>
+        <atlas-col lg="6">
           <atlas-masked-input
                   label="Email"
                   name="email"
@@ -40,20 +49,18 @@
           >
           </atlas-masked-input>
         </atlas-col>
-      </atlas-row>
-      <atlas-row>
-        <atlas-col>
-            <atlas-masked-input
-                    label="Cpf/Cnpj"
-                    name="cpfCnpj"
-                    mask-alias="cpf-cnpj"
-                    required="true"
-            >
-            </atlas-masked-input>
+        <atlas-col lg="6">
+          <atlas-masked-input
+                  label="Telefone/Celular"
+                  name="phone"
+                  mask-alias="phone"
+                  required="true"
+          >
+          </atlas-masked-input>
         </atlas-col>
       </atlas-row>
       <atlas-row>
-        <atlas-col>
+        <atlas-col lg="6">
           <atlas-input
                   label="CEP"
                   name="postalCode"
@@ -61,9 +68,7 @@
           >
           </atlas-input>
         </atlas-col>
-      </atlas-row>
-      <atlas-row>
-        <atlas-col>
+        <atlas-col lg="6">
           <atlas-input
                   label="Rua"
                   name="address"
@@ -73,7 +78,7 @@
         </atlas-col>
       </atlas-row>
       <atlas-row>
-        <atlas-col>
+        <atlas-col lg="6">
           <atlas-input
                   label="Bairro"
                   name="province"
@@ -81,29 +86,7 @@
           >
           </atlas-input>
         </atlas-col>
-      </atlas-row>
-      <atlas-row>
-        <atlas-col>
-          <atlas-input
-                  label="Cidade"
-                  name="city"
-                  required="true"
-          >
-          </atlas-input>
-        </atlas-col>
-      </atlas-row>
-      <atlas-row>
-        <atlas-col>
-          <atlas-input
-                  label="Estado"
-                  name="state"
-                  required="true"
-          >
-          </atlas-input>
-        </atlas-col>
-      </atlas-row>
-      <atlas-row>
-        <atlas-col>
+        <atlas-col lg="6">
           <atlas-input
                   label="Número do endereço"
                   name="addressNumber"
@@ -113,24 +96,31 @@
         </atlas-col>
       </atlas-row>
       <atlas-row>
-        <atlas-col>
+        <atlas-col lg="6">
           <atlas-input
-                  label="Complemento"
-                  name="addressComplement"
+                  label="Cidade"
+                  name="city"
+                  required="true"
+          >
+          </atlas-input>
+        </atlas-col>
+        <atlas-col lg="6">
+          <atlas-input
+                  label="Estado"
+                  name="state"
                   required="true"
           >
           </atlas-input>
         </atlas-col>
       </atlas-row>
       <atlas-row>
-        <atlas-col>
-          <atlas-masked-input
-                  label="Telefone/Celular"
-                  name="phone"
-                  mask-alias="phone"
+        <atlas-col lg="7">
+          <atlas-input
+                  label="Complemento"
+                  name="addressComplement"
                   required="true"
           >
-          </atlas-masked-input>
+          </atlas-input>
         </atlas-col>
       </atlas-row>
     </atlas-grid>
