@@ -9,6 +9,7 @@ import icaruswings.utils.validator.StringUtils
 import icaruswings.utils.validator.ValidateEmail
 import icaruswings.utils.validator.PostalCodeValidator
 import icaruswings.utils.validator.ValidatePhone
+import icaruswings.utils.repositories.CustomerRepository
 
 @Transactional
 class CustomerService {
@@ -16,39 +17,43 @@ class CustomerService {
     public Customer save(CustomerAdapter customerAdapter) {
         Customer validatedCustomer = validateSave(customerAdapter)
 
-        if (validatedCustomer.hasErrors()) {
-            throw new ValidationException("Não foi possível salvar o cliente", validatedCustomer.errors)
-        }
+        if (validatedCustomer.hasErrors()) throw new ValidationException("Não foi possível salvar o cliente", validatedCustomer.errors)
 
         Customer customer = new Customer()
-
         customer.name = customerAdapter.name
-
         customer.email = customerAdapter.email
-
         customer.cpfCnpj = customerAdapter.cpfCnpj
-
         customer.postalCode = customerAdapter.postalCode
-
         customer.address = customerAdapter.address
-
         customer.province = customerAdapter.province
-
         customer.city = customerAdapter.city
-
         customer.state = customerAdapter.state
-
-        customer.addressNumber = Integer.parseInt(customerAdapter.addressNumber)
-
+        customer.addressNumber = customerAdapter.addressNumber
         customer.addressComplement = customerAdapter.addressComplement
-
         customer.phone= customerAdapter.phone
-
         customer.personType = customerAdapter.personType
-
         customer.save(failOnError: true)
 
         return customer
+    }
+
+    public void update(CustomerAdapter customerAdapter) {      
+        Customer validatedCustomer = validateDefaultFields(customerAdapter)
+
+        if (validatedCustomer.hasErrors()) throw new ValidationException("Não foi possível salvar a conta", validatedCustomer.errors)
+
+        Customer customer = CustomerRepository.get(customerAdapter.id)
+        customer.name = customerAdapter.name
+        customer.email = customerAdapter.email
+        customer.phone = customerAdapter.phone
+        customer.postalCode = customerAdapter.postalCode
+        customer.address = customerAdapter.address
+        customer.province = customerAdapter.province
+        customer.city = customerAdapter.city
+        customer.state = customerAdapter.state
+        customer.addressNumber = customerAdapter.addressNumber
+        customer.addressComplement = customerAdapter.addressComplement
+        customer.save(failOnError: true)
     }
 
     public List<Customer> list(){
@@ -100,8 +105,6 @@ class CustomerService {
 
         if (!customerAdapter.addressNumber) {
             customer.errors.rejectValue("addressNumber", null, "O campo número de residência é obrigatório")
-        } else if (!StringUtils.containsOnlyNumbers(customerAdapter.addressNumber)) {
-            customer.errors.rejectValue("addressNumber", null, "O número de residência é inválido")
         }
 
         if (!customerAdapter.addressComplement) {
