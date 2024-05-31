@@ -14,7 +14,7 @@ class PaymentController extends BaseController {
         Payment payment = paymentService.save(paymentAdapter)
 
         flash.type = "success"
-        flash.message = "Cadastro realizado com sucesso."
+        flash.message = "Cobrança criada com sucesso."
 
         redirect(action: "show", id: payment.id)
     }
@@ -23,7 +23,7 @@ class PaymentController extends BaseController {
         Long id = Long.valueOf(params.id)
         Payment payment = PaymentRepository.get(id)
         
-        if (!payment) render "Pagamento não encontrado"
+        if (!payment) render "Cobrança não encontrada."
 
         return [payment: payment]
     }
@@ -33,7 +33,7 @@ class PaymentController extends BaseController {
         paymentService.update(paymentAdapter)
 
         flash.type = "success"
-        flash.message = "Alterações realizadas!!"
+        flash.message = "Alterações realizadas com sucesso."
 
         redirect(action: "show", id: params.id)
     }
