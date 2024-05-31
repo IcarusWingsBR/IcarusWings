@@ -47,7 +47,7 @@
                     </atlas-col>
                     <atlas-col lg="6">
                         <atlas-datepicker 
-                            label="Datepicker"
+                            label="Data de vencimento"
                             name="dueDate"
                             required="true"
                         />

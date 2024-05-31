@@ -18,24 +18,25 @@
         <atlas-grid>
             <atlas-row>
                 <atlas-col lg="6">
-                    <atlas-input
-                            label="Nome do pagador"
-                            name="payerName"
-                            value="${payment.payer.name}"
-                            required="true"
+                    <atlas-select
+                        label="pagador"
+                        name="payerId"
+                        placeholder="${payment.payer.name}"
+                        required="true"
                     >
-                    </atlas-input>
+                        <g:each var="payer" in="${ payerList }">
+                            <atlas-option label="${payer.name}" value="${payer.id}"></atlas-option>
+                        </g:each>
+                    </atlas-select>
                 </atlas-col>
                 <atlas-col lg="6">
-                    <atlas-select
-                            label="pagador"
-                            name="payerId"
-                            required="true"
-                    >
-                    <g:each var="payer" in="${ payerList }">
-                        <atlas-option label="${payer.name}" value="${payer.id}"></atlas-option>
-                    </g:each>
-                    </atlas-select>
+                    <atlas-input
+                        label="Nome do pagador"
+                        name="payerName"
+                        value="${payment.payer.name}"
+                        required="true"
+                        readonly
+                    />
                 </atlas-col>
             </atlas-row>
             <atlas-row>
@@ -46,6 +47,7 @@
                         mask-alias="cpf-cnpj"
                         value="${payment.payer.cpfCnpj}"
                         required="true"
+                        readonly
                     />
                 </atlas-col>
                 <atlas-col lg="6">
@@ -54,6 +56,7 @@
                             name="email"
                             value="${payment.payer.email}"
                             required="true"
+                            readonly
                     />
                 </atlas-col>
             </atlas-row>
@@ -69,13 +72,58 @@
                     />
                 </atlas-col>
                 <atlas-col lg="6">
-                    <atlas-input
-                            label="Tipo de cobrança"
+                    <atlas-col lg="6">
+                        <atlas-select 
+                            label="Forma de cobrança" 
                             name="paymentType"
+                            placeholder="${payment.paymentType}"
                             value="${payment.paymentType}"
                             required="true"
-                    >
-                    </atlas-input>
+                        >
+                            <atlas-option label="Boleto" value="boleto"/></atlas-option>
+                            <atlas-option label="Cartão" value="bankslip"/></atlas-option>
+                            <atlas-option label="Pix" value="Pix"></atlas-option>
+                        </atlas-select>
+                    </atlas-col>
+                </atlas-col>
+            </atlas-row>
+            <atlas-row>
+                <atlas-col lg="6">
+                    <atlas-input 
+                        label="Status da cobrança" 
+                        name="paymentStatus"
+                        required="true"
+                        value="${message(code: 'PaymentStatus.' + payment.paymentStatus + '.label')}"
+                        readonly
+                    />
+                </atlas-col>
+                <atlas-col lg="6">
+                    <atlas-input
+                        label="Data de criação"
+                        name="dateCreated"
+                        value="${formatTagLib.formatedDateCreated(date: payment.dateCreated)}"
+                        required="true"
+                        readonly
+                    />
+                </atlas-col>
+            </atlas-row>
+            <atlas-row>
+                <atlas-col lg="6">
+                    <atlas-datepicker 
+                            label="Data de vencimento"
+                            name="dueDate"
+                            required="true"
+                            value="${formatTagLib.formatedDateCreated(date: payment.dueDate)}"
+                    />
+                </atlas-col>
+                <atlas-col lg="6">
+                    <atlas-input 
+                        label="Data da última modificação" 
+                        name="lastUpdated"
+                        required="true"
+                        value="${formatTagLib.formatedDateCreated(date: payment.lastUpdated)}"
+                        readonly
+                    />
                 </atlas-col>
             </atlas-row>
         </atlas-grid>
