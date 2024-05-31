@@ -1,64 +1,179 @@
+<html>
+<head>
+  <title>Detalhes do Pagador</title>
+  <meta name="layout" content="main">
+  <meta charset="UTF-8">
 </head>
-<body>
-<div class="background-box">
-  <div>
-    <label for="name">Nome</label>
-    <input type="text" id="name" value="${payer.name}">
-  </div>
-  <div>
-    <label for="email">Email</label>
-    <input type="text" id="email" value="${payer.email}">
-  </div>
-  <div>
-    <label for="cpfCnpj">CPF/CNPJ</label>
-    <input type="text" id="cpfCnpj" value="${payer.cpfCnpj}">
-  </div>
-  <div>
-    <label for="personType">Tipo de pessoa</label>
-    <input type="text" id="personType" value="${payer.personType}">
-  </div>
-  <div>
-    <label for="phone">Telefone</label>
-    <input type="text" id="phone" value="${payer.phone}">
-  </div>
-  <div>
-    <label for="postalCode">CEP</label>
-    <input type="text" id="postalCode" value="${payer.postalCode}">
-  </div>
-  <div>
-    <label for="address">Rua</label>
-    <input type="text" id="address" value="${payer.address}">
-  </div>
-  <div>
-    <label for="province">Bairro</label>
-    <input type="text" id="province" value="${payer.province}">
-  </div>
-  <div>
-    <label for="city">Cidade</label>
-    <input type="text" id="city" value="${payer.city}">
-  </div>
-  <div>
-    <label for="state">Estado</label>
-    <input type="text" id="state" value="${payer.state}">
-  </div>
-  <div>
-    <label for="addressNumber">Número da residência:</label>
-    <input type="text" id="addressNumber" value="${payer.addressNumber}">
-  </div>
-  <div>
-    <label for="addressComplement">Complemento</label>
-    <input type="text" id="addressComplement" value="${payer.addressComplement}">
-  </div>
-  <div>
-    <label for="dateCreated">Data Criação</label>
-    <input type="text" id="dateCreated" value="${payer.dateCreated}">
-  </div>
-  <div>
-    <label for="customerId">Id do cliente</label>
-    <input type="text" id="customerId" value="${payer.customer.id}">
-    <label for="customerName">Nome do cliente</label>
-    <input type="text" id="customerName" value="${payer.customer.name}">
-  </div>
-</div>
+<body page-title="Detalhes do Pagador">
+<atlas-form-panel action="${createLink(controller: "payer", action: "update")}" header="Detalhes do pagador - ${payer.name}">
+  <atlas-input
+          value="${payer.id}"
+          name="id"
+          hidden
+  >
+  </atlas-input>
+  <atlas-button slot="actions" description="Editar" data-panel-start-editing></atlas-button>
+  <atlas-grid>
+    <atlas-row>
+      <atlas-col>
+        <atlas-input
+                label="Nome"
+                name="name"
+                required="true"
+                value="${payer.name}"
+        >
+        </atlas-input>
+      </atlas-col>
+    </atlas-row>
+    <atlas-row>
+      <atlas-col lg="6">
+        <atlas-masked-input
+                label="Cpf/Cnpj"
+                name="cpfCnpj"
+                mask-alias="cpf-cnpj"
+                value="${payer.cpfCnpj}"
+                required="true"
+        >
+        </atlas-masked-input>
+      </atlas-col>
+      <atlas-col lg="6">
+        <atlas-input
+                label="Tipo de Pessoa"
+                name="personType"
+                value="${message(code: 'PersonType.' + payer.personType + '.label')}"
+                required="true"
+                readonly
+        >
+        </atlas-input>
+      </atlas-col>
+    </atlas-row>
+    <atlas-row>
+      <atlas-col lg="6">
+        <atlas-masked-input
+                label="Email"
+                name="email"
+                mask-alias="email"
+                value="${payer.email}"
+                required="true"
+        >
+        </atlas-masked-input>
+      </atlas-col>
+      <atlas-col lg="6">
+        <atlas-masked-input
+                label="Telefone/Celular"
+                name="phone"
+                mask-alias="phone"
+                value="${payer.phone}"
+                required="true"
+        >
+        </atlas-masked-input>
+      </atlas-col>
+    </atlas-row>
+  </atlas-row>
+    <atlas-row>
+      <atlas-col lg="6">
+        <atlas-input
+                label="CEP"
+                name="postalCode"
+                value="${payer.postalCode}"
+                required="true"
+        >
+        </atlas-input>
+      </atlas-col>
+      <atlas-col lg="6">
+        <atlas-input
+                label="Rua"
+                name="address"
+                value="${payer.address}"
+                required="true"
+        >
+        </atlas-input>
+      </atlas-col>
+    </atlas-row>
+    <atlas-row>
+      <atlas-col lg="6">
+        <atlas-input
+                label="Bairro"
+                name="province"
+                required="true"
+                value="${payer.province}"
+        >
+        </atlas-input>
+      </atlas-col>
+      <atlas-col lg="6">
+        <atlas-input
+                label="Número do endereço"
+                name="addressNumber"
+                required="true"
+                value="${payer.addressNumber}"
+        >
+        </atlas-input>
+      </atlas-col>
+    </atlas-row>
+    <atlas-row>
+      <atlas-col lg="6">
+        <atlas-input
+                label="Cidade"
+                name="city"
+                required="true"
+                value="${payer.city}"
+        >
+        </atlas-input>
+      </atlas-col>
+      <atlas-col lg="6">
+        <atlas-input
+                label="Estado"
+                name="state"
+                required="true"
+                value="${payer.state}"
+        >
+        </atlas-input>
+      </atlas-col>
+    </atlas-row>
+    <atlas-row>
+      <atlas-col lg="6">
+        <atlas-input
+                label="Complemento"
+                name="addressComplement"
+                required="true"
+                value="${payer.addressComplement}"
+        >
+        </atlas-input>
+      </atlas-col>
+      <atlas-col lg="6">
+        <atlas-input
+                label="Data de criação"
+                name="dateCreated"
+                value="${formatTagLib.formatedDateCreated(date: payer.dateCreated)}"
+                required="true"
+                readonly
+        >
+        </atlas-input>
+      </atlas-col>
+    </atlas-row>
+    <atlas-row>
+      <atlas-col lg="6">
+        <atlas-input
+                label="Id do Cliente vinculado"
+                name="customerId"
+                required="true"
+                readonly
+                value="${payer.customer.id}"
+        >
+        </atlas-input>
+      </atlas-col>
+      <atlas-col lg="6">
+        <atlas-input
+                label="Nome do Cliente vinculado"
+                name="customerName"
+                required="true"
+                readonly
+                value="${payer.customer.name}"
+        >
+        </atlas-input>
+      </atlas-col>
+    </atlas-row>
+  </atlas-grid>
+</atlas-form-panel>
 </body>
 </html>
