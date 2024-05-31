@@ -40,7 +40,7 @@ class CustomerService {
     public void update(CustomerAdapter customerAdapter) {      
         Customer validatedCustomer = validateDefaultFields(customerAdapter)
 
-        if (validatedCustomer.hasErrors()) throw new ValidationException("Não foi possível salvar o cliente", validatedCustomer.errors)
+        if (validatedCustomer.hasErrors()) throw new ValidationException("Não foi possível salvar a conta", validatedCustomer.errors)
 
         Customer customer = CustomerRepository.get(customerAdapter.id)
         customer.name = customerAdapter.name
