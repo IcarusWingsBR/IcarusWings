@@ -21,7 +21,7 @@
                     <atlas-select
                         label="pagador"
                         name="payerId"
-                        placeholder="${payment.payer.name}"
+                        value="${payment.payer.id}"
                         required="true"
                     >
                         <g:each var="payer" in="${ payerList }">
@@ -77,7 +77,7 @@
                             label="Forma de cobrança" 
                             name="paymentType"
                             placeholder="${payment.paymentType}"
-                            value="${payment.paymentType}"
+                            value="${message(code: 'PaymentType.' + payment.paymentType + '.label')}"
                             required="true"
                         >
                             <atlas-option label="Boleto" value="boleto"/></atlas-option>
