@@ -78,9 +78,9 @@ function BasePersonController() {
     };
 }
 
-var BasePersonController;
+var basePersonController;
 
 document.addEventListener("DOMContentLoaded", () => {
-    BasePersonController = new BasePersonController();
-    BasePersonController.init();
+    basePersonController = new BasePersonController();
+    basePersonController.init();
 })
