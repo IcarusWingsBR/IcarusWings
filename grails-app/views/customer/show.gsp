@@ -2,9 +2,11 @@
 <head>
     <meta name="layout" content="main">
     <title>Minha Conta</title>
+    <asset:javascript src="validator/PostalCodeValidator.js"/>
+    <asset:javascript src="/basePerson/BasePersonController.js"/>
 </head>
 <body page-title="Detalhes do usuário">
-<atlas-form-panel action="${createLink(controller: "customer", action: "update")}" header="Detalhes do cliente - ${customer.name}">
+<atlas-form-panel action="${createLink(controller: "customer", action: "update")}" header="Detalhes do cliente - ${customer.name}" class="js-save-person-form">
     <atlas-input
             value="${customer.id}"
             name="id"
@@ -76,6 +78,7 @@
                         name="postalCode"
                         value="${customer.postalCode}"
                         required="true"
+                        class="js-postalCode"
                 >
                 </atlas-input>
             </atlas-col>
@@ -85,6 +88,7 @@
                         name="address"
                         value="${customer.address}"
                         required="true"
+                        class="js-address"
                 >
                 </atlas-input>
             </atlas-col>
@@ -96,6 +100,7 @@
                         name="province"
                         required="true"
                         value="${customer.province}"
+                        class="js-province"
                 >
                 </atlas-input>
             </atlas-col>
@@ -116,6 +121,7 @@
                         name="city"
                         required="true"
                         value="${customer.city}"
+                        class="js-city"
                 >
                 </atlas-input>
             </atlas-col>
@@ -125,6 +131,7 @@
                         name="state"
                         required="true"
                         value="${customer.state}"
+                        class="js-state"
                 >
                 </atlas-input>
             </atlas-col>
@@ -143,7 +150,7 @@
                 <atlas-input
                         label="Data de criação"
                         name="dateCreated"
-                        value="${formatTagLib.formatedDateCreated(date: customer.dateCreated)}"
+                        value="${formatTagLib.formatedDate(date: customer.dateCreated)}"
                         required="true"
                         readonly
                 >
