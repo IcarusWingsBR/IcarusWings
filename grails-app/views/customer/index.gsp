@@ -3,7 +3,7 @@
         <meta name="layout" content="main">
         <title>Cadastrar Cliente</title>
         <asset:javascript src="validator/PostalCodeValidator.js"/>
-        <asset:javascript src="customer/CustomerShowController.js"/>
+        <asset:javascript src="BasePersonController.js"/>
     </head>
 <body page-title="Cadastrar cliente">
 <atlas-panel class="js-save-customer-form">

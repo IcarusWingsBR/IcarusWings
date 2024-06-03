@@ -1,4 +1,4 @@
-function CustomerShowController() {
+function BasePersonController() {
     this.reference = document.querySelector(".js-save-customer-form");
     var _this = this;
     var postalCodeValidator;
@@ -81,6 +81,6 @@ function CustomerShowController() {
 var customerShowController;
 
 document.addEventListener("DOMContentLoaded", () => {
-    customerShowController = new CustomerShowController();
+    customerShowController = new BasePersonController();
     customerShowController.init();
 })
