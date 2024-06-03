@@ -1,58 +1,156 @@
 <html>
-    <head>
-        <meta name="layout" content="">
-        <title>Minha Conta</title>
-    </head>
-    <body>
-        <div class="background-box">
-            <div>
-                <label for="name">Nome</label>
-                <input type="text" id="name" value="${customer.name}">
-            </div>
-            <div>
-                <label for="email">Email</label>
-                <input type="text" id="email" value="${customer.email}">
-            </div>
-            <div>
-                <label for="cpfCnpj">CPF/CNPJ</label>
-                <input type="text" id="cpfCnpj" value="${customer.cpfCnpj}">
-            </div>
-            <div>
-                <label for="personType">Tipo de pessoa</label>
-                <input type="text" id="personType" value="${customer.personType}">
-            </div>
-            <div>
-                <label for="phone">Número de telefone</label>
-                <input type="text" id="phone" value="${customer.phone}">
-            </div>
-            <div>
-                <label for="postalCode">CEP</label>
-                <input type="text" id="postalCode" value="${customer.postalCode}">
-            </div>
-            <div>
-                <label for="address">Rua</label>
-                <input type="text" id="address" value="${customer.address}">
-            </div>
-            <div>
-                <label for="city">Cidade</label>
-                <input type="text" id="city" value="${customer.city}">
-            </div>
-            <div>
-                <label for="state">Estado</label>
-                <input type="text" id="state" value="${customer.state}">
-            </div>
-            <div>
-                <label for="number">Número de residência</label>
-                <input type="text" id="number" value="${customer.addressNumber}">
-            </div>
-            <div>
-                <label for="addressComplement">Complemento</label>
-                <input type="text" id="addressComplement" value="${customer.addressComplement}">
-            </div>
-            <div>
-                <label for="dateCreated">Data Criação</label>
-                <input type="text" id="dateCreated" value="${customer.dateCreated}">
-            </div>
-        </div>
-    </body>
+<head>
+    <meta name="layout" content="main">
+    <title>Minha Conta</title>
+</head>
+<body page-title="Detalhes do usuário">
+<atlas-form-panel action="${createLink(controller: "customer", action: "update")}" header="Detalhes do cliente - ${customer.name}">
+    <atlas-input
+            value="${customer.id}"
+            name="id"
+            hidden
+    >
+    </atlas-input>
+    <atlas-button slot="actions" description="Editar" data-panel-start-editing></atlas-button>
+    <atlas-grid>
+        <atlas-row>
+            <atlas-col>
+                <atlas-input
+                        label="Nome"
+                        name="name"
+                        required="true"
+                        value="${customer.name}"
+                >
+                </atlas-input>
+            </atlas-col>
+        </atlas-row>
+        <atlas-row>
+            <atlas-col lg="6">
+                <atlas-masked-input
+                        label="Cpf/Cnpj"
+                        name="cpfCnpj"
+                        mask-alias="cpf-cnpj"
+                        value="${customer.cpfCnpj}"
+                        required="true"
+                >
+                </atlas-masked-input>
+            </atlas-col>
+            <atlas-col lg="6">
+                <atlas-input
+                        label="Tipo de Pessoa"
+                        name="personType"
+                        value="${message(code: 'PersonType.' + customer.personType + '.label')}"
+                        required="true"
+                        readonly
+                >
+                </atlas-input>
+            </atlas-col>
+        </atlas-row>
+        <atlas-row>
+            <atlas-col lg="6">
+                <atlas-masked-input
+                        label="Email"
+                        name="email"
+                        mask-alias="email"
+                        value="${customer.email}"
+                        required="true"
+                >
+                </atlas-masked-input>
+            </atlas-col>
+            <atlas-col lg="6">
+                <atlas-masked-input
+                        label="Telefone/Celular"
+                        name="phone"
+                        mask-alias="phone"
+                        value="${customer.phone}"
+                        required="true"
+                >
+                </atlas-masked-input>
+            </atlas-col>
+        </atlas-row>
+    </atlas-row>
+        <atlas-row>
+            <atlas-col lg="6">
+                <atlas-input
+                        label="CEP"
+                        name="postalCode"
+                        value="${customer.postalCode}"
+                        required="true"
+                >
+                </atlas-input>
+            </atlas-col>
+            <atlas-col lg="6">
+                <atlas-input
+                        label="Rua"
+                        name="address"
+                        value="${customer.address}"
+                        required="true"
+                >
+                </atlas-input>
+            </atlas-col>
+        </atlas-row>
+        <atlas-row>
+            <atlas-col lg="6">
+                <atlas-input
+                        label="Bairro"
+                        name="province"
+                        required="true"
+                        value="${customer.province}"
+                >
+                </atlas-input>
+            </atlas-col>
+            <atlas-col lg="6">
+                <atlas-input
+                        label="Número do endereço"
+                        name="addressNumber"
+                        required="true"
+                        value="${customer.addressNumber}"
+                >
+                </atlas-input>
+            </atlas-col>
+        </atlas-row>
+        <atlas-row>
+            <atlas-col lg="6">
+                <atlas-input
+                        label="Cidade"
+                        name="city"
+                        required="true"
+                        value="${customer.city}"
+                >
+                </atlas-input>
+            </atlas-col>
+            <atlas-col lg="6">
+                <atlas-input
+                        label="Estado"
+                        name="state"
+                        required="true"
+                        value="${customer.state}"
+                >
+                </atlas-input>
+            </atlas-col>
+        </atlas-row>
+        <atlas-row>
+            <atlas-col lg="6">
+                <atlas-input
+                        label="Complemento"
+                        name="addressComplement"
+                        required="true"
+                        value="${customer.addressComplement}"
+                >
+                </atlas-input>
+            </atlas-col>
+            <atlas-col lg="6">
+                <atlas-input
+                        label="Data de criação"
+                        name="dateCreated"
+                        value="${formatTagLib.formatedDateCreated(date: customer.dateCreated)}"
+                        required="true"
+                        readonly
+                >
+                </atlas-input>
+            </atlas-col>
+        </atlas-row>
+    </atlas-grid>
+</atlas-form-panel>
+</body>
 </html>
