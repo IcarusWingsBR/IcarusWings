@@ -1,61 +1,41 @@
 package icaruswings
 
 import icaruswings.utils.adapters.CustomerAdapter
+import icaruswings.utils.repositories.CustomerRepository
 
-class CustomerController {
+class CustomerController extends BaseController {
 
     def customerService
 
     def index() {}
 
     def save() {
-        try {
-            CustomerAdapter customerAdapter = new CustomerAdapter(params)
-            Customer customer = customerService.save(customerAdapter)
+        CustomerAdapter customerAdapter = new CustomerAdapter(params)
+        Customer customer = customerService.save(customerAdapter)
 
-            flash.type = "success"
-            flash.message = "Cadastro realizado com sucesso."
+        flash.type = "success"
+        flash.message = "Cadastro realizado com sucesso."
 
-            redirect(action: "show", id: customer.id)
-        } catch (Exception exception) {
-            log.error("CustomerController.save >> Erro ao criar customer ${params}", exception)
-            
-            flash.type = "error"
-            flash.message = exception
-
-            redirect(action: "index", params: params)
-        }
+        redirect(action: "show", id: customer.id)
     }
 
     def show() {
-        try {
-            Customer customer = Customer.get(params.id)
-            if (!customer) {
-                render "Cliente não encontrado"
-            }
-            return [customer: customer]
-        } catch (Exception e) {
-            render "Cliente não encontrado"
-        }
+        Long id = Long.valueOf(params.id)
+        Customer customer = CustomerRepository.get(id)
+
+        if (!customer) render "Cliente não encontrado"
+
+        return [customer: customer]
     }
 
     def update() {
-        try {
-            CustomerAdapter customerAdapter = new CustomerAdapter(params)
-            customerService.update(customerAdapter)
+        CustomerAdapter customerAdapter = new CustomerAdapter(params)
+        customerService.update(customerAdapter)
 
-            flash.type = "success"
-            flash.message = "Alterações realizadas com sucesso."
+        flash.type = "success"
+        flash.message = "Alterações realizadas com sucesso."
 
-            redirect(action: "show", id: params.id)
-        } catch (Exception exception) {
-            log.error("CustomerController.update >> Erro ao editar customer ${params}", exception)
-
-            flash.type = "error"
-            flash.message = exception
-
-            redirect(action: "index", params: params)
-        }
+        redirect(action: "show", id: params.id)
     }
 
     def list() {
