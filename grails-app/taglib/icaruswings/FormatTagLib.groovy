@@ -3,11 +3,11 @@ package icaruswings
 class FormatTagLib {
     static namespace = "formatTagLib"
 
-    def formatedDateCreated = { attrs, body ->
-        Date dateCreated = attrs.date
+    def formatedDate = { attrs, body ->
+        Date date = attrs.date
 
-        if (dateCreated) {
-            out << g.formatDate(format: "dd/MM/yyyy", date: dateCreated)
+        if (date) {
+            out << g.formatDate(format: "dd/MM/yyyy", date: date)
         }
     }
 }
