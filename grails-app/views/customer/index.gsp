@@ -6,7 +6,7 @@
         <asset:javascript src="customer/CustomerShowController.js"/>
     </head>
 <body page-title="Cadastrar cliente">
-<atlas-panel>
+<atlas-panel class="js-save-customer-form">
     <atlas-form action="${createLink(customer: "customer", action: "save")}">
         <atlas-grid>
             <atlas-row>
@@ -54,6 +54,7 @@
                             label="CEP"
                             name="postalCode"
                             required="true"
+                            class="js-postalCode"
                     >
                     </atlas-input>
                 </atlas-col>
@@ -62,6 +63,7 @@
                             label="Rua"
                             name="address"
                             required="true"
+                            class="js-address"
                     >
                     </atlas-input>
                 </atlas-col>
@@ -72,6 +74,7 @@
                             label="Bairro"
                             name="province"
                             required="true"
+                            class="js-province"
                     >
                     </atlas-input>
                 </atlas-col>
@@ -90,6 +93,7 @@
                             label="Cidade"
                             name="city"
                             required="true"
+                            class="js-city"
                     >
                     </atlas-input>
                 </atlas-col>
@@ -98,6 +102,7 @@
                             label="Estado"
                             name="state"
                             required="true"
+                            class="js-state"
                     >
                     </atlas-input>
                 </atlas-col>
