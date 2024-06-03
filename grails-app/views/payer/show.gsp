@@ -144,7 +144,7 @@
         <atlas-input
                 label="Data de criação"
                 name="dateCreated"
-                value="${formatTagLib.formatedDateCreated(date: payer.dateCreated)}"
+                value="${formatTagLib.formatedDate(date: payer.dateCreated)}"
                 required="true"
                 readonly
         >

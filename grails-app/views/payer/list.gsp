@@ -48,7 +48,7 @@
                             ${payer.cpfCnpj}
                         </atlas-table-col>
                         <atlas-table-col>
-                            ${formatTagLib.formatedDateCreated(date: payer.dateCreated)}
+                            ${formatTagLib.formatedDate(date: payer.dateCreated)}
                         </atlas-table-col>
 
                         <atlas-button-group slot="actions" group-all>
