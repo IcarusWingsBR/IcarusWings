@@ -94,7 +94,7 @@
             </atlas-empty-state>
         </g:else>
         <g:if test="${flash.message}">
-            <atlas-modal header="Erro" open="">${flash.message}</atlas-modal>
+            <atlas-modal header="${flash.type == 'success' ? "Cobrança editada" : "Erro"}" open="">${flash.message}</atlas-modal>
         </g:if>
     </atlas-panel>
 </body>

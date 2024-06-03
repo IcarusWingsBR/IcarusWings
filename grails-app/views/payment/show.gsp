@@ -86,11 +86,11 @@
                         label="Forma de cobrança"
                         name="paymentType"
                         placeholder="${payment.paymentType}"
-                        value="${message(code: 'PaymentType.' + payment.paymentType + '.label')}"
+                        value="${payment.paymentType}"
                         required="true"
                     >
-                        <atlas-option label="Boleto" value="Boleto bancário"/></atlas-option>
-                        <atlas-option label="Cartão" value="Cartão de Crédito"/></atlas-option>
+                        <atlas-option label="Boleto" value="BANKSLIP"/></atlas-option>
+                        <atlas-option label="Cartão" value="CARD"/></atlas-option>
                         <atlas-option label="Pix" value="PIX"></atlas-option>
                     </atlas-select>
                 </atlas-col>
@@ -116,7 +116,7 @@
             </atlas-row>
         </atlas-grid>
         <g:if test="${flash.message}">
-            <atlas-modal header="Erro" open="">${flash.message}</atlas-modal>
+            <atlas-modal header="${flash.type == "success" ? "Cobrança editada" : "Erro"}" open="">${flash.message}</atlas-modal>
         </g:if>
     </atlas-form-panel>
 </body>
