@@ -1,63 +1,47 @@
 package icaruswings
 
 import icaruswings.utils.adapters.PaymentAdapter
+import icaruswings.utils.repositories.PaymentRepository
 
-class PaymentController {
+class PaymentController extends BaseController {
 
     def paymentService
+    def payerService
 
-    def index() {}
+    def index() {
+        List<Payer> payerList = payerService.list()
+
+        return [payerList: payerList]
+    }
 
     def save() {
-        try {
-            PaymentAdapter paymentAdapter = new PaymentAdapter(params)
-            Payment payment = paymentService.save(paymentAdapter)
+        PaymentAdapter paymentAdapter = new PaymentAdapter(params)
+        Payment payment = paymentService.save(paymentAdapter)
 
-            flash.type = "success"
-            flash.message = "Cadastro realizado com sucesso."
+        flash.type = "success"
+        flash.message = "Cobrança criada com sucesso."
 
-            redirect(action: "show", id: payment.id)
-        } catch (Exception exception) {
-            log.error("PaymentController.save >> Erro ao criar payment ${params}", exception)
-            
-            flash.type = "error"
-            flash.message = exception
-
-            redirect(action: "index", params: params)
-        }
+        redirect(action: "show", id: payment.id)
     }
 
     def show(){
-        try {
-            Payment payment = Payment.get(params.id)
-            
-            if (!payment) {
-                render "Pagamento não encontrado"
-            }
+        Long id = Long.valueOf(params.id)
+        Payment payment = PaymentRepository.get(id)
+        List<Payer> payerList = payerService.list()
+        
+        if (!payment) render "Cobrança não encontrada."
 
-            return [payment: payment]
-        } catch (Exception exception) {
-            render "Pagamento não encontrado"
-        }
+        return [payment: payment, payerList: payerList]
     }
 
     def update() {
-        try {
-            PaymentAdapter paymentAdapter = new PaymentAdapter(params)
-            paymentService.update(paymentAdapter)
+        PaymentAdapter paymentAdapter = new PaymentAdapter(params)
+        paymentService.update(paymentAdapter)
 
-            flash.type = "success"
-            flash.message = "Alterações realizadas!!"
+        flash.type = "success"
+        flash.message = "Alterações realizadas com sucesso."
 
-            redirect(action: "show", id: params.id)
-        } catch (Exception exception) {
-            log.error("PaymentController.update >> Erro ao atualizar pagador", exception)
-
-            flash.type = "error"
-            flash.message = exception
-
-            redirect(action: "index", params: params)
-        }
+        redirect(action: "show", id: params.id)
     }
 
     def list() {

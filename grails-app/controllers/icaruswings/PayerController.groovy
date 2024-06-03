@@ -1,87 +1,55 @@
 package icaruswings
 
 import icaruswings.utils.adapters.PayerAdapter
+import icaruswings.utils.repositories.PayerRepository
 
-class PayerController {
+class PayerController extends BaseController {
 
     def payerService
+    def customerService
 
     def index() {
-        List<Customer> customerList = Customer.list()
+        List<Customer> customerList = customerService.list()
 
         return [customerList: customerList]
     }
 
     def save() {
-        try {
-            PayerAdapter payerAdapter = new PayerAdapter(params)
-            Payer payer = payerService.save(payerAdapter)
+        PayerAdapter payerAdapter = new PayerAdapter(params)
+        Payer payer = payerService.save(payerAdapter)
 
-            flash.type = "success"
-            flash.message = "Cadastro realizado com sucesso."
+        flash.type = "success"
+        flash.message = "Cadastro realizado com sucesso."
 
-            redirect(action: "show", id: payer.id)
-        } catch (Exception exception) {
-            log.error("PayerController.save >> Erro ao criar payer ${params}", exception)
-
-            flash.type = "error"
-            flash.message = exception
-
-            redirect(action: "index", params: params)
-        }
+        redirect(action: "show", id: payer.id)
     }
 
     def show() {
-        try {
-            Payer payer = Payer.get(params.id)
-            if (!payer) {
-                render "Pagador não encontrado"
-            }
+        Long id = Long.valueOf(params.id)
+        Payer payer = PayerRepository.get(id)
+        
+        if (!payer) render "Pagador não encontrado"
 
-            return [payer: payer]
-        } catch (Exception exception) {
-            render "Pagador não encontrado"
-        }
+        return [payer: payer]
     }
 
     def update() {
-        try {
-            PayerAdapter payerAdapter = new PayerAdapter(params)
-            payerService.update(payerAdapter)
+        PayerAdapter payerAdapter = new PayerAdapter(params)
+        payerService.update(payerAdapter)
 
-            flash.type = "success"
-            flash.message = "Alterações realizadas com sucesso."
+        flash.type = "success"
+        flash.message = "Alterações realizadas com sucesso."
 
-            redirect(action: "show", id: params.id)
-        } catch (Exception exception) {
-            log.error("PayerController.update >> Erro ao atualizar pagador", exception)
-
-            flash.type = "error"
-            flash.message = exception
-
-            redirect(action: "index", params: params)
-        }
+        redirect(action: "show", id: params.id)
     }
 
     def delete() {
-        try {
-            Long id = Long.valueOf(params.id)
+        Long id = Long.valueOf(params.id)
 
-            payerService.delete(id)
+        payerService.delete(id)
 
-            flash.type = "success"
-            flash.message = "Pagador deletado com sucesso"
-        } catch (RuntimeException runtimeException) {
-            flash.errors = [runtimeException.getMessage()]
-        } catch (Exception exception) {
-            log.error("PayerController.save >> Erro ao atualizar um payer ${params}", exception)
-
-            flash.errors = ["Erro ao deletar o pagador"]
-
-            redirect(action: "index", params: params)
-        } finally {
-            redirect(action: "index")
-        }
+        flash.type = "success"
+        flash.message = "Pagador deletado com sucesso"
     }
 
     def list() {
