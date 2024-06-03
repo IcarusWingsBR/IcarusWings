@@ -47,7 +47,7 @@ class CustomerController {
             flash.type = "success"
             flash.message = "Alterações realizadas com sucesso."
 
-            redirect(action: "index")
+            redirect(action: "show", id: params.id)
         } catch (Exception exception) {
             log.error("CustomerController.update >> Erro ao editar customer ${params}", exception)
 
