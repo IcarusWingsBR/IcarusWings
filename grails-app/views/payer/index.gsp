@@ -2,9 +2,11 @@
 <head>
   <title>Cadastrar Pagador</title>
   <meta name="layout" content="main">
+  <asset:javascript src="validator/PostalCodeValidator.js"/>
+  <asset:javascript src="/customer/BasePersonController.js"/>
 </head>
 <body page-title="Cadastrar pagador">
-<atlas-panel>
+<atlas-panel class="js-save-person-form">
   <atlas-form action="${createLink(customer: "payer", action: "save")}">
     <atlas-grid>
       <atlas-row>
@@ -65,6 +67,7 @@
                   label="CEP"
                   name="postalCode"
                   required="true"
+                  class="js-postalCode"
           >
           </atlas-input>
         </atlas-col>
@@ -73,6 +76,7 @@
                   label="Rua"
                   name="address"
                   required="true"
+                  class="js-address"
           >
           </atlas-input>
         </atlas-col>
@@ -83,6 +87,7 @@
                   label="Bairro"
                   name="province"
                   required="true"
+                  class="js-province"
           >
           </atlas-input>
         </atlas-col>
@@ -101,6 +106,7 @@
                   label="Cidade"
                   name="city"
                   required="true"
+                  class="js-city"
           >
           </atlas-input>
         </atlas-col>
@@ -109,6 +115,7 @@
                   label="Estado"
                   name="state"
                   required="true"
+                  class="js-state"
           >
           </atlas-input>
         </atlas-col>

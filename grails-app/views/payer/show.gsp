@@ -3,9 +3,11 @@
   <title>Detalhes do Pagador</title>
   <meta name="layout" content="main">
   <meta charset="UTF-8">
+  <asset:javascript src="validator/PostalCodeValidator.js"/>
+  <asset:javascript src="/customer/BasePersonController.js"/>
 </head>
 <body page-title="Detalhes do Pagador">
-<atlas-form-panel action="${createLink(controller: "payer", action: "update")}" header="Detalhes do pagador - ${payer.name}">
+<atlas-form-panel action="${createLink(controller: "payer", action: "update")}" header="Detalhes do pagador - ${payer.name}" class="js-save-person-form">
   <atlas-input
           value="${payer.id}"
           name="id"
@@ -77,6 +79,7 @@
                 name="postalCode"
                 value="${payer.postalCode}"
                 required="true"
+                class="js-postalCode"
         >
         </atlas-input>
       </atlas-col>
@@ -86,6 +89,7 @@
                 name="address"
                 value="${payer.address}"
                 required="true"
+                class="js-address"
         >
         </atlas-input>
       </atlas-col>
@@ -97,6 +101,7 @@
                 name="province"
                 required="true"
                 value="${payer.province}"
+                class="js-province"
         >
         </atlas-input>
       </atlas-col>
@@ -117,6 +122,7 @@
                 name="city"
                 required="true"
                 value="${payer.city}"
+                class="js-city"
         >
         </atlas-input>
       </atlas-col>
@@ -126,6 +132,7 @@
                 name="state"
                 required="true"
                 value="${payer.state}"
+                class="js-state"
         >
         </atlas-input>
       </atlas-col>
