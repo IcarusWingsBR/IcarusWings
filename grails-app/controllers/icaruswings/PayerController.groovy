@@ -6,9 +6,10 @@ import icaruswings.utils.repositories.PayerRepository
 class PayerController extends BaseController {
 
     def payerService
+    def customerService
 
     def index() {
-        List<Customer> customerList = Customer.list()
+        List<Customer> customerList = customerService.list()
 
         return [customerList: customerList]
     }
@@ -21,7 +22,6 @@ class PayerController extends BaseController {
         flash.message = "Cadastro realizado com sucesso."
 
         redirect(action: "show", id: payer.id)
-        
     }
 
     def show() {
