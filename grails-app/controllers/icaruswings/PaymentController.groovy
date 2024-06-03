@@ -47,4 +47,13 @@ class PaymentController extends BaseController {
     def list() {
         return [paymentList: paymentService.list()]
     }
+
+    def delete() {
+        Long id = Long.valueOf(params.id)
+
+        paymentService.delete(id)
+
+        flash.type = "success"
+        flash.message = "Cobrança deletada com sucesso"
+    }
 }
