@@ -3,10 +3,10 @@
         <meta name="layout" content="main">
         <title>Cadastrar Cliente</title>
         <asset:javascript src="validator/PostalCodeValidator.js"/>
-        <asset:javascript src="BasePersonController.js"/>
+        <asset:javascript src="/customer/BasePersonController.js"/>
     </head>
 <body page-title="Cadastrar cliente">
-<atlas-panel class="js-save-customer-form">
+<atlas-panel class="js-save-person-form">
     <atlas-form action="${createLink(customer: "customer", action: "save")}">
         <atlas-grid>
             <atlas-row>
