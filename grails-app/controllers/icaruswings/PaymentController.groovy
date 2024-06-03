@@ -9,7 +9,7 @@ class PaymentController extends BaseController {
     def paymentService
 
     def index() {
-        List<Payer> payerList = PayerRepository.list()
+        List<Payer> payerList = Payer.list()
 
         return [payerList: payerList]
     }
@@ -27,7 +27,7 @@ class PaymentController extends BaseController {
     def show(){
         Long id = Long.valueOf(params.id)
         Payment payment = PaymentRepository.get(id)
-        List<Payer> payerList = PayerRepository.list()
+        List<Payer> payerList = Payer.list()
         
         if (!payment) render "Cobrança não encontrada."
 
