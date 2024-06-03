@@ -1,44 +1,84 @@
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>Clientes</title>
+  <meta name="layout" content="main">
 </head>
-<body>
-<table>
-  <thead>
-  <tr>
-    <th>Nome</th>
-    <th>Email</th>
-    <th>Cpf/Cnpj</th>
-    <th>Cep</th>
-    <th>Endereço</th>
-    <th>Bairro</th>
-    <th>Cidade</th>
-    <th>Estado</th>
-    <th>Número do endereço</th>
-    <th>Complemento do endereço</th>
-    <th>Telefone</th>
-    <th>Tipo de pessoa</th>
-  </tr>
-  </thead>
-  <tbody>
-  <g:each in="${customerList}" var="customer">
-    <tr>
-      <td>${customer.name}</td>
-      <td>${customer.email}</td>
-      <td>${customer.cpfCnpj}</td>
-      <td>${customer.postalCode}</td>
-      <td>${customer.address}</td>
-      <td>${customer.province}</td>
-      <td>${customer.city}</td>
-      <td>${customer.state}</td>
-      <td>${customer.addressNumber}</td>
-      <td>${customer.addressComplement}</td>
-      <td>${customer.phone}</td>
-      <td>${customer.personType}</td>
-    </tr>
-  </g:each>
-  </tbody>
-</table>
+<body page-title="Lista de clientes">
+<atlas-panel>
+  <g:if test="${ customerList }">
+    <atlas-toolbar>
+      <atlas-button
+              icon="plus"
+              description="Adicionar cliente"
+              href="${createLink(controller: "customer", action: "index")}"
+              slot="actions"
+      ></atlas-button>
+    </atlas-toolbar>
+    <atlas-table has-actions>
+      <atlas-table-header slot="header">
+        <atlas-table-col>
+          Nome
+        </atlas-table-col>
+        <atlas-table-col>
+          E-mail
+        </atlas-table-col>
+        <atlas-table-col>
+          Telefone
+        </atlas-table-col>
+        <atlas-table-col>
+          Cpf/Cnpj
+        </atlas-table-col>
+        <atlas-table-col>
+          Data de Criação
+        </atlas-table-col>
+      </atlas-table-header>
+      <atlas-table-body slot="body">
+        <g:each var="customer" in="${ customerList }">
+          <atlas-table-row href="${createLink(controller: "customer", action: "show", id: customer.id)}">
+            <atlas-table-col>
+              ${customer.name}
+            </atlas-table-col>
+            <atlas-table-col>
+              ${customer.email}
+            </atlas-table-col>
+            <atlas-table-col>
+              ${customer.phone}
+            </atlas-table-col>
+            <atlas-table-col>
+              ${customer.cpfCnpj}
+            </atlas-table-col>
+            <atlas-table-col>
+              ${formatTagLib.formatedDateCreated(date: customer.dateCreated)}
+            </atlas-table-col>
+
+            <atlas-button-group slot="actions" group-all>
+              <atlas-icon-button
+                      icon="pencil"
+                      theme="primary"
+                      description="Editar cliente"
+                      href="${createLink(controller: "customer", action: "show", id: customer.id)}"
+              >
+              </atlas-icon-button>
+            </atlas-button-group>
+          </atlas-table-row>
+        </g:each>
+      </atlas-table-body>
+    </atlas-table>
+  </g:if>
+  <g:else>
+    <atlas-empty-state
+            illustration="schedule-user-avatar"
+            header="Sem clientes cadastrados"
+    >
+      Aqui você pode cadastrar os clientes que deseja utilizar em suas transações.
+      <atlas-button
+              icon="plus"
+              description="Adicionar cliente"
+              href="${createLink(controller: "customer", action: "index")}"
+              slot="button"
+      ></atlas-button>
+    </atlas-empty-state>
+  </g:else>
+</atlas-panel>
 </body>
 </html>
