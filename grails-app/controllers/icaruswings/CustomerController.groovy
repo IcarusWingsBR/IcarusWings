@@ -35,7 +35,7 @@ class CustomerController extends BaseController {
         flash.type = "success"
         flash.message = "Alterações realizadas com sucesso."
 
-        redirect(action: "index")
+        redirect(action: "show", id: params.id)
     }
 
     def list() {
