@@ -115,6 +115,9 @@
                 </atlas-col>
             </atlas-row>
         </atlas-grid>
+        <g:if test="${flash.message}">
+            <atlas-modal header="Erro" open="">${flash.message}</atlas-modal>
+        </g:if>
     </atlas-form-panel>
 </body>
 </html>
