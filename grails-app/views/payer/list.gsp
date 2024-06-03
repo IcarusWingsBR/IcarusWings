@@ -1,46 +1,84 @@
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Pagadores</title>
+    <title>Cadastrar Pagador</title>
+    <meta name="layout" content="main">
 </head>
-<body>
-<table>
-    <thead>
-    <tr>
-        <th>Nome</th>
-        <th>Email</th>
-        <th>Cpf/Cnpj</th>
-        <th>Cep</th>
-        <th>Endereço</th>
-        <th>Bairro</th>
-        <th>Cidade</th>
-        <th>Estado</th>
-        <th>Número do endereço</th>
-        <th>Complemento do endereço</th>
-        <th>Telefone</th>
-        <th>Tipo de pessoa</th>
-        <th>Id do cliente</th>
-    </tr>
-    </thead>
-    <tbody>
-    <g:each in="${payerList}" var="payer">
-        <tr>
-            <td>${payer.name}</td>
-            <td>${payer.email}</td>
-            <td>${payer.cpfCnpj}</td>
-            <td>${payer.postalCode}</td>
-            <td>${payer.address}</td>
-            <td>${payer.province}</td>
-            <td>${payer.city}</td>
-            <td>${payer.state}</td>
-            <td>${payer.addressNumber}</td>
-            <td>${payer.addressComplement}</td>
-            <td>${payer.phone}</td>
-            <td>${payer.personType}</td>
-            <td>${payer.customer.id}</td>
-        </tr>
-    </g:each>
-    </tbody>
-</table>
+<body page-title="Cadastrar pagador">
+<atlas-panel>
+    <g:if test="${ payerList }">
+        <atlas-toolbar>
+            <atlas-button
+                    icon="plus"
+                    description="Adicionar pagador"
+                    href="${createLink(controller: "payer", action: "index")}"
+                    slot="actions"
+            ></atlas-button>
+        </atlas-toolbar>
+        <atlas-table has-actions>
+            <atlas-table-header slot="header">
+                <atlas-table-col>
+                    Nome
+                </atlas-table-col>
+                <atlas-table-col>
+                    E-mail
+                </atlas-table-col>
+                <atlas-table-col>
+                    Telefone
+                </atlas-table-col>
+                <atlas-table-col>
+                    Cpf/Cnpj
+                </atlas-table-col>
+                <atlas-table-col>
+                    Data de Criação
+                </atlas-table-col>
+            </atlas-table-header>
+            <atlas-table-body slot="body">
+                <g:each var="payer" in="${ payerList }">
+                    <atlas-table-row href="${createLink(controller: "payer", action: "show", id: payer.id)}">
+                        <atlas-table-col>
+                            ${payer.name}
+                        </atlas-table-col>
+                        <atlas-table-col>
+                            ${payer.email}
+                        </atlas-table-col>
+                        <atlas-table-col>
+                            ${payer.phone}
+                        </atlas-table-col>
+                        <atlas-table-col>
+                            ${payer.cpfCnpj}
+                        </atlas-table-col>
+                        <atlas-table-col>
+                            ${formatTagLib.formatedDate(date: payer.dateCreated)}
+                        </atlas-table-col>
+
+                        <atlas-button-group slot="actions" group-all>
+                            <atlas-icon-button
+                                    icon="pencil"
+                                    theme="primary"
+                                    description="Editar pagador"
+                                    href="${createLink(controller: "payer", action: "show", id: payer.id)}"
+                            >
+                            </atlas-icon-button>
+                        </atlas-button-group>
+                    </atlas-table-row>
+                </g:each>
+            </atlas-table-body>
+        </atlas-table>
+    </g:if>
+    <g:else>
+        <atlas-empty-state
+                illustration="schedule-user-avatar"
+                header="Sem pagadores cadastrados"
+        >
+            Aqui você pode cadastrar os pagadores que deseja utilizar em suas transações.
+            <atlas-button
+                    icon="plus"
+                    description="Adicionar pagador"
+                    href="${createLink(controller: "payer", action: "index")}"
+                    slot="button"
+            ></atlas-button>
+        </atlas-empty-state>
+    </g:else>
+</atlas-panel>
 </body>
 </html>
