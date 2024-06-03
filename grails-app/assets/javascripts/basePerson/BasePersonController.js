@@ -7,7 +7,7 @@ function BasePersonController() {
     var provinceReference = _this.reference.querySelector('.js-province');
     var cityReference = _this.reference.querySelector('.js-city');
     var stateReference = _this.reference.querySelector('.js-state');
-    
+
     this.init = function() {
         postalCodeValidator = new PostalCodeValidator();
         postalCodeReference.addEventListener("blur", _this.processPostalCodeInput);
@@ -17,7 +17,7 @@ function BasePersonController() {
         const postalCode = postalCodeReference.value;
 
         const postalCodeSanitized = postalCode.replace(/\D/g, '');
-    
+
         if (!postalCodeValidator.validatePostalCodeFormat(postalCodeSanitized)) {
             _this.clearPostalCodeFormat();
 
