@@ -4,7 +4,7 @@
         <title>Cadastro de Cliente</title>
         <asset:stylesheet href="utilsCss/index.css"/>
         <asset:javascript src="validator/PostalCodeValidator.js"/>
-        <asset:javascript src="customer/CustomerShowController.js"/>
+        <asset:javascript src="BasePersonController.js"/>
     </head>
     <body>
         <div class="background-box js-save-customer-form">
