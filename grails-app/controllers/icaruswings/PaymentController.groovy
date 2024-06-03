@@ -9,7 +9,7 @@ class PaymentController extends BaseController {
     def paymentService
 
     def index() {
-        List<Payer> payerList = Payer.list()
+        List<Payer> payerList = PayerRepository.list()
 
         return [payerList: payerList]
     }
