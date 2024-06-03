@@ -18,7 +18,7 @@ public class StringUtils {
     }
 
     private static Boolean isValidStringLength(String str) {
-        if(str.length() < 3 || str.length() > 255) return false
+        if(str.length() < 2 || str.length() > 255) return false
 
         return true
     }
