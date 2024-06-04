@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="layout" content="main">
     <title>Todas as Cobrança</title>
+    <asset:javascript src="payment/PaymentListController.js"/>
 </head>
 <body page-title="Todas as Cobrança">
-    <atlas-panel>
+    <atlas-panel class="js-list-panel">
         <g:if test="${ paymentList }">
             <atlas-toolbar>
                 <atlas-button
@@ -65,16 +66,22 @@
                             <atlas-table-col>
                                 ${formatTagLib.formatedDate(date: payment.dueDate)}
                             </atlas-table-col>
-                            <atlas-button-group slot="actions" group-all>
+                            <atlas-button-group slot="actions">
                                 <atlas-icon-button
-                                        icon="pencil"
-                                        theme="primary"
-                                        description="Editar cobrança"
-                                        href="${createLink(controller: "payment", action: "show", id: payment.id)}"
+                                    icon="trash"
+                                    theme="primary"
+                                    description="Excluir cobrança"
+                                    class="js-delete-button"
+                                    id="${payment.id}"
                                 >
                                 </atlas-icon-button>
-                            </atlas-button-group>
+                            </atlas-button-group> 
                         </atlas-table-row>
+                        <atlas-modal header="Excluir Cobrança" class="js-modal">
+                            Você realmente quer excluir essa cobrança?
+                            <atlas-button description="Excluir" theme="primary" slot="actions" class="js-delete-payment-button"></atlas-button>
+                            <atlas-button description="Cancelar" theme="secondary" slot="actions" class="js-close-modal-button"></atlas-button>
+                        </atlas-modal> 
                     </g:each>
                 </atlas-table-body>
             </atlas-table>
@@ -93,9 +100,6 @@
                 ></atlas-button>
             </atlas-empty-state>
         </g:else>
-        <g:if test="${flash.message}">
-            <atlas-modal header="${flash.type == 'success' ? "Cobrança editada" : "Erro"}" open="">${flash.message}</atlas-modal>
-        </g:if>
     </atlas-panel>
 </body>
 </html>
