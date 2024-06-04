@@ -8,7 +8,7 @@ import icaruswings.utils.validator.PostalCodeValidator
 import icaruswings.utils.validator.ValidateCpfCnpj
 import icaruswings.utils.validator.ValidateEmail
 import icaruswings.utils.validator.ValidatePhone
-import icaruswings.utils.validator.StringUtils
+import icaruswings.utils.string.StringUtils
 
 @Transactional
 class PayerService {
