@@ -10,6 +10,8 @@ import icaruswings.utils.date.DateUtils
 @Transactional
 class PaymentService {
 
+    def emailService
+
     public Payment save(PaymentAdapter paymentAdapter) {
         Payment validatedPayment = validateSave(paymentAdapter)
 
@@ -72,6 +74,8 @@ class PaymentService {
 
         payment.deleted = true
         payment.paymentStatus = PaymentStatus.CANCELED
+        
+        emailService.sendStatusChangeEmail(payment.payer, payment)
 
         payment.save(failOnError: true)
     }
@@ -85,6 +89,8 @@ class PaymentService {
 
         payment.paymentStatus = PaymentStatus.PAYED
 
+        emailService.sendStatusChangeEmail(payment.payer, payment)
+        
         payment.save(failOnError: true)
     }
 }
