@@ -56,4 +56,13 @@ class PaymentController extends BaseController {
         flash.type = "success"
         flash.message = "Cobrança deletada com sucesso"
     }
+
+    def confirmPaymentReceived() {
+        Long id = Long.valueOf(params.id)
+
+        paymentService.confirmPaymentReceived(id)
+
+        flash.type = "success"
+        flash.message = "Status da cobrança atualizado."
+    }
 }
