@@ -7,7 +7,7 @@ import icaruswings.utils.validator.CpfCnpjValidator
 import icaruswings.utils.string.StringUtils
 import icaruswings.utils.validator.EmailValidator
 import icaruswings.utils.validator.PostalCodeValidator
-import icaruswings.utils.validator.ValidatePhone
+import icaruswings.utils.validator.PhoneValidator
 import icaruswings.repositories.CustomerRepository
 
 @Transactional
@@ -124,7 +124,7 @@ class CustomerService {
 
         if (!customerAdapter.phone) {
             customer.errors.rejectValue("phone", null, "O campo telefone é obrigatório")
-        } else if (!ValidatePhone.isValidPhoneNumber(customerAdapter.phone)) {
+        } else if (!PhoneValidator.isValidPhoneNumber(customerAdapter.phone)) {
             customer.errors.rejectValue("phone", null, "O numero de telefone inserido é inválido")
         }
 
