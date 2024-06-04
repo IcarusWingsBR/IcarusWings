@@ -3,7 +3,7 @@ package icaruswings
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 import icaruswings.payment.Payment
-import icaruswings.utils.adapters.PaymentAdapter
+import icaruswings.adapters.PaymentAdapter
 import icaruswings.utils.repositories.PaymentRepository
 import icaruswings.utils.date.DateUtils
 

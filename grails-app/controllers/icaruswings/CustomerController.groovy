@@ -1,6 +1,6 @@
 package icaruswings
 
-import icaruswings.utils.adapters.CustomerAdapter
+import icaruswings.adapters.CustomerAdapter
 import icaruswings.utils.repositories.CustomerRepository
 
 class CustomerController extends BaseController {

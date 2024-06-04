@@ -1,4 +1,4 @@
-package icaruswings.utils.adapters
+package icaruswings.adapters
 
 import icaruswings.Payer
 import icaruswings.payment.PaymentStatus

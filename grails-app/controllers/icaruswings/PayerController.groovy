@@ -1,6 +1,6 @@
 package icaruswings
 
-import icaruswings.utils.adapters.PayerAdapter
+import icaruswings.adapters.PayerAdapter
 import icaruswings.utils.repositories.PayerRepository
 
 class PayerController extends BaseController {

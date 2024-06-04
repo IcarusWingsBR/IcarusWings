@@ -1,10 +1,11 @@
-package icaruswings.utils.adapters
+package icaruswings.adapters
 
+import icaruswings.Customer
+import icaruswings.utils.repositories.CustomerRepository
 import icaruswings.utils.PersonType
 import icaruswings.utils.validator.ValidateCpfCnpj
 
-class CustomerAdapter {
-
+class PayerAdapter {
     Long id
 
     String name
@@ -27,13 +28,18 @@ class CustomerAdapter {
 
     String addressComplement
 
+    Customer customer
+
     String phone
 
     PersonType personType
 
-    public CustomerAdapter(Map params) {
+    public PayerAdapter(Map params) {
+        if (params.id) this.id = Long.valueOf(params.id)
+
         this.name = params.name
         this.email = params.email
+        this.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(params.cpfCnpj)
         this.postalCode = params.postalCode
         this.address = params.address
         this.province = params.province
@@ -41,17 +47,12 @@ class CustomerAdapter {
         this.state = params.state
         this.addressNumber = Integer.parseInt(params.addressNumber)
         this.addressComplement = params.addressComplement
+        this.customer = CustomerRepository.get(params.customerId)
         this.phone = params.phone
 
-        if (params.id) this.id = Long.valueOf(params.id)
-
-        if (!params.cpfCnpj) return
-
-        this.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(params.cpfCnpj)
-  
         if (ValidateCpfCnpj.isCPF(params.cpfCnpj)) {
             this.personType = PersonType.NATURAL
-        } else if (ValidateCpfCnpj.isCNPJ(params.cpfCnpj)) { 
+        } else if (ValidateCpfCnpj.isCNPJ(params.cpfCnpj)){
             this.personType = PersonType.LEGAL
         }
     }

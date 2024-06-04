@@ -2,8 +2,7 @@ package icaruswings
 
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
-import icaruswings.utils.adapters.CustomerAdapter
-import icaruswings.utils.repositories.CustomerRepository
+import icaruswings.adapters.CustomerAdapter
 import icaruswings.utils.validator.ValidateCpfCnpj
 import icaruswings.utils.validator.StringUtils
 import icaruswings.utils.validator.ValidateEmail
