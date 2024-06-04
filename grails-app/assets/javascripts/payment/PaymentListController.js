@@ -1,6 +1,7 @@
 function PaymentListController() {
     this.reference = document.querySelector(".js-list-panel");
     var _this = this;
+    var deleteHandler;
     var deleteButtonsReference = _this.reference.querySelectorAll('.js-delete-button');
     var modalReference = _this.reference.querySelector('.js-modal');
     var closeModalButtonReference = _this.reference.querySelector('.js-close-modal-button');
@@ -8,6 +9,7 @@ function PaymentListController() {
     var paymentId;
 
     this.init = function() {
+        deleteHandler = new DeleteHandler();
         _this.bindDeleteButtons();
         closeModalButtonReference.addEventListener("atlas-icon-button-click", _this.closeModal);
         deletePaymentButtonReference.addEventListener("atlas-button-click", _this.deletePayment);
@@ -28,23 +30,18 @@ function PaymentListController() {
         modalReference.removeAttribute("open");
     };
 
-    this.deletePayment =  function() {
-        fetch(`/payment/delete/${paymentId}`, {
-            method: 'DELETE'
-        })
-        .then(response => {
-            if (response.ok) return response.text();
-            
-            throw new Error('Failed to delete instance');
-        })
-        .then(result => {
-            alert('Deleted successfully');
-        })
-        .catch(error => {
-            alert('Erro ao deletar cobrança');
-        });
-
+    this.deletePayment = async function() {
+        await deleteHandler.fetchDelete("payment", paymentId)
+            .then(() => {
+                alert('Deletado com sucesso');
+            })
+            .catch(() => {
+                alert('Erro ao deletar cobrança');
+            });
+        
         _this.closeModal();
+
+        window.location.reload();
     };
 }
 

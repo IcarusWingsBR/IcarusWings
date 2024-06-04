@@ -6,6 +6,7 @@
     <meta name="layout" content="main">
     <title>Mostrar Cobrança</title>
     <asset:javascript src="payment/PaymentShowController.js"/>
+    <asset:javascript src="delete/DeleteHandler.js"/>
 </head>
 <body page-title="Detalhes da Cobrança">
     <atlas-form-panel action="${createLink(controller: "payment", action: "update")}" header="Detalhes da cobrança - ${payment.id}" class="js-edit-payment-form">
@@ -112,9 +113,23 @@
                         required="true"
                         value="${formatTagLib.formatedDate(date: payment.dueDate)}"
                     />
-                </atlas-col>
+                </atlas-col> 
             </atlas-row>
         </atlas-grid>
+        <atlas-button-group slot="actions">
+            <atlas-button
+                icon="trash"
+                theme="primary"
+                description="Excluir cobrança"
+                class="js-open-modal-button"
+            >
+            </atlas-button>
+            </atlas-button-group>
+        <atlas-modal header="Excluir Cobrança" class="js-modal">
+            Você realmente quer excluir essa cobrança?
+            <atlas-button description="Excluir" theme="danger" slot="actions" href="${createLink(controller: "payment", action: "delete", id: "${payment.id}")}"></atlas-button>
+            <atlas-button description="Cancelar" theme="secondary" slot="actions" class="js-close-modal-button"></atlas-button>
+        </atlas-modal>
         <g:if test="${flash.message}">
             <atlas-modal header="${flash.type == "success" ? "Cobrança editada" : "Erro"}" open="">${flash.message}</atlas-modal>
         </g:if>

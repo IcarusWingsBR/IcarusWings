@@ -6,6 +6,7 @@
     <meta name="layout" content="main">
     <title>Todas as Cobrança</title>
     <asset:javascript src="payment/PaymentListController.js"/>
+    <asset:javascript src="delete/DeleteHandler.js"/>
 </head>
 <body page-title="Todas as Cobrança">
     <atlas-panel class="js-list-panel">
@@ -79,7 +80,7 @@
                         </atlas-table-row>
                         <atlas-modal header="Excluir Cobrança" class="js-modal">
                             Você realmente quer excluir essa cobrança?
-                            <atlas-button description="Excluir" theme="primary" slot="actions" class="js-delete-payment-button"></atlas-button>
+                            <atlas-button description="Excluir" theme="danger" slot="actions" class="js-delete-payment-button"></atlas-button>
                             <atlas-button description="Cancelar" theme="secondary" slot="actions" class="js-close-modal-button"></atlas-button>
                         </atlas-modal> 
                     </g:each>
