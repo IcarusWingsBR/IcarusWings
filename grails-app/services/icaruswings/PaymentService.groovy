@@ -38,6 +38,20 @@ class PaymentService {
         payment.save(failOnError: true)
     }
 
+    public List<Payment> list() {
+        return PaymentRepository.query([:]).list()
+    }
+
+    public void delete(Long id) {
+        Payment payment = PaymentRepository.get(id)
+
+        if (!payment) throw new RuntimeException("Essa cobrança não existe")
+
+        payment.deleted = true
+
+        payment.save(failOnError: true)
+    }
+
     private Payment validateSave(PaymentAdapter paymentAdapter) {
         Payment payment = new Payment()
 
@@ -58,19 +72,5 @@ class PaymentService {
         }
 
         return payment
-    }
-
-    public List<Payment> list() {
-        return PaymentRepository.query([:]).list()
-    }
-
-    public void delete(Long id) {
-        Payment payment = PaymentRepository.get(id)
-
-        if (!payment) throw new RuntimeException("Essa cobrança não existe")
-
-        payment.deleted = true
-
-        payment.save(failOnError: true)
     }
 }
