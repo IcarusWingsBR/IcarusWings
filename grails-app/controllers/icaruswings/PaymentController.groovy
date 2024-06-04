@@ -2,7 +2,7 @@ package icaruswings
 
 import icaruswings.payment.Payment
 import icaruswings.adapters.PaymentAdapter
-import icaruswings.utils.repositories.PaymentRepository
+import icaruswings.repositories.PaymentRepository
 
 class PaymentController extends BaseController {
 

@@ -1,7 +1,7 @@
 package icaruswings.adapters
 
 import icaruswings.Customer
-import icaruswings.utils.repositories.CustomerRepository
+import icaruswings.repositories.CustomerRepository
 import icaruswings.utils.PersonType
 import icaruswings.utils.validator.ValidateCpfCnpj
 

@@ -1,4 +1,4 @@
-package icaruswings.utils.repositories
+package icaruswings.repositories
 
 import icaruswings.Payer
 import org.grails.datastore.mapping.query.api.BuildableCriteria

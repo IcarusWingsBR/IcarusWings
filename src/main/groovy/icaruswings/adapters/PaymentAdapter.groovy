@@ -5,7 +5,7 @@ import icaruswings.payment.PaymentStatus
 import icaruswings.payment.PaymentType
 import icaruswings.utils.bigDecimal.BigDecimalUtis
 import icaruswings.utils.date.DateUtils
-import icaruswings.utils.repositories.PayerRepository
+import icaruswings.repositories.PayerRepository
 
 class PaymentAdapter {
 

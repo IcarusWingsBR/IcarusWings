@@ -3,7 +3,7 @@ package icaruswings
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 import icaruswings.adapters.PayerAdapter
-import icaruswings.utils.repositories.PayerRepository
+import icaruswings.repositories.PayerRepository
 import icaruswings.utils.validator.PostalCodeValidator
 import icaruswings.utils.validator.ValidateCpfCnpj
 import icaruswings.utils.validator.ValidateEmail

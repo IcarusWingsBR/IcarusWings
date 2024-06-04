@@ -4,7 +4,7 @@ import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 import icaruswings.payment.Payment
 import icaruswings.adapters.PaymentAdapter
-import icaruswings.utils.repositories.PaymentRepository
+import icaruswings.repositories.PaymentRepository
 import icaruswings.utils.date.DateUtils
 
 @Transactional
