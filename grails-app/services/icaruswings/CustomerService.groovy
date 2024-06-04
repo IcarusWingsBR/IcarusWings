@@ -5,7 +5,7 @@ import grails.validation.ValidationException
 import icaruswings.adapters.CustomerAdapter
 import icaruswings.utils.validator.CpfCnpjValidator
 import icaruswings.utils.string.StringUtils
-import icaruswings.utils.validator.ValidateEmail
+import icaruswings.utils.validator.EmailValidator
 import icaruswings.utils.validator.PostalCodeValidator
 import icaruswings.utils.validator.ValidatePhone
 import icaruswings.repositories.CustomerRepository
@@ -84,7 +84,7 @@ class CustomerService {
 
         if (!customerAdapter.email) {
             customer.errors.rejectValue("email", null, "O campo email é obrigatório")
-        } else if (!ValidateEmail.isValidEmail(customerAdapter.email)){
+        } else if (!EmailValidator.isValidEmail(customerAdapter.email)){
             customer.errors.rejectValue("email", null, "O email informado é inválido")
         }
 

@@ -6,7 +6,7 @@ import icaruswings.adapters.PayerAdapter
 import icaruswings.repositories.PayerRepository
 import icaruswings.utils.validator.PostalCodeValidator
 import icaruswings.utils.validator.CpfCnpjValidator
-import icaruswings.utils.validator.ValidateEmail
+import icaruswings.utils.validator.EmailValidator
 import icaruswings.utils.validator.ValidatePhone
 import icaruswings.utils.string.StringUtils
 
@@ -84,7 +84,7 @@ class PayerService {
 
         if (!payerAdapter.email) {
             payer.errors.rejectValue("email", null, "O campo email é obrigatório")
-        } else if (!ValidateEmail.isValidEmail(payerAdapter.email)) {
+        } else if (!EmailValidator.isValidEmail(payerAdapter.email)) {
             payer.errors.rejectValue("email", null, "O email informado é inválido")
         }
 
