@@ -55,5 +55,7 @@ class PaymentController extends BaseController {
 
         flash.type = "success"
         flash.message = "Cobrança deletada com sucesso"
+
+        redirect(action: "list")
     }
 }

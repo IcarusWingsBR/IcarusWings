@@ -9,6 +9,8 @@ function DeleteHandler() {
         .then(response => {
             if(response.ok) return response.text();
 
+            if(response.redirected) return "Redirected.";
+
             throw new Error('Failed to delete');
         })
     };
