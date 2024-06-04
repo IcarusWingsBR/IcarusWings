@@ -71,6 +71,7 @@ class PaymentService {
         if (!payment) throw new RuntimeException("Essa cobrança não existe")
 
         payment.deleted = true
+        payment.paymentStatus = PaymentStatus.CANCELED
 
         payment.save(failOnError: true)
     }
