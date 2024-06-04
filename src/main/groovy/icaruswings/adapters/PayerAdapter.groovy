@@ -3,7 +3,7 @@ package icaruswings.adapters
 import icaruswings.Customer
 import icaruswings.repositories.CustomerRepository
 import icaruswings.utils.PersonType
-import icaruswings.utils.validator.ValidateCpfCnpj
+import icaruswings.utils.validator.CpfCnpjValidator
 
 class PayerAdapter {
     Long id
@@ -39,7 +39,7 @@ class PayerAdapter {
 
         this.name = params.name
         this.email = params.email
-        this.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(params.cpfCnpj)
+        this.cpfCnpj = CpfCnpjValidator.cleanCpfCnpj(params.cpfCnpj)
         this.postalCode = params.postalCode
         this.address = params.address
         this.province = params.province
@@ -50,9 +50,9 @@ class PayerAdapter {
         this.customer = CustomerRepository.get(params.customerId)
         this.phone = params.phone
 
-        if (ValidateCpfCnpj.isCPF(params.cpfCnpj)) {
+        if (CpfCnpjValidator.isCPF(params.cpfCnpj)) {
             this.personType = PersonType.NATURAL
-        } else if (ValidateCpfCnpj.isCNPJ(params.cpfCnpj)){
+        } else if (CpfCnpjValidator.isCNPJ(params.cpfCnpj)){
             this.personType = PersonType.LEGAL
         }
     }

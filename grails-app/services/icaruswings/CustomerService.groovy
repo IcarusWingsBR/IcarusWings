@@ -3,7 +3,7 @@ package icaruswings
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 import icaruswings.adapters.CustomerAdapter
-import icaruswings.utils.validator.ValidateCpfCnpj
+import icaruswings.utils.validator.CpfCnpjValidator
 import icaruswings.utils.string.StringUtils
 import icaruswings.utils.validator.ValidateEmail
 import icaruswings.utils.validator.PostalCodeValidator
@@ -64,7 +64,7 @@ class CustomerService {
 
         if (!customerAdapter.cpfCnpj) {
             customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
-        } else if (!ValidateCpfCnpj.isCPF(customerAdapter.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(customerAdapter.cpfCnpj)) {
+        } else if (!CpfCnpjValidator.isCPF(customerAdapter.cpfCnpj) && !CpfCnpjValidator.isCNPJ(customerAdapter.cpfCnpj)) {
             customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
         } else if (checkIfCpfOrCnpjExists(customerAdapter.cpfCnpj)) {
             customer.errors.rejectValue("cpfCnpj", null, "O Cpf/Cnpj já está cadastrado")
@@ -132,7 +132,7 @@ class CustomerService {
     }
 
     public Boolean checkIfCpfOrCnpjExists(String cpfCnpj) {
-        String sanitizedCpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(cpfCnpj)
+        String sanitizedCpfCnpj = CpfCnpjValidator.cleanCpfCnpj(cpfCnpj)
         Customer customer = Customer.findByCpfCnpj(sanitizedCpfCnpj)
 
         if (customer == null) return false

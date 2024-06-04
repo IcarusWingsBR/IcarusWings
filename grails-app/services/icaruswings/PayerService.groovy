@@ -5,7 +5,7 @@ import grails.validation.ValidationException
 import icaruswings.adapters.PayerAdapter
 import icaruswings.repositories.PayerRepository
 import icaruswings.utils.validator.PostalCodeValidator
-import icaruswings.utils.validator.ValidateCpfCnpj
+import icaruswings.utils.validator.CpfCnpjValidator
 import icaruswings.utils.validator.ValidateEmail
 import icaruswings.utils.validator.ValidatePhone
 import icaruswings.utils.string.StringUtils
@@ -90,7 +90,7 @@ class PayerService {
 
         if (!payerAdapter.cpfCnpj) {
             payer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
-        } else if (!ValidateCpfCnpj.isCPF(payerAdapter.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(payerAdapter.cpfCnpj)) {
+        } else if (!CpfCnpjValidator.isCPF(payerAdapter.cpfCnpj) && !CpfCnpjValidator.isCNPJ(payerAdapter.cpfCnpj)) {
             payer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
         }
 

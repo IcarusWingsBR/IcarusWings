@@ -1,7 +1,7 @@
 package icaruswings.adapters
 
 import icaruswings.utils.PersonType
-import icaruswings.utils.validator.ValidateCpfCnpj
+import icaruswings.utils.validator.CpfCnpjValidator
 
 class CustomerAdapter {
 
@@ -47,11 +47,11 @@ class CustomerAdapter {
 
         if (!params.cpfCnpj) return
 
-        this.cpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(params.cpfCnpj)
+        this.cpfCnpj = CpfCnpjValidator.cleanCpfCnpj(params.cpfCnpj)
   
-        if (ValidateCpfCnpj.isCPF(params.cpfCnpj)) {
+        if (CpfCnpjValidator.isCPF(params.cpfCnpj)) {
             this.personType = PersonType.NATURAL
-        } else if (ValidateCpfCnpj.isCNPJ(params.cpfCnpj)) { 
+        } else if (CpfCnpjValidator.isCNPJ(params.cpfCnpj)) {
             this.personType = PersonType.LEGAL
         }
     }
