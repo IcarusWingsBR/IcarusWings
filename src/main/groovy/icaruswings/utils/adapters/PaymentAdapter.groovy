@@ -1,8 +1,8 @@
 package icaruswings.utils.adapters
 
 import icaruswings.Payer
-import icaruswings.utils.PaymentStatus
-import icaruswings.utils.PaymentType
+import icaruswings.payment.PaymentStatus
+import icaruswings.payment.PaymentType
 import icaruswings.utils.bigDecimal.BigDecimalUtis
 import icaruswings.utils.date.DateUtils
 import icaruswings.utils.repositories.PayerRepository
