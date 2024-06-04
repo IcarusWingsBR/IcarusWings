@@ -24,7 +24,8 @@ class PaymentService {
         payment.value = paymentAdapter.value
         payment.dueDate = paymentAdapter.dueDate
 
-        emailService.sendCreatePaymentEmail(payment.payer, payment)        
+        emailService.sendCreatePaymentEmailToPayer(payment.payer, payment)
+        emailService.sendCreatePaymentEmailToCustomer(payment.payer, payment)        
 
         payment.save(failOnError: true)
 
@@ -78,7 +79,8 @@ class PaymentService {
         payment.deleted = true
         payment.paymentStatus = PaymentStatus.CANCELED
 
-        emailService.sendStatusChangeEmail(payment.payer, payment)
+        emailService.sendStatusChangeEmailToPayer(payment.payer, payment)
+        emailService.sendStatusChangeEmailToCustomer(payment.payer, payment)
 
         payment.save(failOnError: true)
     }
@@ -92,7 +94,8 @@ class PaymentService {
 
         payment.paymentStatus = PaymentStatus.PAYED
 
-        emailService.sendStatusChangeEmail(payment.payer, payment)
+        emailService.sendStatusChangeEmailToPayer(payment.payer, payment)
+        emailService.sendStatusChangeEmailToCustomer(payment.payer, payment)
         
         payment.save(failOnError: true)
     }
