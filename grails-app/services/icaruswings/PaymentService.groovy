@@ -2,9 +2,10 @@ package icaruswings
 
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
+import icaruswings.utils.PaymentStatus
 import icaruswings.utils.adapters.PaymentAdapter
-import icaruswings.utils.repositories.PaymentRepository
 import icaruswings.utils.date.DateUtils
+import icaruswings.utils.repositories.PaymentRepository
 
 @Transactional
 class PaymentService {
@@ -52,6 +53,33 @@ class PaymentService {
         payment.save(failOnError: true)
     }
 
+    public void expirePayment(Long id) {
+        Payment payment = PaymentRepository.get(id)
+
+        if (!payment) throw new RuntimeException("Essa cobrança não existe")
+
+        payment.paymentStatus = PaymentStatus.OVERDUE
+
+        payment.save(failOnError: true)
+    }
+
+    public void expireOverduePayments () {
+        List<Long> overduePaymentsList = PaymentRepository.query([
+                paymentStatus: PaymentStatus.WAITING_PAYMENT,
+                "dueDate[lt]": new Date(),
+                "column": "id"
+        ]).list() as List<Long>
+
+        for (Long paymentId : overduePaymentsList) {
+            Payment.withNewTransaction { status ->
+                try {
+                    expirePayment(paymentId);
+                } catch (Exception exception) {
+                    log.info("expireOverduePayments >> Erro ao atualizar status da cobrança de id: [${paymentId}] [Mensagem de erro]: ${exception.message}")
+                }
+            }
+        }
+    }
     private Payment validateSave(PaymentAdapter paymentAdapter) {
         Payment payment = new Payment()
 
