@@ -76,6 +76,10 @@ dependencies {
     runtimeOnly "mysql:mysql-connector-java:8.0.33"
     implementation 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
     implementation 'org.grails.plugins:mail:4.0.0'
+    implementation "org.grails.plugins:quartz:2.0.13"
+    implementation ("org.quartz-scheduler:quartz:2.3.2") {
+        exclude group: 'slf4j-api', module: 'c3p0'
+    }
 }
 
 bootRun {

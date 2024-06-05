@@ -46,6 +46,33 @@ class PaymentService {
         payment.save(failOnError: true)
     }
 
+    public void overduePayment(Long id) {
+        Payment payment = PaymentRepository.get(id)
+
+        if (!payment) throw new RuntimeException("Essa cobrança não existe")
+
+        payment.paymentStatus = PaymentStatus.OVERDUE
+
+        payment.save(failOnError: true)
+    }
+
+    public void processOverduePayments() {
+        List<Long> overduePaymentsList = PaymentRepository.query([
+                paymentStatus: PaymentStatus.PENDING,
+                "dueDate[lt]": DateUtils.removeTime(new Date())
+        ]).column("id").list() as List<Long>
+
+        for (Long paymentId : overduePaymentsList) {
+            Payment.withNewTransaction { status ->
+                try {
+                    overduePayment(paymentId)
+                } catch (Exception exception) {
+                    log.info("expireOverduePayments >> Erro ao atualizar status da cobrança de id: [${paymentId}] [Mensagem de erro]: ${exception.message}")
+                }
+            }
+        }
+    }
+
     private Payment validateSave(PaymentAdapter paymentAdapter) {
         Payment payment = new Payment()
 
@@ -59,11 +86,7 @@ class PaymentService {
             payment.errors.rejectValue("value", null, "O valor informado deve ser positivo")
         }
 
-        if (!paymentAdapter.dueDate) {
-            payment.errors.rejectValue("dueDate",  null, "O campo data de vencimento é obrigatório")
-        } else if (DateUtils.isBeforeToday(paymentAdapter.dueDate)) {
-            payment.errors.rejectValue("dueDate",  null, "A data informada é inválida")
-        }
+
 
         return payment
     }
