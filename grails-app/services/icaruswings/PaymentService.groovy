@@ -5,6 +5,7 @@ import grails.validation.ValidationException
 import icaruswings.payment.Payment
 import icaruswings.adapters.PaymentAdapter
 import icaruswings.repositories.PaymentRepository
+import icaruswings.payment.PaymentStatus
 import icaruswings.utils.date.DateUtils
 
 @Transactional
@@ -71,6 +72,19 @@ class PaymentService {
         if (!payment) throw new RuntimeException("Essa cobrança não existe")
 
         payment.deleted = true
+        payment.paymentStatus = PaymentStatus.CANCELED
+
+        payment.save(failOnError: true)
+    }
+
+    public void confirmPaymentReceived(Long id) {
+        Payment payment = PaymentRepository.get(id)
+
+        if (!payment) throw new RuntimeException("Essa cobrança não existe")
+
+        if(payment.paymentStatus != PaymentStatus.WAITING_PAYMENT) throw new RuntimeException("Não foi possível realizar essa ação")
+
+        payment.paymentStatus = PaymentStatus.PAYED
 
         payment.save(failOnError: true)
     }
