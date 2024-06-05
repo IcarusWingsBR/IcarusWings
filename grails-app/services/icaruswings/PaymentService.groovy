@@ -72,6 +72,10 @@ class PaymentService {
         return PaymentRepository.query([:]).list()
     }
 
+    public List<Payment> paymentDeletedList() {
+        return PaymentRepository.query([deletedOnly:true]).list()
+    }
+
     public void delete(Long id) {
         Payment payment = PaymentRepository.get(id)
 
