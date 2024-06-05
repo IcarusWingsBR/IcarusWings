@@ -2,13 +2,13 @@ package icaruswings
 
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
-import icaruswings.utils.adapters.PayerAdapter
-import icaruswings.utils.repositories.PayerRepository
+import icaruswings.adapters.PayerAdapter
+import icaruswings.repositories.PayerRepository
 import icaruswings.utils.validator.PostalCodeValidator
-import icaruswings.utils.validator.ValidateCpfCnpj
-import icaruswings.utils.validator.ValidateEmail
-import icaruswings.utils.validator.ValidatePhone
-import icaruswings.utils.validator.StringUtils
+import icaruswings.utils.validator.CpfCnpjValidator
+import icaruswings.utils.validator.EmailValidator
+import icaruswings.utils.validator.PhoneValidator
+import icaruswings.utils.string.StringUtils
 
 @Transactional
 class PayerService {
@@ -84,19 +84,19 @@ class PayerService {
 
         if (!payerAdapter.email) {
             payer.errors.rejectValue("email", null, "O campo email é obrigatório")
-        } else if (!ValidateEmail.isValidEmail(payerAdapter.email)) {
+        } else if (!EmailValidator.isValidEmail(payerAdapter.email)) {
             payer.errors.rejectValue("email", null, "O email informado é inválido")
         }
 
         if (!payerAdapter.cpfCnpj) {
             payer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
-        } else if (!ValidateCpfCnpj.isCPF(payerAdapter.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(payerAdapter.cpfCnpj)) {
+        } else if (!CpfCnpjValidator.isCPF(payerAdapter.cpfCnpj) && !CpfCnpjValidator.isCNPJ(payerAdapter.cpfCnpj)) {
             payer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
         }
 
         if (!payerAdapter.phone) {
             payer.errors.rejectValue("phone", null, "O campo telefone é obrigatório")
-        } else if (!ValidatePhone.isValidPhoneNumber(payerAdapter.phone)) {
+        } else if (!PhoneValidator.isValidPhoneNumber(payerAdapter.phone)) {
             payer.errors.rejectValue("phone", null, "O numero de telefone inserido é inválido")
         }
 

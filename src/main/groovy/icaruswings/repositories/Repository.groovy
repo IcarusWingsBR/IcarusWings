@@ -1,4 +1,4 @@
-package icaruswings.utils.repositories
+package icaruswings.repositories
 
 import grails.gorm.PagedResultList
 import grails.orm.HibernateCriteriaBuilder

@@ -1,9 +1,9 @@
-package icaruswings.utils.repositories
+package icaruswings.repositories
 
-import icaruswings.Payer
+import icaruswings.Customer
 import org.grails.datastore.mapping.query.api.BuildableCriteria
 
-class PayerRepository implements Repository<Payer, PayerRepository> {
+class CustomerRepository implements Repository<Customer, CustomerRepository> {
 
     @Override
     void buildCriteria() {
@@ -21,6 +21,6 @@ class PayerRepository implements Repository<Payer, PayerRepository> {
 
     @Override
     BuildableCriteria getBuildableCriteria() {
-        return Payer.createCriteria()
+        return Customer.createCriteria()
     }
 }

@@ -1,7 +1,7 @@
-package icaruswings.utils
+package icaruswings.payment
 
 enum PaymentStatus {
-    WAITING_PAYMENT,
+    PENDING,
     PAYED,
     OVERDUE,
     CANCELED

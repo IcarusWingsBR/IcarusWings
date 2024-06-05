@@ -1,7 +1,8 @@
 package icaruswings
 
-import icaruswings.utils.adapters.PaymentAdapter
-import icaruswings.utils.repositories.PaymentRepository
+import icaruswings.payment.Payment
+import icaruswings.adapters.PaymentAdapter
+import icaruswings.repositories.PaymentRepository
 
 class PaymentController extends BaseController {
 
@@ -55,5 +56,14 @@ class PaymentController extends BaseController {
 
         flash.type = "success"
         flash.message = "Cobrança deletada com sucesso"
+    }
+
+    def confirmPaymentReceived() {
+        Long id = Long.valueOf(params.id)
+
+        paymentService.confirmPaymentReceived(id)
+
+        flash.type = "success"
+        flash.message = "Status da cobrança atualizado."
     }
 }

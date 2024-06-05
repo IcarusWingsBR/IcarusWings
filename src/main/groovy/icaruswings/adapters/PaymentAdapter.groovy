@@ -1,11 +1,11 @@
-package icaruswings.utils.adapters
+package icaruswings.adapters
 
 import icaruswings.Payer
-import icaruswings.utils.PaymentStatus
-import icaruswings.utils.PaymentType
+import icaruswings.payment.PaymentStatus
+import icaruswings.payment.PaymentType
 import icaruswings.utils.bigDecimal.BigDecimalUtis
 import icaruswings.utils.date.DateUtils
-import icaruswings.utils.repositories.PayerRepository
+import icaruswings.repositories.PayerRepository
 
 class PaymentAdapter {
 
@@ -27,7 +27,7 @@ class PaymentAdapter {
         Long payerId = Long.parseLong(params.payerId)
         this.payer = PayerRepository.get(payerId)
         this.paymentType = PaymentType.convert(params.paymentType)
-        this.paymentStatus = PaymentStatus.WAITING_PAYMENT
+        this.paymentStatus = PaymentStatus.PENDING
         this.value = BigDecimalUtis.parse(params.value)
         this.dueDate = DateUtils.parse(params.dueDate)
     }
