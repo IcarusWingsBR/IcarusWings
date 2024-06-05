@@ -3,7 +3,7 @@ package icaruswings.utils.validator
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-class ValidateEmail {
+class EmailValidator {
 
     public static Boolean isValidEmail(String email) {
 

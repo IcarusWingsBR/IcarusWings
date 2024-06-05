@@ -1,6 +1,6 @@
 package icaruswings.utils.validator
 
-class ValidatePhone {
+class PhoneValidator {
 
     public static Boolean isValidPhoneNumber(String phoneNumber) {
         String sanitizedPhoneNumber = cleanPhoneNumber(phoneNumber)
