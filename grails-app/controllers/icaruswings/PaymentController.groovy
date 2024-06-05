@@ -62,6 +62,17 @@ class PaymentController extends BaseController {
         flash.message = "Cobrança deletada com sucesso"
     }
 
+    def restorePayment() {
+        Long id = Long.valueOf(params.id)
+
+        paymentService.restorePayment(id)
+
+        flash.type = "success"
+        flash.message = "Cobrança restaurada com sucesso"
+
+        redirect(action: "show", id: payment.id)
+    }
+
     def confirmPaymentReceived() {
         Long id = Long.valueOf(params.id)
 
@@ -69,5 +80,7 @@ class PaymentController extends BaseController {
 
         flash.type = "success"
         flash.message = "Status da cobrança atualizado."
+
+        redirect(action: "show", id: payment.id)
     }
 }
