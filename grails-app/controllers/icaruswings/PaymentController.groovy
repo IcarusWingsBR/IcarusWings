@@ -49,6 +49,10 @@ class PaymentController extends BaseController {
         return [paymentList: paymentService.list()]
     }
 
+    def deletedList() {
+        return [paymentDeletedList: paymentService.paymentDeletedList()]
+    }
+
     def delete() {
         Long id = Long.valueOf(params.id)
 
