@@ -8,7 +8,7 @@ class EmailService {
 
     def mailService
 
-    def sendCreatePaymentEmailToPayer(Payer payer, Payment payment) {
+    public void sendCreatePaymentEmailToPayer(Payer payer, Payment payment) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy")
         String formattedDueDate = dateFormat.format(payment.dueDate)
 
@@ -19,7 +19,7 @@ class EmailService {
         }
     }
 
-    def sendStatusChangeEmailToPayer(Payer payer, Payment payment) {
+    public void sendStatusChangeEmailToPayer(Payer payer, Payment payment) {
         mailService.sendMail {
             to payer.email
             subject "Status da sua cobrança foi alterado"
@@ -27,7 +27,7 @@ class EmailService {
         }
     }
 
-    def sendCreatePaymentEmailToCustomer(Payer payer, Payment payment) {
+    public void sendCreatePaymentEmailToCustomer(Payer payer, Payment payment) {
         Customer customer = payer.customer
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy")
         String formattedDueDate = dateFormat.format(payment.dueDate)
@@ -39,7 +39,7 @@ class EmailService {
         }
     }
 
-    def sendStatusChangeEmailToCustomer(Payer payer, Payment payment) {
+    public void sendStatusChangeEmailToCustomer(Payer payer, Payment payment) {
         Customer customer = payer.customer
         mailService.sendMail {
             to customer.email
