@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <asset:javascript src="validator/PostalCodeValidator.js"/>
   <asset:javascript src="/basePerson/BasePersonController.js"/>
+  <asset:javascript src="delete/DeleteHandler.js"/>
+  <asset:javascript src="payer/PayerShowController.js"/>
 </head>
 <body page-title="Detalhes do Pagador">
 <atlas-form-panel action="${createLink(controller: "payer", action: "update")}" header="Detalhes do pagador - ${payer.name}" class="js-save-person-form">
@@ -181,6 +183,20 @@
       </atlas-col>
     </atlas-row>
   </atlas-grid>
+  <atlas-button-group slot="actions">
+    <atlas-button
+            icon="trash"
+            theme="primary"
+            description="Excluir pagador"
+            class="js-open-modal-button"
+    >
+    </atlas-button>
+  </atlas-button-group>
+  <atlas-modal header="Excluir pagador" class="js-modal">
+    Você realmente quer excluir esse pagador?
+    <atlas-button description="Excluir" theme="danger" slot="actions" href="${createLink(controller: "payer", action: "delete", id: "${payer.id}")}"></atlas-button>
+    <atlas-button description="Cancelar" theme="secondary" slot="actions" class="js-close-modal-button"></atlas-button>
+  </atlas-modal>
 </atlas-form-panel>
 </body>
 </html>
