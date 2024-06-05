@@ -5,7 +5,7 @@ import grails.validation.ValidationException
 import icaruswings.payment.Payment
 import icaruswings.adapters.PaymentAdapter
 import icaruswings.repositories.PaymentRepository
-import icaruswings.utils.PaymentStatus
+import icaruswings.payment.PaymentStatus
 import icaruswings.utils.date.DateUtils
 
 @Transactional
