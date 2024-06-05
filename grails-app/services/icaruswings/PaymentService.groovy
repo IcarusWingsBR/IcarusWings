@@ -73,7 +73,7 @@ class PaymentService {
         for (Long paymentId : overduePaymentsList) {
             Payment.withNewTransaction { status ->
                 try {
-                    overduePayment(paymentId);
+                    overduePayment(paymentId)
                 } catch (Exception exception) {
                     log.info("expireOverduePayments >> Erro ao atualizar status da cobrança de id: [${paymentId}] [Mensagem de erro]: ${exception.message}")
                 }
