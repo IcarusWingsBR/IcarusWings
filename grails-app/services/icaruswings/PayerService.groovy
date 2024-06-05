@@ -69,7 +69,8 @@ class PayerService {
 
         List<Payment> payments = PaymentRepository.query([
             payer:id,
-            paymentStatus: PaymentStatus.PENDING
+            paymentStatus: PaymentStatus.PENDING,
+            paymentStatus: PaymentStatus.OVERDUE
         ]).list()
 
         if (!payments.isEmpty() && payments != null) throw new RuntimeException("Esse pagador tem cobranças pendentes")
