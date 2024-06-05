@@ -1,7 +1,7 @@
 package icaruswings.payment
 
 enum PaymentType {
-    BANKSLIP,
+    BANK_SLIP,
     CARD,
     PIX
 

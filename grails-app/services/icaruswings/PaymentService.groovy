@@ -82,7 +82,7 @@ class PaymentService {
 
         if (!payment) throw new RuntimeException("Essa cobrança não existe")
 
-        if(payment.paymentStatus != PaymentStatus.WAITING_PAYMENT) throw new RuntimeException("Não foi possível realizar essa ação")
+        if(payment.paymentStatus != PaymentStatus.PENDING) throw new RuntimeException("Não foi possível realizar essa ação")
 
         payment.paymentStatus = PaymentStatus.PAYED
 
