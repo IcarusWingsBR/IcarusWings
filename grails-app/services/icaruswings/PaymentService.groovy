@@ -4,10 +4,9 @@ import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 import icaruswings.payment.Payment
 import icaruswings.adapters.PaymentAdapter
-import icaruswings.repositories.PaymentRepository
 import icaruswings.payment.PaymentStatus
+import icaruswings.repositories.PaymentRepository
 import icaruswings.utils.date.DateUtils
-import icaruswings.utils.repositories.PaymentRepository
 
 @Transactional
 class PaymentService {

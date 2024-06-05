@@ -1,6 +1,6 @@
 package icaruswings.repositories
 import icaruswings.payment.Payment
-import icaruswings.utils.PaymentStatus
+import icaruswings.payment.PaymentStatus
 import org.grails.datastore.mapping.query.api.BuildableCriteria
 
 class PaymentRepository implements Repository<Payment, PaymentRepository> {
