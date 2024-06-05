@@ -66,7 +66,7 @@ class PaymentService {
 
     public void processOverduePayments() {
         List<Long> overduePaymentsList = PaymentRepository.query([
-                paymentStatus: PaymentStatus.WAITING_PAYMENT,
+                paymentStatus: PaymentStatus.PENDING,
                 "dueDate[lt]": new Date(),
                 "column": "id"
         ]).list() as List<Long>
