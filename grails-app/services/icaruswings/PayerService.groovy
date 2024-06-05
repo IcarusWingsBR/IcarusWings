@@ -9,6 +9,9 @@ import icaruswings.utils.validator.CpfCnpjValidator
 import icaruswings.utils.validator.EmailValidator
 import icaruswings.utils.validator.PhoneValidator
 import icaruswings.utils.string.StringUtils
+import icaruswings.payment.Payment
+import icaruswings.repositories.PaymentRepository
+import icaruswings.payment.PaymentStatus
 
 @Transactional
 class PayerService {
@@ -63,6 +66,13 @@ class PayerService {
         Payer payer = PayerRepository.get(id)
 
         if (!payer) throw new RuntimeException("Esse pagador não existe")
+
+        List<Payment> payments = PaymentRepository.query([
+            payer:id,
+            paymentStatus: PaymentStatus.PENDING
+        ]).list()
+
+        if (!payments.isEmpty() && payments != null) throw new RuntimeException("Esse pagador tem cobranças pendentes")
 
         payer.deleted = true
 
