@@ -19,12 +19,6 @@ class PaymentRepository implements Repository<Payment, PaymentRepository> {
             if (search.containsKey("dueDate[lt]")) {
                 lt("dueDate", search."dueDate[lt]")
             }
-
-            if (search.containsKey("column")) {
-                projections {
-                    property "${search.column}"
-                }
-            }
         }
     }
 
@@ -33,8 +27,7 @@ class PaymentRepository implements Repository<Payment, PaymentRepository> {
         return [
                 "id",
                 "paymentStatus",
-                "dueDate[lt]",
-                "column"
+                "dueDate[lt]"
         ]
     }
 
