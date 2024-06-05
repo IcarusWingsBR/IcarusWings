@@ -2,6 +2,7 @@ package icaruswings.utils.validator
 
 import groovyx.net.http.HttpResponseDecorator
 import groovyx.net.http.RESTClient
+import icaruswings.utils.string.StringUtils
 import io.micronaut.http.HttpStatus
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

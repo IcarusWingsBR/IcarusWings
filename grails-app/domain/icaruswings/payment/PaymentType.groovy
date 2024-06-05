@@ -1,4 +1,4 @@
-package icaruswings.utils
+package icaruswings.payment
 
 enum PaymentType {
     BANKSLIP,

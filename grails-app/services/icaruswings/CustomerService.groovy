@@ -2,14 +2,13 @@ package icaruswings
 
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
-import icaruswings.utils.adapters.CustomerAdapter
-import icaruswings.utils.repositories.CustomerRepository
-import icaruswings.utils.validator.ValidateCpfCnpj
-import icaruswings.utils.validator.StringUtils
-import icaruswings.utils.validator.ValidateEmail
+import icaruswings.adapters.CustomerAdapter
+import icaruswings.utils.validator.CpfCnpjValidator
+import icaruswings.utils.string.StringUtils
+import icaruswings.utils.validator.EmailValidator
 import icaruswings.utils.validator.PostalCodeValidator
-import icaruswings.utils.validator.ValidatePhone
-import icaruswings.utils.repositories.CustomerRepository
+import icaruswings.utils.validator.PhoneValidator
+import icaruswings.repositories.CustomerRepository
 
 @Transactional
 class CustomerService {
@@ -65,7 +64,7 @@ class CustomerService {
 
         if (!customerAdapter.cpfCnpj) {
             customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj é obrigatório")
-        } else if (!ValidateCpfCnpj.isCPF(customerAdapter.cpfCnpj) && !ValidateCpfCnpj.isCNPJ(customerAdapter.cpfCnpj)) {
+        } else if (!CpfCnpjValidator.isCPF(customerAdapter.cpfCnpj) && !CpfCnpjValidator.isCNPJ(customerAdapter.cpfCnpj)) {
             customer.errors.rejectValue("cpfCnpj", null, "O campo Cpf/Cnpj está inválido")
         } else if (checkIfCpfOrCnpjExists(customerAdapter.cpfCnpj)) {
             customer.errors.rejectValue("cpfCnpj", null, "O Cpf/Cnpj já está cadastrado")
@@ -85,7 +84,7 @@ class CustomerService {
 
         if (!customerAdapter.email) {
             customer.errors.rejectValue("email", null, "O campo email é obrigatório")
-        } else if (!ValidateEmail.isValidEmail(customerAdapter.email)){
+        } else if (!EmailValidator.isValidEmail(customerAdapter.email)){
             customer.errors.rejectValue("email", null, "O email informado é inválido")
         }
 
@@ -125,7 +124,7 @@ class CustomerService {
 
         if (!customerAdapter.phone) {
             customer.errors.rejectValue("phone", null, "O campo telefone é obrigatório")
-        } else if (!ValidatePhone.isValidPhoneNumber(customerAdapter.phone)) {
+        } else if (!PhoneValidator.isValidPhoneNumber(customerAdapter.phone)) {
             customer.errors.rejectValue("phone", null, "O numero de telefone inserido é inválido")
         }
 
@@ -133,7 +132,7 @@ class CustomerService {
     }
 
     public Boolean checkIfCpfOrCnpjExists(String cpfCnpj) {
-        String sanitizedCpfCnpj = ValidateCpfCnpj.cleanCpfCnpj(cpfCnpj)
+        String sanitizedCpfCnpj = CpfCnpjValidator.cleanCpfCnpj(cpfCnpj)
         Customer customer = Customer.findByCpfCnpj(sanitizedCpfCnpj)
 
         if (customer == null) return false
