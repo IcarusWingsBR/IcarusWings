@@ -1,6 +1,6 @@
 package icaruswings.utils.validator
 
-class ValidateCpfCnpj {
+class CpfCnpjValidator {
 
     public static String cleanCpfCnpj(String cpf) {
         String sanitizedCpf = cpf.replaceAll("[^0-9]", "")

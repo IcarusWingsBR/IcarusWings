@@ -1,4 +1,4 @@
-package icaruswings.utils.validator
+package icaruswings.utils.string
 
 import java.util.regex.Matcher
 import java.util.regex.Pattern

@@ -1,7 +1,6 @@
-package icaruswings
+package icaruswings.payment
 
-import icaruswings.utils.PaymentStatus
-import icaruswings.utils.PaymentType
+import icaruswings.Payer
 import icaruswings.utils.BaseEntity
 
 class Payment extends BaseEntity {
