@@ -8,7 +8,7 @@ class ExpireOverduePaymentsJob {
 
     def execute() {
         try {
-            paymentService.expireOverduePayments()
+            paymentService.processOverduePayments()
         } catch (Exception exception) {
             log.error("Erro ao vencer um pagamento", exception)
         }
