@@ -84,6 +84,10 @@ class PayerService {
         return PayerRepository.query([:]).list()
     }
 
+    public List<Payer> deletedList(){
+        return PayerRepository.query([deletedOnly:true]).readOnly().list()
+    }
+
     private Payer validateSave(PayerAdapter payerAdapter) {
         Payer payer = new Payer()
 
