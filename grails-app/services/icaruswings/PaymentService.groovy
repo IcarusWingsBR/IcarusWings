@@ -24,7 +24,6 @@ class PaymentService {
         payment.paymentStatus = paymentAdapter.paymentStatus
         payment.value = paymentAdapter.value
         payment.dueDate = paymentAdapter.dueDate  
-
         payment.save(failOnError: true)
 
         emailService.sendCreatePaymentEmailToPayer(payment.payer, payment)
