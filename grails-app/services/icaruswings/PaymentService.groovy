@@ -93,7 +93,7 @@ class PaymentService {
         payment.save(failOnError: true)
     }
 
-    public void restorePayment(Long id) {
+    public void restore(Long id) {
         Payment payment = PaymentRepository.query([id:id, deletedOnly:true]).get()
 
         if (!payment) throw new RuntimeException("Essa cobrança não está deletada")
@@ -102,17 +102,16 @@ class PaymentService {
 
         if(payment.paymentStatus != PaymentStatus.PAYED && DateUtils.isBeforeToday(payment.dueDate)) {
             payment.paymentStatus = PaymentStatus.OVERDUE
-
-            emailService.sendStatusChangeEmailToPayer(payment.payer, payment)
-            emailService.sendStatusChangeEmailToCustomer(payment.payer, payment)
         } else if (payment.paymentStatus != PaymentStatus.PAYED && !DateUtils.isBeforeToday(payment.dueDate)) {
             payment.paymentStatus = PaymentStatus.PENDING
-
-            emailService.sendStatusChangeEmailToPayer(payment.payer, payment)
-            emailService.sendStatusChangeEmailToCustomer(payment.payer, payment)
         }
 
         payment.save(failOnError: true)
+
+        if (payment.paymentStatus != PaymentStatus.PAYED) {
+            emailService.sendStatusChangeEmailToPayer(payment.payer, payment)
+            emailService.sendStatusChangeEmailToCustomer(payment.payer, payment)
+        }
     }
 
     public void confirmPaymentReceived(Long id) {

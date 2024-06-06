@@ -64,10 +64,10 @@ class PaymentController extends BaseController {
         redirect(action: "list")
     }
 
-    def restorePayment() {
+    def restore() {
         Long id = Long.valueOf(params.id)
 
-        paymentService.restorePayment(id)
+        paymentService.restore(id)
 
         flash.type = "success"
         flash.message = "Cobrança restaurada com sucesso"
