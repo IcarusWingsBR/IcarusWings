@@ -81,6 +81,7 @@ dependencies {
         exclude group: 'slf4j-api', module: 'c3p0'
     }
     implementation "org.codehaus.groovy:groovy-dateutil:3.0.16"
+    implementation "org.springframework.boot:spring-boot-starter-security"
 }
 
 bootRun {

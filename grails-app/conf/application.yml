@@ -104,6 +104,12 @@ management:
         jmx:
             unique-names: true
 
+spring:
+    security:
+        user:
+            name: myuser
+            password: mypassword
+
 ---
 hibernate:
     cache:
