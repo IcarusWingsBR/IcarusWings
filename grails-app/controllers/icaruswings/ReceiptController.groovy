@@ -9,7 +9,7 @@ class ReceiptController extends BaseController {
    
         Receipt receipt = ReceiptRepository.query([token:token]).get()
 
-        if (!receipt) render "Cobrança não encontrada."
+        if (!receipt) render "Comprovante não encontrado."
 
         return [receipt: receipt]
     }
