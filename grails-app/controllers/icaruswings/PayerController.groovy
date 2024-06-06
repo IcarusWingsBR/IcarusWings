@@ -50,6 +50,8 @@ class PayerController extends BaseController {
 
         flash.type = "success"
         flash.message = "Pagador deletado com sucesso"
+
+        redirect(action: "list")
     }
 
     def list() {
