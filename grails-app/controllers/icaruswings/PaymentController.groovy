@@ -49,6 +49,10 @@ class PaymentController extends BaseController {
         return [paymentList: paymentService.list()]
     }
 
+    def deletedList() {
+        return [paymentDeletedList: paymentService.paymentDeletedList()]
+    }
+
     def delete() {
         Long id = Long.valueOf(params.id)
 
@@ -56,6 +60,19 @@ class PaymentController extends BaseController {
 
         flash.type = "success"
         flash.message = "Cobrança deletada com sucesso"
+
+        redirect(action: "list")
+    }
+
+    def restore() {
+        Long id = Long.valueOf(params.id)
+
+        paymentService.restore(id)
+
+        flash.type = "success"
+        flash.message = "Cobrança restaurada com sucesso"
+
+        redirect(action: "show", id: payment.id)
     }
 
     def confirmPaymentReceived() {
@@ -65,5 +82,7 @@ class PaymentController extends BaseController {
 
         flash.type = "success"
         flash.message = "Status da cobrança atualizado."
+
+        redirect(action: "show", id: payment.id)
     }
 }

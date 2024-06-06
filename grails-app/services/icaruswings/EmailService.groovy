@@ -2,6 +2,7 @@ package icaruswings
 
 import grails.gorm.transactions.Transactional
 import java.text.SimpleDateFormat
+import icaruswings.payment.Payment
 import static grails.async.Promises.*
 
 @Transactional
