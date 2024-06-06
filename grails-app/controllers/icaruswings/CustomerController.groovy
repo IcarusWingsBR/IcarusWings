@@ -47,6 +47,9 @@ class CustomerController extends BaseController {
 
         customerService.delete(id)
 
+        flash.type = "success"
+        flash.message = "Cliente deletado com sucesso."
+
         redirect(action: "list")
     }
 }
