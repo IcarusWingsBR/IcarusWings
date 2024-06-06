@@ -19,6 +19,10 @@ class PaymentRepository implements Repository<Payment, PaymentRepository> {
             if (search.containsKey("dueDate[lt]")) {
                 lt("dueDate", search."dueDate[lt]")
             }
+
+            if (search.containsKey("payer")) {
+                eq("payer.id", Long.valueOf(search.payer.toString()))
+            }
         }
     }
 
@@ -27,7 +31,8 @@ class PaymentRepository implements Repository<Payment, PaymentRepository> {
         return [
                 "id",
                 "paymentStatus",
-                "dueDate[lt]"
+                "dueDate[lt]",
+                "payer"
         ]
     }
 

@@ -2,9 +2,11 @@
 <head>
     <title>Cadastrar Pagador</title>
     <meta name="layout" content="main">
+    <asset:javascript src="payer/PayerListController.js"/>
+    <asset:javascript src="delete/DeleteHandler.js"/>
 </head>
 <body page-title="Cadastrar pagador">
-<atlas-panel>
+<atlas-panel class="js-list-panel">
     <g:if test="${ payerList }">
         <atlas-toolbar>
             <atlas-button
@@ -50,17 +52,22 @@
                         <atlas-table-col>
                             ${formatTagLib.formatedDate(date: payer.dateCreated)}
                         </atlas-table-col>
-
-                        <atlas-button-group slot="actions" group-all>
+                        <atlas-button-group slot="actions">
                             <atlas-icon-button
-                                    icon="pencil"
+                                    icon="trash"
                                     theme="primary"
-                                    description="Editar pagador"
-                                    href="${createLink(controller: "payer", action: "show", id: payer.id)}"
+                                    description="Excluir pagagor"
+                                    class="js-delete-button"
+                                    id="${payer.id}"
                             >
                             </atlas-icon-button>
                         </atlas-button-group>
                     </atlas-table-row>
+                    <atlas-modal header="Excluir Pagador" class="js-modal">
+                            Você realmente quer excluir esse pagador?
+                    <atlas-button description="Excluir" theme="danger" slot="actions" class="js-delete-payer-button"></atlas-button>
+                    <atlas-button description="Cancelar" theme="secondary" slot="actions" class="js-close-modal-button"></atlas-button>
+                    </atlas-modal>
                 </g:each>
             </atlas-table-body>
         </atlas-table>
