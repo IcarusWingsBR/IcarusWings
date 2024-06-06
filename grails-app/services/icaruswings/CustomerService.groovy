@@ -82,7 +82,6 @@ class CustomerService {
             customer:id,
         ]).readOnly().list() 
 
-
         if (!payments.isEmpty()) {
             for (Payment payment : payments) {
                 paymentService.delete(payment.id)
