@@ -59,7 +59,7 @@ class PaymentService {
     public void processOverduePayments() {
         List<Long> overduePaymentsList = PaymentRepository.query([
                 paymentStatus: PaymentStatus.PENDING,
-                "dueDate[lt]": DateUtils.removeTime(new Date())
+                "dueDate[lt]": new Date().clearTime()
         ]).column("id").list()
 
         for (Long paymentId : overduePaymentsList) {
