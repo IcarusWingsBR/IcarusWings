@@ -12,12 +12,16 @@ class PaymentRepository implements Repository<Payment, PaymentRepository> {
                 eq("id", Long.valueOf(search.id.toString()))
             }
 
-            if (search.containsKey("payer")) {
-                eq("payer.id", Long.valueOf(search.payer.toString()))
-            }
-
             if (search.containsKey("paymentStatus")) {
                 eq("paymentStatus", PaymentStatus.valueOf(search.paymentStatus.toString()))
+            }
+
+            if (search.containsKey("dueDate[lt]")) {
+                lt("dueDate", search."dueDate[lt]")
+            }
+
+            if (search.containsKey("payer")) {
+                eq("payer.id", Long.valueOf(search.payer.toString()))
             }
         }
     }
@@ -26,8 +30,9 @@ class PaymentRepository implements Repository<Payment, PaymentRepository> {
     List<String> listAllowedFilters() {
         return [
                 "id",
-                "payer",
-                "paymentStatus"
+                "paymentStatus",
+                "dueDate[lt]",
+                "payer"
         ]
     }
 
