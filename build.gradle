@@ -76,6 +76,7 @@ dependencies {
     runtimeOnly "mysql:mysql-connector-java:8.0.33"
     implementation 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
     implementation 'org.grails.plugins:mail:4.0.0'
+    implementation "org.codehaus.groovy:groovy-dateutil:3.0.16"
 }
 
 bootRun {

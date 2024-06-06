@@ -7,8 +7,8 @@ public class DateUtils {
     
     public static Boolean isBeforeToday(Date date) {
         Date receivedDate = new Date(date.getTime())
-        Date today = new Date()
-        
+        Date today = new Date().clearTime()
+
         if (receivedDate.before(today)) return true
 
         return false
@@ -22,6 +22,6 @@ public class DateUtils {
             return parsedDate
         } catch (ParseException parseException) {
             throw new ParseException("Formato de data inválido: " + parseException)
-        } 
+        }
     }
 }
