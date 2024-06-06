@@ -41,4 +41,8 @@ class CustomerController extends BaseController {
     def list() {
         return [customerList: customerService.list()]
     }
+
+    def deletedList() {
+        return [deletedList: customerService.deletedList()]
+    }
 }

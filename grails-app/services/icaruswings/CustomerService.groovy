@@ -59,6 +59,10 @@ class CustomerService {
         return CustomerRepository.query([:]).list()
     }
 
+    public List<Customer> deletedList(){
+        return CustomerRepository.query([deletedOnly:true]).readOnly().list()
+    }
+
     private Customer validateSave(CustomerAdapter customerAdapter) {
         Customer customer = validateDefaultFields(customerAdapter)
 
