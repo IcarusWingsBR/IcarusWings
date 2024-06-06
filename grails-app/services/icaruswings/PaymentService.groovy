@@ -60,7 +60,7 @@ class PaymentService {
         List<Long> overduePaymentsList = PaymentRepository.query([
                 paymentStatus: PaymentStatus.PENDING,
                 "dueDate[lt]": DateUtils.removeTime(new Date())
-        ]).column("id").list() as List<Long>
+        ]).column("id").list()
 
         for (Long paymentId : overduePaymentsList) {
             Payment.withNewTransaction { status ->
@@ -86,7 +86,11 @@ class PaymentService {
             payment.errors.rejectValue("value", null, "O valor informado deve ser positivo")
         }
 
-
+        if (!paymentAdapter.dueDate) {
+            payment.errors.rejectValue("dueDate",  null, "O campo data de vencimento é obrigatório")
+        } else if (DateUtils.isBeforeToday(paymentAdapter.dueDate)) {
+            payment.errors.rejectValue("dueDate",  null, "A data informada é inválida")
+        }
 
         return payment
     }
