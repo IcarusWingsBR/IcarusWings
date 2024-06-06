@@ -68,4 +68,8 @@ class PayerController extends BaseController {
     def list() {
         return [payerList: payerService.list()]
     }
+
+    def deletedList() {
+        return [deletedList: payerService.deletedList()]
+    }
 }
