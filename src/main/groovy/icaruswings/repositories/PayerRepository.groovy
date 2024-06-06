@@ -11,12 +11,19 @@ class PayerRepository implements Repository<Payer, PayerRepository> {
             if (search.containsKey("id")) {
                 eq("id", Long.valueOf(search.id.toString()))
             }
+
+            if (search.containsKey("customer")) {
+                eq("customer.id", Long.valueOf(search.customer.toString()))
+            }
         }
     }
 
     @Override
     List<String> listAllowedFilters() {
-        return ["id"]
+        return [
+            "id",
+            "customer"
+        ]
     }
 
     @Override
