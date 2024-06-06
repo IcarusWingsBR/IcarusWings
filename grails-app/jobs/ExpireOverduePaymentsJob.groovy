@@ -3,7 +3,7 @@ class ExpireOverduePaymentsJob {
     def paymentService
 
     static triggers = {
-        cron name: "expireOverdueJobTrigger", cronExpression: "* * * * * ?"
+        cron name: "expireOverdueJobTrigger", cronExpression: "0 0 0 * * ?"
     }
 
     def execute() {
