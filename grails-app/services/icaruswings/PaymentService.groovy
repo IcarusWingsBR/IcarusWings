@@ -46,6 +46,33 @@ class PaymentService {
         payment.save(failOnError: true)
     }
 
+    public void overduePayment(Long id) {
+        Payment payment = PaymentRepository.get(id)
+
+        if (!payment) throw new RuntimeException("Essa cobrança não existe")
+
+        payment.paymentStatus = PaymentStatus.OVERDUE
+
+        payment.save(failOnError: true)
+    }
+
+    public void processOverduePayments() {
+        List<Long> overduePaymentsList = PaymentRepository.query([
+                paymentStatus: PaymentStatus.PENDING,
+                "dueDate[lt]": new Date().clearTime()
+        ]).column("id").list()
+
+        for (Long paymentId : overduePaymentsList) {
+            Payment.withNewTransaction { status ->
+                try {
+                    overduePayment(paymentId)
+                } catch (Exception exception) {
+                    log.info("expireOverduePayments >> Erro ao atualizar status da cobrança de id: [${paymentId}] [Mensagem de erro]: ${exception.message}")
+                }
+            }
+        }
+    }
+
     private Payment validateSave(PaymentAdapter paymentAdapter) {
         Payment payment = new Payment()
 

@@ -72,7 +72,7 @@ class CustomerService {
         List<Payment> payments = PaymentRepository.query([
             customer:id,
             "paymentStatus[in]": paymentStatuses
-        ]).list() 
+        ]).readOnly().list() 
 
         if (!payments.isEmpty() && payments != null) throw new RuntimeException("Esse cliente tem cobranças para receber")
 

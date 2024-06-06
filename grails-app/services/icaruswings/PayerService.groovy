@@ -80,8 +80,22 @@ class PayerService {
         payer.save(failOnError: true)
     }
 
+    public void restore(Long id){
+        Payer payer = PayerRepository.query([id:id, deletedOnly:true]).get()
+
+        if (!payer) throw new RuntimeException("Esse pagador não está deletado ou não existe")
+
+        payer.deleted = false
+
+        payer.save(failOnError: true)
+    }
+
     public List<Payer> list(){
         return PayerRepository.query([:]).list()
+    }
+
+    public List<Payer> deletedList(){
+        return PayerRepository.query([deletedOnly:true]).readOnly().list()
     }
 
     private Payer validateSave(PayerAdapter payerAdapter) {
