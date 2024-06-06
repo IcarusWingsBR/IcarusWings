@@ -16,8 +16,18 @@ class PaymentRepository implements Repository<Payment, PaymentRepository> {
                 eq("payer.id", Long.valueOf(search.payer.toString()))
             }
 
+            if (search.containsKey("customer")) {
+                payer {
+                    eq("customer.id", Long.valueOf(search.customer.toString()))
+                }
+            }
+
             if (search.containsKey("paymentStatus")) {
                 eq("paymentStatus", PaymentStatus.valueOf(search.paymentStatus.toString()))
+            }
+
+            if (search.containsKey("paymentStatus[in]")) {
+                inList("paymentStatus", search."paymentStatus[in]")
             }
         }
     }
@@ -27,7 +37,9 @@ class PaymentRepository implements Repository<Payment, PaymentRepository> {
         return [
                 "id",
                 "payer",
-                "paymentStatus"
+                "customer",
+                "paymentStatus",
+                "paymentStatus[in]"
         ]
     }
 

@@ -9,6 +9,9 @@ import icaruswings.utils.validator.EmailValidator
 import icaruswings.utils.validator.PostalCodeValidator
 import icaruswings.utils.validator.PhoneValidator
 import icaruswings.repositories.CustomerRepository
+import icaruswings.repositories.PaymentRepository
+import icaruswings.payment.Payment
+import icaruswings.payment.PaymentStatus
 
 @Transactional
 class CustomerService {
@@ -57,6 +60,25 @@ class CustomerService {
 
     public List<Customer> list(){
         return CustomerRepository.query([:]).list()
+    }
+
+    public void delete(Long id) {
+        Customer customer = CustomerRepository.get(id)
+
+        if (!customer) throw new RuntimeException("Esse cliente não existe")
+
+        List<PaymentStatus> paymentStatuses = [PaymentStatus.PENDING, PaymentStatus.OVERDUE]
+
+        List<Payment> payments = PaymentRepository.query([
+            customer:id,
+            "paymentStatus[in]": paymentStatuses
+        ]).list() 
+
+        if (!payments.isEmpty() && payments != null) throw new RuntimeException("Esse cliente tem cobranças para receber")
+
+        customer.deleted = true
+
+        customer.save(failOnError: true)
     }
 
     private Customer validateSave(CustomerAdapter customerAdapter) {
