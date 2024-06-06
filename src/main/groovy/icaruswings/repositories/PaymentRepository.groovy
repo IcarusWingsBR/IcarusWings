@@ -25,7 +25,7 @@ class PaymentRepository implements Repository<Payment, PaymentRepository> {
             }
 
             if (search.containsKey("paymentStatus[in]")) {
-                inList("paymentStatus", search."paymentStatus[in]")
+                inList("paymentStatus", search."paymentStatus[in]".collect { PaymentStatus.valueOf(it.toString()) })
             }
         }
     }
