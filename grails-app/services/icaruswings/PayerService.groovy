@@ -66,7 +66,7 @@ class PayerService {
         Payer payer = PayerRepository.get(id)
 
         if (!payer) throw new RuntimeException("Esse pagador não existe")
-          
+ 
         List<PaymentStatus> paymentStatuses = [PaymentStatus.PENDING, PaymentStatus.OVERDUE]
 
         List<Payment> payments = PaymentRepository.query([
