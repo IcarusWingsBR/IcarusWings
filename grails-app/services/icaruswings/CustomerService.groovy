@@ -33,8 +33,6 @@ class CustomerService {
         customer.personType = customerAdapter.personType
         customer.save(failOnError: true)
 
-
-
         return customer
     }
 
