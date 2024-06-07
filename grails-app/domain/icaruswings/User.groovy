@@ -13,8 +13,6 @@ class User implements Serializable {
 
     String username
 
-    String email
-
     String password
 
     boolean enabled = true
@@ -33,12 +31,9 @@ class User implements Serializable {
     static constraints = {
         password blank: false, password: true
         username blank: false, unique: true
-        email blank: false, password: true
     }
 
     static mapping = {
-        table '`user`'
         password column: '`password`'
-        email unique: true
     }
 }

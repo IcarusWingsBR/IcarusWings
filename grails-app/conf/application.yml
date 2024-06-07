@@ -114,13 +114,13 @@ dataSource:
     pooled: true
     jmxExport: true
     driverClassName: com.mysql.cj.jdbc.Driver
-    username: ${DBUSER}
-    password: ${DBSENHA}
+    username: root
+    password: 182609
 
 environments:
     development:
         dataSource:
-            dbCreate: update
+            dbCreate: create-drop
             url: jdbc:mysql://localhost:3306/Icarus
     test:
         dataSource:
@@ -148,3 +148,13 @@ environments:
                 testOnReturn: false
                 jdbcInterceptors: ConnectionState
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+grails:
+    plugin:
+        springsecurity:
+            userLookup:
+                userDomainClassName: 'icaruswings.User'
+                authorityJoinClassName: 'icaruswings.UserRole'
+            authority:
+                className: 'icaruswings.Role'
+            logout:
+                postOnly: false
