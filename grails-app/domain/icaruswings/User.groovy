@@ -11,6 +11,8 @@ class User implements Serializable {
 
     private static final long serialVersionUID = 1
 
+    Customer customer
+
     String username
 
     String password
@@ -31,6 +33,7 @@ class User implements Serializable {
     static constraints = {
         password blank: false, password: true
         username blank: false, unique: true
+        customer blank: false
     }
 
     static mapping = {
