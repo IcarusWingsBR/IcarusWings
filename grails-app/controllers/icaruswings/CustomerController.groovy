@@ -2,6 +2,7 @@ package icaruswings
 
 import grails.plugin.springsecurity.annotation.Secured
 import icaruswings.adapters.CustomerAdapter
+import icaruswings.adapters.UserAdapter
 import icaruswings.repositories.CustomerRepository
 
 @Secured('ROLE_ADMIN')
@@ -13,7 +14,8 @@ class CustomerController extends BaseController {
 
     def save() {
         CustomerAdapter customerAdapter = new CustomerAdapter(params)
-        Customer customer = customerService.save(customerAdapter)
+        UserAdapter userAdapter = new UserAdapter(params)
+        Customer customer = customerService.save(customerAdapter, userAdapter)
 
         flash.type = "success"
         flash.message = "Cadastro realizado com sucesso."
