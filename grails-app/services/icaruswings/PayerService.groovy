@@ -66,7 +66,7 @@ class PayerService {
         Payer payer = PayerRepository.get(id)
 
         if (!payer) throw new RuntimeException("Esse pagador não existe")
-
+          
         List<PaymentStatus> paymentStatuses = [PaymentStatus.PENDING, PaymentStatus.OVERDUE]
 
         List<Payment> payments = PaymentRepository.query([
@@ -82,13 +82,17 @@ class PayerService {
     }
 
     public void deleteAllPayersForCustomer(Long customerId) {
-        List<Payer> payers = PayerRepository.query([
-            customer: customerId,
-        ]).readOnly().list()
+        List<Long> payerIds = PayerRepository.query([ customer: customerId ]).column("id").readOnly().list()
 
-        if (!payers.isEmpty()) {
-            for (Payer payer : payers) {
-                delete(payer.id)
+        if (!payerIds.isEmpty()) {
+            for (Long id : payerIds) {
+                Payer.withNewTransaction { deletePayer ->
+                    try {
+                        delete(id)
+                    } catch (Exception exception) {
+                        log.info("deletePayer>> Erro ao atualizar status o pagador de id: [${id}] [Mensagem de erro]: ${exception.message}")
+                    }
+                }
             }
         }
     }

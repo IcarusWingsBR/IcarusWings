@@ -106,6 +106,8 @@ class PaymentService {
 
     public void delete(Long id) {
         Payment payment = PaymentRepository.get(id)
+        
+        println "aa " + payment.id
 
         if (!payment) throw new RuntimeException("Essa cobrança não existe")
 
@@ -122,11 +124,18 @@ class PaymentService {
     }
 
     public void deleteAllPaymentsForCustomer(Long customerId) {
-        List<Payment> payments = PaymentRepository.query([customer: customerId,]).readOnly().list() 
+        List<Long> paymentIds = PaymentRepository.query([customer: customerId,]).column("id").readOnly().list() 
 
-        if (!payments.isEmpty()) {
-            for (Payment payment : payments) {
-                delete(payment.id)
+        if (!paymentIds.isEmpty()) {
+             println "aaaaaaaaaaaaa"
+            for (Long id : paymentIds) {
+                Payment.withNewTransaction { deletePayment ->
+                    try {
+                        delete(id)
+                    } catch (Exception exception) {
+                        log.info("deletePayment >> Erro ao atualizar status da cobrança de id: [${id}] [Mensagem de erro]: ${exception.message}")
+                    }
+                }
             }
         }
     }
