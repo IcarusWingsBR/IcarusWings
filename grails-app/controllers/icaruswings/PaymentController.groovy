@@ -9,6 +9,8 @@ class PaymentController extends BaseController {
     def paymentService
     def payerService
 
+    static allowedMethods = [index: "GET", save: "POST", show: "GET", update: "POST", list: "GET", deletedList: "GET", delete: ["POST", "DELETE"], restore: "POST", confirmPaymentReceived: "POST"]
+
     def index() {
         List<Payer> payerList = payerService.list()
 
