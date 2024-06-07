@@ -121,6 +121,21 @@ class PaymentService {
         }
     }
 
+    public void deleteAllPaymentsForCustomer(Long customerId) {
+        List<PaymentStatus> paymentStatuses = [PaymentStatus.PENDING, PaymentStatus.OVERDUE, PaymentStatus.PAYED]
+
+        List<Payment> payments = PaymentRepository.query([
+            customer: customerId,
+            "paymentStatus[in]": paymentStatuses
+        ]).readOnly().list() 
+
+        if (!payments.isEmpty()) {
+            for (Payment payment : payments) {
+                delete(payment.id)
+            }
+        }
+    }
+
     public void restore(Long id) {
         Payment payment = PaymentRepository.query([id:id, deletedOnly:true]).get()
 

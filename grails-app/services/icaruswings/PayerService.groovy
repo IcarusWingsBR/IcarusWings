@@ -81,6 +81,18 @@ class PayerService {
         payer.save(failOnError: true)
     }
 
+    public void deleteAllPayersForCustomer(Long customerId) {
+        List<Payer> payers = PayerRepository.query([
+            customer: customerId,
+        ]).readOnly().list()
+
+        if (!payers.isEmpty()) {
+            for (Payer payer : payers) {
+                delete(payer.id)
+            }
+        }
+    }
+
     public void restore(Long id){
         Payer payer = PayerRepository.query([id:id, deletedOnly:true]).get()
 
