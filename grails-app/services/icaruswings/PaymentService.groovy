@@ -23,12 +23,11 @@ class PaymentService {
         payment.paymentType = paymentAdapter .paymentType
         payment.paymentStatus = paymentAdapter.paymentStatus
         payment.value = paymentAdapter.value
-        payment.dueDate = paymentAdapter.dueDate
+        payment.dueDate = paymentAdapter.dueDate  
+        payment.save(failOnError: true)
 
         emailService.sendCreatePaymentEmailToPayer(payment.payer, payment)
-        emailService.sendCreatePaymentEmailToCustomer(payment.payer, payment)        
-
-        payment.save(failOnError: true)
+        emailService.sendCreatePaymentEmailToCustomer(payment.payer, payment)      
 
         return payment
     }
@@ -52,8 +51,10 @@ class PaymentService {
         if (!payment) throw new RuntimeException("Essa cobrança não existe")
 
         payment.paymentStatus = PaymentStatus.OVERDUE
-
         payment.save(failOnError: true)
+
+        emailService.sendStatusChangeEmailToPayer(payment.payer, payment)
+        emailService.sendStatusChangeEmailToCustomer(payment.payer, payment)
     }
 
     public void processOverduePayments() {
@@ -110,14 +111,14 @@ class PaymentService {
 
         payment.deleted = true
 
-        if(payment.paymentStatus != PaymentStatus.PAYED) {
-            payment.paymentStatus = PaymentStatus.CANCELED
+        if(payment.paymentStatus != PaymentStatus.PAYED) payment.paymentStatus = PaymentStatus.CANCELED
 
+        payment.save(failOnError: true)
+
+        if(payment.paymentStatus != PaymentStatus.PAYED) {
             emailService.sendStatusChangeEmailToPayer(payment.payer, payment)
             emailService.sendStatusChangeEmailToCustomer(payment.payer, payment)
         }
-
-        payment.save(failOnError: true)
     }
 
     public void restore(Long id) {
@@ -148,11 +149,10 @@ class PaymentService {
 
         if(payment.paymentStatus != PaymentStatus.PENDING) throw new RuntimeException("Não foi possível realizar essa ação")
 
-        payment.paymentStatus = PaymentStatus.PAYED
+        payment.paymentStatus = PaymentStatus.PAYED     
+        payment.save(failOnError: true)
 
         emailService.sendStatusChangeEmailToPayer(payment.payer, payment)
         emailService.sendStatusChangeEmailToCustomer(payment.payer, payment)
-        
-        payment.save(failOnError: true)
     }
 }
