@@ -12,6 +12,7 @@ import icaruswings.utils.date.DateUtils
 class PaymentService {
 
     def emailService
+    def receiptService
 
     public Payment save(PaymentAdapter paymentAdapter) {
         Payment validatedPayment = validateSave(paymentAdapter)
@@ -152,7 +153,11 @@ class PaymentService {
         payment.paymentStatus = PaymentStatus.PAYED     
         payment.save(failOnError: true)
 
-        emailService.sendStatusChangeEmailToPayer(payment.payer, payment)
-        emailService.sendStatusChangeEmailToCustomer(payment.payer, payment)
+        Receipt receipt = receiptService.save(payment)
+
+        payment.save(failOnError: true)
+
+        emailService.sendPaymentConfirmationEmailToPayed(payment.payer, payment, receipt)
+        emailService.sendPaymentConfirmationEmailToCustomer(payment.payer, payment, receipt)
     }
 }
