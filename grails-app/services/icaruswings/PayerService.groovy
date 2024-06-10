@@ -92,7 +92,7 @@ class PayerService {
     }
 
     public List<Payer> list(){
-        return PayerRepository.query([:]).list()
+        return PayerRepository.query([:]).readOnly().list()
     }
 
     public List<Payer> deletedList(){
