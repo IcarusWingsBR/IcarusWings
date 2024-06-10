@@ -12,6 +12,7 @@ import icaruswings.utils.date.DateUtils
 class PaymentService {
 
     def emailService
+    def receiptService
 
     public Payment save(PaymentAdapter paymentAdapter) {
         Payment validatedPayment = validateSave(paymentAdapter)
@@ -61,7 +62,7 @@ class PaymentService {
         List<Long> overduePaymentsList = PaymentRepository.query([
                 paymentStatus: PaymentStatus.PENDING,
                 "dueDate[lt]": new Date().clearTime()
-        ]).column("id").list()
+        ]).column("id").readOnly().list()
 
         for (Long paymentId : overduePaymentsList) {
             Payment.withNewTransaction { status ->
@@ -97,11 +98,11 @@ class PaymentService {
     }
 
     public List<Payment> list() {
-        return PaymentRepository.query([:]).list()
+        return PaymentRepository.query([:]).readOnly().list()
     }
 
     public List<Payment> paymentDeletedList() {
-        return PaymentRepository.query([deletedOnly:true]).list()
+        return PaymentRepository.query([deletedOnly:true]).readOnly().list()
     }
 
     public void delete(Long id) {
@@ -152,7 +153,11 @@ class PaymentService {
         payment.paymentStatus = PaymentStatus.PAYED     
         payment.save(failOnError: true)
 
-        emailService.sendStatusChangeEmailToPayer(payment.payer, payment)
-        emailService.sendStatusChangeEmailToCustomer(payment.payer, payment)
+        Receipt receipt = receiptService.save(payment)
+
+        payment.save(failOnError: true)
+
+        emailService.sendPaymentConfirmationEmailToPayed(payment.payer, payment, receipt)
+        emailService.sendPaymentConfirmationEmailToCustomer(payment.payer, payment, receipt)
     }
 }
