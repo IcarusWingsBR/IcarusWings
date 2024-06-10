@@ -136,7 +136,7 @@
             <atlas-button description="Cancelar" theme="secondary" slot="actions" class="js-close-delete-modal-button"></atlas-button>
         </atlas-modal>
         <atlas-modal header="Confirmar Pagamento" class="js-close-confirm-received-modal">
-            Você realmente quer confirmar essa cobranla como paga?
+            Você realmente quer confirmar essa cobrança como paga?
             <atlas-button description="Restaurar" theme="primary" slot="actions" href="${createLink(controller: "payment", action: "confirmPaymentReceived", id: "${payment.id}")}"></atlas-button>
             <atlas-button description="Cancelar" theme="secondary" slot="actions" class="js-close-confirm-received-modal-button"></atlas-button>
         </atlas-modal>
