@@ -53,7 +53,7 @@
                         </atlas-table-col>
                         <atlas-button-group slot="actions">
                             <atlas-icon-button
-                                    icon="trash"
+                                    icon="refresh-dollar"
                                     theme="primary"
                                     description="Restaurar pagador"
                                     class="js-restore-button"
