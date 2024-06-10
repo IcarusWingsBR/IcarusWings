@@ -16,7 +16,15 @@
             hidden
         >
         </atlas-input>
-        <atlas-button slot="actions" description="Editar" data-panel-start-editing></atlas-button>
+        <atlas-button-group slot="actions">
+            <atlas-button description="Editar" data-panel-start-editing></atlas-button>
+            <atlas-button
+                icon="trash"
+                theme="primary"
+                description="Excluir cobrança"
+                class="js-open-modal-button"
+            ></atlas-button>
+        </atlas-button-group>
         <atlas-grid>
             <atlas-row>
                 <atlas-col lg="6">
@@ -90,7 +98,7 @@
                         value="${payment.paymentType}"
                         required="true"
                     >
-                        <atlas-option label="Boleto" value="BANKSLIP"/></atlas-option>
+                        <atlas-option label="Boleto" value="BANK_SLIP"/></atlas-option>
                         <atlas-option label="Cartão" value="CARD"/></atlas-option>
                         <atlas-option label="Pix" value="PIX"></atlas-option>
                     </atlas-select>
@@ -116,15 +124,6 @@
                 </atlas-col> 
             </atlas-row>
         </atlas-grid>
-        <atlas-button-group slot="actions">
-            <atlas-button
-                icon="trash"
-                theme="primary"
-                description="Excluir cobrança"
-                class="js-open-modal-button"
-            >
-            </atlas-button>
-            </atlas-button-group>
         <atlas-modal header="Excluir Cobrança" class="js-modal">
             Você realmente quer excluir essa cobrança?
             <atlas-button description="Excluir" theme="danger" slot="actions" href="${createLink(controller: "payment", action: "delete", id: "${payment.id}")}"></atlas-button>

@@ -6,7 +6,7 @@
     <meta name="layout" content="main">
     <title>Criar Cobrança</title>
 </head>
-<body page-title="Cadastrar pagador">
+<body page-title="Criar Cobrança">
     <atlas-panel>
         <atlas-form action="${createLink(customer: "payer", action: "save")}">
             <atlas-grid>
@@ -29,7 +29,7 @@
                             placeholder="Selecione uma opção"
                             required="true"
                         >
-                            <atlas-option label="Boleto" value="bankslip"/></atlas-option>
+                            <atlas-option label="Boleto" value="bank_slip"/></atlas-option>
                             <atlas-option label="Cartão" value="card"/></atlas-option>
                             <atlas-option label="Pix" value="pix"></atlas-option>
                         </atlas-select>
