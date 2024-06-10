@@ -114,13 +114,13 @@ dataSource:
     pooled: true
     jmxExport: true
     driverClassName: com.mysql.cj.jdbc.Driver
-    username: root
-    password: 182609
+    username: ${DBUSER}
+    password: ${DBSENHA}
 
 environments:
     development:
         dataSource:
-            dbCreate: create-drop
+            dbCreate: update
             url: jdbc:mysql://localhost:3306/Icarus
     test:
         dataSource:
