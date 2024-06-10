@@ -11,7 +11,8 @@ class BootStrap {
 
     @Transactional
     void addTestUserWithCustomer() {
-        def adminRole = new Role(authority: 'ROLE_ADMIN').save(failOnError: true)
+
+        def adminRole = Role.findOrCreateWhere(authority: 'ROLE_ADMIN').save(failOnError: true)
         def userRole = new Role(authority: 'ROLE_USER').save(failOnError: true)
 
         def customer = new Customer(
@@ -37,10 +38,5 @@ class BootStrap {
             it.flush()
             it.clear()
         }
-
-        assert User.count() == 1
-        assert Role.count() == 2
-        assert UserRole.count() == 1
-        assert Customer.count() == 1
     }
 }
