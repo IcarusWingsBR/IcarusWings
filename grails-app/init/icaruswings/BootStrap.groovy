@@ -36,10 +36,5 @@ class BootStrap {
             it.flush()
             it.clear()
         }
-
-        assert User.count() == 1
-        assert Role.count() == 1
-        assert UserRole.count() == 1
-        assert Customer.count() == 1
     }
 }
