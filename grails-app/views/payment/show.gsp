@@ -9,7 +9,7 @@
     <asset:javascript src="delete/DeleteHandler.js"/>
 </head>
 <body page-title="Detalhes da Cobrança">
-    <atlas-form-panel action="${createLink(controller: "payment", action: "update")}" header="Detalhes da cobrança - ${payment.id}" class="js-edit-payment-form">
+    <atlas-form-panel method="POST" action="${createLink(controller: "payment", action: "update")}" header="Detalhes da cobrança - ${payment.id}" class="js-edit-payment-form">
         <atlas-input
             value="${payment.id}"
             name="id"
