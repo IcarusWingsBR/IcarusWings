@@ -6,14 +6,14 @@ function PaymentShowController() {
     var payerCpfCnpjReference = _this.reference.querySelector('.js-payer-cpfCnpj');
     var openDeleteModalButtonReference = _this.reference.querySelector('.js-open-delete-modal-button');
     var deleteModalReference = _this.reference.querySelector('.js-delete-modal');
-    var openConfirmeReceivedModalButtonReference = _this.reference.querySelector('.js-open-confirm-received-modal-button');
+    var openConfirmReceivedModalButtonReference = _this.reference.querySelector('.js-open-confirm-received-modal-button');
     var confirmReceivedModalReference = _this.reference.querySelector('.js-close-confirm-received-modal');
     
 
     this.init = function() {
         payerReference.addEventListener("atlas-select-change", _this.editInfo);
         openDeleteModalButtonReference.addEventListener('atlas-button-click', this.openDeleteModal);
-        openConfirmeReceivedModalButtonReference.addEventListener('atlas-button-click', this.openConfirmReceivedModal);
+        openConfirmReceivedModalButtonReference.addEventListener('atlas-button-click', this.openConfirmReceivedModal);
     };
 
     this.editInfo = function() {
