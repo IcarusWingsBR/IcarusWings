@@ -11,7 +11,8 @@ class BootStrap {
 
     @Transactional
     void addTestUserWithCustomer() {
-        def adminRole = new Role(authority: 'ROLE_ADMIN').save(failOnError: true)
+
+        def adminRole = Role.findOrCreateWhere(authority: 'ROLE_ADMIN').save(failOnError: true)
 
         def customer = new Customer(
                 name: 'Test Customer',
