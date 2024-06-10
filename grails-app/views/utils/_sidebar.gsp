@@ -59,9 +59,17 @@
             <atlas-sidebar-menu-item
                     icon="users"
                     value="clients-group"
-                    text="Lista de Pagadores"
+                    text="Pagadores Ativos"
                     href="${createLink(controller: "payer", action: "list")}"
                 ${ controllerName == "payer" && actionName == "list" ? "active" : "" }
+            ></atlas-sidebar-menu-item>
+
+            <atlas-sidebar-menu-item
+                    icon="users"
+                    value="clients-group"
+                    text="Pagadores Excluídos"
+                    href="${createLink(controller: "payer", action: "deletedList")}"
+                ${ controllerName == "payer" && actionName == "deletedList" ? "active" : "" }
             ></atlas-sidebar-menu-item>
         </atlas-sidebar-menu-item>
 

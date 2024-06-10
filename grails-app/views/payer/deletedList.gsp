@@ -1,13 +1,12 @@
 <html>
 <head>
-    <title>Pagadores Ativos</title>
+    <title>Pagador Excluídos</title>
     <meta name="layout" content="main">
-    <asset:javascript src="payer/PayerListController.js"/>
-    <asset:javascript src="delete/DeleteHandler.js"/>
+    <asset:javascript src="payer/PayerDeletedListController.js"/>
 </head>
-<body page-title="Pagadores Ativos">
+<body page-title="Pagador Excluídos">
 <atlas-panel class="js-list-panel">
-    <g:if test="${ payerList }">
+    <g:if test="${ deletedList }">
         <atlas-toolbar>
             <atlas-button
                     icon="plus"
@@ -35,8 +34,8 @@
                 </atlas-table-col>
             </atlas-table-header>
             <atlas-table-body slot="body">
-                <g:each var="payer" in="${ payerList }">
-                    <atlas-table-row href="${createLink(controller: "payer", action: "show", id: payer.id)}">
+                <g:each var="payer" in="${ deletedList }">
+                    <atlas-table-row>
                         <atlas-table-col>
                             ${payer.name}
                         </atlas-table-col>
@@ -56,17 +55,18 @@
                             <atlas-icon-button
                                     icon="trash"
                                     theme="primary"
-                                    description="Excluir pagagor"
-                                    class="js-delete-button"
+                                    description="Restaurar pagador"
+                                    class="js-restore-button"
                                     id="${payer.id}"
                             >
                             </atlas-icon-button>
                         </atlas-button-group>
                     </atlas-table-row>
-                    <atlas-modal header="Excluir Pagador" class="js-modal">
-                            Você realmente quer excluir esse pagador?
-                    <atlas-button description="Excluir" theme="danger" slot="actions" class="js-delete-payer-button"></atlas-button>
-                    <atlas-button description="Cancelar" theme="secondary" slot="actions" class="js-close-modal-button"></atlas-button>
+                     <atlas-modal header="Restaurar Pagador" class="js-modal">
+                        <atlas-form method="POST" action="${createLink(controller: "payer", action: "restore", id: "${payer.id}")}">
+                            Você realmente quer restaurar esse pagador?
+                            <atlas-button class="margin-modal-button" submit description="Restaurar" theme="primary"></atlas-button>
+                        </atlas-form>
                     </atlas-modal>
                 </g:each>
             </atlas-table-body>
