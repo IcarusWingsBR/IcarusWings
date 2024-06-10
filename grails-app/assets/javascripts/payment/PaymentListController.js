@@ -11,7 +11,7 @@ function PaymentListController() {
     this.init = function() {
         deleteHandler = new DeleteHandler();
         _this.bindDeleteButtons();
-        closeModalButtonReference.addEventListener("atlas-icon-button-click", _this.closeModal);
+        closeModalButtonReference.addEventListener("atlas-button-click", _this.closeModal);
         deletePaymentButtonReference.addEventListener("atlas-button-click", _this.deletePayment);
     };
 

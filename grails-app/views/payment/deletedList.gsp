@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="layout" content="main">
-    <title>Cobranças Ativas</title>
-    <asset:javascript src="payment/PaymentListController.js"/>
-    <asset:javascript src="delete/DeleteHandler.js"/>
+    <title>Cobranças Excluídas</title>
+    <asset:javascript src="payment/PaymentDeletedListController.js"/>
+    <asset:javascript src="restore/RestoreHandler.js"/>
 </head>
-<body page-title="Cobranças Ativas">
+<body page-title="Cobranças Excluídas">
     <atlas-panel class="js-list-panel">
-        <g:if test="${ paymentList }">
+        <g:if test="${ paymentDeletedList }">
             <atlas-toolbar>
                 <atlas-button
                         icon="plus"
@@ -44,8 +44,8 @@
                     </atlas-table-col>
                 </atlas-table-header>
                 <atlas-table-body slot="body">
-                    <g:each var="payment" in="${ paymentList }">
-                        <atlas-table-row href="${createLink(controller: "payment", action: "show", id: payment.id)}">
+                    <g:each var="payment" in="${ paymentDeletedList }">
+                        <atlas-table-row>
                             <atlas-table-col>
                                 ${payment.payer.name}
                             </atlas-table-col>
@@ -69,18 +69,18 @@
                             </atlas-table-col>
                             <atlas-button-group slot="actions">
                                 <atlas-icon-button
-                                    icon="trash"
+                                    icon="refresh-dollar"
                                     theme="primary"
-                                    description="Excluir cobrança"
-                                    class="js-delete-button"
+                                    description="Restaurar cobrança"
+                                    class="js-restore-button"
                                     id="${payment.id}"
                                 >
                                 </atlas-icon-button>
                             </atlas-button-group> 
                         </atlas-table-row>
-                        <atlas-modal header="Excluir Cobrança" class="js-modal">
-                            Você realmente quer excluir essa cobrança?
-                            <atlas-button description="Excluir" theme="danger" slot="actions" class="js-delete-payment-button"></atlas-button>
+                        <atlas-modal header="Restaurar Cobrança" class="js-modal">
+                            Você realmente quer restaurar essa cobrança?
+                            <atlas-button description="Restaurar" theme="primary" slot="actions" class="js-restore-payment-button"></atlas-button>
                             <atlas-button description="Cancelar" theme="secondary" slot="actions" class="js-close-modal-button"></atlas-button>
                         </atlas-modal> 
                     </g:each>

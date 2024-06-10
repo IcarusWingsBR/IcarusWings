@@ -82,9 +82,17 @@
             <atlas-sidebar-menu-item
                     icon="money"
                     value="clients-group"
-                    text="Lista de Cobranças"
+                    text="Cobranças Ativas"
                     href="${createLink(controller: "payment", action: "list")}"
                 ${ controllerName == "payment" && actionName == "list" ? "active" : "" }
+            ></atlas-sidebar-menu-item>
+
+            <atlas-sidebar-menu-item
+                    icon="money"
+                    value="clients-group"
+                    text="Cobranças Excluídas"
+                    href="${createLink(controller: "payment", action: "deletedList")}"
+                ${ controllerName == "payment" && actionName == "deletedList" ? "active" : "" }
             ></atlas-sidebar-menu-item>
         </atlas-sidebar-menu-item>
 
