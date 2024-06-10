@@ -18,4 +18,14 @@ class UserService {
 
         return user
     }
+
+    public User addUser(UserAdapter userAdapter) {
+        Customer customer = userAdapter.customer
+        User user = save(customer, userAdapter)
+
+        Role role = Role.findByAuthority('ROLE_USER')
+        UserRole.create(user, role, true)
+
+        return user
+    }
 }
