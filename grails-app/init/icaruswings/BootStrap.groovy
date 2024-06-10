@@ -13,7 +13,7 @@ class BootStrap {
     void addTestUserWithCustomer() {
 
         def adminRole = Role.findOrCreateWhere(authority: 'ROLE_ADMIN').save(failOnError: true)
-        def userRole = new Role(authority: 'ROLE_USER').save(failOnError: true)
+        def userRole = Role.findOrCreateWhere(authority: 'ROLE_USER').save(failOnError: true)
 
         def customer = new Customer(
                 name: 'Test Customer',
