@@ -6,18 +6,14 @@ function PaymentShowController() {
     var payerCpfCnpjReference = _this.reference.querySelector('.js-payer-cpfCnpj');
     var openDeleteModalButtonReference = _this.reference.querySelector('.js-open-delete-modal-button');
     var deleteModalReference = _this.reference.querySelector('.js-delete-modal');
-    var closeDeleteModalButtonReference = _this.reference.querySelector('.js-close-delete-modal-button');
     var openConfirmeReceivedModalButtonReference = _this.reference.querySelector('.js-open-confirm-received-modal-button');
     var confirmReceivedModalReference = _this.reference.querySelector('.js-close-confirm-received-modal');
-    var closeConfirmeReceivedModalButtonReference = _this.reference.querySelector('.js-close-confirm-received-modal-button');
     
 
     this.init = function() {
         payerReference.addEventListener("atlas-select-change", _this.editInfo);
         openDeleteModalButtonReference.addEventListener('atlas-button-click', this.openDeleteModal);
-        closeDeleteModalButtonReference.addEventListener("atlas-button-click", _this.closeDeleteModal);
         openConfirmeReceivedModalButtonReference.addEventListener('atlas-button-click', this.openConfirmReceivedModal);
-        closeConfirmeReceivedModalButtonReference.addEventListener("atlas-button-click", _this.closeConfirmReceivedModal);
     };
 
     this.editInfo = function() {
@@ -34,16 +30,8 @@ function PaymentShowController() {
         deleteModalReference.setAttribute("open", "");
     };
 
-    this.closeDeleteModal = function() {
-        deleteModalReference.removeAttribute("open");
-    };
-
     this.openConfirmReceivedModal = function() {
         confirmReceivedModalReference.setAttribute("open", "");
-    };
-
-    this.closeConfirmReceivedModal = function() {
-        confirmReceivedModalReference.removeAttribute("open", "");
     };
 }
 
