@@ -4,8 +4,6 @@ import icaruswings.repositories.ReceiptRepository
 
 class ReceiptController extends BaseController {
 
-    static allowedMethods = [index: "GET"]
-
     def show() {
         String token = params.id
    

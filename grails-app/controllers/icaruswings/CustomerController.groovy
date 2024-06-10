@@ -7,8 +7,6 @@ class CustomerController extends BaseController {
 
     def customerService
 
-    static allowedMethods = [index: "GET", save: "POST", show: "GET", update: "POST", list: "GET"]
-
     def index() {}
 
     def save() {
