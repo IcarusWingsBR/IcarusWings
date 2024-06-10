@@ -106,8 +106,6 @@ class PaymentService {
 
     public void delete(Long id) {
         Payment payment = PaymentRepository.get(id)
-        
-        println "aa " + payment.id
 
         if (!payment) throw new RuntimeException("Essa cobrança não existe")
 
@@ -127,7 +125,6 @@ class PaymentService {
         List<Long> paymentIds = PaymentRepository.query([customer: customerId,]).column("id").readOnly().list() 
 
         if (!paymentIds.isEmpty()) {
-             println "aaaaaaaaaaaaa"
             for (Long id : paymentIds) {
                 Payment.withNewTransaction { deletePayment ->
                     try {
