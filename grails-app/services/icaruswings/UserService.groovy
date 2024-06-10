@@ -2,6 +2,7 @@ package icaruswings
 
 import grails.gorm.transactions.Transactional
 import icaruswings.adapters.UserAdapter
+import icaruswings.repositories.UserRepository
 
 @Transactional
 class UserService {
@@ -27,5 +28,11 @@ class UserService {
         UserRole.create(user, role, true)
 
         return user
+    }
+
+    public List<User> list(Long customerId) {
+        return UserRepository.query([
+                customer: customerId,
+        ]).column("username").readOnly().list()
     }
 }

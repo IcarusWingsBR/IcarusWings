@@ -62,7 +62,7 @@ class PayerService {
         payer.save(failOnError: true)
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         Payer payer = PayerRepository.get(id)
 
         if (!payer) throw new RuntimeException("Esse pagador não existe")
@@ -80,7 +80,7 @@ class PayerService {
         payer.save(failOnError: true)
     }
 
-    public List<Payer> list(){
+    public List<Payer> list() {
         return PayerRepository.query([:]).list()
     }
 
