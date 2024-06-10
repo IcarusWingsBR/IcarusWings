@@ -16,13 +16,19 @@
             hidden
         >
         </atlas-input>
-        <atlas-button-group slot="actions">
+        <atlas-button-group slot="actions" group-after="3">
             <atlas-button description="Editar" data-panel-start-editing></atlas-button>
             <atlas-button
                 icon="trash"
                 theme="primary"
                 description="Excluir cobrança"
-                class="js-open-modal-button"
+                class="js-open-delete-modal-button"
+            ></atlas-button>
+            <atlas-button
+                icon="check"
+                theme="primary"
+                description="Confirmar Pagamento"
+                class="js-open-confirm-received-modal-button"
             ></atlas-button>
         </atlas-button-group>
         <atlas-grid>
@@ -124,10 +130,15 @@
                 </atlas-col> 
             </atlas-row>
         </atlas-grid>
-        <atlas-modal header="Excluir Cobrança" class="js-modal">
+        <atlas-modal header="Excluir Cobrança" class="js-delete-modal">
             Você realmente quer excluir essa cobrança?
             <atlas-button description="Excluir" theme="danger" slot="actions" href="${createLink(controller: "payment", action: "delete", id: "${payment.id}")}"></atlas-button>
-            <atlas-button description="Cancelar" theme="secondary" slot="actions" class="js-close-modal-button"></atlas-button>
+            <atlas-button description="Cancelar" theme="secondary" slot="actions" class="js-close-delete-modal-button"></atlas-button>
+        </atlas-modal>
+        <atlas-modal header="Confirmar Pagamento" class="js-close-confirm-received-modal">
+            Você realmente quer confirmar essa cobranla como paga?
+            <atlas-button description="Restaurar" theme="primary" slot="actions" href="${createLink(controller: "payment", action: "confirmPaymentReceived", id: "${payment.id}")}"></atlas-button>
+            <atlas-button description="Cancelar" theme="secondary" slot="actions" class="js-close-confirm-received-modal-button"></atlas-button>
         </atlas-modal>
         <g:if test="${flash.message}">
             <atlas-modal header="${flash.type == "success" ? "Cobrança editada" : "Erro"}" open="">${flash.message}</atlas-modal>
