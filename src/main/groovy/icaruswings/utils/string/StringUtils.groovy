@@ -6,14 +6,14 @@ import java.util.regex.Pattern
 public class StringUtils {
 
     public static Boolean containsOnlyNumbers(String number) {
-        return !number.matches(".*\\D.*");
+        return !number.matches(".*\\D.*")
     }
 
     private static Boolean dontHaveNumber(String str) {
-        String regex = "^[^0-9]*";
+        String regex = "^[^0-9]*"
 
-        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(str);
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE)
+        Matcher matcher = pattern.matcher(str)
 
         if (!matcher.matches()) return false
 
