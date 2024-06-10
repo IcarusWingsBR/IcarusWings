@@ -3,6 +3,7 @@
     <title>Pagador Excluídos</title>
     <meta name="layout" content="main">
     <asset:javascript src="payer/PayerDeletedListController.js"/>
+    <asset:javascript src="restore/RestoreHandler.js"/>
 </head>
 <body page-title="Pagador Excluídos">
 <atlas-panel class="js-list-panel">
@@ -63,9 +64,9 @@
                         </atlas-button-group>
                     </atlas-table-row>
                      <atlas-modal header="Restaurar Pagador" class="js-modal">
-                        <atlas-form method="POST" action="${createLink(controller: "payer", action: "restore", id: "${payer.id}")}">
+                        <atlas-form>
                             Você realmente quer restaurar esse pagador?
-                            <atlas-button class="margin-modal-button" submit description="Restaurar" theme="primary"></atlas-button>
+                            <atlas-button class="margin-modal-button js-restore-payer-button" description="Restaurar" theme="primary"></atlas-button>
                         </atlas-form>
                     </atlas-modal>
                 </g:each>
