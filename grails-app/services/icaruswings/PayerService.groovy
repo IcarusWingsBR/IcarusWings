@@ -82,16 +82,14 @@ class PayerService {
     }
 
     public void deleteAllPayersForCustomer(Long customerId) {
-        List<Long> payerIds = PayerRepository.query([ customer: customerId ]).column("id").readOnly().list()
+        List<Long> payerIds = PayerRepository.query([customer: customerId]).column("id").readOnly().list()
 
-        if (!payerIds.isEmpty()) {
-            for (Long id : payerIds) {
-                Payer.withNewTransaction { deletePayer ->
-                    try {
-                        delete(id)
-                    } catch (Exception exception) {
-                        log.info("deletePayer>> Erro ao atualizar status o pagador de id: [${id}] [Mensagem de erro]: ${exception.message}")
-                    }
+        for (Long id : payerIds) {
+            Payer.withNewTransaction { deletePayer ->
+                try {
+                    delete(id)
+                } catch (Exception exception) {
+                    log.info("deletePayer>> Erro ao excluir o pagador de id: [${id}] [Mensagem de erro]: ${exception.message}")
                 }
             }
         }
