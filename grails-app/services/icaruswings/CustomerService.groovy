@@ -14,7 +14,7 @@ import icaruswings.repositories.CustomerRepository
 @Transactional
 class CustomerService {
 
-    def userService
+    UserService userService
 
     public Customer save(CustomerAdapter customerAdapter, UserAdapter userAdapter) {
         Customer validatedCustomer = validateSave(customerAdapter)
