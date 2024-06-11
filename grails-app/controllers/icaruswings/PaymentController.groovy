@@ -72,7 +72,7 @@ class PaymentController extends BaseController {
         flash.type = "success"
         flash.message = "Cobrança restaurada com sucesso"
 
-        redirect(action: "show", id: payment.id)
+        redirect(action: "show", id: params.id)
     }
 
     def confirmPaymentReceived() {
@@ -83,6 +83,6 @@ class PaymentController extends BaseController {
         flash.type = "success"
         flash.message = "Status da cobrança atualizado."
 
-        redirect(action: "show", id: payment.id)
+        redirect(action: "show", id: params.id)
     }
 }

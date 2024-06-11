@@ -12,6 +12,7 @@ import icaruswings.utils.date.DateUtils
 class PaymentService {
 
     def emailService
+    def receiptService
 
     public Payment save(PaymentAdapter paymentAdapter) {
         Payment validatedPayment = validateSave(paymentAdapter)
@@ -23,12 +24,11 @@ class PaymentService {
         payment.paymentType = paymentAdapter .paymentType
         payment.paymentStatus = paymentAdapter.paymentStatus
         payment.value = paymentAdapter.value
-        payment.dueDate = paymentAdapter.dueDate
+        payment.dueDate = paymentAdapter.dueDate  
+        payment.save(failOnError: true)
 
         emailService.sendCreatePaymentEmailToPayer(payment.payer, payment)
-        emailService.sendCreatePaymentEmailToCustomer(payment.payer, payment)        
-
-        payment.save(failOnError: true)
+        emailService.sendCreatePaymentEmailToCustomer(payment.payer, payment)      
 
         return payment
     }
@@ -52,15 +52,17 @@ class PaymentService {
         if (!payment) throw new RuntimeException("Essa cobrança não existe")
 
         payment.paymentStatus = PaymentStatus.OVERDUE
-
         payment.save(failOnError: true)
+
+        emailService.sendStatusChangeEmailToPayer(payment.payer, payment)
+        emailService.sendStatusChangeEmailToCustomer(payment.payer, payment)
     }
 
     public void processOverduePayments() {
         List<Long> overduePaymentsList = PaymentRepository.query([
                 paymentStatus: PaymentStatus.PENDING,
                 "dueDate[lt]": new Date().clearTime()
-        ]).column("id").list()
+        ]).column("id").readOnly().list()
 
         for (Long paymentId : overduePaymentsList) {
             Payment.withNewTransaction { status ->
@@ -96,11 +98,11 @@ class PaymentService {
     }
 
     public List<Payment> list() {
-        return PaymentRepository.query([:]).list()
+        return PaymentRepository.query([:]).readOnly().list()
     }
 
     public List<Payment> paymentDeletedList() {
-        return PaymentRepository.query([deletedOnly:true]).list()
+        return PaymentRepository.query([deletedOnly:true]).readOnly().list()
     }
 
     public void delete(Long id) {
@@ -110,14 +112,14 @@ class PaymentService {
 
         payment.deleted = true
 
-        if(payment.paymentStatus != PaymentStatus.PAYED) {
-            payment.paymentStatus = PaymentStatus.CANCELED
+        if(payment.paymentStatus != PaymentStatus.PAYED) payment.paymentStatus = PaymentStatus.CANCELED
 
+        payment.save(failOnError: true)
+
+        if(payment.paymentStatus != PaymentStatus.PAYED) {
             emailService.sendStatusChangeEmailToPayer(payment.payer, payment)
             emailService.sendStatusChangeEmailToCustomer(payment.payer, payment)
         }
-
-        payment.save(failOnError: true)
     }
 
     public void restore(Long id) {
@@ -148,11 +150,14 @@ class PaymentService {
 
         if(payment.paymentStatus != PaymentStatus.PENDING) throw new RuntimeException("Não foi possível realizar essa ação")
 
-        payment.paymentStatus = PaymentStatus.PAYED
-
-        emailService.sendStatusChangeEmailToPayer(payment.payer, payment)
-        emailService.sendStatusChangeEmailToCustomer(payment.payer, payment)
-        
+        payment.paymentStatus = PaymentStatus.PAYED     
         payment.save(failOnError: true)
+
+        Receipt receipt = receiptService.save(payment)
+
+        payment.save(failOnError: true)
+
+        emailService.sendPaymentConfirmationEmailToPayed(payment.payer, payment, receipt)
+        emailService.sendPaymentConfirmationEmailToCustomer(payment.payer, payment, receipt)
     }
 }

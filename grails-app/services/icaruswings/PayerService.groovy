@@ -67,11 +67,12 @@ class PayerService {
 
         if (!payer) throw new RuntimeException("Esse pagador não existe")
 
+        List<PaymentStatus> paymentStatuses = [PaymentStatus.PENDING, PaymentStatus.OVERDUE]
+
         List<Payment> payments = PaymentRepository.query([
             payer:id,
-            paymentStatus: PaymentStatus.PENDING,
-            paymentStatus: PaymentStatus.OVERDUE
-        ]).list()
+             "paymentStatus[in]": paymentStatuses
+        ]).readOnly().list()
 
         if (!payments.isEmpty() && payments != null) throw new RuntimeException("Esse pagador tem cobranças pendentes")
 
@@ -80,8 +81,22 @@ class PayerService {
         payer.save(failOnError: true)
     }
 
+    public void restore(Long id) {
+        Payer payer = PayerRepository.query([id:id, deletedOnly:true]).get()
+
+        if (!payer) throw new RuntimeException("Esse pagador não está deletado ou não existe")
+
+        payer.deleted = false
+
+        payer.save(failOnError: true)
+    }
+
     public List<Payer> list() {
-        return PayerRepository.query([:]).list()
+        return PayerRepository.query([:]).readOnly().list()
+    }
+
+    public List<Payer> deletedList() {
+        return PayerRepository.query([deletedOnly:true]).readOnly().list()
     }
 
     private Payer validateSave(PayerAdapter payerAdapter) {

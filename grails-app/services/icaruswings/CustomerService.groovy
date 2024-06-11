@@ -14,7 +14,7 @@ import icaruswings.repositories.CustomerRepository
 @Transactional
 class CustomerService {
 
-    def userService
+    UserService userService
 
     public Customer save(CustomerAdapter customerAdapter, UserAdapter userAdapter) {
         Customer validatedCustomer = validateSave(customerAdapter)
@@ -37,7 +37,7 @@ class CustomerService {
         customer.save(failOnError: true)
 
         User user = userService.save(customer, userAdapter)
-        Role role = Role.findByAuthority('ROLE_ADMIN')
+        Role role = Role.findByAuthority('ROLE_USER')
         UserRole.create(user, role, true)
 
         return customer
@@ -63,7 +63,7 @@ class CustomerService {
     }
 
     public List<Customer> list() {
-        return CustomerRepository.query([:]).list()
+        return CustomerRepository.query([:]).readOnly().list()
     }
 
     private Customer validateSave(CustomerAdapter customerAdapter) {
