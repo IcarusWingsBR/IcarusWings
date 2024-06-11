@@ -4,13 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="layout" content="main">
-    <title>Cobranças Ativas</title>
+    <title>Lista de Cobranças</title>
     <asset:javascript src="payment/PaymentListController.js"/>
     <asset:javascript src="delete/DeleteHandler.js"/>
+    <asset:javascript src="restore/RestoreHandler.js"/>
 </head>
-<body page-title="Cobranças Ativas">
+<body page-title="Lista de Cobranças">
+
+    <atlas-filter >
+        <atlas-form slot="simple-filter">
+            <atlas-filter-group header="Listar Cobranças" name="listarCobrancas">
+                <atlas-radio value="ativas" checked class="js-filter-group">Cobranças Ativas</atlas-radio>
+                <atlas-radio value="excluidas" class="js-filter-group">Cobranças Excluídas</atlas-radio>
+            </atlas-filter-group>
+        </atlas-form>
+    </atlas-filter>
+
     <atlas-panel class="js-list-panel">
-        <g:if test="${ paymentList }">
+        <g:if test="${ paymentDeletedList }">
             <atlas-toolbar>
                 <atlas-button
                         icon="plus"
@@ -19,7 +30,76 @@
                         slot="actions"
                 ></atlas-button>
             </atlas-toolbar>
-            <atlas-table has-actions>
+            <atlas-table has-actions class="js-deleted-list">
+                <atlas-table-header slot="header">
+                    <atlas-table-col>
+                        Nome
+                    </atlas-table-col>
+                    <atlas-table-col>
+                        E-mail
+                    </atlas-table-col>
+                    <atlas-table-col>
+                        Valor
+                    </atlas-table-col>
+                    <atlas-table-col>
+                        Forma de pagamento
+                    </atlas-table-col>
+                    <atlas-table-col>
+                        Status
+                    </atlas-table-col>
+                    <atlas-table-col>
+                        Data de Criação
+                    </atlas-table-col>
+                    <atlas-table-col>
+                        Data de Vencimento
+                    </atlas-table-col>
+                </atlas-table-header>
+                <atlas-table-body slot="body">
+                    <g:each var="payment" in="${ paymentDeletedList }">
+                        <atlas-table-row>
+                            <atlas-table-col>
+                                ${payment.payer.name}
+                            </atlas-table-col>
+                            <atlas-table-col>
+                                ${payment.payer.email}
+                            </atlas-table-col>
+                            <atlas-table-col>
+                                ${payment.value}
+                            </atlas-table-col>
+                            <atlas-table-col>
+                                ${message(code: 'PaymentType.' + payment.paymentType + '.label')}
+                            </atlas-table-col>
+                            <atlas-table-col>
+                                ${message(code: 'PaymentStatus.' + payment.paymentStatus + '.label')}
+                            </atlas-table-col>
+                            <atlas-table-col>
+                                ${formatTagLib.formatedDate(date: payment.dateCreated)}
+                            </atlas-table-col>
+                            <atlas-table-col>
+                                ${formatTagLib.formatedDate(date: payment.dueDate)}
+                            </atlas-table-col>
+                            <atlas-button-group slot="actions">
+                                <atlas-icon-button
+                                    icon="refresh-dollar"
+                                    theme="primary"
+                                    description="Restaurar cobrança"
+                                    class="js-restore-button"
+                                    id="${payment.id}"
+                                >
+                                </atlas-icon-button>
+                            </atlas-button-group> 
+                        </atlas-table-row>
+                        <atlas-modal header="Restaurar Cobrança" class="js-restore-modal">
+                            Você realmente quer restaurar essa cobrança?
+                            <atlas-button description="Restaurar" theme="primary" slot="actions" class="js-restore-payment-button"></atlas-button>
+                            <atlas-button description="Cancelar" theme="secondary" slot="actions" class="js-close-restore-modal-button"></atlas-button>
+                        </atlas-modal> 
+                    </g:each>
+                </atlas-table-body>
+            </atlas-table>
+        </g:if>
+        <g:if test="${ paymentList }">
+            <atlas-table has-actions class="js-list">
                 <atlas-table-header slot="header">
                     <atlas-table-col>
                         Nome
@@ -78,16 +158,18 @@
                                 </atlas-icon-button>
                             </atlas-button-group> 
                         </atlas-table-row>
-                        <atlas-modal header="Excluir Cobrança" class="js-modal">
+                        <atlas-modal header="Excluir Cobrança" class="js-delete-modal">
                             Você realmente quer excluir essa cobrança?
                             <atlas-button description="Excluir" theme="danger" slot="actions" class="js-delete-payment-button"></atlas-button>
-                            <atlas-button description="Cancelar" theme="secondary" slot="actions" class="js-close-modal-button"></atlas-button>
+                            <atlas-button description="Cancelar" theme="secondary" slot="actions" class="js-close-delete-modal-button"></atlas-button>
                         </atlas-modal> 
                     </g:each>
                 </atlas-table-body>
             </atlas-table>
         </g:if>
-        <g:else>
+    </atlas-panel>
+    <g:if test="${ !paymentDeletedList && !paymentList}">
+        <atlas-panel>
             <atlas-empty-state
                     illustration="schedule-user-avatar"
                     header="Sem cobranças cadastradas"
@@ -100,7 +182,7 @@
                         slot="button"
                 ></atlas-button>
             </atlas-empty-state>
-        </g:else>
-    </atlas-panel>
+        </atlas-panel>
+    </g:if>
 </body>
 </html>

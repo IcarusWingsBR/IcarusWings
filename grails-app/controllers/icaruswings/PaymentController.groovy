@@ -46,7 +46,7 @@ class PaymentController extends BaseController {
     }
 
     def list() {
-        return [paymentList: paymentService.list()]
+        return [paymentDeletedList: paymentService.paymentDeletedList(), paymentList: paymentService.list()]
     }
 
     def deletedList() {
