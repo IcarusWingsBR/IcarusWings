@@ -78,7 +78,7 @@ class CustomerService {
 
         if (!customerAdapter.name) {
             customer.errors.rejectValue("name",  null,"O campo nome é obrigatório")
-        } else if (!StringUtils.dontHaveNumber(customerAdapter.name) || customerAdapter.name.length() < 3 || customerAdapter.name.length() > 255) {
+        } else if (StringUtils.hasNumber(customerAdapter.name) || customerAdapter.name.length() < 3 || customerAdapter.name.length() > 255) {
             customer.errors.rejectValue("name", null, "O nome informado é inválido")
         }
 
@@ -112,13 +112,13 @@ class CustomerService {
 
         if (!customerAdapter.city) {
             customer.errors.rejectValue("city", null, "O campo cidade é obrigatório")
-        } else if (!StringUtils.dontHaveNumber(customerAdapter.city) || customerAdapter.city.length() < 3 || customerAdapter.city.length() > 50) {
+        } else if (StringUtils.hasNumber(customerAdapter.city) || customerAdapter.city.length() < 3 || customerAdapter.city.length() > 50) {
             customer.errors.rejectValue("city", null, "A cidade informado é inválida")
         }
 
         if (!customerAdapter.state) {
             customer.errors.rejectValue("state", null, "O campo estado é obrigatório")
-        } else if (!StringUtils.dontHaveNumber(customerAdapter.state) || customerAdapter.state.length() < 2 || customerAdapter.state.length() > 15) {
+        } else if (StringUtils.hasNumber(customerAdapter.state) || customerAdapter.state.length() < 2 || customerAdapter.state.length() > 15) {
             customer.errors.rejectValue("state", null, "O estado informado é inválido")
         }
 
