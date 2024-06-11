@@ -108,13 +108,21 @@
                 </atlas-col>
             </atlas-row>
             <atlas-row>
-                <atlas-col>
+                <atlas-col lg="6">
                     <atlas-input
                             label="Complemento"
                             name="addressComplement"
                             required="true"
                     >
                     </atlas-input>
+                </atlas-col>
+                <atlas-col lg="6">
+                    <atlas-password-input
+                            label="Senha"
+                            name="password"
+                            required="true"
+                    >
+                    </atlas-password-input>
                 </atlas-col>
             </atlas-row>
         </atlas-grid>
