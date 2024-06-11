@@ -21,7 +21,7 @@ class CustomerController extends BaseController {
         flash.type = "success"
         flash.message = "Cadastro realizado com sucesso."
 
-        redirect(action: "show", id: customer.id)
+        redirect(action: "auth", controller: "login")
     }
 
     @Secured(['IS_AUTHENTICATED_FULLY'])
