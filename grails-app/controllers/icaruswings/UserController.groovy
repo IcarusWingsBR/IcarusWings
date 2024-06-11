@@ -19,4 +19,10 @@ class UserController {
 
         redirect(action: "index", controller: "customer")
     }
+
+    @Secured(['IS_AUTHENTICATED_FULLY'])
+    def list() {
+        Long customerId = Long.valueOf(params.customerId)
+        return [userList: userService.list(customerId)]
+    }
 }

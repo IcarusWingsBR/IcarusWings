@@ -29,9 +29,9 @@ class UserService {
         return user
     }
 
-    public List<User> list(Long customerId) {
+    public List<String> list(Long customerId) {
         return UserRepository.query([
-                customer: customerId,
+                customerId: customerId,
         ]).column("username").readOnly().list()
     }
 }

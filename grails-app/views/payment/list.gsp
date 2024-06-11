@@ -82,7 +82,7 @@
                             Você realmente quer excluir essa cobrança?
                             <atlas-button description="Excluir" theme="danger" slot="actions" class="js-delete-payment-button"></atlas-button>
                             <atlas-button description="Cancelar" theme="secondary" slot="actions" class="js-close-modal-button"></atlas-button>
-                        </atlas-modal> 
+                        </atlas-modal>
                     </g:each>
                 </atlas-table-body>
             </atlas-table>

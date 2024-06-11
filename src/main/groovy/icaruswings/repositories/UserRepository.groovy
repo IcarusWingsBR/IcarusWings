@@ -23,7 +23,7 @@ class UserRepository implements Repository<User, UserRepository> {
     List<String> listAllowedFilters() {
         return [
                 "id",
-                "customer"
+                "customerId"
         ]
     }
 
