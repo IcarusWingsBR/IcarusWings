@@ -14,8 +14,8 @@ import icaruswings.payment.Payment
 @Transactional
 class CustomerService {
 
-    def paymentService
-    def payerService
+    PayerService payerService
+    PaymentService paymentService
 
     public Customer save(CustomerAdapter customerAdapter) {
         Customer validatedCustomer = validateSave(customerAdapter)
