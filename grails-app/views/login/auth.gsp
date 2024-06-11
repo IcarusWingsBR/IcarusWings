@@ -20,7 +20,7 @@
     </div>
     <div class="right">
       <h1 class="title">Seja bem-vindo ao Asaas! 🚀</h1>
-      <atlas-form class="form" action="${postUrl ?: '/login/authenticate'}" method="post" autocomplete="off">
+      <form class="form" action="${postUrl ?: '/login/authenticate'}" method="post" autocomplete="off">
         <div class="form-group">
           <label for="username">Nome</label>
           <input id="username" name="${securityConfig.apf.usernameParameter}" placeholder="Digite seu nome/email"/>
@@ -37,7 +37,7 @@
         <g:if test="${flash.message}">
           <div class="error">${flash.message}</div>
         </g:if>
-      </atlas-form>
+      </form>
       <a href="${createLink(controller: "customer", action: "index")}" class="create-account">Criar uma nova conta</a>
     </div>
   </main>
