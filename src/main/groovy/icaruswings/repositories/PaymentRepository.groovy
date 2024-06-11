@@ -13,9 +13,9 @@ class PaymentRepository implements Repository<Payment, PaymentRepository> {
             }
 
             if (search.containsKey("customer")) {
-                payer {
-                    eq("customer.id", Long.valueOf(search.customer.toString()))
-                }
+                createAlias("payer", "p")
+                createAlias("p.customer", "c")
+                eq("c.id", Long.valueOf(search.customer.toString()))
             }
 
             if (search.containsKey("paymentStatus")) {
