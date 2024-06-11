@@ -1,5 +1,6 @@
 package icaruswings
 
+import grails.plugin.springsecurity.annotation.Secured
 import icaruswings.adapters.PayerAdapter
 import icaruswings.repositories.PayerRepository
 
@@ -8,12 +9,14 @@ class PayerController extends BaseController {
     def payerService
     def customerService
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def index() {
         List<Customer> customerList = customerService.list()
 
         return [customerList: customerList]
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def save() {
         PayerAdapter payerAdapter = new PayerAdapter(params)
         Payer payer = payerService.save(payerAdapter)
@@ -24,6 +27,7 @@ class PayerController extends BaseController {
         redirect(action: "show", id: payer.id)
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def show() {
         Long id = Long.valueOf(params.id)
         Payer payer = PayerRepository.get(id)
@@ -33,6 +37,7 @@ class PayerController extends BaseController {
         return [payer: payer]
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def update() {
         PayerAdapter payerAdapter = new PayerAdapter(params)
         payerService.update(payerAdapter)
@@ -43,6 +48,7 @@ class PayerController extends BaseController {
         redirect(action: "show", id: params.id)
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def delete() {
         Long id = Long.valueOf(params.id)
 
@@ -54,6 +60,7 @@ class PayerController extends BaseController {
         redirect(action: "list")
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def restore() {
         Long id = Long.valueOf(params.id)
 
@@ -65,10 +72,12 @@ class PayerController extends BaseController {
         redirect(action: "show", id: params.id)
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def list() {
         return [payerList: payerService.list()]
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def deletedList() {
         return [deletedList: payerService.deletedList()]
     }
