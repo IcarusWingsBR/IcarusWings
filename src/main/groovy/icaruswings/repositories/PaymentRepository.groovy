@@ -8,14 +8,16 @@ class PaymentRepository implements Repository<Payment, PaymentRepository> {
     @Override
     void buildCriteria() {
         addCriteria {
+            if (PaymentRepository.joinWithPayer(search)) {
+                createAlias("payer", "p")
+            }
+
             if (search.containsKey("id")) {
                 eq("id", Long.valueOf(search.id.toString()))
             }
 
             if (search.containsKey("customer")) {
-                createAlias("payer", "p")
-                createAlias("p.customer", "c")
-                eq("c.id", Long.valueOf(search.customer.toString()))
+                eq("p.customer.id", Long.valueOf(search.customer.toString()))
             }
 
             if (search.containsKey("paymentStatus")) {
@@ -51,5 +53,9 @@ class PaymentRepository implements Repository<Payment, PaymentRepository> {
     @Override
     BuildableCriteria getBuildableCriteria() {
         return Payment.createCriteria()
+    }
+
+    private static joinWithPayer(Map search) {
+        return search.containsKey("customer")
     }
 }
