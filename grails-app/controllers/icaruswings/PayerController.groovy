@@ -54,7 +54,22 @@ class PayerController extends BaseController {
         redirect(action: "list")
     }
 
+    def restore() {
+        Long id = Long.valueOf(params.id)
+
+        payerService.restore(id)
+
+        flash.type = "success"
+        flash.message = "Pagador restaurado com sucesso"
+
+        redirect(action: "show", id: params.id)
+    }
+
     def list() {
         return [payerList: payerService.list()]
+    }
+
+    def deletedList() {
+        return [deletedList: payerService.deletedList()]
     }
 }
