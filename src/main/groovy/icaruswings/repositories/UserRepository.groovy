@@ -12,8 +12,8 @@ class UserRepository implements Repository<User, UserRepository> {
                 eq("id", Long.valueOf(search.id.toString()))
             }
 
-            if (search.containsKey("customer")) {
-                    eq("customer.id", Long.valueOf(search.customer.toString()))
+            if (search.containsKey("customerId")) {
+                    eq("customer.id", Long.valueOf(search.customerId.toString()))
             }
         }
     }
