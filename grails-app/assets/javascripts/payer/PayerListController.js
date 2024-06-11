@@ -1,35 +1,77 @@
 function PayerListController() {
     this.reference = document.querySelector(".js-list-panel");
+    var filterOptionsReference = document.querySelectorAll(".js-filter-options");
     var _this = this;
     var deleteHandler;
+    var restoreHandler;
+    var deletedListReference = _this.reference.querySelector(".js-deleted-list");
     var deleteButtonsReference = _this.reference.querySelectorAll('.js-delete-button');
-    var modalReference = _this.reference.querySelector('.js-modal');
-    var closeModalButtonReference = _this.reference.querySelector('.js-close-modal-button');
+    var deleteModalReference = _this.reference.querySelector('.js-delete-modal');
+    var closeModalButtonReference = _this.reference.querySelector('.js-close-delete-modal-button');
     var deletePayerButtonReference = _this.reference.querySelector('.js-delete-payer-button');
+    var listReference = _this.reference.querySelector(".js-list");
+    var restoreButtonsReference = _this.reference.querySelectorAll('.js-restore-button');
+    var restoreModalReference = _this.reference.querySelector('.js-restore-modal');
+    var restorePayerButtonReference = _this.reference.querySelector('.js-restore-payer-button');
+
     var payerId;
 
     this.init = function() {
-        console.log(deleteButtonsReference)
         deleteHandler = new DeleteHandler();
+        restoreHandler = new RestoreHandler();
         _this.bindDeleteButtons();
-        closeModalButtonReference.addEventListener("atlas-icon-button-click", _this.closeModal);
+        _this.bindRestoreButtons();
+        _this.bindFilterOptions();
+        closeModalButtonReference.addEventListener("click", _this.closeDeleteModal);
         deletePayerButtonReference.addEventListener("atlas-button-click", _this.deletePayer);
+        restorePayerButtonReference.addEventListener("atlas-button-click", _this.restorePayer);
+        deletedListReference.remove();
     };
 
     this.bindDeleteButtons = function() {
         deleteButtonsReference.forEach(deleteButton => {
-            deleteButton.addEventListener('click', this.openModal)
+            deleteButton.addEventListener('click', this.openDeleteModal);
         })
     };
 
-    this.openModal = function(event) {
-        payerId = event.currentTarget.id;
-        modalReference.setAttribute("open", "");
+    this.bindRestoreButtons = function() {
+        restoreButtonsReference.forEach(restoreButton => {
+            restoreButton.addEventListener('click', this.openRestoreModal);
+        });
     };
 
-    this.closeModal = function() {
-        modalReference.removeAttribute("open");
+    this.bindFilterOptions = function() {
+        filterOptionsReference.forEach(option => {
+            option.addEventListener('atlas-radio-change', this.changeDisplay);
+        });
+    }
+
+    this.openDeleteModal = function(event) {
+        payerId = event.currentTarget.id;
+        deleteModalReference.setAttribute("open", "");
     };
+
+    this.closeDeleteModal = function() {
+        deleteModalReference.removeAttribute("open");
+    };
+
+    this.openRestoreModal = function(event) {
+        payerId = event.currentTarget.id;
+        restoreModalReference.setAttribute("open", "");
+    };
+
+    this.changeDisplay =  function(event) {
+        const isChecked = event.target.checked;
+        const value = event.target.value;
+
+        if(value == 'ativas' && isChecked) {
+            deletedListReference.remove();
+            _this.reference.appendChild(listReference);
+        } else if (value == 'excluidas' && isChecked) {
+            listReference.remove();
+            _this.reference.appendChild(deletedListReference);
+        }
+    }
 
     this.deletePayer = async function() {
         await deleteHandler.fetchDelete("payer", payerId)
@@ -40,7 +82,17 @@ function PayerListController() {
                 alert('Erro ao deletar pagador');
             });
 
-        _this.closeModal();
+        window.location.reload();
+    };
+
+    this.restorePayer = async function() {
+        await restoreHandler.fetchRestore("payer", payerId)
+            .then(() => {
+                alert('Restaurado com sucesso');
+            })
+            .catch(() => {
+                alert('Erro ao restaurar cobrança');
+            });
 
         window.location.reload();
     };
