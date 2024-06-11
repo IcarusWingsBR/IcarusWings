@@ -37,7 +37,7 @@ class CustomerService {
         customer.save(failOnError: true)
 
         User user = userService.save(customer, userAdapter)
-        Role role = Role.findByAuthority('ROLE_ADMIN')
+        Role role = Role.findByAuthority('ROLE_USER')
         UserRole.create(user, role, true)
 
         return customer
