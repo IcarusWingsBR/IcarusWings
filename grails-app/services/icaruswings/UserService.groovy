@@ -7,7 +7,6 @@ import icaruswings.adapters.UserAdapter
 class UserService {
 
     public User save(Customer customer, UserAdapter userAdapter) {
-
         User user = new User()
 
         user.customer = customer
