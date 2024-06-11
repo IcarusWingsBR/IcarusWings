@@ -38,6 +38,7 @@
           <div class="error">${flash.message}</div>
         </g:if>
       </atlas-form>
+      <a href="${createLink(controller: "customer", action: "index")}" class="create-account">Criar uma nova conta</a>
     </div>
   </main>
 </div>
