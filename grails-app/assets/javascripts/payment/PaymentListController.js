@@ -1,15 +1,15 @@
 function PaymentListController() {
     this.reference = document.querySelector(".js-list-panel");
-    var filterOptionsReference = document.querySelectorAll(".js-filter-group")
+    var filterOptionsReference = document.querySelectorAll(".js-filter-group");
     var _this = this;
     var deleteHandler;
     var restoreHandler;
-    var listReference = document.querySelector(".js-list");
+    var listReference = _this.reference.querySelector(".js-list");
     var deleteButtonsReference = _this.reference.querySelectorAll('.js-delete-button');
     var modalDeleteReference = _this.reference.querySelector('.js-delete-modal');
     var closeDeleteModalButtonReference = _this.reference.querySelector('.js-close-delete-modal-button');
     var deletePaymentButtonReference = _this.reference.querySelector('.js-delete-payment-button');
-    var deletedListReference = document.querySelector(".js-deleted-list");
+    var deletedListReference = _this.reference.querySelector(".js-deleted-list");
     var restoreButtonsReference = _this.reference.querySelectorAll('.js-restore-button');
     var modalRestoreReference = _this.reference.querySelector('.js-restore-modal');
     var closeRestoreModalButtonReference = _this.reference.querySelector('.js-close-restore-modal-button');
