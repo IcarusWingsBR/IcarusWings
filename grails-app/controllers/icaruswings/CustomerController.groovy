@@ -22,7 +22,7 @@ class CustomerController extends BaseController {
         redirect(action: "show", id: customer.id)
     }
 
-    @Secured(['permitAll'])
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def show() {
         Long id = Long.valueOf(params.id)
         Customer customer = CustomerRepository.get(id)
@@ -32,6 +32,7 @@ class CustomerController extends BaseController {
         return [customer: customer]
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def update() {
         CustomerAdapter customerAdapter = new CustomerAdapter(params)
         customerService.update(customerAdapter)
@@ -42,6 +43,7 @@ class CustomerController extends BaseController {
         redirect(action: "show", id: params.id)
     }
 
+    @Secured(['ROLE_ADMIN'])
     def list() {
         return [customerList: customerService.list()]
     }
