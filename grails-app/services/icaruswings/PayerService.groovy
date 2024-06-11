@@ -62,7 +62,7 @@ class PayerService {
         payer.save(failOnError: true)
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         Payer payer = PayerRepository.get(id)
 
         if (!payer) throw new RuntimeException("Esse pagador não existe")
@@ -81,7 +81,7 @@ class PayerService {
         payer.save(failOnError: true)
     }
 
-    public void restore(Long id){
+    public void restore(Long id) {
         Payer payer = PayerRepository.query([id:id, deletedOnly:true]).get()
 
         if (!payer) throw new RuntimeException("Esse pagador não está deletado ou não existe")
@@ -91,12 +91,17 @@ class PayerService {
         payer.save(failOnError: true)
     }
 
-    public List<Payer> list(){
-        return PayerRepository.query([:]).readOnly().list()
+    public List<Payer> list(Long customerId) {
+        return PayerRepository.query([
+                customerId: customerId,
+        ]).readOnly().list()
     }
 
-    public List<Payer> deletedList(){
-        return PayerRepository.query([deletedOnly:true]).readOnly().list()
+    public List<Payer> deletedList(Long customerId) {
+        return PayerRepository.query([
+                customerId: customerId,
+                deletedOnly:true
+        ]).readOnly().list()
     }
 
     private Payer validateSave(PayerAdapter payerAdapter) {

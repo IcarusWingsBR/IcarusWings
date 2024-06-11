@@ -66,10 +66,12 @@ class PayerController extends BaseController {
     }
 
     def list() {
-        return [payerList: payerService.list()]
+        Long customerId = Long.valueOf(params.id)
+        return [payerList: payerService.list(customerId)]
     }
 
     def deletedList() {
-        return [deletedList: payerService.deletedList()]
+        Long customerId = Long.valueOf(params.id)
+        return [deletedList: payerService.deletedList(customerId)]
     }
 }
