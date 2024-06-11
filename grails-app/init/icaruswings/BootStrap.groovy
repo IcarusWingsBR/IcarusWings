@@ -1,7 +1,6 @@
 package icaruswings
 
 import grails.gorm.transactions.Transactional
-import icaruswings.utils.PersonType
 
 class BootStrap {
 

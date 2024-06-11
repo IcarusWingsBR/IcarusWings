@@ -4,6 +4,5 @@ class LoginController {
 
     def index() { }
 
-    def auth() {
-    }
+    def auth() { }
 }
