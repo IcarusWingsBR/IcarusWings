@@ -63,7 +63,7 @@ class CustomerService {
     }
 
     public List<Customer> list(){
-        return CustomerRepository.query([:]).list()
+        return CustomerRepository.query([:]).readOnly().list()
     }
 
     private Customer validateSave(CustomerAdapter customerAdapter) {
