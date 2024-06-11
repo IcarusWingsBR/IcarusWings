@@ -4,12 +4,13 @@ import grails.plugin.springsecurity.annotation.Secured
 import icaruswings.adapters.CustomerAdapter
 import icaruswings.repositories.CustomerRepository
 
-@Secured('ROLE_ADMIN')
 class CustomerController extends BaseController {
 
     def customerService
 
+    @Secured(['permitAll'])
     def index() {}
+
 
     def save() {
         CustomerAdapter customerAdapter = new CustomerAdapter(params)
