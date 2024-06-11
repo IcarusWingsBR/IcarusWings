@@ -9,13 +9,13 @@ public class StringUtils {
         return !number.matches(".*\\D.*")
     }
 
-    private static Boolean dontHaveNumber(String str) {
+    public static Boolean hasNumber(String str) {
         String regex = "^[^0-9]*"
 
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE)
         Matcher matcher = pattern.matcher(str)
 
-        if (!matcher.matches()) return false
+        if (matcher.matches()) return false
 
         return true
     }
