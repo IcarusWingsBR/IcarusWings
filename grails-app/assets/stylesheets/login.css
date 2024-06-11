@@ -122,3 +122,8 @@ button:hover {
     color: red;
     margin-top: 20px;
 }
+
+.success {
+    color: #8ebf30;
+    margin-top: 20px;
+}
