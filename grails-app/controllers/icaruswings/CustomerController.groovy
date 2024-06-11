@@ -11,7 +11,7 @@ class CustomerController extends BaseController {
     @Secured(['permitAll'])
     def index() {}
 
-
+    @Secured(['permitAll'])
     def save() {
         CustomerAdapter customerAdapter = new CustomerAdapter(params)
         Customer customer = customerService.save(customerAdapter)
@@ -22,6 +22,7 @@ class CustomerController extends BaseController {
         redirect(action: "show", id: customer.id)
     }
 
+    @Secured(['permitAll'])
     def show() {
         Long id = Long.valueOf(params.id)
         Customer customer = CustomerRepository.get(id)
