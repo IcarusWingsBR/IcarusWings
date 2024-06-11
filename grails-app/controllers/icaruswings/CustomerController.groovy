@@ -16,7 +16,7 @@ class CustomerController extends BaseController {
     def save() {
         CustomerAdapter customerAdapter = new CustomerAdapter(params)
         UserAdapter userAdapter = new UserAdapter(params)
-        Customer customer = customerService.save(customerAdapter, userAdapter)
+        customerService.save(customerAdapter, userAdapter)
 
         flash.type = "success"
         flash.message = "Cadastro realizado com sucesso."
