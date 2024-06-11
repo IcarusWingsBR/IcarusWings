@@ -35,7 +35,7 @@
         <button type="submit">Entrar</button>
 
         <g:if test="${flash.message}">
-          <div class="error">${flash.message}</div>
+          <div class="${flash.type == "success" ? "success" : "error"}">${flash.message}</div>
         </g:if>
       </form>
       <a href="${createLink(controller: "customer", action: "index")}" class="create-account">Criar uma nova conta</a>
