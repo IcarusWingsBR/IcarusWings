@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <asset:javascript src="validator/PostalCodeValidator.js"/>
   <asset:javascript src="/basePerson/BasePersonController.js"/>
-  <asset:javascript src="delete/DeleteHandler.js"/>
   <asset:javascript src="payer/PayerShowController.js"/>
 </head>
 <body page-title="Detalhes do Pagador">
@@ -84,7 +83,7 @@
           </atlas-masked-input>
         </atlas-col>
       </atlas-row>
-    </atlas-row>
+      </atlas-row>
       <atlas-row>
         <atlas-col lg="6">
           <atlas-input
@@ -186,18 +185,8 @@
           <atlas-input
                   label="Nome do Cliente vinculado"
                   name="customerName"
-                  required="true"
-     <g:if test="${!payer.deleted}">
-      <atlas-button-group slot="actions">
-        <atlas-button
-          icon="trash"
-          theme="primary"
-          description="Excluir pagador"
-          class="js-open-modal-button"
-        >
-        </atlas-button>
-      </atlas-button-group>
-    </g:if>      </atlas-input>
+                  required="true">     
+          </atlas-input>
         </atlas-col>
       </atlas-row>
     </atlas-grid>

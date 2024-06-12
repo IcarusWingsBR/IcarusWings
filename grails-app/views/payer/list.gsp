@@ -3,11 +3,8 @@
     <title>Pagadores</title>
     <meta name="layout" content="main">
     <asset:javascript src="payer/PayerListController.js"/>
-    <asset:javascript src="delete/DeleteHandler.js"/>
-    <asset:javascript src="restore/RestoreHandler.js"/>
 </head>
 <body page-title="Pagadores">
-
     <atlas-filter >
         <atlas-form slot="simple-filter" method="POST" action="${createLink(customer: "payer", action: "list")}">
             <atlas-filter-group header="Listar Pagadores" name="payerList">
@@ -17,7 +14,6 @@
             <atlas-button class="js-filter-button" submit description="Filtrar"></atlas-button>
         </atlas-form>
     </atlas-filter>
-
     <g:if test="${ payerList }">
         <atlas-panel class="js-list-panel">
             <atlas-table has-actions class="js-list">
