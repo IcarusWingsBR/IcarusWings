@@ -104,6 +104,12 @@ class PayerService {
         ]).readOnly().list()
     }
 
+    public Payer find(Long customerId, Long id) {
+        Payer payer = PayerRepository.query([customerId: customerId, id: id]).get()
+
+        return payer
+    }
+
     private Payer validateSave(PayerAdapter payerAdapter) {
         Payer payer = new Payer()
 
