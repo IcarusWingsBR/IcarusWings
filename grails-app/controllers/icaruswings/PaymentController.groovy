@@ -5,19 +5,18 @@ import icaruswings.payment.Payment
 import icaruswings.adapters.PaymentAdapter
 import icaruswings.repositories.PaymentRepository
 
+@Secured(['IS_AUTHENTICATED_FULLY'])
 class PaymentController extends BaseController {
 
     def paymentService
     def payerService
 
-    @Secured(['IS_AUTHENTICATED_FULLY'])
     def index() {
         List<Payer> payerList = payerService.list()
 
         return [payerList: payerList]
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY'])
     def save() {
         PaymentAdapter paymentAdapter = new PaymentAdapter(params)
         Payment payment = paymentService.save(paymentAdapter)
@@ -28,7 +27,6 @@ class PaymentController extends BaseController {
         redirect(action: "show", id: payment.id)
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY'])
     def show(){
         Long id = Long.valueOf(params.id)
         Payment payment = PaymentRepository.get(id)
@@ -39,7 +37,6 @@ class PaymentController extends BaseController {
         return [payment: payment, payerList: payerList]
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY'])
     def update() {
         PaymentAdapter paymentAdapter = new PaymentAdapter(params)
         paymentService.update(paymentAdapter)
@@ -50,17 +47,14 @@ class PaymentController extends BaseController {
         redirect(action: "show", id: params.id)
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY'])
     def list() {
         return [paymentList: paymentService.list()]
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY'])
     def deletedList() {
         return [paymentDeletedList: paymentService.paymentDeletedList()]
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY'])
     def delete() {
         Long id = Long.valueOf(params.id)
 
@@ -72,7 +66,6 @@ class PaymentController extends BaseController {
         redirect(action: "list")
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY'])
     def restore() {
         Long id = Long.valueOf(params.id)
 
@@ -84,7 +77,6 @@ class PaymentController extends BaseController {
         redirect(action: "show", id: params.id)
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY'])
     def confirmPaymentReceived() {
         Long id = Long.valueOf(params.id)
 
