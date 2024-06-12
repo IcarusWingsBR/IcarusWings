@@ -6,8 +6,6 @@
     <meta name="layout" content="main">
     <title>Cobranças</title>
     <asset:javascript src="payment/PaymentListController.js"/>
-    <asset:javascript src="delete/DeleteHandler.js"/>
-    <asset:javascript src="restore/RestoreHandler.js"/>
 </head>
 <body page-title="Cobranças">
     <atlas-filter >
@@ -150,6 +148,9 @@
                 ></atlas-button>
             </atlas-empty-state>
         </g:else>
+        <g:if test="${flash.message}">
+            <atlas-modal header="${flash.type == "success" ? "Cobrança editada" : "Erro"}" open="">${flash.message}</atlas-modal>
+        </g:if>
     </atlas-panel>
 </body>
 </html>
