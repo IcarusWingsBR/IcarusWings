@@ -8,8 +8,7 @@ class PayerController extends BaseController {
 
     def payerService
 
-    def index() {
-    }
+    def index() { }
 
     def save() {
         PayerAdapter payerAdapter = new PayerAdapter((getAuthenticatedUser() as User).customer, params)
