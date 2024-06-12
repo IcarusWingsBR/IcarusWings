@@ -104,7 +104,7 @@ class PayerService {
 
         if (!payerAdapter.name) {
             payer.errors.rejectValue("name", null, "O campo nome é obrigatório")
-        } else if (!StringUtils.isValidString(payerAdapter.name)) {
+        } else if (StringUtils.hasNumber(payerAdapter.name) || payerAdapter.name.length() < 3 || payerAdapter.name.length() > 255) {
             payer.errors.rejectValue("name", null, "O nome informado é inválido")
         }
 
@@ -150,13 +150,13 @@ class PayerService {
 
         if (!payerAdapter.city) {
             payer.errors.rejectValue("city", null, "O campo cidade é obrigatório")
-        } else if (!StringUtils.isValidString(payerAdapter.city)) {
+        } else if (StringUtils.hasNumber(payerAdapter.city) || payerAdapter.city.length() < 3 || payerAdapter.city.length() > 50) {
             payer.errors.rejectValue("city", null, "A cidade informado é inválida")
         }
 
         if (!payerAdapter.state) {
             payer.errors.rejectValue("state", null, "O campo estado é obrigatório")
-        } else if (!StringUtils.isValidString(payerAdapter.state)) {
+        } else if (StringUtils.hasNumber(payerAdapter.state) || payerAdapter.state.length() < 2 || payerAdapter.state.length() > 15) {
             payer.errors.rejectValue("state", null, "O estado informado é inválido")
         }
 
