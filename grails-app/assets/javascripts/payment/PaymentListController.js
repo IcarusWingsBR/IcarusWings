@@ -1,15 +1,14 @@
 function PaymentListController() {
     this.reference = document.querySelector(".js-list-panel");
-    var filterOptionsReference = document.querySelectorAll(".js-filter-group");
+    var filterOptionsReference = document.querySelectorAll(".js-filter-options");
+    var filterButtonReference = document.querySelector(".js-filter-button");
     var _this = this;
     var deleteHandler;
     var restoreHandler;
-    var listReference = _this.reference.querySelector(".js-list");
     var deleteButtonsReference = _this.reference.querySelectorAll('.js-delete-button');
     var modalDeleteReference = _this.reference.querySelector('.js-delete-modal');
     var closeDeleteModalButtonReference = _this.reference.querySelector('.js-close-delete-modal-button');
     var deletePaymentButtonReference = _this.reference.querySelector('.js-delete-payment-button');
-    var deletedListReference = _this.reference.querySelector(".js-deleted-list");
     var restoreButtonsReference = _this.reference.querySelectorAll('.js-restore-button');
     var modalRestoreReference = _this.reference.querySelector('.js-restore-modal');
     var closeRestoreModalButtonReference = _this.reference.querySelector('.js-close-restore-modal-button');
@@ -21,12 +20,12 @@ function PaymentListController() {
         restoreHandler = new RestoreHandler();
         _this.bindDeleteButtons();
         _this.bindRestoreButtons();
-        _this.bindFilterOptions();
+        _this.bindChangeFilterOptionChecked();
         closeDeleteModalButtonReference.addEventListener("atlas-button-click", _this.closeDeleteModal);
         closeRestoreModalButtonReference.addEventListener("atlas-button-click", _this.closeRestoreModal);
         deletePaymentButtonReference.addEventListener("atlas-button-click", _this.deletePayment);
         restorePaymentButtonReference.addEventListener("atlas-button-click", _this.restorePayment);
-        deletedListReference.remove();
+        filterButtonReference.addEventListener("click", _this.changeList);
     };
 
     this.bindDeleteButtons = function() {
@@ -34,17 +33,25 @@ function PaymentListController() {
             deleteButton.addEventListener('click', this.openDeleteModal);
         })
     };
-
+    
     this.bindRestoreButtons = function() {
         restoreButtonsReference.forEach(restoreButton => {
             restoreButton.addEventListener('click', this.openRestoreModal);
         })
     };
 
-    this.bindFilterOptions = function() {
-        filterOptionsReference.forEach(option => {
-            option.addEventListener('atlas-radio-change', this.changeDisplay);
-        });
+    this.bindChangeFilterOptionChecked =  function() {
+        const url = window.location.href;
+        const activePaymentsOption = filterOptionsReference[0];
+        const deletedPaymentsOption = filterOptionsReference[1];
+
+        if (url == "http://localhost:8080/payment/list/") {
+            activePaymentsOption.checked = true;
+            console.log("aaaaaaa")
+        } else if (url == "http://localhost:8080/payment/list/excluidas") {
+            deletedPaymentsOption.checked = true;
+            console.log("bbbbbbbbbb")
+        }
     }
 
     this.openDeleteModal = function(event) {
@@ -65,18 +72,17 @@ function PaymentListController() {
         modalRestoreReference.removeAttribute("open");
     };
 
-    this.changeDisplay =  function(event) {
-        const isChecked = event.target.checked;
-        const value = event.target.value;
+    this.changeList = function() {
+        const ativasOption = filterOptionsReference[0];
+        const excluidasOption = filterOptionsReference[1];
+        var url = "/payment/list";
 
-        if(value == 'ativas' && isChecked) {
-            deletedListReference.remove();
-            _this.reference.appendChild(listReference);
-        } else if (value == 'excluidas' && isChecked) {
-            listReference.remove();
-            _this.reference.appendChild(deletedListReference);
+        if (ativasOption.checked) { 
+            window.location.href =  url;
+        } else if (excluidasOption.checked) {
+            window.location.href =  url + "/excluidas";
         }
-    }
+    };
 
     this.deletePayment = async function() {
         await deleteHandler.fetchDelete("payment", paymentId)
