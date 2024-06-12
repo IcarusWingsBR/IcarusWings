@@ -10,19 +10,6 @@
   <atlas-form action="${createLink(customer: "payer", action: "save")}" method="POST">
     <atlas-grid>
       <atlas-row>
-        <atlas-col>
-          <atlas-select
-                  label="Cliente"
-                  name="customerId"
-                  required="true"
-          >
-            <g:each var="customer" in="${ customerList }">
-              <atlas-option label="${customer.name}" value="${customer.id}"></atlas-option>
-            </g:each>
-          </atlas-select>
-        </atlas-col>
-      </atlas-row>
-      <atlas-row>
         <atlas-col lg="6">
           <atlas-input
                   label="Nome"
