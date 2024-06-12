@@ -183,15 +183,17 @@
       </atlas-col>
     </atlas-row>
   </atlas-grid>
-  <atlas-button-group slot="actions">
-    <atlas-button
-            icon="trash"
-            theme="primary"
-            description="Excluir pagador"
-            class="js-open-modal-button"
-    >
-    </atlas-button>
-  </atlas-button-group>
+  <g:if test="${ !payer.deleted }">
+    <atlas-button-group slot="actions">
+      <atlas-button
+              icon="trash"
+              theme="primary"
+              description="Excluir pagador"
+              class="js-open-modal-button"
+      >
+      </atlas-button>
+    </atlas-button-group>
+  </g:if>
   <atlas-modal header="Excluir pagador" class="js-modal">
     Você realmente quer excluir esse pagador?
     <atlas-button description="Excluir" theme="danger" slot="actions" href="${createLink(controller: "payer", action: "delete", id: "${payer.id}")}"></atlas-button>
