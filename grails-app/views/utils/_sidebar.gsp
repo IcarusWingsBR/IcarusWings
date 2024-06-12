@@ -82,7 +82,7 @@
             <atlas-sidebar-menu-item
                     icon="money"
                     value="clients-group"
-                    text="Listar Cobranças"
+                    text="Cobranças"
                     href="${createLink(controller: "payment", action: "list")}"
                 ${ controllerName == "payment" && actionName == "list" ? "active" : "" }
             ></atlas-sidebar-menu-item>
