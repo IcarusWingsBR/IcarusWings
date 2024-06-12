@@ -12,7 +12,7 @@ class PaymentController extends BaseController {
     def payerService
 
     def index() {
-        List<Payer> payerList = payerService.list()
+        List<Payer> payerList = payerService.list([customerId: (getAuthenticatedUser() as User).customerId])
 
         return [payerList: payerList]
     }
