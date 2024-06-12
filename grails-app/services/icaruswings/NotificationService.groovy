@@ -47,7 +47,7 @@ class NotificationService {
         notification.title = "Cobrança Excluída."
         notification.message = "Sua cobrança de número ${payment.id} foi excluída com sucesso."
         notification.url = "localhost:8080/payment/${payment.id}/show"
-        notification.type = NotificationType.CREATED
+        notification.type = NotificationType.DELETED
         notification.customer = payment.payer.customer
         notification.save(failOnError: true)
     }
@@ -66,8 +66,8 @@ class NotificationService {
     public void createPaymentRestoredNotification(Payment payment) {
         Notification notification = new Notification()
 
-        notification.title = "Cobrança Atualizada."
-        notification.message = "Sua cobrança de número ${payment.id} foi atualizada com sucesso."
+        notification.title = "Cobrança Restaurada."
+        notification.message = "Sua cobrança de número ${payment.id} foi restaurada com sucesso."
         notification.url = "localhost:8080/payment/${payment.id}/show"
         notification.type = NotificationType.RESTORED
         notification.customer = payment.payer.customer
