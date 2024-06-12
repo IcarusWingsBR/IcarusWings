@@ -7,12 +7,8 @@ import icaruswings.adapters.PayerAdapter
 class PayerController extends BaseController {
 
     def payerService
-    def customerService
 
     def index() {
-        List<Customer> customerList = customerService.list()
-
-        return [customerList: customerList]
     }
 
     def save() {
