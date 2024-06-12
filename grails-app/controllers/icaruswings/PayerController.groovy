@@ -1,7 +1,6 @@
 package icaruswings
 
 import icaruswings.adapters.PayerAdapter
-import icaruswings.repositories.PayerRepository
 
 class PayerController extends BaseController {
 
@@ -26,7 +25,7 @@ class PayerController extends BaseController {
 
     def show() {
         Long id = Long.valueOf(params.id)
-        Payer payer = PayerRepository.get(id)
+        Payer payer = Payer.get(id)
         
         if (!payer) render "Pagador não encontrado"
 
@@ -66,7 +65,11 @@ class PayerController extends BaseController {
     }
 
     def list() {
-        return [payerList: payerService.list(), deletedList: payerService.deletedList()]
+        String filter = params.payerList
+
+        if (filter == "deleted") return [payerList: payerService.deletedList()]
+
+        return [payerList: payerService.list()]
     }
 
     def deletedList() {
