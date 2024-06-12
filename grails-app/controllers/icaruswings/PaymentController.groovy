@@ -18,7 +18,7 @@ class PaymentController extends BaseController {
     }
 
     def save() {
-        PaymentAdapter paymentAdapter = new PaymentAdapter(params)
+        PaymentAdapter paymentAdapter = new PaymentAdapter((getAuthenticatedUser() as User).customer, params)
         Payment payment = paymentService.save(paymentAdapter)
 
         flash.type = "success"
@@ -38,7 +38,7 @@ class PaymentController extends BaseController {
     }
 
     def update() {
-        PaymentAdapter paymentAdapter = new PaymentAdapter(params)
+        PaymentAdapter paymentAdapter = new PaymentAdapter((getAuthenticatedUser() as User).customer, params)
         paymentService.update(paymentAdapter)
 
         flash.type = "success"
