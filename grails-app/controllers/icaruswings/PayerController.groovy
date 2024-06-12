@@ -58,7 +58,7 @@ class PayerController extends BaseController {
     def restore() {
         Long id = Long.valueOf(params.id)
 
-        payerService.restore(id)
+        payerService.restore((getAuthenticatedUser() as User).customerId, id)
 
         flash.type = "success"
         flash.message = "Pagador restaurado com sucesso"
