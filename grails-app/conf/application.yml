@@ -103,7 +103,6 @@ management:
     endpoints:
         jmx:
             unique-names: true
-
 ---
 hibernate:
     cache:
@@ -149,3 +148,13 @@ environments:
                 testOnReturn: false
                 jdbcInterceptors: ConnectionState
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+grails:
+    plugin:
+        springsecurity:
+            userLookup:
+                userDomainClassName: 'icaruswings.User'
+                authorityJoinClassName: 'icaruswings.UserRole'
+            authority:
+                className: 'icaruswings.Role'
+            logout:
+                postOnly: false
