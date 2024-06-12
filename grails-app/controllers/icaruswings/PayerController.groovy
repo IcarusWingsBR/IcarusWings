@@ -1,8 +1,10 @@
 package icaruswings
 
+import grails.plugin.springsecurity.annotation.Secured
 import icaruswings.adapters.PayerAdapter
 import icaruswings.repositories.PayerRepository
 
+@Secured(['IS_AUTHENTICATED_FULLY'])
 class PayerController extends BaseController {
 
     def payerService

@@ -1,9 +1,11 @@
 package icaruswings
 
+import grails.plugin.springsecurity.annotation.Secured
 import icaruswings.payment.Payment
 import icaruswings.adapters.PaymentAdapter
 import icaruswings.repositories.PaymentRepository
 
+@Secured(['IS_AUTHENTICATED_FULLY'])
 class PaymentController extends BaseController {
 
     def paymentService
