@@ -10,7 +10,6 @@
     <asset:javascript src="restore/RestoreHandler.js"/>
 </head>
 <body page-title="Cobranças">
-
     <atlas-filter >
         <atlas-form slot="simple-filter" method="POST" action="${createLink(customer: "payment", action: "list")}">
             <atlas-filter-group header="Listar Cobranças" name="listarCobrancas">
@@ -20,7 +19,6 @@
             <atlas-button class="js-filter-button" submit description="Filtrar"></atlas-button>
         </atlas-form>
     </atlas-filter>
-
     <atlas-panel class="js-list-panel">
         <g:if test="${ paymentList }">
             <atlas-toolbar>
@@ -103,20 +101,40 @@
                                     </atlas-icon-button>
                                 </atlas-button-group>
                             </g:else>
-                        </atlas-table-row>
-                        <atlas-modal header="Excluir Cobrança" class="js-delete-modal">
-                            Você realmente quer excluir essa cobrança?
-                            <atlas-button description="Excluir" theme="danger" slot="actions" class="js-delete-payment-button"></atlas-button>
-                            <atlas-button description="Cancelar" theme="secondary" slot="actions" class="js-close-delete-modal-button"></atlas-button>
-                        </atlas-modal> 
-                        <atlas-modal header="Restaurar Cobrança" class="js-restore-modal">
-                            Você realmente quer restaurar essa cobrança?
-                            <atlas-button description="Restaurar" theme="primary" slot="actions" class="js-restore-payment-button"></atlas-button>
-                            <atlas-button description="Cancelar" theme="secondary" slot="actions" class="js-close-restore-modal-button"></atlas-button>
-                        </atlas-modal> 
+                        </atlas-table-row> 
                     </g:each>
                 </atlas-table-body>
             </atlas-table>
+            <atlas-modal header="Excluir Cobrança" class="js-delete-modal">
+                <atlas-form method="POST" action="${createLink(customer: "payment", action: "delete")}">
+                    Você realmente quer excluir essa cobrança?
+                    <atlas-button-group>
+                        <atlas-button description="Excluir" theme="danger" submit></atlas-button>
+                        <atlas-button description="Cancelar" theme="secondary" class="js-close-delete-modal-button"></atlas-button>
+                    </atlas-button-group>
+                    <atlas-input
+                        class="js-delete-input-id"
+                        value=""
+                        name="id"
+                        hidden
+                    >
+                </atlas-form>
+            </atlas-modal> 
+            <atlas-modal header="Restaurar Cobrança" class="js-restore-modal">
+                <atlas-form method="POST" action="${createLink(customer: "payment", action: "restore")}">
+                    Você realmente quer restaurar essa cobrança?
+                    <atlas-button-group>
+                        <atlas-button description="Restaurar" theme="primary" submit></atlas-button>
+                        <atlas-button description="Cancelar" theme="secondary" class="js-close-restore-modal-button"></atlas-button>
+                    </atlas-button-group>
+                    <atlas-input
+                        class="js-restore-input-id"
+                        value=""
+                        name="id"
+                        hidden
+                    >
+                </atlas-form>
+            </atlas-modal>
         </g:if>
         <g:else>
             <atlas-empty-state
@@ -126,7 +144,7 @@
                 Aqui você pode cadastrar as cobranças que deseja utilizar em suas transações.
                 <atlas-button
                         icon="plus"
-                        description="Adicionar pagador"
+                        description="Criar cobrança"
                         href="${createLink(controller: "payment", action: "index")}"
                         slot="button"
                 ></atlas-button>
