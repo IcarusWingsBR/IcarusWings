@@ -4,7 +4,10 @@ enum NotificationType {
     CREATED,
     PAYED,
     DELETED,
-    OVERDUE
+    OVERDUE,
+    UPDATED,
+    RESTORED
+    
 
     public static NotificationType convert(String notificationType) {
         try {
