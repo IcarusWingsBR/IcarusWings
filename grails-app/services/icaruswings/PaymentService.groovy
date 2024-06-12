@@ -75,28 +75,6 @@ class PaymentService {
         }
     }
 
-    private Payment validateSave(PaymentAdapter paymentAdapter) {
-        Payment payment = new Payment()
-
-        if (!paymentAdapter.paymentType) {
-            payment.errors.rejectValue("paymentType", null, "O tipo de pagamento é inválido")
-        }
-
-        if (!paymentAdapter.value) {
-            payment.errors.rejectValue("value", null, "O campo valor é obrigatório")
-        } else if (paymentAdapter.value < 0) {
-            payment.errors.rejectValue("value", null, "O valor informado deve ser positivo")
-        }
-
-        if (!paymentAdapter.dueDate) {
-            payment.errors.rejectValue("dueDate",  null, "O campo data de vencimento é obrigatório")
-        } else if (DateUtils.isBeforeToday(paymentAdapter.dueDate)) {
-            payment.errors.rejectValue("dueDate",  null, "A data informada é inválida")
-        }
-
-        return payment
-    }
-
     public List<Payment> list() {
         return PaymentRepository.query([:]).readOnly().list()
     }
@@ -159,5 +137,27 @@ class PaymentService {
 
         emailService.sendPaymentConfirmationEmailToPayed(payment.payer, payment, receipt)
         emailService.sendPaymentConfirmationEmailToCustomer(payment.payer, payment, receipt)
+    }
+
+    private Payment validateSave(PaymentAdapter paymentAdapter) {
+        Payment payment = new Payment()
+
+        if (!paymentAdapter.paymentType) {
+            payment.errors.rejectValue("paymentType", null, "O tipo de pagamento é inválido")
+        }
+
+        if (!paymentAdapter.value) {
+            payment.errors.rejectValue("value", null, "O campo valor é obrigatório")
+        } else if (paymentAdapter.value < 0) {
+            payment.errors.rejectValue("value", null, "O valor informado deve ser positivo")
+        }
+
+        if (!paymentAdapter.dueDate) {
+            payment.errors.rejectValue("dueDate",  null, "O campo data de vencimento é obrigatório")
+        } else if (DateUtils.isBeforeToday(paymentAdapter.dueDate)) {
+            payment.errors.rejectValue("dueDate",  null, "A data informada é inválida")
+        }
+
+        return payment
     }
 }
