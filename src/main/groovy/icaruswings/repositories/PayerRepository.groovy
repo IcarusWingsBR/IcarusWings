@@ -12,8 +12,8 @@ class PayerRepository implements Repository<Payer, PayerRepository> {
                 eq("id", Long.valueOf(search.id.toString()))
             }
 
-            if (search.containsKey("customer")) {
-                eq("customer.id", Long.valueOf(search.customer.toString()))
+            if (search.containsKey("customerId")) {
+                eq("customer.id", Long.valueOf(search.customerId.toString()))
             }
         }
     }
@@ -22,7 +22,7 @@ class PayerRepository implements Repository<Payer, PayerRepository> {
     List<String> listAllowedFilters() {
         return [
             "id",
-            "customer"
+            "customerId"
         ]
     }
 

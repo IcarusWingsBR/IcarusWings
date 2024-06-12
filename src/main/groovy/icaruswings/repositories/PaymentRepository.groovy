@@ -9,15 +9,15 @@ class PaymentRepository implements Repository<Payment, PaymentRepository> {
     void buildCriteria() {
         addCriteria {
             if (PaymentRepository.joinWithPayer(search)) {
-                createAlias("payer", "p")
+                createAlias("payer", "payer")
             }
 
             if (search.containsKey("id")) {
                 eq("id", Long.valueOf(search.id.toString()))
             }
 
-            if (search.containsKey("customer")) {
-                eq("p.customer.id", Long.valueOf(search.customer.toString()))
+            if (search.containsKey("payerCustomerId")) {
+                eq("payer.customer.id", Long.valueOf(search.payerCustomerId.toString()))
             }
 
             if (search.containsKey("paymentStatus")) {
@@ -42,7 +42,7 @@ class PaymentRepository implements Repository<Payment, PaymentRepository> {
     List<String> listAllowedFilters() {
         return [
                 "id",
-                "customer",
+                "payerCustomerId",
                 "paymentStatus",
                 "dueDate[lt]",
                 "payer",
@@ -56,6 +56,6 @@ class PaymentRepository implements Repository<Payment, PaymentRepository> {
     }
 
     private static joinWithPayer(Map search) {
-        return search.containsKey("customer")
+        return search.containsKey("payerCustomerId")
     }
 }

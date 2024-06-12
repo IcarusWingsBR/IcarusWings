@@ -82,7 +82,7 @@ class PayerService {
     }
 
     public void deleteAllPayersForCustomer(Long customerId) {
-        List<Long> payerIds = PayerRepository.query([customer: customerId]).column("id").readOnly().list()
+        List<Long> payerIds = PayerRepository.query([customerId: customerId]).column("id").readOnly().list()
 
         for (Long id : payerIds) {
             Payer.withNewTransaction { deletePayer ->

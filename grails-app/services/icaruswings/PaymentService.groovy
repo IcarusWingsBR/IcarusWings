@@ -122,7 +122,7 @@ class PaymentService {
     }
 
     public void deleteAllPaymentsForCustomer(Long customerId) {
-        List<Long> paymentIds = PaymentRepository.query([customer: customerId]).column("id").readOnly().list() 
+        List<Long> paymentIds = PaymentRepository.query([payerCustomerId: customerId]).column("id").readOnly().list() 
 
         for (Long id : paymentIds) {
             Payment.withNewTransaction { deletePayment ->
