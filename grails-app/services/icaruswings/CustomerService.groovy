@@ -60,7 +60,7 @@ class CustomerService {
         customer.save(failOnError: true)
     }
 
-    public List<Customer> list(){
+    public List<Customer> list() {
         return CustomerRepository.query([:]).readOnly().list()
     }
 
