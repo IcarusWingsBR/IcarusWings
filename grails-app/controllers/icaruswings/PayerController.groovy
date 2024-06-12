@@ -17,7 +17,7 @@ class PayerController extends BaseController {
     }
 
     def save() {
-        PayerAdapter payerAdapter = new PayerAdapter(params)
+        PayerAdapter payerAdapter = new PayerAdapter((getAuthenticatedUser() as User).customer, params)
         Payer payer = payerService.save(payerAdapter)
 
         flash.type = "success"
@@ -36,7 +36,7 @@ class PayerController extends BaseController {
     }
 
     def update() {
-        PayerAdapter payerAdapter = new PayerAdapter(params)
+        PayerAdapter payerAdapter = new PayerAdapter((getAuthenticatedUser() as User).customer, params)
         payerService.update(payerAdapter)
 
         flash.type = "success"

@@ -4,6 +4,7 @@ import icaruswings.Customer
 import icaruswings.repositories.CustomerRepository
 import icaruswings.utils.PersonType
 import icaruswings.utils.validator.CpfCnpjValidator
+import org.grails.datastore.mapping.model.types.Custom
 
 class PayerAdapter {
     Long id
@@ -34,7 +35,7 @@ class PayerAdapter {
 
     PersonType personType
 
-    public PayerAdapter(Map params) {
+    public PayerAdapter(Customer customer, Map params) {
         if (params.id) this.id = Long.valueOf(params.id)
 
         this.name = params.name
@@ -47,7 +48,7 @@ class PayerAdapter {
         this.state = params.state
         this.addressNumber = Integer.parseInt(params.addressNumber)
         this.addressComplement = params.addressComplement
-        this.customer = CustomerRepository.get(params.customerId)
+        this.customer = customer
         this.phone = params.phone
 
         if (CpfCnpjValidator.isCPF(params.cpfCnpj)) {
