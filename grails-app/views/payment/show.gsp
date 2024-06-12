@@ -17,21 +17,23 @@
             hidden
         >
         </atlas-input>
-        <atlas-button-group slot="actions" group-after="3">
-            <atlas-button description="Editar" data-panel-start-editing></atlas-button>
-            <atlas-button
-                icon="trash"
-                theme="primary"
-                description="Excluir cobrança"
-                class="js-open-delete-modal-button"
-            ></atlas-button>
-            <atlas-button
-                icon="check"
-                theme="primary"
-                description="Confirmar Pagamento"
-                class="js-open-confirm-received-modal-button"
-            ></atlas-button>
-        </atlas-button-group>
+        <g:if test="${ !payment.deleted }">
+            <atlas-button-group slot="actions" group-after="3">
+                <atlas-button description="Editar" data-panel-start-editing></atlas-button>
+                <atlas-button
+                    icon="trash"
+                    theme="primary"
+                    description="Excluir cobrança"
+                    class="js-open-delete-modal-button"
+                ></atlas-button>
+                <atlas-button
+                    icon="check"
+                    theme="primary"
+                    description="Confirmar Pagamento"
+                    class="js-open-confirm-received-modal-button"
+                ></atlas-button>
+            </atlas-button-group>
+        </g:if>
         <atlas-grid>
             <atlas-row>
                 <atlas-col lg="6">
