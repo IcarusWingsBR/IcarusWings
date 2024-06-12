@@ -7,7 +7,6 @@ enum NotificationType {
     OVERDUE,
     UPDATED,
     RESTORED
-    
 
     public static NotificationType convert(String notificationType) {
         try {
