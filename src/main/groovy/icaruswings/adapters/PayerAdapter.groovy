@@ -1,10 +1,8 @@
 package icaruswings.adapters
 
 import icaruswings.Customer
-import icaruswings.repositories.CustomerRepository
 import icaruswings.utils.PersonType
 import icaruswings.utils.validator.CpfCnpjValidator
-import org.grails.datastore.mapping.model.types.Custom
 
 class PayerAdapter {
     Long id
