@@ -30,7 +30,7 @@ class PaymentController extends BaseController {
     def show(){
         Long id = Long.valueOf(params.id)
         Payment payment = PaymentRepository.get(id)
-        List<Payer> payerList = payerService.list()
+        List<Payer> payerList = payerService.list([customerId: (getAuthenticatedUser() as User).customerId])
         
         if (!payment) render "Cobrança não encontrada."
 
