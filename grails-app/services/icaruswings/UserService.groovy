@@ -15,6 +15,9 @@ class UserService {
 
         user.save(failOnError: true)
 
+        Role role = Role.findByAuthority('ROLE_USER')
+        UserRole.create(user, role, true)
+
         return user
     }
 

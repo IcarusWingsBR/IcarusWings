@@ -36,9 +36,7 @@ class CustomerService {
         customer.personType = customerAdapter.personType
         customer.save(failOnError: true)
 
-        User user = userService.save(customer, userAdapter)
-        Role role = Role.findByAuthority('ROLE_USER')
-        UserRole.create(user, role, true)
+        userService.save(customer, userAdapter)
 
         return customer
     }
