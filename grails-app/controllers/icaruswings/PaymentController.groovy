@@ -45,9 +45,9 @@ class PaymentController extends BaseController {
     }
 
     def list() {
-        String filter = params.listarCobrancas
+        String filter = params.paymentList
 
-        if (filter == "excluidas") return [paymentList: paymentService.paymentDeletedList()]
+        if (filter == "deleted") return [paymentList: paymentService.paymentDeletedList()]
 
         return [paymentList: paymentService.list()]
     }
