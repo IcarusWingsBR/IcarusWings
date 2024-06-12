@@ -9,14 +9,25 @@
   <asset:javascript src="payer/PayerShowController.js"/>
 </head>
 <body page-title="Detalhes do Pagador">
-  <atlas-form-panel action="${createLink(controller: "payer", action: "update")}" header="Detalhes do pagador - ${payer.name}" class="js-save-person-form">
+  <atlas-form-panel method="POST" action="${createLink(controller: "payer", action: "update")}" header="Detalhes do pagador - ${payer.name}" class="js-save-person-form">
     <atlas-input
       value="${payer.id}"
       name="id"
       hidden
     >
     </atlas-input>
-    <atlas-button slot="actions" description="Editar" data-panel-start-editing></atlas-button>
+    <g:if test="${!payer.deleted}">
+      <atlas-button-group slot="actions">
+        <atlas-button description="Editar" data-panel-start-editing></atlas-button>
+        <atlas-button
+          icon="trash"
+          theme="primary"
+          description="Excluir pagador"
+          class="js-open-modal-button"
+        >
+        </atlas-button>
+      </atlas-button-group>
+    </g:if>
     <atlas-grid>
       <atlas-row>
         <atlas-col>
@@ -176,24 +187,20 @@
                   label="Nome do Cliente vinculado"
                   name="customerName"
                   required="true"
-                  readonly
-                  value="${payer.customer.name}"
-          >
-          </atlas-input>
-        </atlas-col>
-      </atlas-row>
-    </atlas-grid>
-    <g:if test="${ !payer.deleted }">
+     <g:if test="${!payer.deleted}">
       <atlas-button-group slot="actions">
         <atlas-button
-                icon="trash"
-                theme="primary"
-                description="Excluir pagador"
-                class="js-open-modal-button"
+          icon="trash"
+          theme="primary"
+          description="Excluir pagador"
+          class="js-open-modal-button"
         >
         </atlas-button>
       </atlas-button-group>
-    </g:if>
+    </g:if>      </atlas-input>
+        </atlas-col>
+      </atlas-row>
+    </atlas-grid>
     <atlas-modal header="Excluir pagador" class="js-modal">
       Você realmente quer excluir esse pagador?
       <atlas-button description="Excluir" theme="danger" slot="actions" href="${createLink(controller: "payer", action: "delete", id: "${payer.id}")}"></atlas-button>
@@ -201,7 +208,7 @@
     </atlas-modal>
   </atlas-form-panel>
   <g:if test="${flash.message}">
-          <atlas-modal header="${flash.type == "success" ? "Cobrança editada" : "Erro"}" open="">${flash.message}</atlas-modal>
+      <atlas-modal header="${flash.type == "success" ? "Cobrança editada" : "Erro"}" open="">${flash.message}</atlas-modal>
   </g:if>
 </body>
 </html>
