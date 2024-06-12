@@ -18,8 +18,8 @@
         </atlas-form>
     </atlas-filter>
 
-    <atlas-panel class="js-list-panel">
-        <g:if test="${ payerList }">
+    <g:if test="${ payerList }">
+        <atlas-panel class="js-list-panel">
             <atlas-table has-actions class="js-list">
                 <atlas-table-header slot="header">
                     <atlas-table-col>
@@ -113,9 +113,9 @@
                         >
                 </atlas-form>
             </atlas-modal>
-        </g:if>
-    </atlas-panel>
-    <g:if test="${!payerList}">
+        </atlas-panel>
+    </g:if>
+    <g:else>
         <atlas-empty-state
                 illustration="schedule-user-avatar"
                 header="Sem pagadores cadastrados"
@@ -128,6 +128,9 @@
                     slot="button"
             ></atlas-button>
         </atlas-empty-state>
+    </g:else>
+    <g:if test="${flash.message}">
+        <atlas-modal header="${flash.type == "success" ? "Cobrança editada" : "Erro"}" open="">${flash.message}</atlas-modal>
     </g:if>
 </body>
 </html>
