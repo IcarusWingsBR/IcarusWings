@@ -62,6 +62,12 @@ class PayerService {
         payer.save(failOnError: true)
     }
 
+    public Payer find(Long customerId, Long id) {
+        Payer payer = PayerRepository.query([customerId: customerId, id: id]).get()
+
+        return payer
+    }
+
     public void delete(Long customerId, Long id) {
         Payer payer = find(customerId, id)
 
@@ -95,23 +101,8 @@ class PayerService {
         payer.save(failOnError: true)
     }
 
-    public List<Payer> list(Long customerId) {
-        return PayerRepository.query([
-                customerId: customerId,
-        ]).readOnly().list()
-    }
-
-    public List<Payer> deletedList(Long customerId) {
-        return PayerRepository.query([
-                customerId: customerId,
-                deletedOnly:true
-        ]).readOnly().list()
-    }
-
-    public Payer find(Long customerId, Long id) {
-        Payer payer = PayerRepository.query([customerId: customerId, id: id]).get()
-
-        return payer
+    public List<Payer> list(Map map) {
+        return PayerRepository.query(map).readOnly().list()
     }
 
     private Payer validateSave(PayerAdapter payerAdapter) {

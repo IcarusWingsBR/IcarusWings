@@ -67,12 +67,15 @@ class PayerController extends BaseController {
     }
 
     def list() {
-        Long customerId = Long.valueOf(params.id)
-        return [payerList: payerService.list(customerId)]
-    }
+        String filter = params.payerList
 
-    def deletedList() {
-        Long customerId = Long.valueOf(params.id)
-        return [deletedList: payerService.deletedList(customerId)]
+        if (filter == "deleted") return [payerList: payerService.list([
+                customerId: (getAuthenticatedUser() as User).customerId,
+                deletedOnly: true]
+        )]
+
+        return [payerList: payerService.list([
+                        customerId: (getAuthenticatedUser() as User).customerId,
+        ])]
     }
 }
