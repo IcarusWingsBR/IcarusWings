@@ -1,7 +1,5 @@
 function PaymentListController() {
     this.reference = document.querySelector(".js-list-panel");
-    var filterOptionsReference = document.querySelectorAll(".js-filter-options");
-    var filterButtonReference = document.querySelector(".js-filter-button");
     var _this = this;
     var deleteHandler;
     var restoreHandler;
@@ -20,12 +18,10 @@ function PaymentListController() {
         restoreHandler = new RestoreHandler();
         _this.bindDeleteButtons();
         _this.bindRestoreButtons();
-        _this.bindChangeFilterOptionChecked();
         closeDeleteModalButtonReference.addEventListener("atlas-button-click", _this.closeDeleteModal);
         closeRestoreModalButtonReference.addEventListener("atlas-button-click", _this.closeRestoreModal);
         deletePaymentButtonReference.addEventListener("atlas-button-click", _this.deletePayment);
         restorePaymentButtonReference.addEventListener("atlas-button-click", _this.restorePayment);
-        filterButtonReference.addEventListener("click", _this.changeList);
     };
 
     this.bindDeleteButtons = function() {
@@ -39,20 +35,6 @@ function PaymentListController() {
             restoreButton.addEventListener('click', this.openRestoreModal);
         })
     };
-
-    this.bindChangeFilterOptionChecked =  function() {
-        const url = window.location.href;
-        const activePaymentsOption = filterOptionsReference[0];
-        const deletedPaymentsOption = filterOptionsReference[1];
-
-        if (url == "http://localhost:8080/payment/list/") {
-            activePaymentsOption.checked = true;
-            console.log("aaaaaaa")
-        } else if (url == "http://localhost:8080/payment/list/excluidas") {
-            deletedPaymentsOption.checked = true;
-            console.log("bbbbbbbbbb")
-        }
-    }
 
     this.openDeleteModal = function(event) {
         paymentId = event.currentTarget.id;
@@ -70,18 +52,6 @@ function PaymentListController() {
 
     this.closeRestoreModal = function() {
         modalRestoreReference.removeAttribute("open");
-    };
-
-    this.changeList = function() {
-        const ativasOption = filterOptionsReference[0];
-        const excluidasOption = filterOptionsReference[1];
-        var url = "/payment/list";
-
-        if (ativasOption.checked) { 
-            window.location.href =  url;
-        } else if (excluidasOption.checked) {
-            window.location.href =  url + "/excluidas";
-        }
     };
 
     this.deletePayment = async function() {

@@ -12,12 +12,12 @@
 <body page-title="Cobranças">
 
     <atlas-filter >
-        <atlas-form slot="simple-filter">
+        <atlas-form slot="simple-filter" method="POST" action="${createLink(customer: "payment", action: "list")}">
             <atlas-filter-group header="Listar Cobranças" name="listarCobrancas">
                 <atlas-radio value="ativas" checked class="js-filter-options">Cobranças Ativas</atlas-radio>
                 <atlas-radio value="excluidas" class="js-filter-options">Cobranças Excluídas</atlas-radio>
             </atlas-filter-group>
-            <atlas-button class="js-filter-button" description="Filtrar"></atlas-button>
+            <atlas-button class="js-filter-button" submit description="Filtrar"></atlas-button>
         </atlas-form>
     </atlas-filter>
 
