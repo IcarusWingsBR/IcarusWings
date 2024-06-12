@@ -7,7 +7,7 @@
 </head>
 <body page-title="Cadastrar pagador">
 <atlas-panel class="js-save-person-form">
-  <atlas-form action="${createLink(customer: "payer", action: "save")}">
+  <atlas-form action="${createLink(customer: "payer", action: "save")}" method="POST">
     <atlas-grid>
       <atlas-row>
         <atlas-col>

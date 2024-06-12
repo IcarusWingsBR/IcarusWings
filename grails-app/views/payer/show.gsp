@@ -9,7 +9,7 @@
   <asset:javascript src="payer/PayerShowController.js"/>
 </head>
 <body page-title="Detalhes do Pagador">
-<atlas-form-panel action="${createLink(controller: "payer", action: "update")}" header="Detalhes do pagador - ${payer.name}" class="js-save-person-form">
+<atlas-form-panel action="${createLink(controller: "payer", action: "update")}" header="Detalhes do pagador - ${payer.name}" class="js-save-person-form" method="POST">
   <atlas-input
           value="${payer.id}"
           name="id"
