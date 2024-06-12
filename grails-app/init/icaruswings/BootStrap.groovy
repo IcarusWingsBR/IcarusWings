@@ -5,11 +5,11 @@ import grails.gorm.transactions.Transactional
 class BootStrap {
 
     def init = {
-        addTestUserWithCustomer()
+        addRoles()
     }
 
     @Transactional
-    void addTestUserWithCustomer() {
+    void addRoles() {
         Role.findOrCreateWhere(authority: 'ROLE_ADMIN').save(failOnError: true)
         Role.findOrCreateWhere(authority: 'ROLE_USER').save(failOnError: true)
     }
