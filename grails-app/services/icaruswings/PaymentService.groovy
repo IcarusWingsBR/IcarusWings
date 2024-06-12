@@ -11,8 +11,9 @@ import icaruswings.utils.date.DateUtils
 @Transactional
 class PaymentService {
 
-    def emailService
-    def receiptService
+    EmailService emailService
+    NotificationService notificationService
+    ReceiptService receiptService
 
     public Payment save(PaymentAdapter paymentAdapter) {
         Payment validatedPayment = validateSave(paymentAdapter)
@@ -30,6 +31,8 @@ class PaymentService {
         emailService.sendCreatePaymentEmailToPayer(payment.payer, payment)
         emailService.sendCreatePaymentEmailToCustomer(payment.payer, payment)      
 
+        notificationService.createPaymentCreatedNotification(payment)
+
         return payment
     }
 
@@ -44,6 +47,8 @@ class PaymentService {
         payment.value = paymentAdapter.value
         payment.dueDate = paymentAdapter.dueDate
         payment.save(failOnError: true)
+
+        notificationService.createPaymentUpdatedNotification(payment)
     }
 
     public void overduePayment(Long id) {
@@ -56,6 +61,8 @@ class PaymentService {
 
         emailService.sendStatusChangeEmailToPayer(payment.payer, payment)
         emailService.sendStatusChangeEmailToCustomer(payment.payer, payment)
+
+        notificationService.createPaymentOverdueNotification(payment)
     }
 
     public void processOverduePayments() {
@@ -120,6 +127,8 @@ class PaymentService {
             emailService.sendStatusChangeEmailToPayer(payment.payer, payment)
             emailService.sendStatusChangeEmailToCustomer(payment.payer, payment)
         }
+
+        notificationService.createPaymentDeletedNotification(payment)
     }
 
     public void restore(Long id) {
@@ -141,6 +150,8 @@ class PaymentService {
             emailService.sendStatusChangeEmailToPayer(payment.payer, payment)
             emailService.sendStatusChangeEmailToCustomer(payment.payer, payment)
         }
+
+        notificationService.createPaymentRestoredNotification(payment)
     }
 
     public void confirmPaymentReceived(Long id) {
@@ -159,5 +170,7 @@ class PaymentService {
 
         emailService.sendPaymentConfirmationEmailToPayed(payment.payer, payment, receipt)
         emailService.sendPaymentConfirmationEmailToCustomer(payment.payer, payment, receipt)
+
+        notificationService.createPaymentPayedNotification(payment)
     }
 }
