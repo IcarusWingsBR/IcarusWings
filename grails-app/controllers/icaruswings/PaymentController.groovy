@@ -2,7 +2,6 @@ package icaruswings
 
 import icaruswings.payment.Payment
 import icaruswings.adapters.PaymentAdapter
-import icaruswings.repositories.PaymentRepository
 
 class PaymentController extends BaseController {
 
@@ -27,7 +26,7 @@ class PaymentController extends BaseController {
 
     def show(){
         Long id = Long.valueOf(params.id)
-        Payment payment = PaymentRepository.get(id)
+        Payment payment = Payment.get(id)
         List<Payer> payerList = payerService.list()
         
         if (!payment) render "Cobrança não encontrada."
@@ -46,6 +45,10 @@ class PaymentController extends BaseController {
     }
 
     def list() {
+        String filter = params.paymentList
+
+        if (filter == "deleted") return [paymentList: paymentService.paymentDeletedList()]
+
         return [paymentList: paymentService.list()]
     }
 
