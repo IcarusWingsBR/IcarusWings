@@ -200,7 +200,7 @@
     </atlas-modal>
   </atlas-form-panel>
   <g:if test="${flash.message}">
-      <atlas-modal header="${flash.type == "success" ? "Cobrança editada" : "Erro"}" open="">${flash.message}</atlas-modal>
+      <atlas-modal header="${flash.type == "success" ? "Pagador editado" : "Erro"}" open="">${flash.message}</atlas-modal>
   </g:if>
 </body>
 </html>
