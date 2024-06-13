@@ -12,6 +12,7 @@ class CustomerController extends BaseController {
     @Secured(['permitAll'])
     def index() {}
     
+    @Secured(['permitAll'])
     def save() {
         CustomerAdapter customerAdapter = new CustomerAdapter(params)
         Customer customer = customerService.save(customerAdapter)
