@@ -3,7 +3,7 @@ package icaruswings.notification
 import icaruswings.Customer
 import icaruswings.utils.BaseEntity
 
-class Notification extends BaseEntity {
+class CustomerNotification extends BaseEntity {
 
     String title
 
@@ -11,15 +11,15 @@ class Notification extends BaseEntity {
 
     String url
 
-    NotificationType type
+    CustomerNotificationType type
 
     Customer customer
 
     static constraints = {
-        title nullable: false, blank: false
-        message nullable: false, blank: false
-        url nullable: false, blank: false
-        type nullable: false, blank: false
-        customer nullable: false, blank: false
+        title blank: false
+        message blank: false
+        url blank: false
+        type blank: false
+        customer blank: false
     }
 }

@@ -1,17 +1,17 @@
 package icaruswings.notification
 
-enum NotificationType {
-    CREATED,
-    PAYED,
-    DELETED,
-    OVERDUE,
-    UPDATED,
-    RESTORED
+enum CustomerNotificationType {
+    PAYMENT_CREATED,
+    PAYMENT_PAYED,
+    PAYMENT_DELETED,
+    PAYMENT_OVERDUE,
+    PAYMENT_UPDATED,
+    PAYMENT_RESTORED
 
-    public static NotificationType convert(String notificationType) {
+    public static CustomerNotificationType convert(String customerNotificationType) {
         try {
-            if (notificationType instanceof String) notificationType = notificationType.toUpperCase()
-            return notificationType as NotificationType
+            if (customerNotificationType instanceof String) customerNotificationType = customerNotificationType.toUpperCase()
+            return customerNotificationType as CustomerNotificationType
         } catch(Exception e) {
             return null
         }
