@@ -1,12 +1,12 @@
-<g:if test="${notifications}">
-    <g:each in="${notifications}" var="notification">
+<g:if test="${customerNotifications}">
+    <g:each in="${customerNotifications}" var="customerNotification">
         <atlas-notification-card
             icon="hand-holding-money"
             overlay-icon="money-notes"
             overlay-theme="success"
-            header="${notification.title}"
-            description="${notification.message}"
-            link-path="${notification.url}"
+            header="${customerNotification.title}"
+            description="${customerNotification.message}"
+            link-path="${customerNotification.url}"
             link-text="Ver Cobrança"
         >
         </atlas-notification-card>
