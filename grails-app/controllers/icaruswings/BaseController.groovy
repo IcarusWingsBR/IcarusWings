@@ -25,4 +25,12 @@ abstract class BaseController {
 
         redirect(action: "index", params: params)
     }
+
+    def getCustomer() {
+        return (getAuthenticatedUser() as User).customer
+    }
+
+    def getCustomerId() {
+        return (getAuthenticatedUser() as User).customerId
+    }
 }

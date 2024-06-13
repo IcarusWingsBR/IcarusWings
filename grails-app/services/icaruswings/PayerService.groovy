@@ -87,6 +87,20 @@ class PayerService {
         payer.save(failOnError: true)
     }
 
+    public void deleteAllPayersForCustomer(Long customerId) {
+        List<Long> payerIds = PayerRepository.query([customerId: customerId]).column("id").readOnly().list()
+
+        for (Long id : payerIds) {
+            Payer.withNewTransaction { deletePayer ->
+                try {
+                    delete(customerId, id)
+                } catch (Exception exception) {
+                    log.info("deletePayer>> Erro ao excluir o pagador de id: [${id}] [Mensagem de erro]: ${exception.message}")
+                }
+            }
+        }
+    }
+
     public void restore(Long customerId, Long id) {
         Payer payer = PayerRepository.query([
                 customerId: customerId,
