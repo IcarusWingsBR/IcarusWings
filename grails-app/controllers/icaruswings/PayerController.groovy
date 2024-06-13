@@ -6,13 +6,12 @@ import icaruswings.repositories.PayerRepository
 class PayerController extends BaseController {
 
     CustomerService customerService
-    NotificationService notificationService
     PayerService payerService
 
     def index() {
         List<Customer> customerList = customerService.list()
 
-        return [customerList: customerList, notifications: notificationService.list((getAuthenticatedUser() as User).customerId)]
+        return [customerList: customerList]
     }
 
     def save() {
@@ -31,7 +30,7 @@ class PayerController extends BaseController {
         
         if (!payer) render "Pagador não encontrado"
 
-        return [payer: payer, notifications: notificationService.list((getAuthenticatedUser() as User).customerId)]
+        return [payer: payer]
     }
 
     def update() {
@@ -67,7 +66,7 @@ class PayerController extends BaseController {
     }
 
     def list() {
-        return [payerList: payerService.list(), notifications: notificationService.list((getAuthenticatedUser() as User).customerId)]
+        return [payerList: payerService.list()]
     }
 
     def deletedList() {

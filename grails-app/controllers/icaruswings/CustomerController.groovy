@@ -7,7 +7,6 @@ import icaruswings.repositories.CustomerRepository
 class CustomerController extends BaseController {
 
     CustomerService customerService
-    NotificationService notificationService
 
     @Secured(['permitAll'])
     def index() {}
@@ -30,7 +29,7 @@ class CustomerController extends BaseController {
 
         if (!customer) render "Cliente não encontrado"
 
-        return [customer: customer, notifications: notificationService.list((getAuthenticatedUser() as User).customerId)]
+        return [customer: customer]
     }
 
     @Secured(['IS_AUTHENTICATED_FULLY'])
@@ -46,6 +45,6 @@ class CustomerController extends BaseController {
 
     @Secured(['ROLE_ADMIN'])
     def list() {
-        return [customerList: customerService.list(), notifications: notificationService.list((getAuthenticatedUser() as User).customerId)]
+        return [customerList: customerService.list()]
     }
 }
