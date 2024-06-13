@@ -13,7 +13,7 @@ class NotificationService {
 
         notification.title = "Criação de cobrança."
         notification.message = "Sua cobrança de número ${payment.id} foi criada com sucesso."
-        notification.url = "localhost:8080/payment/${payment.id}/show"
+        notification.url = "http://localhost:8080/payment/${payment.id}/show"
         notification.type = NotificationType.CREATED
         notification.customer = payment.payer.customer
         notification.save(failOnError: true)
@@ -24,7 +24,7 @@ class NotificationService {
 
         notification.title = "Cobrança Paga."
         notification.message = "Sua cobrança de número ${payment.id} foi paga por ${payment.payer.name}."
-        notification.url = "localhost:8080/payment/${payment.id}/show"
+        notification.url = "http://localhost:8080/payment/${payment.id}/show"
         notification.type = NotificationType.PAYED
         notification.customer = payment.payer.customer
         notification.save(failOnError: true)
@@ -35,7 +35,7 @@ class NotificationService {
 
         notification.title = "Cobrança Vencida."
         notification.message = "Sua cobrança de número ${payment.id} está vencida."
-        notification.url = "localhost:8080/payment/${payment.id}/show"
+        notification.url = "http://localhost:8080/payment/${payment.id}/show"
         notification.type = NotificationType.OVERDUE
         notification.customer = payment.payer.customer
         notification.save(failOnError: true)
@@ -46,7 +46,7 @@ class NotificationService {
 
         notification.title = "Cobrança Excluída."
         notification.message = "Sua cobrança de número ${payment.id} foi excluída com sucesso."
-        notification.url = "localhost:8080/payment/${payment.id}/show"
+        notification.url = "http://localhost:8080/payment/${payment.id}/show"
         notification.type = NotificationType.DELETED
         notification.customer = payment.payer.customer
         notification.save(failOnError: true)
@@ -57,7 +57,7 @@ class NotificationService {
 
         notification.title = "Cobrança Atualizada."
         notification.message = "Sua cobrança de número ${payment.id} foi atualizada com sucesso."
-        notification.url = "localhost:8080/payment/${payment.id}/show"
+        notification.url = "http://localhost:8080/payment/${payment.id}/show"
         notification.type = NotificationType.UPDATED
         notification.customer = payment.payer.customer
         notification.save(failOnError: true)
@@ -68,7 +68,7 @@ class NotificationService {
 
         notification.title = "Cobrança Restaurada."
         notification.message = "Sua cobrança de número ${payment.id} foi restaurada com sucesso."
-        notification.url = "localhost:8080/payment/${payment.id}/show"
+        notification.url = "http://localhost:8080/payment/${payment.id}/show"
         notification.type = NotificationType.RESTORED
         notification.customer = payment.payer.customer
         notification.save(failOnError: true)
