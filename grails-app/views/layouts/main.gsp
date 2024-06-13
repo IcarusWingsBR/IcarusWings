@@ -76,13 +76,14 @@
                 <atlas-dropdown-item
                         icon="cog"
                         theme="secondary"
-                        href="${createLink(controller: 'customer', action: 'show', id: 1)}"
+                        href="${createLink(controller: 'customer', action: 'show', id: customerId)}"
                 >
                     Minha conta
                 </atlas-dropdown-item>
                 <atlas-dropdown-item
                         icon="power"
                         theme="danger"
+                        href="http://localhost:8080/logout"
                 >Sair</atlas-dropdown-item>
             </atlas-dropdown>
         </div>
