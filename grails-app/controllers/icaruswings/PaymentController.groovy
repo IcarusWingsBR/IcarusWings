@@ -47,7 +47,7 @@ class PaymentController extends BaseController {
     }
 
     def list() {
-        return [paymentList: paymentService.list()]
+        return [paymentList: paymentService.list((getAuthenticatedUser() as User).customer.id)]
     }
 
     def deletedList() {
