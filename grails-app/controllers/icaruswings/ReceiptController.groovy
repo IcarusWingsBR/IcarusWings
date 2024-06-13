@@ -1,7 +1,9 @@
 package icaruswings
 
+import grails.plugin.springsecurity.annotation.Secured
 import icaruswings.repositories.ReceiptRepository
 
+@Secured(['permitAll'])
 class ReceiptController extends BaseController {
 
     def show() {
