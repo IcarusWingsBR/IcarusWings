@@ -4,6 +4,7 @@ import grails.gorm.transactions.Transactional
 import icaruswings.payment.Payment
 import icaruswings.notification.Notification
 import icaruswings.notification.NotificationType
+import icaruswings.repositories.NotificationRepository
 
 @Transactional
 class NotificationService {

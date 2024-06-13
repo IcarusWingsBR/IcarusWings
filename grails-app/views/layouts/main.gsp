@@ -23,6 +23,7 @@
         height: 100%;
     }
     </style>
+    <asset:javascript src="/notification/notificationController.js"/>
 </head>
 <body>
 <atlas-screen>
@@ -38,38 +39,19 @@
                     tooltip-trigger="hover focus"
             ></atlas-icon-button>
             <atlas-dropdown
+                header="Notificações"
                 id="notifications-dropdown"
                 placement="bottom-start"
                 trigger="click"
                 width="300"
                 auto-close
-                auto-close-trigger="outside">
-                <g:if test="${notifications}">
-                    <g:each in="${notifications}" var="notification">
-                        <a href="${notification.url}">
-                            <atlas-notification-card
-                                icon="hand-holding-money"
-                                overlay-icon="money-notes"
-                                overlay-theme="success"
-                                header="${notification.title}"
-                                description="${notification.message}"
-                                url="${notification.url}"
-                                >
-                            </atlas-notification-card>
-                        </a>
-                    </g:each>
-                </g:if>
-                <g:else>
-                    <atlas-empty-state
-                            illustration="airplane-error"
-                            header="Nenhuma notificação"
-                    >
-                        Parece que você ainda não tem nenhuma notificação ainda.
-                    </atlas-empty-state>
-                </g:else>
+                auto-close-trigger="outside"
+                loading
+                class="js-notification-button"
+                >
+                <div class="js-div-content"></div>
             </atlas-dropdown>
         </div>
-
         <div slot="actions">
             <atlas-avatar
                     data-atlas-dropdown="profile-dropdown"
