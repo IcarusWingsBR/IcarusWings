@@ -47,4 +47,15 @@ class CustomerController extends BaseController {
     def list() {
         return [customerList: customerService.list()]
     }
+
+    def delete() {
+        Long id = Long.valueOf(params.id)
+
+        customerService.delete(id)
+
+        flash.type = "success"
+        flash.message = "Cliente deletado com sucesso."
+
+        redirect(action: "list")
+    }
 }
