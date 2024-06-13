@@ -1,4 +1,4 @@
-function NotificationController() {
+function CustomerNotificationController() {
     var notificationBellReference = document.querySelector(".js-notification-button");
     var contentReference = document.querySelector(".js-div-content");
 
@@ -11,7 +11,7 @@ function NotificationController() {
     };
 
     var getNotificationList = function() {
-        Atlas.request.get('/notification/list')
+        Atlas.request.get('/customerNotification/list')
         .then(response => {
             contentReference.innerHTML = response.template;
             notificationBellReference.loading = false;
@@ -21,8 +21,8 @@ function NotificationController() {
     init();
 }
 
-var notificationController;
+var customerNotificationController;
 
 document.addEventListener("DOMContentLoaded", () => {
-    notificationController = new NotificationController();
+    customerNotificationController = new CustomerNotificationController();
 })

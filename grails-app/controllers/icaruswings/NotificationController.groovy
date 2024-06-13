@@ -2,16 +2,16 @@ package icaruswings
 
 import grails.plugin.springsecurity.annotation.Secured
 import grails.converters.JSON
-import icaruswings.notification.Notification
+import icaruswings.notification.CustomerNotification
 
 @Secured(['IS_AUTHENTICATED_FULLY'])
-class NotificationController extends BaseController {
+class CustomerNotificationController extends BaseController {
 
-    NotificationService notificationService
+    CustomerNotificationService customerNotificationService
 
     def list() {
-        List<Notification> notifications = notificationService.list((getAuthenticatedUser() as User).customerId)
-        String template = g.render(template: "/notification/list", model: [notifications: notifications])
+        List<CustomerNotification> customerNotifications = customerNotificationService.list((getAuthenticatedUser() as User).customerId)
+        String template = g.render(template: "/customerNotification/list", model: [customerNotifications: customerNotifications])
 
         render([
             template: template

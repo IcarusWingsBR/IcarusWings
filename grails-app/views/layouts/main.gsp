@@ -23,7 +23,7 @@
         height: 100%;
     }
     </style>
-    <asset:javascript src="/notification/notificationController.js"/>
+    <asset:javascript src="/customerNotification/customerNotificationController.js"/>
 </head>
 <body>
 <atlas-screen>
