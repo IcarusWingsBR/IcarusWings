@@ -138,8 +138,8 @@ class PaymentService {
         }
     }
 
-    public void confirmPaymentReceived(Long id) {
-        Payment payment = PaymentRepository.get(id)
+    public void confirmPaymentReceived(Long customerId, Long id) {
+        Payment payment = find(customerId, id)
 
         if (!payment) throw new RuntimeException("Essa cobrança não existe")
 

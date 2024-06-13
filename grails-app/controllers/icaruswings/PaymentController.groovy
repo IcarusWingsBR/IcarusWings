@@ -81,7 +81,7 @@ class PaymentController extends BaseController {
     def confirmPaymentReceived() {
         Long id = Long.valueOf(params.id)
 
-        paymentService.confirmPaymentReceived(id)
+        paymentService.confirmPaymentReceived(((getAuthenticatedUser() as User).customerId), id)
 
         flash.type = "success"
         flash.message = "Status da cobrança atualizado."
