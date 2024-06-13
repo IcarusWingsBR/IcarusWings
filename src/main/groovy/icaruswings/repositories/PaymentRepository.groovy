@@ -8,7 +8,7 @@ class PaymentRepository implements Repository<Payment, PaymentRepository> {
     @Override
     void buildCriteria() {
         addCriteria {
-            if (PaymentRepository.joinWithPayer(search)) {
+            if (joinWithPayer(search)) {
                 createAlias("payer", "payer")
             }
 
@@ -30,6 +30,10 @@ class PaymentRepository implements Repository<Payment, PaymentRepository> {
 
             if (search.containsKey("paymentStatus[in]")) {
                 inList("paymentStatus", search."paymentStatus[in]".collect { PaymentStatus.valueOf(it.toString()) })
+            }
+
+            if (search.containsKey("payerCustomerId")) {
+                eq("payer.customer.id", Long.valueOf(search.payerCustomerId.toString()))
             }
         }
     }

@@ -47,11 +47,13 @@ class PaymentController extends BaseController {
     }
 
     def list() {
-        return [paymentList: paymentService.list((getAuthenticatedUser() as User).customer.id)]
-    }
+        String filter = params.paymentList
 
-    def deletedList() {
-        return [paymentDeletedList: paymentService.paymentDeletedList()]
+        if (filter == "deleted") return [
+                paymentList: paymentService.deletedList((getAuthenticatedUser() as User).customerId)
+        ]
+
+        return [paymentList: paymentService.list((getAuthenticatedUser() as User).customerId)]
     }
 
     def delete() {

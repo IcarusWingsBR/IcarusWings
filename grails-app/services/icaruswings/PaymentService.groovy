@@ -79,8 +79,11 @@ class PaymentService {
         return PaymentRepository.query([payerCustomerId: customerId]).readOnly().list()
     }
 
-    public List<Payment> paymentDeletedList() {
-        return PaymentRepository.query([deletedOnly:true]).readOnly().list()
+    public List<Payment> deletedList(Long customerId) {
+        return PaymentRepository.query([
+                payerCustomerId: customerId,
+                deletedOnly: true
+        ]).readOnly().list()
     }
 
     public void delete(Long id) {
