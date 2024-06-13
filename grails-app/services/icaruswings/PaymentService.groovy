@@ -4,6 +4,7 @@ import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 import icaruswings.payment.Payment
 import icaruswings.adapters.PaymentAdapter
+import icaruswings.repositories.PayerRepository
 import icaruswings.repositories.PaymentRepository
 import icaruswings.payment.PaymentStatus
 import icaruswings.utils.date.DateUtils
@@ -84,6 +85,12 @@ class PaymentService {
                 payerCustomerId: customerId,
                 deletedOnly: true
         ]).readOnly().list()
+    }
+
+    public Payment find(Long customerId, Long id) {
+        Payment payment = PaymentRepository.query([payerCustomerId: customerId, id: id]).get()
+
+        return payment
     }
 
     public void delete(Long id) {
