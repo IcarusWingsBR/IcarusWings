@@ -12,7 +12,7 @@ import icaruswings.utils.date.DateUtils
 class PaymentService {
 
     EmailService emailService
-    NotificationService notificationService
+    CustomerNotificationService customerNotificationService
     ReceiptService receiptService
 
     public Payment save(PaymentAdapter paymentAdapter) {
@@ -31,7 +31,7 @@ class PaymentService {
         emailService.sendCreatePaymentEmailToPayer(payment.payer, payment)
         emailService.sendCreatePaymentEmailToCustomer(payment.payer, payment)      
 
-        notificationService.createPaymentCreatedNotification(payment)
+        customerNotificationService.savePaymentCreatedNotification(payment)
 
         return payment
     }
@@ -48,7 +48,7 @@ class PaymentService {
         payment.dueDate = paymentAdapter.dueDate
         payment.save(failOnError: true)
 
-        notificationService.createPaymentUpdatedNotification(payment)
+        customerNotificationService.savePaymentUpdatedNotification(payment)
     }
 
     public void overduePayment(Long id) {
@@ -62,7 +62,7 @@ class PaymentService {
         emailService.sendStatusChangeEmailToPayer(payment.payer, payment)
         emailService.sendStatusChangeEmailToCustomer(payment.payer, payment)
 
-        notificationService.createPaymentOverdueNotification(payment)
+        customerNotificationService.savePaymentOverdueNotification(payment)
     }
 
     public void processOverduePayments() {
@@ -128,7 +128,7 @@ class PaymentService {
             emailService.sendStatusChangeEmailToCustomer(payment.payer, payment)
         }
 
-        notificationService.createPaymentDeletedNotification(payment)
+        customerNotificationService.savePaymentDeletedNotification(payment)
     }
 
     public void restore(Long id) {
@@ -151,7 +151,7 @@ class PaymentService {
             emailService.sendStatusChangeEmailToCustomer(payment.payer, payment)
         }
 
-        notificationService.createPaymentRestoredNotification(payment)
+        customerNotificationService.savePaymentRestoredNotification(payment)
     }
 
     public void confirmPaymentReceived(Long id) {
@@ -171,6 +171,6 @@ class PaymentService {
         emailService.sendPaymentConfirmationEmailToPayed(payment.payer, payment, receipt)
         emailService.sendPaymentConfirmationEmailToCustomer(payment.payer, payment, receipt)
 
-        notificationService.createPaymentPayedNotification(payment)
+        customerNotificationService.savePaymentPayedNotification(payment)
     }
 }
