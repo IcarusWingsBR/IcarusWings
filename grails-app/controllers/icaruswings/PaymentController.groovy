@@ -70,7 +70,7 @@ class PaymentController extends BaseController {
     def restore() {
         Long id = Long.valueOf(params.id)
 
-        paymentService.restore(id)
+        paymentService.restore(((getAuthenticatedUser() as User).customerId), id)
 
         flash.type = "success"
         flash.message = "Cobrança restaurada com sucesso"

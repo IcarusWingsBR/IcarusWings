@@ -88,7 +88,10 @@ class PaymentService {
     }
 
     public Payment find(Long customerId, Long id) {
-        Payment payment = PaymentRepository.query([payerCustomerId: customerId, id: id]).get()
+        Payment payment = PaymentRepository.query([
+                payerCustomerId: customerId,
+                id: id
+        ]).get()
 
         return payment
     }
@@ -110,8 +113,12 @@ class PaymentService {
         }
     }
 
-    public void restore(Long id) {
-        Payment payment = PaymentRepository.query([id:id, deletedOnly:true]).get()
+    public void restore(Long customerId, Long id) {
+        Payment payment = PaymentRepository.query([
+                payerCustomerId: customerId,
+                id: id,
+                deletedOnly:true
+        ]).get()
 
         if (!payment) throw new RuntimeException("Essa cobrança não está deletada")
 
