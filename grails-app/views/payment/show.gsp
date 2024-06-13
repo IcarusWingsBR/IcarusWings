@@ -85,7 +85,7 @@
                         required="true"
                         max-value="100000000"
                         max-value-error-message="O valor é maior que R$ 100.000.000,00"
-                        value="${payment.value}"
+                        value="${formatTagLib.formatValue(value: payment.value)}"
                     />
                 </atlas-col>
             </atlas-row>
