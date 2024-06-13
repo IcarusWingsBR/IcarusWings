@@ -7,6 +7,7 @@
     <title>Mostrar Cobrança</title>
     <asset:javascript src="payment/PaymentShowController.js"/>
     <asset:javascript src="delete/DeleteHandler.js"/>
+    <asset:stylesheet href="payment/show.css"/>
 </head>
 <body page-title="Detalhes da Cobrança">
     <atlas-form-panel method="POST" action="${createLink(controller: "payment", action: "update")}" header="Detalhes da cobrança - ${payment.id}" class="js-edit-payment-form">
@@ -16,7 +17,23 @@
             hidden
         >
         </atlas-input>
-        <atlas-button slot="actions" description="Editar" data-panel-start-editing></atlas-button>
+        <g:if test="${ !payment.deleted }">
+            <atlas-button-group slot="actions" group-after="3">
+                <atlas-button description="Editar" data-panel-start-editing></atlas-button>
+                <atlas-button
+                    icon="trash"
+                    theme="primary"
+                    description="Excluir cobrança"
+                    class="js-open-delete-modal-button"
+                ></atlas-button>
+                <atlas-button
+                    icon="check"
+                    theme="primary"
+                    description="Confirmar Pagamento"
+                    class="js-open-confirm-received-modal-button"
+                ></atlas-button>
+            </atlas-button-group>
+        </g:if>
         <atlas-grid>
             <atlas-row>
                 <atlas-col lg="6">
@@ -68,7 +85,7 @@
                         required="true"
                         max-value="100000000"
                         max-value-error-message="O valor é maior que R$ 100.000.000,00"
-                        value="${payment.value}"
+                        value="${formatTagLib.formatValue(value: payment.value)}"
                     />
                 </atlas-col>
             </atlas-row>
@@ -90,7 +107,7 @@
                         value="${payment.paymentType}"
                         required="true"
                     >
-                        <atlas-option label="Boleto" value="BANKSLIP"/></atlas-option>
+                        <atlas-option label="Boleto" value="BANK_SLIP"/></atlas-option>
                         <atlas-option label="Cartão" value="CARD"/></atlas-option>
                         <atlas-option label="Pix" value="PIX"></atlas-option>
                     </atlas-select>
@@ -116,19 +133,17 @@
                 </atlas-col> 
             </atlas-row>
         </atlas-grid>
-        <atlas-button-group slot="actions">
-            <atlas-button
-                icon="trash"
-                theme="primary"
-                description="Excluir cobrança"
-                class="js-open-modal-button"
-            >
-            </atlas-button>
-            </atlas-button-group>
-        <atlas-modal header="Excluir Cobrança" class="js-modal">
-            Você realmente quer excluir essa cobrança?
-            <atlas-button description="Excluir" theme="danger" slot="actions" href="${createLink(controller: "payment", action: "delete", id: "${payment.id}")}"></atlas-button>
-            <atlas-button description="Cancelar" theme="secondary" slot="actions" class="js-close-modal-button"></atlas-button>
+        <atlas-modal header="Excluir Cobrança" class="js-delete-modal">
+            <atlas-form method="POST" action="${createLink(controller: "payment", action: "delete", id: "${payment.id}")}">
+                Você realmente quer excluir essa cobrança?
+                <atlas-button class="margin-modal-button" submit description="Excluir" theme="danger"></atlas-button>
+            </atlas-form>
+        </atlas-modal>
+        <atlas-modal header="Confirmar Pagamento" class="js-close-confirm-received-modal">
+            <atlas-form method="POST" action="${createLink(controller: "payment", action: "confirmPaymentReceived", id: "${payment.id}")}">
+                Você realmente quer confirmar essa cobrança como paga?
+                <atlas-button class="margin-modal-button" submit description="Confirmar Pagamento" theme="primary"></atlas-button>
+            </atlas-form>
         </atlas-modal>
         <g:if test="${flash.message}">
             <atlas-modal header="${flash.type == "success" ? "Cobrança editada" : "Erro"}" open="">${flash.message}</atlas-modal>

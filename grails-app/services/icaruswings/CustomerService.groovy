@@ -9,9 +9,13 @@ import icaruswings.utils.validator.EmailValidator
 import icaruswings.utils.validator.PostalCodeValidator
 import icaruswings.utils.validator.PhoneValidator
 import icaruswings.repositories.CustomerRepository
+import icaruswings.payment.Payment
 
 @Transactional
 class CustomerService {
+
+    PayerService payerService
+    PaymentService paymentService
 
     public Customer save(CustomerAdapter customerAdapter) {
         Customer validatedCustomer = validateSave(customerAdapter)
@@ -59,6 +63,19 @@ class CustomerService {
         return CustomerRepository.query([:]).readOnly().list()
     }
 
+    public void delete(Long id) {
+        Customer customer = CustomerRepository.get(id)
+
+        if (!customer) throw new RuntimeException("Esse cliente não existe")
+
+        paymentService.deleteAllPaymentsForCustomer(id)
+        payerService.deleteAllPayersForCustomer(id)
+
+        customer.deleted = true
+
+        customer.save(failOnError: true)
+    }
+
     private Customer validateSave(CustomerAdapter customerAdapter) {
         Customer customer = validateDefaultFields(customerAdapter)
 
@@ -78,7 +95,7 @@ class CustomerService {
 
         if (!customerAdapter.name) {
             customer.errors.rejectValue("name",  null,"O campo nome é obrigatório")
-        } else if (!StringUtils.isValidString(customerAdapter.name)) {
+        } else if (StringUtils.hasNumber(customerAdapter.name) || customerAdapter.name.length() < 3 || customerAdapter.name.length() > 255) {
             customer.errors.rejectValue("name", null, "O nome informado é inválido")
         }
 
@@ -112,13 +129,13 @@ class CustomerService {
 
         if (!customerAdapter.city) {
             customer.errors.rejectValue("city", null, "O campo cidade é obrigatório")
-        } else if (!StringUtils.isValidString(customerAdapter.city)) {
+        } else if (StringUtils.hasNumber(customerAdapter.city) || customerAdapter.city.length() < 3 || customerAdapter.city.length() > 50) {
             customer.errors.rejectValue("city", null, "A cidade informado é inválida")
         }
 
         if (!customerAdapter.state) {
             customer.errors.rejectValue("state", null, "O campo estado é obrigatório")
-        } else if (!StringUtils.isValidString(customerAdapter.state)) {
+        } else if (StringUtils.hasNumber(customerAdapter.state) || customerAdapter.state.length() < 2 || customerAdapter.state.length() > 15) {
             customer.errors.rejectValue("state", null, "O estado informado é inválido")
         }
 
