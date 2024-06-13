@@ -52,7 +52,7 @@ class UrlMappings {
 
             "/$id/restore"(controller: "payment", action: [POST: "restore"])
 
-            "/list"(controller: "payment", action: [GET: "list"])
+            "/list"(controller: "payment", action: [GET: "list", POST: "list"])
 
             "/deletedList"(controller: "payment", action: [GET: "deletedList"])
 
