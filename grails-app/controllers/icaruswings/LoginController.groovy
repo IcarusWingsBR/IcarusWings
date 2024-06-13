@@ -6,4 +6,6 @@ import grails.plugin.springsecurity.annotation.Secured
 class LoginController {
 
     def auth() { }
+
+    def singUp() { }
 }
