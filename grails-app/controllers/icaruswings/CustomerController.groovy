@@ -9,7 +9,12 @@ class CustomerController extends BaseController {
     CustomerService customerService
     NotificationService notificationService
 
-    @Secured(['permitAll'])PayerService payerServicecustomerService.save(customerAdapter)
+    @Secured(['permitAll'])
+    def index() {}
+    
+    def save() {
+        CustomerAdapter customerAdapter = new CustomerAdapter(params)
+        Customer customer = customerService.save(customerAdapter)
 
         flash.type = "success"
         flash.message = "Cadastro realizado com sucesso."
