@@ -1,9 +1,9 @@
 package icaruswings.repositories
 
-import icaruswings.notification.Notification
+import icaruswings.notification.CustomerNotification
 import org.grails.datastore.mapping.query.api.BuildableCriteria
 
-class NotificationRepository implements Repository<Notification, NotificationRepository> {
+class CustomerNotificationRepository implements Repository<CustomerNotification, CustomerNotificationRepository> {
 
     @Override
     void buildCriteria() {
@@ -28,6 +28,6 @@ class NotificationRepository implements Repository<Notification, NotificationRep
 
     @Override
     BuildableCriteria getBuildableCriteria() {
-        return Notification.createCriteria()
+        return CustomerNotification.createCriteria()
     }
 }
