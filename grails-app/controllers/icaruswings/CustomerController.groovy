@@ -6,15 +6,10 @@ import icaruswings.repositories.CustomerRepository
 
 class CustomerController extends BaseController {
 
-    def customerService
+    CustomerService customerService
+    NotificationService notificationService
 
-    @Secured(['permitAll'])
-    def index() {}
-
-    @Secured(['permitAll'])
-    def save() {
-        CustomerAdapter customerAdapter = new CustomerAdapter(params)
-        Customer customer = customerService.save(customerAdapter)
+    @Secured(['permitAll'])PayerService payerServicecustomerService.save(customerAdapter)
 
         flash.type = "success"
         flash.message = "Cadastro realizado com sucesso."
@@ -29,7 +24,7 @@ class CustomerController extends BaseController {
 
         if (!customer) render "Cliente não encontrado"
 
-        return [customer: customer]
+        return [customer: customer, notifications: notificationService.list((getAuthenticatedUser() as User).customerId)]
     }
 
     @Secured(['IS_AUTHENTICATED_FULLY'])
@@ -45,6 +40,6 @@ class CustomerController extends BaseController {
 
     @Secured(['ROLE_ADMIN'])
     def list() {
-        return [customerList: customerService.list()]
+        return [customerList: customerService.list(), notifications: notificationService.list((getAuthenticatedUser() as User).customerId)]
     }
 }

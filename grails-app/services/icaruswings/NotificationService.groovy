@@ -73,4 +73,8 @@ class NotificationService {
         notification.customer = payment.payer.customer
         notification.save(failOnError: true)
     }
+
+    public List<Notification> list(Long customerId) {
+        return NotificationRepository.query([customerId:customerId]).readOnly().list()
+    }
 }

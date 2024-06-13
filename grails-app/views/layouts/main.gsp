@@ -38,26 +38,35 @@
                     tooltip-trigger="hover focus"
             ></atlas-icon-button>
             <atlas-dropdown
-                    id="notifications-dropdown"
-                    placement="bottom-start"
-                    trigger="click"
-                    width="300"
-                    auto-close
-                    auto-close-trigger="outside">
-                <atlas-notification-card
-                        icon="hand-holding-money"
-                        overlay-icon="money-notes"
-                        overlay-theme="success"
-                        header="Pagamento efetuado"
-                        description="">
-                </atlas-notification-card>
-                <atlas-notification-card
-                        icon="hand-holding-money"
-                        overlay-icon="alert-triangle"
-                        overlay-theme="warning"
-                        header="Cobrança expirada"
-                        description="">
-                </atlas-notification-card>
+                id="notifications-dropdown"
+                placement="bottom-start"
+                trigger="click"
+                width="300"
+                auto-close
+                auto-close-trigger="outside">
+                <g:if test="${notifications}">
+                    <g:each in="${notifications}" var="notification">
+                        <a href="${notification.url}">
+                            <atlas-notification-card
+                                icon="hand-holding-money"
+                                overlay-icon="money-notes"
+                                overlay-theme="success"
+                                header="${notification.title}"
+                                description="${notification.message}"
+                                url="${notification.url}"
+                                >
+                            </atlas-notification-card>
+                        </a>
+                    </g:each>
+                </g:if>
+                <g:else>
+                    <atlas-empty-state
+                            illustration="airplane-error"
+                            header="Nenhuma notificação"
+                    >
+                        Parece que você ainda não tem nenhuma notificação ainda.
+                    </atlas-empty-state>
+                </g:else>
             </atlas-dropdown>
         </div>
 
