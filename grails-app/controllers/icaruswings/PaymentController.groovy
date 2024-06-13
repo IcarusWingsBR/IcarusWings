@@ -59,7 +59,7 @@ class PaymentController extends BaseController {
     def delete() {
         Long id = Long.valueOf(params.id)
 
-        paymentService.delete(id)
+        paymentService.delete(((getAuthenticatedUser() as User).customerId), id)
 
         flash.type = "success"
         flash.message = "Cobrança deletada com sucesso"

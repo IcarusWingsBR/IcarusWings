@@ -93,8 +93,8 @@ class PaymentService {
         return payment
     }
 
-    public void delete(Long id) {
-        Payment payment = PaymentRepository.get(id)
+    public void delete(Long customerId, Long id) {
+        Payment payment = find(customerId, id)
 
         if (!payment) throw new RuntimeException("Essa cobrança não existe")
 
