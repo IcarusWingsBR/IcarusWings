@@ -37,8 +37,8 @@
                 value="dashboard"
                 icon="dashboard"
                 text="Resumo"
-                href="${createLink(controller: "customer", action: "index")}"
-            ${ controllerName == "customer" && actionName == "index" ? "active" : "" }>
+                href="${createLink(controller: "customer", action: "dashboard")}"
+            ${ controllerName == "customer" && actionName == "dashboard" ? "active" : "" }>
 
         </atlas-sidebar-menu-item>
 
