@@ -7,5 +7,5 @@ class LoginController {
 
     def auth() { }
 
-    def singUp() { }
+    def createCustomer() { }
 }
