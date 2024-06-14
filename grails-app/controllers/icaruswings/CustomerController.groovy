@@ -10,9 +10,7 @@ class CustomerController extends BaseController {
     def customerService
 
     @Secured(['IS_AUTHENTICATED_FULLY'])
-    def index() {
-        return [customerId: (getAuthenticatedUser() as User).customerId]
-    }
+    def index() {}
 
     @Secured(['permitAll'])
     def save() {
@@ -33,7 +31,7 @@ class CustomerController extends BaseController {
 
         if (!customer) render "Cliente não encontrado"
 
-        return [customer: customer, customerId: (getAuthenticatedUser() as User).customerId]
+        return [customer: customer]
     }
 
     @Secured(['IS_AUTHENTICATED_FULLY'])
@@ -49,7 +47,7 @@ class CustomerController extends BaseController {
 
     @Secured(['ROLE_ADMIN'])
     def list() {
-        return [customerList: customerService.list(), customerId: (getAuthenticatedUser() as User).customerId]
+        return [customerList: customerService.list()]
     }
 
     def delete() {

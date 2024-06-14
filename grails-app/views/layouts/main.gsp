@@ -76,7 +76,7 @@
                 <atlas-dropdown-item
                         icon="cog"
                         theme="secondary"
-                        href="${createLink(controller: 'customer', action: 'show', id: customerId)}"
+                        href="${createLink(controller: 'customer', action: 'show', id: formatTagLib.getCurrentCustomerId())}"
                 >
                     Minha conta
                 </atlas-dropdown-item>

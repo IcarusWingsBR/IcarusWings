@@ -13,7 +13,7 @@ class PaymentController extends BaseController {
     def index() {
         List<Payer> payerList = payerService.list()
 
-        return [payerList: payerList, customerId: (getAuthenticatedUser() as User).customerId]
+        return [payerList: payerList]
     }
 
     def save() {
@@ -33,7 +33,7 @@ class PaymentController extends BaseController {
         
         if (!payment) render "Cobrança não encontrada."
 
-        return [payment: payment, payerList: payerList, customerId: (getAuthenticatedUser() as User).customerId]
+        return [payment: payment, payerList: payerList]
     }
 
     def update() {
@@ -51,7 +51,7 @@ class PaymentController extends BaseController {
 
         if (filter == "deleted") return [paymentList: paymentService.paymentDeletedList()]
 
-        return [paymentList: paymentService.list(), customerId: (getAuthenticatedUser() as User).customerId]
+        return [paymentList: paymentService.list()]
     }
 
     def deletedList() {

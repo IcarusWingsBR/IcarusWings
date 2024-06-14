@@ -12,7 +12,7 @@ class PayerController extends BaseController {
     def index() {
         List<Customer> customerList = customerService.list()
 
-        return [customerList: customerList, customerId: (getAuthenticatedUser() as User).customerId]
+        return [customerList: customerList]
     }
 
     def save() {
@@ -31,7 +31,7 @@ class PayerController extends BaseController {
         
         if (!payer) render "Pagador não encontrado"
 
-        return [payer: payer, customerId: (getAuthenticatedUser() as User).customerId]
+        return [payer: payer]
     }
 
     def update() {
@@ -71,7 +71,7 @@ class PayerController extends BaseController {
 
         if (filter == "deleted") return [payerList: payerService.deletedList()]
 
-        return [payerList: payerService.list(), customerId: (getAuthenticatedUser() as User).customerId]
+        return [payerList: payerService.list()]
     }
 
     def deletedList() {

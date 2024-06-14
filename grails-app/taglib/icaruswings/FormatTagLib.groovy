@@ -1,5 +1,7 @@
 package icaruswings
 
+import icaruswings.CustomerController
+
 class FormatTagLib {
     static namespace = "formatTagLib"
 
@@ -18,5 +20,11 @@ class FormatTagLib {
             String formattedValue = String.format("%,.2f", value)
             out << formattedValue
         }
+    }
+
+    Long getCurrentCustomerId = {
+        CustomerController customer = new CustomerController()
+        
+        out << customer.getCurrentCustomerId()
     }
 }
