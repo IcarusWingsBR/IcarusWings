@@ -14,6 +14,8 @@ import icaruswings.repositories.CustomerRepository
 @Transactional
 class CustomerService {
 
+    PayerService payerService
+    PaymentService paymentService
     UserService userService
 
     public Customer save(CustomerAdapter customerAdapter, UserAdapter userAdapter) {
@@ -62,6 +64,19 @@ class CustomerService {
 
     public List<Customer> list() {
         return CustomerRepository.query([:]).readOnly().list()
+    }
+
+    public void delete(Long id) {
+        Customer customer = CustomerRepository.get(id)
+
+        if (!customer) throw new RuntimeException("Esse cliente não existe")
+
+        paymentService.deleteAllPaymentsForCustomer(id)
+        payerService.deleteAllPayersForCustomer(id)
+
+        customer.deleted = true
+
+        customer.save(failOnError: true)
     }
 
     private Customer validateSave(CustomerAdapter customerAdapter) {

@@ -15,8 +15,7 @@ class UserService {
 
         user.save(failOnError: true)
 
-        Role role = Role.findByAuthority('ROLE_USER')
-        UserRole.create(user, role, true)
+        createUserRole(user)
 
         return user
     }
@@ -25,6 +24,12 @@ class UserService {
         Customer customer = userAdapter.customer
         User user = save(customer, userAdapter)
 
+        createUserRole(user)
+
+        return user
+    }
+
+    private static User createUserRole(User user) {
         Role role = Role.findByAuthority('ROLE_USER')
         UserRole.create(user, role, true)
 
