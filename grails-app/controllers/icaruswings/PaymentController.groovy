@@ -18,7 +18,7 @@ class PaymentController extends BaseController {
     }
 
     def save() {
-        PaymentAdapter paymentAdapter = new PaymentAdapter((getAuthenticatedUser() as User).customer, params)
+        PaymentAdapter paymentAdapter = new PaymentAdapter(getCurrentCustomer(), params)
         Payment payment = paymentService.save(paymentAdapter)
 
         flash.type = "success"
@@ -39,7 +39,7 @@ class PaymentController extends BaseController {
     }
 
     def update() {
-        PaymentAdapter paymentAdapter = new PaymentAdapter((getAuthenticatedUser() as User).customer, params)
+        PaymentAdapter paymentAdapter = new PaymentAdapter(getCurrentCustomer(), params)
         paymentService.update(paymentAdapter)
 
         flash.type = "success"
@@ -51,17 +51,13 @@ class PaymentController extends BaseController {
     def list() {
         String filter = params.paymentList
 
-        if (filter == "deleted") return [
-                paymentList: paymentService.deletedList((getAuthenticatedUser() as User).customerId)
-        ]
-
-        return [paymentList: paymentService.list((getAuthenticatedUser() as User).customerId)]
+        return [paymentList: paymentService.list(getCurrentCustomerId(), filter)]
     }
 
     def delete() {
         Long id = Long.valueOf(params.id)
 
-        paymentService.delete(((getAuthenticatedUser() as User).customerId), id)
+        paymentService.delete(getCurrentCustomerId(), id)
 
         flash.type = "success"
         flash.message = "Cobrança deletada com sucesso"
@@ -72,7 +68,7 @@ class PaymentController extends BaseController {
     def restore() {
         Long id = Long.valueOf(params.id)
 
-        paymentService.restore(((getAuthenticatedUser() as User).customerId), id)
+        paymentService.restore(getCurrentCustomerId(), id)
 
         flash.type = "success"
         flash.message = "Cobrança restaurada com sucesso"
@@ -83,7 +79,7 @@ class PaymentController extends BaseController {
     def confirmPaymentReceived() {
         Long id = Long.valueOf(params.id)
 
-        paymentService.confirmPaymentReceived(((getAuthenticatedUser() as User).customerId), id)
+        paymentService.confirmPaymentReceived(getCurrentCustomerId(), id)
 
         flash.type = "success"
         flash.message = "Status da cobrança atualizado."
