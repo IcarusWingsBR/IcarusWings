@@ -64,13 +64,6 @@ class PayerController extends BaseController {
     def list() {
         String filter = params.payerList
 
-        if (filter == "deleted") return [payerList: payerService.list([
-                customerId: getCurrentCustomerId(),
-                deletedOnly: true]
-        )]
-
-        return [payerList: payerService.list([
-                        customerId: getCurrentCustomerId()
-        ])]
+        return [payerList: payerService.list(getCurrentCustomerId(), filter)]
     }
 }
