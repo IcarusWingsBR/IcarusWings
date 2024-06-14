@@ -11,7 +11,8 @@ class PaymentController extends BaseController {
     def payerService
 
     def index() {
-        List<Payer> payerList = payerService.list([customerId: (getAuthenticatedUser() as User).customerId])
+        String filter = "active"
+        List<Payer> payerList = payerService.list(getCurrentCustomerId(), filter)
 
         return [payerList: payerList]
     }
@@ -29,7 +30,8 @@ class PaymentController extends BaseController {
     def show(){
         Long id = Long.valueOf(params.id)
         Payment payment = Payment.get(id)
-        List<Payer> payerList = payerService.list([customerId: (getAuthenticatedUser() as User).customerId])
+        String filter = "active"
+        List<Payer> payerList = payerService.list(getCurrentCustomerId(), filter)
         
         if (!payment) render "Cobrança não encontrada."
 
