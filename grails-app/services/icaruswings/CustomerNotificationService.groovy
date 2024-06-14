@@ -32,7 +32,7 @@ class CustomerNotificationService {
         customerNotification.title = "Cobrança Paga."
         customerNotification.message = "Sua cobrança de número ${payment.id} foi paga por ${payment.payer.name}."
         customerNotification.url = baseUrl + "payment/${payment.id}/show"
-        customerNotification.type = CustomerNotificationType.PAYMENT_PAYED
+        customerNotification.type = CustomerNotificationType.PAYMENT_PAID
         customerNotification.customer = payment.payer.customer
         customerNotification.save(failOnError: true)
     }
