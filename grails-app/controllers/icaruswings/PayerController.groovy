@@ -11,7 +11,7 @@ class PayerController extends BaseController {
     def index() { }
 
     def save() {
-        PayerAdapter payerAdapter = new PayerAdapter(getCustomer(), params)
+        PayerAdapter payerAdapter = new PayerAdapter(getCurrentCustomer(), params)
         Payer payer = payerService.save(payerAdapter)
 
         flash.type = "success"
@@ -22,7 +22,7 @@ class PayerController extends BaseController {
 
     def show() {
         Long id = Long.valueOf(params.id)
-        Payer payer = payerService.find(getCustomerId(), id)
+        Payer payer = payerService.find(getCurrentCustomerId(), id)
 
         if (!payer) render "Pagador não encontrado"
 
@@ -30,7 +30,7 @@ class PayerController extends BaseController {
     }
 
     def update() {
-        PayerAdapter payerAdapter = new PayerAdapter(getCustomer(), params)
+        PayerAdapter payerAdapter = new PayerAdapter(getCurrentCustomer(), params)
         payerService.update(payerAdapter)
 
         flash.type = "success"
@@ -42,7 +42,7 @@ class PayerController extends BaseController {
     def delete() {
         Long id = Long.valueOf(params.id)
 
-        payerService.delete(getCustomerId(), id)
+        payerService.delete(getCurrentCustomerId(), id)
 
         flash.type = "success"
         flash.message = "Pagador deletado com sucesso"
@@ -53,7 +53,7 @@ class PayerController extends BaseController {
     def restore() {
         Long id = Long.valueOf(params.id)
 
-        payerService.restore(getCustomerId(), id)
+        payerService.restore(getCurrentCustomerId(), id)
 
         flash.type = "success"
         flash.message = "Pagador restaurado com sucesso"
@@ -65,12 +65,12 @@ class PayerController extends BaseController {
         String filter = params.payerList
 
         if (filter == "deleted") return [payerList: payerService.list([
-                customerId: getCustomerId(),
+                customerId: getCurrentCustomerId(),
                 deletedOnly: true]
         )]
 
         return [payerList: payerService.list([
-                        customerId: getCustomerId()
+                        customerId: getCurrentCustomerId()
         ])]
     }
 }
