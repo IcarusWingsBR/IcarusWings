@@ -93,7 +93,7 @@ class PayerService {
         for (Long id : payerIds) {
             Payer.withNewTransaction { deletePayer ->
                 try {
-                    delete(id)
+                    delete(customerId, id)
                 } catch (Exception exception) {
                     log.info("deletePayer>> Erro ao excluir o pagador de id: [${id}] [Mensagem de erro]: ${exception.message}")
                 }
@@ -115,8 +115,17 @@ class PayerService {
         payer.save(failOnError: true)
     }
 
-    public List<Payer> list(Map map) {
-        return PayerRepository.query(map).readOnly().list()
+    public List<Payer> list(Long customerId, String filter) {
+        if (filter == "deleted") return PayerRepository.query([
+                customerId: customerId,
+                deletedOnly: true
+                ]
+        ).readOnly().list()
+
+        return PayerRepository.query([
+                customerId: customerId,
+        ]
+        ).readOnly().list()
     }
 
     private Payer validateSave(PayerAdapter payerAdapter) {

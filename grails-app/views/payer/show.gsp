@@ -185,9 +185,10 @@
           <atlas-input
                   label="Nome do Cliente vinculado"
                   name="customerName"
-                  required="true">
+                  required="true"
                   readonly
                   value="${payer.customer.name}"
+          >
           </atlas-input>
         </atlas-col>
       </atlas-row>

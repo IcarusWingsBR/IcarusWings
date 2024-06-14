@@ -11,7 +11,7 @@ class PayerController extends BaseController {
     def index() { }
 
     def save() {
-        PayerAdapter payerAdapter = new PayerAdapter((getAuthenticatedUser() as User).customer, params)
+        PayerAdapter payerAdapter = new PayerAdapter(getCurrentCustomer(), params)
         Payer payer = payerService.save(payerAdapter)
 
         flash.type = "success"
@@ -22,7 +22,7 @@ class PayerController extends BaseController {
 
     def show() {
         Long id = Long.valueOf(params.id)
-        Payer payer = payerService.find((getAuthenticatedUser() as User).customerId, id)
+        Payer payer = payerService.find(getCurrentCustomerId(), id)
 
         if (!payer) render "Pagador não encontrado"
 
@@ -30,7 +30,7 @@ class PayerController extends BaseController {
     }
 
     def update() {
-        PayerAdapter payerAdapter = new PayerAdapter((getAuthenticatedUser() as User).customer, params)
+        PayerAdapter payerAdapter = new PayerAdapter(getCurrentCustomer(), params)
         payerService.update(payerAdapter)
 
         flash.type = "success"
@@ -42,7 +42,7 @@ class PayerController extends BaseController {
     def delete() {
         Long id = Long.valueOf(params.id)
 
-        payerService.delete((getAuthenticatedUser() as User).customerId, id)
+        payerService.delete(getCurrentCustomerId(), id)
 
         flash.type = "success"
         flash.message = "Pagador deletado com sucesso"
@@ -53,7 +53,7 @@ class PayerController extends BaseController {
     def restore() {
         Long id = Long.valueOf(params.id)
 
-        payerService.restore((getAuthenticatedUser() as User).customerId, id)
+        payerService.restore(getCurrentCustomerId(), id)
 
         flash.type = "success"
         flash.message = "Pagador restaurado com sucesso"
@@ -64,13 +64,6 @@ class PayerController extends BaseController {
     def list() {
         String filter = params.payerList
 
-        if (filter == "deleted") return [payerList: payerService.list([
-                customerId: (getAuthenticatedUser() as User).customerId,
-                deletedOnly: true]
-        )]
-
-        return [payerList: payerService.list([
-                        customerId: (getAuthenticatedUser() as User).customerId,
-        ])]
+        return [payerList: payerService.list(getCurrentCustomerId(), filter)]
     }
 }
