@@ -5,17 +5,17 @@ import grails.compiler.GrailsCompileStatic
 import icaruswings.payment.Payment
 import icaruswings.notification.CustomerNotification
 import icaruswings.notification.CustomerNotificationType
-import org.springframework.beans.factory.annotation.Value
+import grails.core.GrailsApplication
 
 @GrailsCompileStatic
 @Transactional
 class CustomerNotificationService {
 
-    @Value('${baseUrl}')
-    String baseUrl
+    GrailsApplication grailsApplication
 
     public void savePaymentCreatedNotification(Payment payment) {
         CustomerNotification customerNotification = new CustomerNotification()
+        String baseUrl = grailsApplication.config.getProperty('baseUrl')
 
         customerNotification.title = "Criação de cobrança."
         customerNotification.message = "Sua cobrança de número ${payment.id} foi criada com sucesso."
@@ -27,6 +27,7 @@ class CustomerNotificationService {
 
     public void savePaymentPaidNotification(Payment payment) {
         CustomerNotification customerNotification = new CustomerNotification()
+        String baseUrl = grailsApplication.config.getProperty('baseUrl')
 
         customerNotification.title = "Cobrança Paga."
         customerNotification.message = "Sua cobrança de número ${payment.id} foi paga por ${payment.payer.name}."
@@ -38,6 +39,7 @@ class CustomerNotificationService {
 
     public void savePaymentOverdueNotification(Payment payment) {
         CustomerNotification customerNotification = new CustomerNotification()
+        String baseUrl = grailsApplication.config.getProperty('baseUrl')
 
         customerNotification.title = "Cobrança Vencida."
         customerNotification.message = "Sua cobrança de número ${payment.id} está vencida."
@@ -49,6 +51,7 @@ class CustomerNotificationService {
 
     public void savePaymentDeletedNotification(Payment payment) {
         CustomerNotification customerNotification = new CustomerNotification()
+        String baseUrl = grailsApplication.config.getProperty('baseUrl')
 
         customerNotification.title = "Cobrança Excluída."
         customerNotification.message = "Sua cobrança de número ${payment.id} foi excluída com sucesso."
@@ -60,6 +63,7 @@ class CustomerNotificationService {
 
     public void savePaymentUpdatedNotification(Payment payment) {
         CustomerNotification customerNotification = new CustomerNotification()
+        String baseUrl = grailsApplication.config.getProperty('baseUrl')
 
         customerNotification.title = "Cobrança Atualizada."
         customerNotification.message = "Sua cobrança de número ${payment.id} foi atualizada com sucesso."
@@ -71,6 +75,7 @@ class CustomerNotificationService {
 
     public void savePaymentRestoredNotification(Payment payment) {
         CustomerNotification customerNotification = new CustomerNotification()
+        String baseUrl = grailsApplication.config.getProperty('baseUrl')
 
         customerNotification.title = "Cobrança Restaurada."
         customerNotification.message = "Sua cobrança de número ${payment.id} foi restaurada com sucesso."
