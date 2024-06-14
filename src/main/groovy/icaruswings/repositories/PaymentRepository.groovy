@@ -8,12 +8,16 @@ class PaymentRepository implements Repository<Payment, PaymentRepository> {
     @Override
     void buildCriteria() {
         addCriteria {
-            if (joinWithPayer(search)) {
+            if (PaymentRepository.joinWithPayer(search)) {
                 createAlias("payer", "payer")
             }
 
             if (search.containsKey("id")) {
                 eq("id", Long.valueOf(search.id.toString()))
+            }
+
+            if (search.containsKey("payerCustomerId")) {
+                eq("payer.customer.id", Long.valueOf(search.payerCustomerId.toString()))
             }
 
             if (search.containsKey("paymentStatus")) {

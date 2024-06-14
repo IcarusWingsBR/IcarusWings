@@ -113,6 +113,20 @@ class PaymentService {
         }
     }
 
+    public void deleteAllPaymentsForCustomer(Long customerId) {
+        List<Long> paymentIds = PaymentRepository.query([payerCustomerId: customerId]).column("id").readOnly().list()
+
+        for (Long id : paymentIds) {
+            Payment.withNewTransaction { deletePayment ->
+                try {
+                    delete(id)
+                } catch (Exception exception) {
+                    log.info("deletePayment >> Erro ao atualizar status da cobrança de id: [${id}] [Mensagem de erro]: ${exception.message}")
+                }
+            }
+        }
+    }
+
     public void restore(Long customerId, Long id) {
         Payment payment = PaymentRepository.query([
                 payerCustomerId: customerId,

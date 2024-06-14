@@ -4,14 +4,16 @@ function PaymentShowController() {
     var payerReference = _this.reference.querySelector(".js-payer");
     var payerEmailReference = _this.reference.querySelector('.js-payer-email');
     var payerCpfCnpjReference = _this.reference.querySelector('.js-payer-cpfCnpj');
-    var openModalButtonReference = _this.reference.querySelector('.js-open-modal-button');
-    var modalReference = _this.reference.querySelector('.js-modal');
-    var closeModalButtonReference = _this.reference.querySelector('.js-close-modal-button');
+    var openDeleteModalButtonReference = _this.reference.querySelector('.js-open-delete-modal-button');
+    var deleteModalReference = _this.reference.querySelector('.js-delete-modal');
+    var openConfirmReceivedModalButtonReference = _this.reference.querySelector('.js-open-confirm-received-modal-button');
+    var confirmReceivedModalReference = _this.reference.querySelector('.js-close-confirm-received-modal');
+    
 
     this.init = function() {
         payerReference.addEventListener("atlas-select-change", _this.editInfo);
-        openModalButtonReference.addEventListener('atlas-button-click', this.openModal);
-        closeModalButtonReference.addEventListener("atlas-button-click", _this.closeModal);
+        openDeleteModalButtonReference.addEventListener('atlas-button-click', this.openDeleteModal);
+        openConfirmReceivedModalButtonReference.addEventListener('atlas-button-click', this.openConfirmReceivedModal);
     };
 
     this.editInfo = function() {
@@ -24,12 +26,12 @@ function PaymentShowController() {
         payerCpfCnpjReference.value = payerCpfCnpj;
     };
 
-    this.openModal = function() {
-        modalReference.setAttribute("open", "");
+    this.openDeleteModal = function() {
+        deleteModalReference.setAttribute("open", "");
     };
 
-    this.closeModal = function() {
-        modalReference.removeAttribute("open");
+    this.openConfirmReceivedModal = function() {
+        confirmReceivedModalReference.setAttribute("open", "");
     };
 }
 
