@@ -7,7 +7,7 @@
 </head>
 <body page-title="Cadastrar cliente">
 <atlas-panel class="js-save-person-form">
-    <atlas-form action="${createLink(customer: "customer", action: "save")}">
+    <atlas-form action="${createLink(customer: "customer", action: "save")}" method="POST">
         <atlas-grid>
             <atlas-row>
                 <atlas-col lg="6">
@@ -108,13 +108,21 @@
                 </atlas-col>
             </atlas-row>
             <atlas-row>
-                <atlas-col>
+                <atlas-col lg="6">
                     <atlas-input
                             label="Complemento"
                             name="addressComplement"
                             required="true"
                     >
                     </atlas-input>
+                </atlas-col>
+                <atlas-col lg="6">
+                    <atlas-password-input
+                            label="Senha"
+                            name="password"
+                            required="true"
+                    >
+                    </atlas-password-input>
                 </atlas-col>
             </atlas-row>
         </atlas-grid>
