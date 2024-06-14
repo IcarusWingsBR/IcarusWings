@@ -25,6 +25,15 @@ class CustomerController extends BaseController {
     }
 
     @Secured(['IS_AUTHENTICATED_FULLY'])
+    def dashboard() {
+        Long id = getCurrentCustomerId()
+
+        Customer customer = CustomerRepository.get(id)
+
+        return [customer: customer]
+    }
+
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def show() {
         Long id = Long.valueOf(params.id)
         Customer customer = CustomerRepository.get(id)
