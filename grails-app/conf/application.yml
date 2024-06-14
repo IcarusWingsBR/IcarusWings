@@ -20,6 +20,7 @@ grails:
             mail.smtp.protocol: "smtps"
             mail.smtp.channel: "plain"
             mail.smtp.auth: "true"
+    baseUrl: "http://localhost:8080/"
    
 info:
     app:
