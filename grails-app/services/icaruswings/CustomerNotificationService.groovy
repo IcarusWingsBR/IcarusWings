@@ -21,7 +21,7 @@ class CustomerNotificationService {
         customerNotification.save(failOnError: true)
     }
 
-    public void savePaymentPayedNotification(Payment payment) {
+    public void savePaymentPaidNotification(Payment payment) {
         CustomerNotification customerNotification = new CustomerNotification()
 
         customerNotification.title = "Cobrança Paga."

@@ -185,6 +185,6 @@ class PaymentService {
         emailService.sendPaymentConfirmationEmailToPayed(payment.payer, payment, receipt)
         emailService.sendPaymentConfirmationEmailToCustomer(payment.payer, payment, receipt)
 
-        customerNotificationService.savePaymentPayedNotification(payment)
+        customerNotificationService.savePaymentPaidNotification(payment)
     }
 }
