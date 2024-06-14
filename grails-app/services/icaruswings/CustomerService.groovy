@@ -3,17 +3,19 @@ package icaruswings
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 import icaruswings.adapters.CustomerAdapter
-import icaruswings.adapters.UserAdapter
 import icaruswings.utils.validator.CpfCnpjValidator
 import icaruswings.utils.string.StringUtils
 import icaruswings.utils.validator.EmailValidator
 import icaruswings.utils.validator.PostalCodeValidator
 import icaruswings.utils.validator.PhoneValidator
 import icaruswings.repositories.CustomerRepository
+import icaruswings.payment.Payment
 
 @Transactional
 class CustomerService {
 
+    PayerService payerService
+    PaymentService paymentService
     UserService userService
 
     public Customer save(CustomerAdapter customerAdapter, UserAdapter userAdapter) {
@@ -62,6 +64,19 @@ class CustomerService {
 
     public List<Customer> list() {
         return CustomerRepository.query([:]).readOnly().list()
+    }
+
+    public void delete(Long id) {
+        Customer customer = CustomerRepository.get(id)
+
+        if (!customer) throw new RuntimeException("Esse cliente não existe")
+
+        paymentService.deleteAllPaymentsForCustomer(id)
+        payerService.deleteAllPayersForCustomer(id)
+
+        customer.deleted = true
+
+        customer.save(failOnError: true)
     }
 
     private Customer validateSave(CustomerAdapter customerAdapter) {
