@@ -3,13 +3,13 @@ package icaruswings
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 import icaruswings.adapters.CustomerAdapter
+import icaruswings.adapters.UserAdapter
 import icaruswings.utils.validator.CpfCnpjValidator
 import icaruswings.utils.string.StringUtils
 import icaruswings.utils.validator.EmailValidator
 import icaruswings.utils.validator.PostalCodeValidator
 import icaruswings.utils.validator.PhoneValidator
 import icaruswings.repositories.CustomerRepository
-import icaruswings.payment.Payment
 
 @Transactional
 class CustomerService {
