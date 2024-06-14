@@ -152,6 +152,9 @@ environments:
 grails:
     plugin:
         springsecurity:
+            successHandler:
+                alwaysUseDefault: true
+                defaultTargetUrl: "/"
             userLookup:
                 userDomainClassName: 'icaruswings.User'
                 authorityJoinClassName: 'icaruswings.UserRole'

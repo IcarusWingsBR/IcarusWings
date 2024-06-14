@@ -2,6 +2,7 @@ package icaruswings
 
 import grails.plugin.springsecurity.annotation.Secured
 import icaruswings.adapters.CustomerAdapter
+import icaruswings.adapters.UserAdapter
 import icaruswings.repositories.CustomerRepository
 
 class CustomerController extends BaseController {
@@ -14,12 +15,13 @@ class CustomerController extends BaseController {
     @Secured(['permitAll'])
     def save() {
         CustomerAdapter customerAdapter = new CustomerAdapter(params)
-        Customer customer = customerService.save(customerAdapter)
+        UserAdapter userAdapter = new UserAdapter(params)
+        customerService.save(customerAdapter, userAdapter)
 
         flash.type = "success"
         flash.message = "Cadastro realizado com sucesso."
 
-        redirect(action: "show", id: customer.id)
+        redirect(action: "auth", controller: "login")
     }
 
     @Secured(['IS_AUTHENTICATED_FULLY'])
