@@ -1,6 +1,6 @@
 <atlas-sidebar
         slot="sidebar"
-        home-path="${createLink(controller: "customer", action: "index")}"
+        home-path="${createLink(controller: "customer", action: "dashboard")}"
 >
     <atlas-dropdown-button
             theme="primary"
