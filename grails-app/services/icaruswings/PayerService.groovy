@@ -116,14 +116,14 @@ class PayerService {
     }
 
     public List<Payer> list(Long customerId, String filter) {
-        Map<String, Object> queryParams = new HashMap<>();
-        queryParams.put("customerId", customerId);
+        Map<String, Object> queryParams = new HashMap<>()
+        queryParams.put("customerId", customerId)
 
         if ("deleted".equals(filter)) {
-            queryParams.put("deletedOnly", true);
+            queryParams.put("deletedOnly", true)
         }
 
-        return PayerRepository.query(queryParams).readOnly().list();
+        return PayerRepository.query(queryParams).readOnly().list()
     }
 
 
