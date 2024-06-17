@@ -1,25 +1,24 @@
 package icaruswings
 
 import grails.gorm.transactions.Transactional
-import icaruswings.adapters.PayerAdapter
+import grails.validation.ValidationException
 import icaruswings.adapters.UserAdapter
 import icaruswings.repositories.UserRepository
-import icaruswings.utils.string.StringUtils
-import icaruswings.utils.validator.CpfCnpjValidator
 import icaruswings.utils.validator.EmailValidator
 
 @Transactional
 class UserService {
 
     public User save(Customer customer, UserAdapter userAdapter) {
-        User user = new User()
+        User validatedUser = validateSave(userAdapter)
 
+        if (validatedUser.hasErrors()) throw new ValidationException("Não foi possível salvar o pagador", validatedUser.errors)
+
+        User user = new User()
         user.customer = customer
         user.username = userAdapter.username
         user.password = userAdapter.password
-
         user.save(failOnError: true)
-
         createUserRole(user)
 
         return user
@@ -32,12 +31,14 @@ class UserService {
     }
 
     public User update(UserAdapter userAdapter) {
+        User validatedUser = validateSave(userAdapter)
+
+        if (validatedUser.hasErrors()) throw new ValidationException("Não foi possível salvar o pagador", validatedUser.errors)
+
         Long id = userAdapter.id
         User user = UserRepository.get(id)
-
         user.username = userAdapter.username
         user.password = userAdapter.password
-
         user.save(failOnError: true)
     }
 
