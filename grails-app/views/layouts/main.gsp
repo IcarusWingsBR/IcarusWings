@@ -23,6 +23,7 @@
         height: 100%;
     }
     </style>
+    <asset:javascript src="/customerNotification/customerNotificationController.js"/>
 </head>
 <body>
 <atlas-screen>
@@ -38,29 +39,19 @@
                     tooltip-trigger="hover focus"
             ></atlas-icon-button>
             <atlas-dropdown
-                    id="notifications-dropdown"
-                    placement="bottom-start"
-                    trigger="click"
-                    width="300"
-                    auto-close
-                    auto-close-trigger="outside">
-                <atlas-notification-card
-                        icon="hand-holding-money"
-                        overlay-icon="money-notes"
-                        overlay-theme="success"
-                        header="Pagamento efetuado"
-                        description="">
-                </atlas-notification-card>
-                <atlas-notification-card
-                        icon="hand-holding-money"
-                        overlay-icon="alert-triangle"
-                        overlay-theme="warning"
-                        header="Cobrança expirada"
-                        description="">
-                </atlas-notification-card>
+                header="Notificações"
+                id="notifications-dropdown"
+                placement="bottom-start"
+                trigger="click"
+                width="300"
+                auto-close
+                auto-close-trigger="outside"
+                loading
+                class="js-notification-button"
+                >
+                <div class="js-div-content"></div>
             </atlas-dropdown>
         </div>
-
         <div slot="actions">
             <atlas-avatar
                     data-atlas-dropdown="profile-dropdown"

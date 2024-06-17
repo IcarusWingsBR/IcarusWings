@@ -7,7 +7,7 @@ import icaruswings.repositories.CustomerRepository
 
 class CustomerController extends BaseController {
 
-    def customerService
+    CustomerService customerService
 
     @Secured(['IS_AUTHENTICATED_FULLY'])
     def index() {}
