@@ -1,12 +1,16 @@
 package icaruswings.utils.user
 
-import icaruswings.CustomerController
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import icaruswings.User
 
-class UserUtils {
+public class UserUtils {
 
     public static Long getCurrentUserId() {
-        CustomerController customer = new CustomerController()
-    
-        return customer.getCurrentCustomerId()
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getPrincipal().username
+        User user = User.findByUsername(username)
+        
+        return user.customer.id;
     }
 }
