@@ -1,8 +1,12 @@
 package icaruswings
 
 import grails.gorm.transactions.Transactional
+import icaruswings.adapters.PayerAdapter
 import icaruswings.adapters.UserAdapter
 import icaruswings.repositories.UserRepository
+import icaruswings.utils.string.StringUtils
+import icaruswings.utils.validator.CpfCnpjValidator
+import icaruswings.utils.validator.EmailValidator
 
 @Transactional
 class UserService {
@@ -27,7 +31,7 @@ class UserService {
         return user
     }
 
-    public User update (UserAdapter userAdapter) {
+    public User update(UserAdapter userAdapter) {
         Long id = userAdapter.id
         User user = UserRepository.get(id)
 
@@ -39,7 +43,7 @@ class UserService {
 
     public List<User> list(Long customerId, String filter) {
         if (filter == "deleted") return UserRepository.query([
-                customerId: customerId,
+                customerId : customerId,
                 deletedOnly: true
         ]
         ).readOnly().list()
@@ -79,6 +83,22 @@ class UserService {
     private static User createUserRole(User user) {
         Role role = Role.findByAuthority('ROLE_USER')
         UserRole.create(user, role, true)
+
+        return user
+    }
+
+    private User validateSave(UserAdapter userAdapter) {
+        User user = new User()
+
+        if (!userAdapter.username) {
+            user.errors.rejectValue("name", null, "O campo email é obrigatório")
+        } else if (!EmailValidator.isValidEmail(userAdapter.username)) {
+            user.errors.rejectValue("email", null, "O email informado é inválido")
+        }
+
+        if (!userAdapter.password) {
+            user.errors.rejectValue("cpfCnpj", null, "O campo senha é obrigatório")
+        }
 
         return user
     }
