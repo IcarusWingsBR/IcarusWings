@@ -38,7 +38,7 @@
           <div class="${flash.type == "success" ? "success" : "error"}">${flash.message}</div>
         </g:if>
       </form>
-      <a href="${createLink(controller: "customer", action: "index")}" class="create-account">Criar uma nova conta</a>
+      <a href="${createLink(controller: "login", action: "createCustomer")}" class="create-account">Criar uma nova conta</a>
     </div>
   </main>
 </div>
