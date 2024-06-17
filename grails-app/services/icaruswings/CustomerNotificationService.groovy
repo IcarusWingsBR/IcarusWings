@@ -6,6 +6,7 @@ import icaruswings.payment.Payment
 import icaruswings.notification.CustomerNotification
 import icaruswings.notification.CustomerNotificationType
 import grails.core.GrailsApplication
+import icaruswings.repositories.CustomerNotificationRepository
 
 @GrailsCompileStatic
 @Transactional
@@ -83,5 +84,9 @@ class CustomerNotificationService {
         customerNotification.type = CustomerNotificationType.PAYMENT_RESTORED
         customerNotification.customer = payment.payer.customer
         customerNotification.save(failOnError: true)
+    }
+
+    public List<CustomerNotification> list(Long customerId) {
+        return CustomerNotificationRepository.query([customerId:customerId]).readOnly().list()
     }
 }
