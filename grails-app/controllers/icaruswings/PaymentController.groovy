@@ -11,7 +11,7 @@ class PaymentController extends BaseController {
     def payerService
 
     def index() {
-        String filter = "active"
+        String filter = params.payerList
         List<Payer> payerList = payerService.list(getCurrentCustomerId(), filter)
 
         return [payerList: payerList]
