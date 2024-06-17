@@ -76,8 +76,8 @@ class PayerService {
         List<PaymentStatus> paymentStatuses = [PaymentStatus.PENDING, PaymentStatus.OVERDUE]
 
         List<Payment> payments = PaymentRepository.query([
-            payer:id,
-             "paymentStatus[in]": paymentStatuses
+                payer:id,
+                "paymentStatus[in]": paymentStatuses
         ]).readOnly().list()
 
         if (!payments.isEmpty() && payments != null) throw new RuntimeException("Esse pagador tem cobranças pendentes")
@@ -116,17 +116,16 @@ class PayerService {
     }
 
     public List<Payer> list(Long customerId, String filter) {
-        if (filter == "deleted") return PayerRepository.query([
-                customerId: customerId,
-                deletedOnly: true
-                ]
-        ).readOnly().list()
+        Map<String, Object> queryParams = new HashMap<>();
+        queryParams.put("customerId", customerId);
 
-        return PayerRepository.query([
-                customerId: customerId,
-        ]
-        ).readOnly().list()
+        if ("deleted".equals(filter)) {
+            queryParams.put("deletedOnly", true);
+        }
+
+        return PayerRepository.query(queryParams).readOnly().list();
     }
+
 
     private Payer validateSave(PayerAdapter payerAdapter) {
         Payer payer = new Payer()

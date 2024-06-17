@@ -10,7 +10,6 @@ import icaruswings.utils.validator.EmailValidator
 import icaruswings.utils.validator.PostalCodeValidator
 import icaruswings.utils.validator.PhoneValidator
 import icaruswings.repositories.CustomerRepository
-import icaruswings.payment.Payment
 
 @Transactional
 class CustomerService {
