@@ -34,7 +34,7 @@ class UrlMappings {
 
             "/$id/restore"(controller: "payer", action: [POST: "restore"])
 
-            "/list"(controller: "payer", action: [GET: "list", "POST": "list"])
+            "/list"(controller: "payer", action: [GET: "list"])
 
             "/deletedList"(controller: "payer", action: [GET: "deletedList"])
         }
