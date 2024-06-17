@@ -19,7 +19,7 @@
     <atlas-table has-actions class="js-list">
       <atlas-table-header slot="header">
         <atlas-table-col>
-          Nome de usuário
+          Email de usuário
         </atlas-table-col>
         <atlas-table-col>
           Data de criação

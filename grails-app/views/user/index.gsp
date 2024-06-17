@@ -10,7 +10,7 @@
             <atlas-row>
                 <atlas-col lg="6">
                     <atlas-input
-                            label="Nome de usuário"
+                            label="Email de usuário"
                             name="email"
                             required="true"
                     >
