@@ -151,6 +151,9 @@
             </atlas-panel>
         </atlas-page-content>
     </atlas-page>
+    <g:if test="${flash.message}">
+        <atlas-modal header="${flash.type == "success" ? "Cobrança editada" : "Erro"}" open="">${flash.message}</atlas-modal>
+    </g:if>
 </atlas-screen>
 </body>
 </html>
