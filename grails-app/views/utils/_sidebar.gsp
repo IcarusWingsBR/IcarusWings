@@ -1,6 +1,6 @@
 <atlas-sidebar
         slot="sidebar"
-        home-path="${createLink(controller: "customer", action: "dashboard")}"
+        home-path="${createLink(controller: "dashboard", action: "index")}"
 >
     <atlas-dropdown-button
             theme="primary"
@@ -37,8 +37,8 @@
                 value="dashboard"
                 icon="dashboard"
                 text="Resumo"
-                href="${createLink(controller: "customer", action: "dashboard")}"
-            ${ controllerName == "customer" && actionName == "dashboard" ? "active" : "" }>
+                href="${createLink(controller: "dashboard", action: "index")}"
+            ${ controllerName == "dashboard" && actionName == "index" ? "active" : "" }>
 
         </atlas-sidebar-menu-item>
 

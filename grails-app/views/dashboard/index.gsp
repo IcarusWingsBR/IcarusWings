@@ -4,11 +4,11 @@
     <title>Minha Conta</title>
     <asset:javascript src="validator/PostalCodeValidator.js"/>
     <asset:javascript src="/basePerson/BasePersonController.js"/>
-    <asset:stylesheet href="/customer/dashboard.css"/>
+    <asset:stylesheet href="/dashboard/index.css"/>
 </head>
 <body page-title="Dashboard">
 <atlas-panel header="Você pode gostar de conferir:">
-    <a href="${createLink(controller: 'customer', action: 'show', id: formatTagLib.getCurrentCustomerId())}">
+    <a href="${createLink(controller: 'customer', action: 'show')}">
         <atlas-card header="Sua conta">
             Clique aqui para ver informações da sua conta
         </atlas-card>
