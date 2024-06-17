@@ -6,8 +6,6 @@ class CurrentUserTagLib {
     static namespace = "currentUserTagLib"
 
     Long getCurrentUserId = {
-        println UserUtils.getCurrentUserId()
-
         out <<  UserUtils.getCurrentUserId()
     }
 }
