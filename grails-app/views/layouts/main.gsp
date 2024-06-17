@@ -72,6 +72,20 @@
                     Minha conta
                 </atlas-dropdown-item>
                 <atlas-dropdown-item
+                        icon="user-plus"
+                        theme="secondary"
+                        href="${createLink(controller: 'user', action: 'index')}"
+                >
+                    Criar novo usuário
+                </atlas-dropdown-item>
+                <atlas-dropdown-item
+                        icon="users"
+                        theme="secondary"
+                        href="${createLink(controller: 'user', action: 'list')}"
+                >
+                    Lista de usuários
+                </atlas-dropdown-item>
+                <atlas-dropdown-item
                         icon="power"
                         theme="danger"
                 >Sair</atlas-dropdown-item>
