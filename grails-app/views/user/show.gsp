@@ -27,13 +27,14 @@
   <atlas-grid>
     <atlas-row>
       <atlas-col lg="6">
-        <atlas-input
+        <atlas-masked-input
                 label="Email de usuário"
                 name="email"
+                mask-alias="email"
                 required="true"
                 value="${user.username}"
         >
-        </atlas-input>
+        </atlas-masked-input>
       </atlas-col>
       <atlas-col lg="6">
         <atlas-password-input
