@@ -1,9 +1,11 @@
 package icaruswings
 
+import grails.plugin.springsecurity.annotation.Secured
+
+@Secured(['permitAll'])
 class LoginController {
 
-    def index() { }
+    def auth() { }
 
-    def auth() {
-    }
+    def createCustomer() { }
 }

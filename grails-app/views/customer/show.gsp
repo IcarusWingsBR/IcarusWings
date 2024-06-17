@@ -6,7 +6,7 @@
     <asset:javascript src="/basePerson/BasePersonController.js"/>
 </head>
 <body page-title="Detalhes do usuário">
-<atlas-form-panel action="${createLink(controller: "customer", action: "update")}" header="Detalhes do cliente - ${customer.name}" class="js-save-person-form">
+<atlas-form-panel action="${createLink(controller: "customer", action: "update")}" header="Detalhes do cliente - ${customer.name}" class="js-save-person-form" method="POST">
     <atlas-input
             value="${customer.id}"
             name="id"

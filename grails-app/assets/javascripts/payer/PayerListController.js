@@ -1,48 +1,44 @@
 function PayerListController() {
     this.reference = document.querySelector(".js-list-panel");
     var _this = this;
-    var deleteHandler;
     var deleteButtonsReference = _this.reference.querySelectorAll('.js-delete-button');
-    var modalReference = _this.reference.querySelector('.js-modal');
-    var closeModalButtonReference = _this.reference.querySelector('.js-close-modal-button');
-    var deletePayerButtonReference = _this.reference.querySelector('.js-delete-payer-button');
-    var payerId;
+    var deleteModalReference = _this.reference.querySelector('.js-delete-modal');
+    var closeModalButtonReference = _this.reference.querySelector('.js-close-delete-modal-button');
+    var restoreButtonsReference = _this.reference.querySelectorAll('.js-restore-button');
+    var restoreModalReference = _this.reference.querySelector('.js-restore-modal');
+    var restoreInputIdReference = _this.reference.querySelector('.js-restore-input-id');
+    var deleteInputIdReference = _this.reference.querySelector('.js-delete-input-id');
 
     this.init = function() {
-        console.log(deleteButtonsReference)
-        deleteHandler = new DeleteHandler();
         _this.bindDeleteButtons();
-        closeModalButtonReference.addEventListener("atlas-icon-button-click", _this.closeModal);
-        deletePayerButtonReference.addEventListener("atlas-button-click", _this.deletePayer);
+        _this.bindRestoreButtons();
+        closeModalButtonReference.addEventListener("click", _this.closeDeleteModal);
     };
 
     this.bindDeleteButtons = function() {
         deleteButtonsReference.forEach(deleteButton => {
-            deleteButton.addEventListener('click', this.openModal)
+            deleteButton.addEventListener('click', this.openDeleteModal);
         })
     };
 
-    this.openModal = function(event) {
-        payerId = event.currentTarget.id;
-        modalReference.setAttribute("open", "");
+    this.bindRestoreButtons = function() {
+        restoreButtonsReference.forEach(restoreButton => {
+            restoreButton.addEventListener('click', this.openRestoreModal);
+        });
     };
 
-    this.closeModal = function() {
-        modalReference.removeAttribute("open");
+    this.openDeleteModal = function(event) {
+        deleteInputIdReference.value = event.currentTarget.id;
+        deleteModalReference.setAttribute("open", "");
     };
 
-    this.deletePayer = async function() {
-        await deleteHandler.fetchDelete("payer", payerId)
-            .then(() => {
-                alert('Deletado com sucesso');
-            })
-            .catch(() => {
-                alert('Erro ao deletar pagador');
-            });
+    this.closeDeleteModal = function() {
+        deleteModalReference.removeAttribute("open");
+    };
 
-        _this.closeModal();
-
-        window.location.reload();
+    this.openRestoreModal = function(event) {
+        restoreInputIdReference.value = event.currentTarget.id;
+        restoreModalReference.setAttribute("open", "");
     };
 }
 

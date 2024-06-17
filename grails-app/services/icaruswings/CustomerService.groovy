@@ -3,6 +3,7 @@ package icaruswings
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 import icaruswings.adapters.CustomerAdapter
+import icaruswings.adapters.UserAdapter
 import icaruswings.utils.validator.CpfCnpjValidator
 import icaruswings.utils.string.StringUtils
 import icaruswings.utils.validator.EmailValidator
@@ -13,7 +14,11 @@ import icaruswings.repositories.CustomerRepository
 @Transactional
 class CustomerService {
 
-    public Customer save(CustomerAdapter customerAdapter) {
+    PayerService payerService
+    PaymentService paymentService
+    UserService userService
+
+    public Customer save(CustomerAdapter customerAdapter, UserAdapter userAdapter) {
         Customer validatedCustomer = validateSave(customerAdapter)
 
         if (validatedCustomer.hasErrors()) throw new ValidationException("Não foi possível salvar o cliente", validatedCustomer.errors)
@@ -32,6 +37,8 @@ class CustomerService {
         customer.phone= customerAdapter.phone
         customer.personType = customerAdapter.personType
         customer.save(failOnError: true)
+
+        userService.save(customer, userAdapter)
 
         return customer
     }
@@ -55,8 +62,21 @@ class CustomerService {
         customer.save(failOnError: true)
     }
 
-    public List<Customer> list(){
+    public List<Customer> list() {
         return CustomerRepository.query([:]).readOnly().list()
+    }
+
+    public void delete(Long id) {
+        Customer customer = CustomerRepository.get(id)
+
+        if (!customer) throw new RuntimeException("Esse cliente não existe")
+
+        paymentService.deleteAllPaymentsForCustomer(id)
+        payerService.deleteAllPayersForCustomer(id)
+
+        customer.deleted = true
+
+        customer.save(failOnError: true)
     }
 
     private Customer validateSave(CustomerAdapter customerAdapter) {

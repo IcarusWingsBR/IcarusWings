@@ -2,7 +2,7 @@ package icaruswings.notification
 
 enum CustomerNotificationType {
     PAYMENT_CREATED,
-    PAYMENT_PAYED,
+    PAYMENT_PAID,
     PAYMENT_DELETED,
     PAYMENT_OVERDUE,
     PAYMENT_UPDATED,

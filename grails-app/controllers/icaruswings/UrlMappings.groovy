@@ -3,7 +3,7 @@ package icaruswings
 class UrlMappings {
 
     static mappings = {
-        "/$controller/$id?/$action?(.$format)?"{
+        "/$controller/$action?/$id?(.$format)?"{
             constraints {
                 // apply constraints here
             }
@@ -52,7 +52,7 @@ class UrlMappings {
 
             "/$id/restore"(controller: "payment", action: [POST: "restore"])
 
-            "/list"(controller: "payment", action: [GET: "list"])
+            "/list"(controller: "payment", action: [GET: "list", POST: "list"])
 
             "/deletedList"(controller: "payment", action: [GET: "deletedList"])
 

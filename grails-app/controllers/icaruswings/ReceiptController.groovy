@@ -1,9 +1,11 @@
 package icaruswings
 
+import grails.plugin.springsecurity.annotation.Secured
 import icaruswings.repositories.ReceiptRepository
 
 class ReceiptController extends BaseController {
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def show() {
         String token = params.id
    

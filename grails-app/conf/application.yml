@@ -1,4 +1,5 @@
 ---
+baseUrl: "http://localhost:8080/"
 grails:
     profile: web
     codegen:
@@ -151,6 +152,9 @@ environments:
 grails:
     plugin:
         springsecurity:
+            successHandler:
+                alwaysUseDefault: true
+                defaultTargetUrl: "/"
             userLookup:
                 userDomainClassName: 'icaruswings.User'
                 authorityJoinClassName: 'icaruswings.UserRole'
