@@ -4,7 +4,6 @@ import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 import icaruswings.payment.Payment
 import icaruswings.adapters.PaymentAdapter
-import icaruswings.repositories.PayerRepository
 import icaruswings.repositories.PaymentRepository
 import icaruswings.payment.PaymentStatus
 import icaruswings.utils.date.DateUtils
@@ -76,24 +75,15 @@ class PaymentService {
         }
     }
 
-    public List<Payment> list(Long customerId, String filter) {
-        if (filter == "deleted") return PaymentRepository.query([
-                payerCustomerId: customerId,
-                deletedOnly: true
-        ]
-        ).readOnly().list()
+    public List<Payer> list(Long customerId, String filter) {
+        Map<String, Object> queryParams = new HashMap<>();
+        queryParams.put("payerCustomerId", customerId);
 
-        return PaymentRepository.query([
-                payerCustomerId: customerId,
-        ]
-        ).readOnly().list()
-    }
+        if ("deleted".equals(filter)) {
+            queryParams.put("deletedOnly", true);
+        }
 
-    public List<Payment> deletedList(Long customerId) {
-        return PaymentRepository.query([
-                payerCustomerId: customerId,
-                deletedOnly: true
-        ]).readOnly().list()
+        return PaymentRepository.query(queryParams).readOnly().list();
     }
 
     public Payment find(Long customerId, Long id) {
