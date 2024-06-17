@@ -126,7 +126,6 @@ class PayerService {
         return PayerRepository.query(queryParams).readOnly().list()
     }
 
-
     private Payer validateSave(PayerAdapter payerAdapter) {
         Payer payer = new Payer()
 
