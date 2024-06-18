@@ -6,7 +6,7 @@ import icaruswings.adapters.PayerAdapter
 @Secured(['IS_AUTHENTICATED_FULLY'])
 class PayerController extends BaseController {
 
-    def payerService
+    PayerService payerService
 
     def index() { }
 
