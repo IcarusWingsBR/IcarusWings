@@ -21,8 +21,8 @@ class PayerRepository implements Repository<Payer, PayerRepository> {
     @Override
     List<String> listAllowedFilters() {
         return [
-            "id",
-            "customerId"
+                "id",
+                "customerId"
         ]
     }
 

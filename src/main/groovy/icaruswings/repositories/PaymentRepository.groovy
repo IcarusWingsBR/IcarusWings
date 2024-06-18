@@ -41,12 +41,12 @@ class PaymentRepository implements Repository<Payment, PaymentRepository> {
     @Override
     List<String> listAllowedFilters() {
         return [
-                "id",
-                "payerCustomerId",
-                "paymentStatus",
-                "dueDate[lt]",
-                "payer",
-                "paymentStatus[in]"
+            "id",
+            "payerCustomerId",
+            "paymentStatus",
+            "dueDate[lt]",
+            "payer",
+            "paymentStatus[in]"
         ]
     }
 
