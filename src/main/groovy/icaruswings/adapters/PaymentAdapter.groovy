@@ -1,5 +1,6 @@
 package icaruswings.adapters
 
+import icaruswings.Customer
 import icaruswings.Payer
 import icaruswings.payment.PaymentStatus
 import icaruswings.payment.PaymentType
@@ -11,6 +12,8 @@ class PaymentAdapter {
 
     Long id
 
+    Customer customer
+
     Payer payer
 
     PaymentType paymentType
@@ -21,9 +24,10 @@ class PaymentAdapter {
 
     Date dueDate
 
-    public PaymentAdapter(Map params) {
+    public PaymentAdapter(Customer customer, Map params) {
         if (params.id) this.id = Long.valueOf(params.id)
 
+        this.customer = customer
         Long payerId = Long.parseLong(params.payerId)
         this.payer = PayerRepository.get(payerId)
         this.paymentType = PaymentType.convert(params.paymentType)
