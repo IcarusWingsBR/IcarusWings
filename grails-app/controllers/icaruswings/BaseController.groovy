@@ -1,7 +1,7 @@
 package icaruswings
 
 import grails.validation.ValidationException
-import icaruswings.utils.exceptions.DeletePayerException
+import icaruswings.utils.exceptions.BusinessException
 
 abstract class BaseController {
 
@@ -18,7 +18,7 @@ abstract class BaseController {
         redirect(action: "index", params: params)
     }
 
-    def DeletePayerException(DeletePayerException exception) {
+    def BusinessException(BusinessException exception) {
         log.error("Erro com os seguintes parâmetros ${params}", exception)
 
         flash.type = "error"

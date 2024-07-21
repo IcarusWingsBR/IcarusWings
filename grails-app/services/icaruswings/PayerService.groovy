@@ -12,7 +12,7 @@ import icaruswings.utils.string.StringUtils
 import icaruswings.payment.Payment
 import icaruswings.repositories.PaymentRepository
 import icaruswings.payment.PaymentStatus
-import icaruswings.utils.exceptions.DeletePayerException
+import icaruswings.utils.exceptions.BusinessException
 
 @Transactional
 class PayerService {
@@ -81,7 +81,7 @@ class PayerService {
                 "paymentStatus[in]": paymentStatuses
         ]).readOnly().list()
 
-        if (!payments.isEmpty() && payments != null) throw new DeletePayerException("Esse pagador tem cobranças pendentes")
+        if (!payments.isEmpty() && payments != null) throw new BusinessException("Esse pagador tem cobranças pendentes")
 
         payer.deleted = true
 
