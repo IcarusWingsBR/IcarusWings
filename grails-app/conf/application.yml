@@ -154,7 +154,7 @@ grails:
         springsecurity:
             successHandler:
                 alwaysUseDefault: true
-                defaultTargetUrl: "/"
+                defaultTargetUrl: "/dashboard"
             userLookup:
                 userDomainClassName: 'icaruswings.User'
                 authorityJoinClassName: 'icaruswings.UserRole'

@@ -9,7 +9,7 @@ class CustomerController extends BaseController {
 
     CustomerService customerService
 
-    @Secured(['permitAll'])
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def index() {}
 
     @Secured(['permitAll'])
@@ -26,7 +26,14 @@ class CustomerController extends BaseController {
 
     @Secured(['IS_AUTHENTICATED_FULLY'])
     def show() {
-        Long id = Long.valueOf(params.id)
+        Long id
+
+        if(params.id) {
+            id = Long.valueOf(params.id)
+        } else {
+            id = getCurrentCustomerId()
+        }
+
         Customer customer = CustomerRepository.get(id)
 
         if (!customer) render "Cliente não encontrado"

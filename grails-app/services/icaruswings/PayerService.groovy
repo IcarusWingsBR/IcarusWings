@@ -63,16 +63,22 @@ class PayerService {
         payer.save(failOnError: true)
     }
 
-    public void delete(Long id) {
-        Payer payer = PayerRepository.get(id)
+    public Payer find(Long customerId, Long id) {
+        Payer payer = PayerRepository.query([customerId: customerId, id: id]).get()
+
+        return payer
+    }
+
+    public void delete(Long customerId, Long id) {
+        Payer payer = find(customerId, id)
 
         if (!payer) throw new RuntimeException("Esse pagador não existe")
 
         List<PaymentStatus> paymentStatuses = [PaymentStatus.PENDING, PaymentStatus.OVERDUE]
 
         List<Payment> payments = PaymentRepository.query([
-            payer:id,
-             "paymentStatus[in]": paymentStatuses
+                payer:id,
+                "paymentStatus[in]": paymentStatuses
         ]).readOnly().list()
 
         if (!payments.isEmpty() && payments != null) throw new DeletePayerException("Esse pagador tem cobranças pendentes")
@@ -88,7 +94,7 @@ class PayerService {
         for (Long id : payerIds) {
             Payer.withNewTransaction { deletePayer ->
                 try {
-                    delete(id)
+                    delete(customerId, id)
                 } catch (Exception exception) {
                     log.info("deletePayer>> Erro ao excluir o pagador de id: [${id}] [Mensagem de erro]: ${exception.message}")
                 }
@@ -96,8 +102,12 @@ class PayerService {
         }
     }
 
-    public void restore(Long id) {
-        Payer payer = PayerRepository.query([id:id, deletedOnly:true]).get()
+    public void restore(Long customerId, Long id) {
+        Payer payer = PayerRepository.query([
+                customerId: customerId,
+                id: id,
+                deletedOnly:true
+        ]).get()
 
         if (!payer) throw new RuntimeException("Esse pagador não está deletado ou não existe")
 
@@ -106,12 +116,15 @@ class PayerService {
         payer.save(failOnError: true)
     }
 
-    public List<Payer> list() {
-        return PayerRepository.query([:]).readOnly().list()
-    }
+    public List<Payer> list(Long customerId, String filter) {
+        Map<String, Object> queryParams = new HashMap<>()
+        queryParams.put("customerId", customerId)
 
-    public List<Payer> deletedList() {
-        return PayerRepository.query([deletedOnly:true]).readOnly().list()
+        if ("deleted".equals(filter)) {
+            queryParams.put("deletedOnly", true)
+        }
+
+        return PayerRepository.query(queryParams).readOnly().list()
     }
 
     private Payer validateSave(PayerAdapter payerAdapter) {

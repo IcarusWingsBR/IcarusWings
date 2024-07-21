@@ -8,7 +8,7 @@
   <asset:javascript src="payer/PayerShowController.js"/>
 </head>
 <body page-title="Detalhes do Pagador">
-  <atlas-form-panel method="POST" action="${createLink(controller: "payer", action: "update")}" header="Detalhes do pagador - ${payer.name}" class="js-save-person-form">
+  <atlas-form-panel action="${createLink(controller: "payer", action: "update")}" header="Detalhes do pagador - ${payer.name}" class="js-save-person-form" method="POST">
     <atlas-input
       value="${payer.id}"
       name="id"
@@ -185,7 +185,10 @@
           <atlas-input
                   label="Nome do Cliente vinculado"
                   name="customerName"
-                  required="true">     
+                  required="true"
+                  readonly
+                  value="${payer.customer.name}"
+          >
           </atlas-input>
         </atlas-col>
       </atlas-row>
@@ -197,7 +200,7 @@
     </atlas-modal>
   </atlas-form-panel>
   <g:if test="${flash.message}">
-      <atlas-modal header="${flash.type == "success" ? "Cobrança editada" : "Erro"}" open="">${flash.message}</atlas-modal>
+      <atlas-modal header="${flash.type == "success" ? "Pagador editado" : "Erro"}" open="">${flash.message}</atlas-modal>
   </g:if>
 </body>
 </html>

@@ -8,7 +8,7 @@
 </head>
 <body page-title="Criar Cobrança">
     <atlas-panel>
-        <atlas-form method="POST" action="${createLink(customer: "payer", action: "save")}">
+        <atlas-form action="${createLink(customer: "payer", action: "save")}" method="POST">
             <atlas-grid>
                 <atlas-row>
                     <atlas-col lg="6">

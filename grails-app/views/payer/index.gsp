@@ -7,21 +7,8 @@
 </head>
 <body page-title="Cadastrar pagador">
   <atlas-panel class="js-save-person-form">
-    <atlas-form method="POST" action="${createLink(customer: "payer", action: "save")}">
-      <atlas-grid>
-        <atlas-row>
-          <atlas-col>
-            <atlas-select
-                    label="Cliente"
-                    name="customerId"
-                    required="true"
-            >
-              <g:each var="customer" in="${customerList}">
-                <atlas-option label="${customer.name}" value="${customer.id}"></atlas-option>
-              </g:each>
-            </atlas-select>
-          </atlas-col>
-        </atlas-row>
+    <atlas-form action="${createLink(customer: "payer", action: "save")}" method="POST">
+    <atlas-grid>
         <atlas-row>
           <atlas-col lg="6">
             <atlas-input
@@ -135,7 +122,7 @@
     </atlas-form>
   </atlas-panel>
   <g:if test="${flash.message}">
-    <atlas-modal header="${flash.type == "success" ? "Cobrança editada" : "Erro"}" open="">${flash.message}</atlas-modal>
+    <atlas-modal header="${flash.type == "success" ? "Pagador cadastrado" : "Erro"}" open="">${flash.message}</atlas-modal>
   </g:if>
 </body>
 </html>

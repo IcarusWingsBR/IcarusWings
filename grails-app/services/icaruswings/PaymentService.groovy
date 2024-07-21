@@ -82,38 +82,28 @@ class PaymentService {
         }
     }
 
-    private Payment validateSave(PaymentAdapter paymentAdapter) {
-        Payment payment = new Payment()
+    public List<Payer> list(Long customerId, String filter) {
+        Map<String, Object> queryParams = new HashMap<>();
+        queryParams.put("payerCustomerId", customerId);
 
-        if (!paymentAdapter.paymentType) {
-            payment.errors.rejectValue("paymentType", null, "O tipo de pagamento é inválido")
+        if ("deleted".equals(filter)) {
+            queryParams.put("deletedOnly", true);
         }
 
-        if (!paymentAdapter.value) {
-            payment.errors.rejectValue("value", null, "O campo valor é obrigatório")
-        } else if (paymentAdapter.value < 0) {
-            payment.errors.rejectValue("value", null, "O valor informado deve ser positivo")
-        }
+        return PaymentRepository.query(queryParams).readOnly().list();
+    }
 
-        if (!paymentAdapter.dueDate) {
-            payment.errors.rejectValue("dueDate",  null, "O campo data de vencimento é obrigatório")
-        } else if (DateUtils.isBeforeToday(paymentAdapter.dueDate)) {
-            payment.errors.rejectValue("dueDate",  null, "A data informada é inválida")
-        }
+    public Payment find(Long customerId, Long id) {
+        Payment payment = PaymentRepository.query([
+                payerCustomerId: customerId,
+                id: id
+        ]).get()
 
         return payment
     }
 
-    public List<Payment> list() {
-        return PaymentRepository.query([:]).readOnly().list()
-    }
-
-    public List<Payment> paymentDeletedList() {
-        return PaymentRepository.query([deletedOnly:true]).readOnly().list()
-    }
-
-    public void delete(Long id) {
-        Payment payment = PaymentRepository.get(id)
+    public void delete(Long customerId, Long id) {
+        Payment payment = find(customerId, id)
 
         if (!payment) throw new RuntimeException("Essa cobrança não existe")
 
@@ -132,7 +122,7 @@ class PaymentService {
     }
 
     public void deleteAllPaymentsForCustomer(Long customerId) {
-        List<Long> paymentIds = PaymentRepository.query([payerCustomerId: customerId]).column("id").readOnly().list() 
+        List<Long> paymentIds = PaymentRepository.query([payerCustomerId: customerId]).column("id").readOnly().list()
 
         for (Long id : paymentIds) {
             Payment.withNewTransaction { deletePayment ->
@@ -145,8 +135,12 @@ class PaymentService {
         }
     }
 
-    public void restore(Long id) {
-        Payment payment = PaymentRepository.query([id:id, deletedOnly:true]).get()
+    public void restore(Long customerId, Long id) {
+        Payment payment = PaymentRepository.query([
+                payerCustomerId: customerId,
+                id: id,
+                deletedOnly:true
+        ]).get()
 
         if (!payment) throw new RuntimeException("Essa cobrança não está deletada")
 
@@ -168,8 +162,8 @@ class PaymentService {
         customerNotificationService.savePaymentRestoredNotification(payment)
     }
 
-    public void confirmPaymentReceived(Long id) {
-        Payment payment = PaymentRepository.get(id)
+    public void confirmPaymentReceived(Long customerId, Long id) {
+        Payment payment = find(customerId, id)
 
         if (!payment) throw new RuntimeException("Essa cobrança não existe")
 
@@ -186,5 +180,27 @@ class PaymentService {
         emailService.sendPaymentConfirmationEmailToCustomer(payment.payer, payment, receipt)
 
         customerNotificationService.savePaymentPaidNotification(payment)
+    }
+
+    private Payment validateSave(PaymentAdapter paymentAdapter) {
+        Payment payment = new Payment()
+
+        if (!paymentAdapter.paymentType) {
+            payment.errors.rejectValue("paymentType", null, "O tipo de pagamento é inválido")
+        }
+
+        if (!paymentAdapter.value) {
+            payment.errors.rejectValue("value", null, "O campo valor é obrigatório")
+        } else if (paymentAdapter.value < 0) {
+            payment.errors.rejectValue("value", null, "O valor informado deve ser positivo")
+        }
+
+        if (!paymentAdapter.dueDate) {
+            payment.errors.rejectValue("dueDate",  null, "O campo data de vencimento é obrigatório")
+        } else if (DateUtils.isBeforeToday(paymentAdapter.dueDate)) {
+            payment.errors.rejectValue("dueDate",  null, "A data informada é inválida")
+        }
+
+        return payment
     }
 }

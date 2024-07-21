@@ -6,7 +6,7 @@
 </head>
 <body page-title="Pagadores">
     <atlas-filter >
-        <atlas-form slot="simple-filter" method="POST" action="${createLink(customer: "payer", action: "list")}">
+        <atlas-form slot="simple-filter" action="${createLink(customer: "payer", action: "list")}">
             <atlas-filter-group header="Listar Pagadores" name="payerList">
                 <atlas-radio value="active" checked class="js-filter-options">Pagadores Ativos</atlas-radio>
                 <atlas-radio value="deleted" class="js-filter-options">Pagadores Excluídos</atlas-radio>
@@ -126,7 +126,7 @@
         </atlas-empty-state>
     </g:else>
     <g:if test="${flash.message}">
-        <atlas-modal header="${flash.type == "success" ? "Cobrança editada" : "Erro"}" open="">${flash.message}</atlas-modal>
+        <atlas-modal header="${flash.type == "success" ? "Pagador editado" : "Erro"}" open="">${flash.message}</atlas-modal>
     </g:if>
 </body>
 </html>
