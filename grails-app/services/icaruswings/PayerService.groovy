@@ -96,7 +96,7 @@ class PayerService {
                 try {
                     delete(customerId, id)
                 } catch (Exception exception) {
-                    log.info("deletePayer>> Erro ao excluir o pagador de id: [${id}] [Mensagem de erro]: ${exception.message}")
+                    log.info("deletePayer >> Erro ao excluir o pagador de id: [${id}] [Mensagem de erro]: ${exception.message}")
                 }
             }
         }
@@ -109,7 +109,7 @@ class PayerService {
                 deletedOnly:true
         ]).get()
 
-        if (!payer) throw new RuntimeException("Esse pagador não está deletado ou não existe")
+        if (!payer) throw new BusinessException("Esse pagador não está deletado ou não existe")
 
         payer.deleted = false
 
