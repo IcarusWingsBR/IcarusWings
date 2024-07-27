@@ -64,7 +64,7 @@ class PayerService {
     }
 
     public Payer find(Long customerId, Long id) {
-        Payer payer = PayerRepository.query([customerId: customerId, id: id]).get()
+        Payer payer = PayerRepository.query([customerId: customerId, id: id, includeDeleted: true]).get()
 
         return payer
     }
