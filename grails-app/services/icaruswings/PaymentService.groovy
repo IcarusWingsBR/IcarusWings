@@ -7,6 +7,7 @@ import icaruswings.adapters.PaymentAdapter
 import icaruswings.repositories.PaymentRepository
 import icaruswings.payment.PaymentStatus
 import icaruswings.utils.date.DateUtils
+import icaruswings.utils.exceptions.BusinessException
 
 @Transactional
 class PaymentService {
