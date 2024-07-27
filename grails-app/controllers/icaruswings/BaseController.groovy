@@ -1,6 +1,7 @@
 package icaruswings
 
 import grails.validation.ValidationException
+import icaruswings.utils.exceptions.BusinessException
 
 abstract class BaseController {
 
@@ -13,6 +14,15 @@ abstract class BaseController {
 
         flash.type = "error"
         flash.message = message
+
+        redirect(action: "index", params: params)
+    }
+
+    def BusinessException(BusinessException exception) {
+        log.error("Erro com os seguintes parâmetros ${params}", exception)
+
+        flash.type = "error"
+        flash.message = exception.message
 
         redirect(action: "index", params: params)
     }

@@ -109,11 +109,11 @@ class PaymentService {
 
         payment.deleted = true
 
-        if(payment.paymentStatus != PaymentStatus.PAYED) payment.paymentStatus = PaymentStatus.CANCELED
+        if (payment.paymentStatus != PaymentStatus.PAYED) payment.paymentStatus = PaymentStatus.CANCELED
 
         payment.save(failOnError: true)
 
-        if(payment.paymentStatus != PaymentStatus.PAYED) {
+        if (payment.paymentStatus != PaymentStatus.PAYED) {
             emailService.sendStatusChangeEmailToPayer(payment.payer, payment)
             emailService.sendStatusChangeEmailToCustomer(payment.payer, payment)
         }
@@ -142,11 +142,11 @@ class PaymentService {
                 deletedOnly:true
         ]).get()
 
-        if (!payment) throw new RuntimeException("Essa cobrança não está deletada")
+        if (!payment) throw new BusinessException("Essa cobrança não está deletada")
 
         payment.deleted = false
 
-        if(payment.paymentStatus != PaymentStatus.PAYED && DateUtils.isBeforeToday(payment.dueDate)) {
+        if (payment.paymentStatus != PaymentStatus.PAYED && DateUtils.isBeforeToday(payment.dueDate)) {
             payment.paymentStatus = PaymentStatus.OVERDUE
         } else if (payment.paymentStatus != PaymentStatus.PAYED && !DateUtils.isBeforeToday(payment.dueDate)) {
             payment.paymentStatus = PaymentStatus.PENDING
@@ -167,7 +167,7 @@ class PaymentService {
 
         if (!payment) throw new RuntimeException("Essa cobrança não existe")
 
-        if(payment.paymentStatus != PaymentStatus.PENDING) throw new RuntimeException("Não foi possível realizar essa ação")
+        if (payment.paymentStatus != PaymentStatus.PENDING) throw new BusinessException("Não foi possível realizar essa ação")
 
         payment.paymentStatus = PaymentStatus.PAYED     
         payment.save(failOnError: true)

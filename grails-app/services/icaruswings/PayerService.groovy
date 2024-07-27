@@ -12,6 +12,7 @@ import icaruswings.utils.string.StringUtils
 import icaruswings.payment.Payment
 import icaruswings.repositories.PaymentRepository
 import icaruswings.payment.PaymentStatus
+import icaruswings.utils.exceptions.BusinessException
 
 @Transactional
 class PayerService {
@@ -80,7 +81,7 @@ class PayerService {
                 "paymentStatus[in]": paymentStatuses
         ]).readOnly().list()
 
-        if (!payments.isEmpty() && payments != null) throw new RuntimeException("Esse pagador tem cobranças pendentes")
+        if (!payments.isEmpty() && payments != null) throw new BusinessException("Esse pagador tem cobranças pendentes")
 
         payer.deleted = true
 
@@ -95,7 +96,7 @@ class PayerService {
                 try {
                     delete(customerId, id)
                 } catch (Exception exception) {
-                    log.info("deletePayer>> Erro ao excluir o pagador de id: [${id}] [Mensagem de erro]: ${exception.message}")
+                    log.info("deletePayer >> Erro ao excluir o pagador de id: [${id}] [Mensagem de erro]: ${exception.message}")
                 }
             }
         }
@@ -108,7 +109,7 @@ class PayerService {
                 deletedOnly:true
         ]).get()
 
-        if (!payer) throw new RuntimeException("Esse pagador não está deletado ou não existe")
+        if (!payer) throw new BusinessException("Esse pagador não está deletado ou não existe")
 
         payer.deleted = false
 
