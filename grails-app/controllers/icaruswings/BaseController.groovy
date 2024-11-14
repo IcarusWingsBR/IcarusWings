@@ -14,8 +14,12 @@ abstract class BaseController {
 
         flash.type = "error"
         flash.message = message
-
-        redirect(action: "index", params: params)
+        
+        if(isLoggedIn()) {
+            redirect(action: "index", params: params)
+        } else {
+            redirect(action: "createCustomer", controller: "login")
+        }
     }
 
     def BusinessException(BusinessException exception) {
